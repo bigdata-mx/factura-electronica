@@ -35,7 +35,7 @@ public final class CFDv3Validator {
     this.xsd = xsd;
   }
   
-  public void validate() throws JAXBException {
+  public void validate() throws Exception {
     JAXBContext jc = JAXBContext.newInstance( "mx.bigdata.cfdi.schema" );
     Unmarshaller u = jc.createUnmarshaller();
     SchemaFactory sf =

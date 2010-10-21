@@ -25,6 +25,10 @@ import javax.xml.XMLConstants;
 import javax.xml.bind.*;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
+import javax.xml.transform.*;
+import javax.xml.transform.sax.SAXTransformerFactory;
+import javax.xml.transform.sax.TransformerHandler;
+import javax.xml.transform.stream.*;
 import javax.xml.validation.SchemaFactory;
 import javax.xml.validation.Schema;
 
@@ -43,14 +47,21 @@ import mx.bigdata.cfdi.schema.TUbicacion;
 public final class Main {
 
   public static void main(String[] args) throws Exception {
+    TransformerFactory factory = TransformerFactory.newInstance();
+    Templates template = factory
+      .newTemplates(new StreamSource(new File("resources/xslt/cadenaoriginal_3_0.xslt")));
     Comprobante comp = createComprobante();
     JAXBContext jc = JAXBContext.newInstance( "mx.bigdata.cfdi.schema" );
     Marshaller m = jc.createMarshaller();
     SchemaFactory sf =
       SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
     Schema schema = sf.newSchema(new File("resources/xsd/cfdv3.xsd"));
-    m.setSchema(schema);
-    m.marshal(comp, System.out);
+    m.setSchema(schema);     
+    Result output = new StreamResult(System.out);
+    TransformerHandler handler = 
+      ((SAXTransformerFactory) factory).newTransformerHandler(template);
+    handler.setResult(output); 
+    m.marshal(comp, handler);
   }
 
   private static Comprobante createComprobante() throws Exception {

@@ -18,7 +18,6 @@
 			<cfdi:Traslado tasa="16.00" importe="22.07" impuesto="IVA"/>
 		</cfdi:Traslados>
 	</cfdi:Impuestos>
-	<cfdi:Complemento>
-	</cfdi:Complemento>
+	<cfdi:Complemento/>
 	<cfdi:Addenda/>
 </cfdi:Comprobante>

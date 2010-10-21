@@ -24,17 +24,23 @@ import javax.xml.validation.SchemaFactory;
 import javax.xml.validation.Schema;
 import javax.xml.bind.util.ValidationEventCollector;
 
-import mx.bigdata.cfdi.schema.*;
+public final class CFDv3Validator {
 
-public final class ValidateCFDv3 {
+  private final String origin;
+  
+  private final String xsd;
 
-  public static void main(String[] args) throws Exception {
-    String origin = args[1];
+  public CFDv3Validator(String origin, String xsd) {
+    this.origin = origin;
+    this.xsd = xsd;
+  }
+  
+  public void validate() throws JAXBException {
     JAXBContext jc = JAXBContext.newInstance( "mx.bigdata.cfdi.schema" );
     Unmarshaller u = jc.createUnmarshaller();
     SchemaFactory sf =
       SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-    Schema schema = sf.newSchema(new File(args[0]));
+    Schema schema = sf.newSchema(new File(xsd));
     u.setSchema(schema);
     ValidationEventCollector vec = new ValidationEventCollector();
     u.setEventHandler(vec);
@@ -48,6 +54,11 @@ public final class ValidateCFDv3 {
         System.err.println(origin + ": " + line + "." + column + ": " + msg); 
       }
     }
+  }
+
+  public static void main(String[] args) throws Exception {
+    CFDv3Validator validator = new CFDv3Validator(args[0], args[1]);
+    validator.validate();
   }
 
 }

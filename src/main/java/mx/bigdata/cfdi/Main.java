@@ -26,12 +26,13 @@ import java.util.GregorianCalendar;
 import java.util.List;
 import java.security.KeyStore;
 import java.security.Signature;
+import java.security.*;
+import java.security.spec.*;
 
+import javax.crypto.Cipher;
 import javax.xml.XMLConstants;
 import javax.xml.bind.*;
 import javax.xml.datatype.DatatypeFactory;
-import java.security.*;
-import java.security.spec.*;
 import javax.xml.transform.*;
 import javax.xml.transform.sax.SAXTransformerFactory;
 import javax.xml.transform.sax.TransformerHandler;
@@ -91,9 +92,15 @@ public final class Main {
     Signature rsa = Signature.getInstance("SHA1withRSA");
     rsa.initSign(key);
     rsa.update(bytes);
-    byte[] result = rsa.sign();
+    byte[] signature = rsa.sign();
     Base64 b64 = new Base64(-1);
-    System.out.println(b64.encodeToString(result));
+    System.out.println(b64.encodeToString(signature));
+    
+    byte[] digest = DigestUtils.sha(bytes);
+    Cipher enc = Cipher.getInstance("RSA");
+    enc.init(Cipher.ENCRYPT_MODE, key);
+    byte[] res1 = enc.doFinal(digest);
+    System.out.println(b64.encodeToString(res1));
   }
 
   private static Comprobante createComprobante() throws Exception {

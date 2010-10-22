@@ -40,6 +40,7 @@ import javax.xml.validation.SchemaFactory;
 import javax.xml.validation.Schema;
 
 import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.ssl.PKCS8Key;
 
 import mx.bigdata.cfdi.schema.ObjectFactory;
@@ -63,9 +64,6 @@ public final class Main {
   private static final String KEY_FILE = "resources/certs/emisor.key";
     
   public static void main(String[] args) throws Exception {
-    TransformerFactory factory = TransformerFactory.newInstance();
-    Templates template = factory
-      .newTemplates(new StreamSource(new File(XSLT)));
     Comprobante comp = createComprobante();
     JAXBContext jc = JAXBContext.newInstance("mx.bigdata.cfdi.schema");
     Marshaller m = jc.createMarshaller();
@@ -79,15 +77,20 @@ public final class Main {
     //    m.marshal(comp, System.out);
     ByteArrayOutputStream baos = new ByteArrayOutputStream();
     Result output = new StreamResult(baos);
+    TransformerFactory factory = TransformerFactory.newInstance();
+    Templates template = factory
+      .newTemplates(new StreamSource(new File(XSLT)));
     TransformerHandler handler = 
       ((SAXTransformerFactory) factory).newTransformerHandler(template);
     handler.setResult(output); 
     m.marshal(comp, handler);
-    System.out.println(new String(baos.toByteArray()));
+    byte[] bytes = baos.toByteArray();
+    System.out.println(new String(bytes));
+    System.out.println(DigestUtils.shaHex(bytes));
     PrivateKey key = loadKey(KEY_FILE);
     Signature rsa = Signature.getInstance("SHA1withRSA");
     rsa.initSign(key);
-    rsa.update(baos.toByteArray());
+    rsa.update(bytes);
     byte[] result = rsa.sign();
     Base64 b64 = new Base64(-1);
     System.out.println(b64.encodeToString(result));
@@ -97,7 +100,7 @@ public final class Main {
     ObjectFactory of = new ObjectFactory();
     Comprobante comp = of.createComprobante();
     comp.setVersion("3.0");
-    Date date = new GregorianCalendar(2010, 03, 06, 20, 38, 12).getTime();
+    Date date = new GregorianCalendar(2010, 02, 06, 20, 38, 12).getTime();
     comp.setFecha(date);
     comp.setSello("");
     comp.setFormaDePago("PAGO EN UNA SOLA EXHIBICION");
@@ -126,6 +129,14 @@ public final class Main {
     uf.setNoExterior("No. 140"); 
     uf.setPais("Mexico"); 
     emisor.setDomicilioFiscal(uf);
+    TUbicacion u = of.createTUbicacion();
+    u.setCalle("AV. UNIVERSIDAD");
+    u.setCodigoPostal("03910");
+    u.setColonia("OXTOPULCO"); 
+    u.setEstado("DISTRITO FEDERAL");
+    u.setNoExterior("1858");
+    u.setPais("Mexico"); 
+    emisor.setExpedidoEn(u); 
     return emisor;
   }
 
@@ -180,7 +191,7 @@ public final class Main {
     Traslado t1 = of.createComprobanteImpuestosTrasladosTraslado();
     t1.setImporte(new BigDecimal("0.00"));
     t1.setImpuesto("IVA");
-    t1.setTasa(new BigDecimal("0.0"));
+    t1.setTasa(new BigDecimal("0.00"));
     list.add(t1);
     Traslado t2 = of.createComprobanteImpuestosTrasladosTraslado();
     t2.setImporte(new BigDecimal("22.07"));

@@ -16,21 +16,31 @@
 
 package mx.bigdata.cfdi;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.security.KeyStore;
+import java.security.Signature;
 
 import javax.xml.XMLConstants;
 import javax.xml.bind.*;
 import javax.xml.datatype.DatatypeFactory;
-import javax.xml.datatype.XMLGregorianCalendar;
+import java.security.*;
+import java.security.spec.*;
 import javax.xml.transform.*;
 import javax.xml.transform.sax.SAXTransformerFactory;
 import javax.xml.transform.sax.TransformerHandler;
 import javax.xml.transform.stream.*;
 import javax.xml.validation.SchemaFactory;
 import javax.xml.validation.Schema;
+
+import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.ssl.PKCS8Key;
 
 import mx.bigdata.cfdi.schema.ObjectFactory;
 import mx.bigdata.cfdi.schema.Comprobante;
@@ -46,32 +56,49 @@ import mx.bigdata.cfdi.schema.TUbicacion;
 
 public final class Main {
 
+  private static final String XSLT = "resources/xslt/cadenaoriginal_3_0.xslt";
+  
+  private static final String XSD = "resources/xsd/cfdv3.xsd";
+  
+  private static final String KEY_FILE = "resources/certs/emisor.key";
+    
   public static void main(String[] args) throws Exception {
     TransformerFactory factory = TransformerFactory.newInstance();
     Templates template = factory
-      .newTemplates(new StreamSource(new File("resources/xslt/cadenaoriginal_3_0.xslt")));
+      .newTemplates(new StreamSource(new File(XSLT)));
     Comprobante comp = createComprobante();
-    JAXBContext jc = JAXBContext.newInstance( "mx.bigdata.cfdi.schema" );
+    JAXBContext jc = JAXBContext.newInstance("mx.bigdata.cfdi.schema");
     Marshaller m = jc.createMarshaller();
+    m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+    m.setProperty(Marshaller.JAXB_SCHEMA_LOCATION, 
+                  "http://www.sat.gob.mx/cfd/3 cfdv3.xsd");
     SchemaFactory sf =
       SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-    Schema schema = sf.newSchema(new File("resources/xsd/cfdv3.xsd"));
+    Schema schema = sf.newSchema(new File(XSD));
     m.setSchema(schema);     
-    Result output = new StreamResult(System.out);
+    //    m.marshal(comp, System.out);
+    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+    Result output = new StreamResult(baos);
     TransformerHandler handler = 
       ((SAXTransformerFactory) factory).newTransformerHandler(template);
     handler.setResult(output); 
     m.marshal(comp, handler);
+    System.out.println(new String(baos.toByteArray()));
+    PrivateKey key = loadKey(KEY_FILE);
+    Signature rsa = Signature.getInstance("SHA1withRSA");
+    rsa.initSign(key);
+    rsa.update(baos.toByteArray());
+    byte[] result = rsa.sign();
+    Base64 b64 = new Base64(-1);
+    System.out.println(b64.encodeToString(result));
   }
 
   private static Comprobante createComprobante() throws Exception {
     ObjectFactory of = new ObjectFactory();
     Comprobante comp = of.createComprobante();
     comp.setVersion("3.0");
-    DatatypeFactory dtf = DatatypeFactory.newInstance(); 
-    XMLGregorianCalendar cal = dtf
-      .newXMLGregorianCalendar(new GregorianCalendar(2010, 03, 06, 20, 38, 12));
-    comp.setFecha(cal);
+    Date date = new GregorianCalendar(2010, 03, 06, 20, 38, 12).getTime();
+    comp.setFecha(date);
     comp.setSello("");
     comp.setFormaDePago("PAGO EN UNA SOLA EXHIBICION");
     comp.setNoCertificado("30001000000100000800");
@@ -162,6 +189,16 @@ public final class Main {
     list.add(t2);
     imps.setTraslados(trs);
     return imps;
+  }
+
+  private static PrivateKey loadKey(String keyfile) throws Exception {
+    InputStream in = new FileInputStream(keyfile);
+    PKCS8Key pkcs8 = new PKCS8Key(in, "a0123456789".toCharArray());
+    in.close();
+    byte[] decrypted = pkcs8.getDecryptedBytes();
+    PKCS8EncodedKeySpec keysp = new PKCS8EncodedKeySpec(decrypted);
+    KeyFactory kf = KeyFactory.getInstance("RSA");
+    return kf.generatePrivate(keysp);
   }
 
 }

@@ -25,6 +25,7 @@ import java.io.PrintStream;
 import java.io.OutputStream;
 import java.security.Key;
 import java.security.cert.Certificate;
+import java.security.cert.X509Certificate;
 
 import javax.crypto.Cipher;
 import javax.xml.XMLConstants;
@@ -78,6 +79,15 @@ public final class CFDv3 {
     this.document = copy(comprobante);
   }
 
+  public void sign(Key key, Certificate cert) throws Exception {
+    String signature = getSignature(key);
+    document.setSello(signature);
+    byte[] bytes = cert.getEncoded();
+    Base64 b64 = new Base64(-1);
+    String certStr = b64.encodeToString(bytes);
+    document.setCertificado(certStr);
+  }
+
   public void validate() throws Exception {
     SchemaFactory sf =
       SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
@@ -91,8 +101,9 @@ public final class CFDv3 {
     String certStr = document.getCertificado();
     Base64 b64 = new Base64();
     byte[] cbs = b64.decode(certStr);
-    Certificate cert = KeyLoader
-      .loadX509Certificate(new ByteArrayInputStream(cbs));  
+    X509Certificate cert = KeyLoader
+      .loadX509Certificate(new ByteArrayInputStream(cbs)); 
+    cert.checkValidity(); 
     String sigStr = document.getSello();
     byte[] signature = b64.decode(sigStr);    
     Cipher dec = Cipher.getInstance("RSA");
@@ -126,12 +137,12 @@ public final class CFDv3 {
     byte[] digest = getDigest();
     Cipher enc = Cipher.getInstance("RSA");
     enc.init(Cipher.ENCRYPT_MODE, key);
-    Base64 b64 = new Base64(-1);
     byte[] ciphered = enc.doFinal(digest);
+    Base64 b64 = new Base64(-1);
     return b64.encodeToString(ciphered);
   }
 
-  public void marshall(OutputStream out) throws Exception {
+  public void marshal(OutputStream out) throws Exception {
     Marshaller m = CONTEXT.createMarshaller();
     m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
     m.setProperty(Marshaller.JAXB_SCHEMA_LOCATION, 

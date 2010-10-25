@@ -90,6 +90,7 @@
             <argument>resources/xml/cfdv3.xml</argument>
             <argument>resources/certs/emisor.key</argument>
             <argument>a0123456789</argument>
+            <argument>resources/certs/emisor.cer</argument>
           </arguments>
         </configuration>
       </plugin>

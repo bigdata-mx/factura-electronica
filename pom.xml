@@ -70,7 +70,7 @@
         </executions>
         <configuration>
           <packageName>mx.bigdata.cfdi.schema</packageName>
-          <schemaDirectory>resources/xsd</schemaDirectory>
+          <schemaDirectory>src/main/resources/xsd</schemaDirectory>
           <extension>true</extension>
         </configuration>
       </plugin>

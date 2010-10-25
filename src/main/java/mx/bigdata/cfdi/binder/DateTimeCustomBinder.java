@@ -21,9 +21,13 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class DateTimeCustomBinder {
-  public static Date parseDateTime(String s) throws ParseException {
-    DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-    return formatter.parse(s);
+  public static Date parseDateTime(String s) {
+    try {
+      DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+      return formatter.parse(s);
+    } catch (ParseException e) {
+      throw new RuntimeException(e);
+    }
   }
   
   public static String printDateTime(Date dt) {

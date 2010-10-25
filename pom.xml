@@ -86,6 +86,11 @@
         </executions>
         <configuration>
           <mainClass>mx.bigdata.cfdi.Main</mainClass>
+          <arguments>
+            <argument>resources/xml/cfdv3.xml</argument>
+            <argument>resources/certs/emisor.key</argument>
+            <argument>a0123456789</argument>
+          </arguments>
         </configuration>
       </plugin>
     </plugins>

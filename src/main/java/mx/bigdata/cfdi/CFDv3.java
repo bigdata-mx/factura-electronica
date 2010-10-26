@@ -46,6 +46,7 @@ import javax.xml.validation.Schema;
 import javax.xml.validation.Validator;
 
 import org.w3c.dom.Document;
+import org.xml.sax.ErrorHandler;
 
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -89,10 +90,17 @@ public final class CFDv3 {
   }
 
   public void validate() throws Exception {
+    validate(null);
+  }
+
+  public void validate(ErrorHandler handler) throws Exception {
     SchemaFactory sf =
       SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
     Schema schema = sf.newSchema(getClass().getResource(XSD));
     Validator validator = schema.newValidator();
+    if (handler != null) {
+      validator.setErrorHandler(handler);
+    }
     validator.validate(new JAXBSource(CONTEXT, document));
   }
 

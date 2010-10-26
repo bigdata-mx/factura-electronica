@@ -37,6 +37,9 @@ public final class CLI {
     } else if (cmd.equals("verifica")) { 
       CFDv3 cfd = new CFDv3(new FileInputStream(args[1]));
       cfd.verify();
+    } else if (cmd.equals("dump")) { 
+      CFDv3 cfd = new CFDv3(new FileInputStream(args[1]));
+      cfd.dumpDigests();
     } else if (cmd.equals("firma")) { 
       CFDv3 cfd = new CFDv3(new FileInputStream(args[1]));
       PrivateKey key = KeyLoader

@@ -28,6 +28,7 @@ import java.security.Signature;
 import java.security.cert.Certificate;
 import java.security.cert.X509Certificate;
 
+import javax.crypto.Cipher;
 import javax.xml.XMLConstants;
 import javax.xml.bind.*;
 import javax.xml.bind.util.JAXBSource;
@@ -53,6 +54,10 @@ import org.apache.commons.codec.digest.DigestUtils;
 
 import mx.bigdata.cfdi.schema.Comprobante;
 import mx.bigdata.cfdi.security.KeyLoader;
+
+import org.bouncycastle.asn1.ASN1InputStream;
+import org.bouncycastle.asn1.ASN1OctetString;
+import org.bouncycastle.asn1.ASN1Sequence;
 
 public final class CFDv3 {
 
@@ -161,18 +166,27 @@ public final class CFDv3 {
                   "http://www.sat.gob.mx/cfd/3 cfdv3.xsd");
     m.marshal(document, out);
   }
-  
-  private void verify(byte[] bytes, byte[] sig) throws Exception {
-    if (bytes.length != sig.length) {
-      throw new Exception("Invalid signature");
-    }
-    for (int i = 0; i < bytes.length; i++) {
-      if (bytes[i] != sig[i]) {
-        throw new Exception("Invalid signature");
-      }
-    }
+
+  public void dumpDigests() throws Exception {
+    byte[] digest = getDigest();
+    CFDv3.dump("Digestion generada", digest, System.err);
+    String certStr = document.getCertificado();
+    Base64 b64 = new Base64();
+    byte[] cbs = b64.decode(certStr);
+    X509Certificate cert = KeyLoader
+      .loadX509Certificate(new ByteArrayInputStream(cbs)); 
+    cert.checkValidity(); 
+    String sigStr = document.getSello();
+    byte[] signature = b64.decode(sigStr); 
+    Cipher dec = Cipher.getInstance("RSA");
+    dec.init(Cipher.DECRYPT_MODE, cert);
+    byte[] result = dec.doFinal(signature);
+    ASN1InputStream aIn = new ASN1InputStream(result);
+    ASN1Sequence seq = (ASN1Sequence) aIn.readObject();
+    ASN1OctetString sigHash = (ASN1OctetString) seq.getObjectAt(1);
+    CFDv3.dump("Sello", sigHash.getOctets(), System.err);
   }
-    
+
   // Defensive deep-copy
   private Comprobante copy(Comprobante comprobante) throws Exception {
     DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();

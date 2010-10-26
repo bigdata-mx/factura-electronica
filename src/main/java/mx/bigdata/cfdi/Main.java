@@ -18,7 +18,7 @@ package mx.bigdata.cfdi;
 
 import java.io.FileInputStream;
 import java.math.BigDecimal;
-import java.security.Key;
+import java.security.PrivateKey;
 import java.security.cert.Certificate;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -43,8 +43,8 @@ public final class Main {
     CFDv3 cfd = new CFDv3(createComprobante());
     cfd.validate();
     System.err.printf("Cadena original: %s\n", cfd.getOriginalString());
-    cfd.dump("Digestion", cfd.getDigest(), System.err);
-    Key key = KeyLoader.loadPKCS8PrivateKey(new FileInputStream(args[1]),
+    CFDv3.dump("Digestion", cfd.getDigest(), System.err);
+    PrivateKey key = KeyLoader.loadPKCS8PrivateKey(new FileInputStream(args[1]),
                                             args[2]);
     System.err.printf("Sello: %s\n", cfd.getSignature(key));
     Certificate cert = KeyLoader

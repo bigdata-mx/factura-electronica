@@ -19,7 +19,7 @@ package mx.bigdata.cfdi.tools;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
-import java.security.Key;
+import java.security.PrivateKey;
 import java.security.cert.Certificate;
 
 import org.xml.sax.helpers.DefaultHandler;
@@ -39,8 +39,8 @@ public final class CLI {
       cfd.verify();
     } else if (cmd.equals("firma")) { 
       CFDv3 cfd = new CFDv3(new FileInputStream(args[1]));
-      Key key = KeyLoader.loadPKCS8PrivateKey(new FileInputStream(args[2]),
-                                              args[3]);
+      PrivateKey key = KeyLoader
+        .loadPKCS8PrivateKey(new FileInputStream(args[2]), args[3]);
       Certificate cert = KeyLoader
         .loadX509Certificate(new FileInputStream(args[4]));
       cfd.sign(key, cert);

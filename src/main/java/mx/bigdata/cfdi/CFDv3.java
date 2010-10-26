@@ -23,11 +23,11 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.PrintStream;
 import java.io.OutputStream;
-import java.security.Key;
+import java.security.PrivateKey;
+import java.security.Signature;
 import java.security.cert.Certificate;
 import java.security.cert.X509Certificate;
 
-import javax.crypto.Cipher;
 import javax.xml.XMLConstants;
 import javax.xml.bind.*;
 import javax.xml.bind.util.JAXBSource;
@@ -80,7 +80,7 @@ public final class CFDv3 {
     this.document = copy(comprobante);
   }
 
-  public void sign(Key key, Certificate cert) throws Exception {
+  public void sign(PrivateKey key, Certificate cert) throws Exception {
     String signature = getSignature(key);
     document.setSello(signature);
     byte[] bytes = cert.getEncoded();
@@ -113,11 +113,14 @@ public final class CFDv3 {
       .loadX509Certificate(new ByteArrayInputStream(cbs)); 
     cert.checkValidity(); 
     String sigStr = document.getSello();
-    byte[] signature = b64.decode(sigStr);    
-    Cipher dec = Cipher.getInstance("RSA");
-    dec.init(Cipher.DECRYPT_MODE, cert);
-    byte[] result = dec.doFinal(signature);
-    verify(digest, result);
+    byte[] signature = b64.decode(sigStr); 
+    Signature sig = Signature.getInstance("SHA1withRSA");
+    sig.initVerify(cert);
+    sig.update(digest);
+    boolean bool = sig.verify(signature);
+    if (!bool) {
+      throw new Exception("Invalid signature");
+    }
   }
 
   public byte[] getOriginalBytes() throws Exception {
@@ -141,11 +144,12 @@ public final class CFDv3 {
     return DigestUtils.sha(bytes);
   }
   
-  public String getSignature(Key key) throws Exception {
+  public String getSignature(PrivateKey key) throws Exception {
     byte[] digest = getDigest();
-    Cipher enc = Cipher.getInstance("RSA");
-    enc.init(Cipher.ENCRYPT_MODE, key);
-    byte[] ciphered = enc.doFinal(digest);
+    Signature sig = Signature.getInstance("SHA1withRSA");
+    sig.initSign(key);
+    sig.update(digest);
+    byte[] ciphered = sig.sign();
     Base64 b64 = new Base64(-1);
     return b64.encodeToString(ciphered);
   }
@@ -191,9 +195,9 @@ public final class CFDv3 {
   }
 
   public static void dump(String title, byte[] bytes, PrintStream out) {
-    out.printf("%s : ", title);
+    out.printf("%s: ", title);
     for (byte b : bytes) {
-      out.printf("%02x:", b & 0xff);
+      out.printf("%02x ", b & 0xff);
     }
     out.println();
   }

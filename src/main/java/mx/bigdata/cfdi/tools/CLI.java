@@ -25,6 +25,7 @@ import java.security.cert.Certificate;
 import org.xml.sax.helpers.DefaultHandler;
 
 import mx.bigdata.cfdi.CFDv3;
+import mx.bigdata.cfdi.CFDv3Debugger;
 import mx.bigdata.cfdi.security.KeyLoader;
 
 public final class CLI {
@@ -38,7 +39,8 @@ public final class CLI {
       CFDv3 cfd = new CFDv3(new FileInputStream(args[1]));
       cfd.verify();
     } else if (cmd.equals("dump")) { 
-      CFDv3 cfd = new CFDv3(new FileInputStream(args[1]));
+      CFDv3Debugger cfd = 
+        new CFDv3Debugger(new CFDv3(new FileInputStream(args[1])));
       cfd.dumpDigests();
     } else if (cmd.equals("firma")) { 
       CFDv3 cfd = new CFDv3(new FileInputStream(args[1]));

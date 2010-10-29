@@ -80,6 +80,12 @@ public final class CFDv3 {
     this.document = copy(comprobante);
   }
 
+  private TransformerFactory tf;
+
+  public void setTransformerFactory(TransformerFactory tf) {
+    this.tf = tf;    
+  }
+
   public void sign(PrivateKey key, Certificate cert) throws Exception {
     String signature = getSignature(key);
     document.setSello(signature);
@@ -105,7 +111,6 @@ public final class CFDv3 {
   }
 
   public void verify() throws Exception {
-    byte[] digest = getDigest();
     String certStr = document.getCertificado();
     Base64 b64 = new Base64();
     byte[] cbs = b64.decode(certStr);
@@ -114,9 +119,10 @@ public final class CFDv3 {
     cert.checkValidity(); 
     String sigStr = document.getSello();
     byte[] signature = b64.decode(sigStr); 
+    byte[] bytes = getOriginalBytes();
     Signature sig = Signature.getInstance("SHA1withRSA");
     sig.initVerify(cert);
-    sig.update(digest);
+    sig.update(bytes);
     boolean bool = sig.verify(signature);
     if (!bool) {
       throw new Exception("Invalid signature");
@@ -127,7 +133,10 @@ public final class CFDv3 {
     JAXBSource in = new JAXBSource(CONTEXT, document);
     ByteArrayOutputStream baos = new ByteArrayOutputStream();
     Result out = new StreamResult(baos);
-    TransformerFactory factory = TransformerFactory.newInstance();
+    TransformerFactory factory = tf;
+    if (factory == null) {
+      factory = TransformerFactory.newInstance();
+    } 
     Transformer transformer = factory
       .newTransformer(new StreamSource(getClass().getResourceAsStream(XSLT)));
     transformer.transform(in, out);
@@ -145,13 +154,13 @@ public final class CFDv3 {
   }
   
   public String getSignature(PrivateKey key) throws Exception {
-    byte[] digest = getDigest();
+    byte[] bytes = getOriginalBytes();
     Signature sig = Signature.getInstance("SHA1withRSA");
     sig.initSign(key);
-    sig.update(digest);
-    byte[] ciphered = sig.sign();
+    sig.update(bytes);
+    byte[] signed = sig.sign();
     Base64 b64 = new Base64(-1);
-    return b64.encodeToString(ciphered);
+    return b64.encodeToString(signed);
   }
 
   public void marshal(OutputStream out) throws Exception {

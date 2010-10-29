@@ -41,6 +41,7 @@ public final class CFDv3Debugger {
   }
 
   public void dumpDigests() throws Exception {
+    System.err.println(cfd.getOriginalString());
     byte[] digest = cfd.getDigest();
     CFDv3.dump("Digestion generada", digest, System.err);
     String certStr = cfd.document.getCertificado();
@@ -51,13 +52,14 @@ public final class CFDv3Debugger {
     cert.checkValidity(); 
     String sigStr = cfd.document.getSello();
     byte[] signature = b64.decode(sigStr); 
+    CFDv3.dump("Digestion firmada", signature, System.err);
     Cipher dec = Cipher.getInstance("RSA");
     dec.init(Cipher.DECRYPT_MODE, cert);
     byte[] result = dec.doFinal(signature);
+    CFDv3.dump("Digestion decriptada", result, System.err);
     ASN1InputStream aIn = new ASN1InputStream(result);
     ASN1Sequence seq = (ASN1Sequence) aIn.readObject();
     ASN1OctetString sigHash = (ASN1OctetString) seq.getObjectAt(1);
     CFDv3.dump("Sello", sigHash.getOctets(), System.err);
   }
-
 }

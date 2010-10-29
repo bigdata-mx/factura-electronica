@@ -3,7 +3,7 @@
   <groupId>mx.bigdata.cfdi</groupId>
   <artifactId>cfdi</artifactId>
   <packaging>jar</packaging>
-  <version>0.1.1</version>
+  <version>0.1.2-SNAPSHOT</version>
   <name>cfdi</name>
   <url>http://code.google.com/p/factura-electronica</url>
   <issueManagement>
@@ -19,9 +19,9 @@
     </license>
   </licenses>
   <scm>
-    <connection>http://factura-electronica.googlecode.com/svn/tags/cfdi-0.1.1</connection>
-    <developerConnection>scm:svn:https://factura-electronica.googlecode.com/svn/tags/cfdi-0.1.1</developerConnection>
-    <url>http://code.google.com/p/factura-electronica/source/browse/tags/cfdi-0.1.1</url>
+    <connection>http://factura-electronica.googlecode.com/svn/</connection>
+    <developerConnection>scm:svn:https://factura-electronica.googlecode.com/svn/</developerConnection>
+    <url>http://code.google.com/p/factura-electronica/source/browse/</url>
   </scm>
   <dependencies>
     <dependency>

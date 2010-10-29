@@ -30,6 +30,7 @@ import java.security.cert.X509Certificate;
 
 import javax.xml.XMLConstants;
 import javax.xml.bind.*;
+import com.sun.xml.bind.marshaller.NamespacePrefixMapper;
 import javax.xml.bind.util.JAXBSource;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -41,6 +42,7 @@ import javax.xml.transform.sax.SAXTransformerFactory;
 import javax.xml.transform.sax.TransformerHandler;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
+
 import javax.xml.validation.SchemaFactory;
 import javax.xml.validation.Schema;
 import javax.xml.validation.Validator;
@@ -165,6 +167,8 @@ public final class CFDv3 {
 
   public void marshal(OutputStream out) throws Exception {
     Marshaller m = CONTEXT.createMarshaller();
+    m.setProperty("com.sun.xml.bind.namespacePrefixMapper",
+                  new NamespacePrefixMapperImpl());
     m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
     m.setProperty(Marshaller.JAXB_SCHEMA_LOCATION, 
                   "http://www.sat.gob.mx/cfd/3 cfdv3.xsd");
@@ -200,4 +204,21 @@ public final class CFDv3 {
     out.println();
   }
 
+  private static final class NamespacePrefixMapperImpl 
+    extends NamespacePrefixMapper {
+    public String getPreferredPrefix(String namespaceUri, String suggestion, 
+                                     boolean requirePrefix) {
+      if ("http://www.w3.org/2001/XMLSchema-instance".equals(namespaceUri)) {
+        return "xsi";
+      }
+      if("http://www.sat.gob.mx/cfd/3".equals(namespaceUri)) {
+        return "cfdi";
+      }
+      return suggestion;
+    }
+    
+    public String[] getPreDeclaredNamespaceUris() {
+        return new String[0];
+    }
+  }
 }

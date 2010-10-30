@@ -375,6 +375,11 @@
 					</xs:annotation>
 					<xs:complexType>
 						<xs:sequence>
+                                                  <xs:annotation>
+                                                    <xs:appinfo>
+                                                      <jaxb:dom/>
+                                                    </xs:appinfo>
+                                                  </xs:annotation>
 							<xs:any minOccurs="0" maxOccurs="unbounded"/>
 						</xs:sequence>
 					</xs:complexType>

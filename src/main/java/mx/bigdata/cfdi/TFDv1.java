@@ -79,14 +79,16 @@ public final class TFDv1 {
     } 
   }
 
+  private final Comprobante document;
+
+  private final String cfdSignature;
+
   private TransformerFactory tf;
 
   private TimbreFiscalDigital tfd;
 
-  private String cfdSignature;
-
   public TFDv1(CFDv3 cfd) throws Exception {
-    Comprobante document = cfd.getComprobante();
+    this.document = cfd.getComprobante();
     this.tfd = getTimbreFiscalDigital(document); 
     this.cfdSignature = document.getSello();
   }
@@ -102,6 +104,7 @@ public final class TFDv1 {
     tfd = createStamp();
     String signature = getSignature(key);
     tfd.setSelloSAT(signature);
+    stampTFD(); 
     return 300;
   }
 
@@ -135,7 +138,7 @@ public final class TFDv1 {
     return verified ? 600 : 602; //Sello del timbrado no valido
   }
 
-  public byte[] getOriginalBytes() throws Exception {
+  byte[] getOriginalBytes() throws Exception {
     JAXBSource in = new JAXBSource(CONTEXT, tfd);
     ByteArrayOutputStream baos = new ByteArrayOutputStream();
     Result out = new StreamResult(baos);
@@ -149,17 +152,17 @@ public final class TFDv1 {
     return baos.toByteArray();
   }
   
-  public String getOriginalString() throws Exception {
+  String getOriginalString() throws Exception {
     byte[] bytes = getOriginalBytes();
     return new String(bytes);
   }
   
-  public byte[] getDigest() throws Exception {
+  byte[] getDigest() throws Exception {
     byte[] bytes = getOriginalBytes();
     return DigestUtils.sha(bytes);
   }
   
-  public String getSignature(PrivateKey key) throws Exception {
+  String getSignature(PrivateKey key) throws Exception {
     byte[] bytes = getOriginalBytes();
     Signature sig = Signature.getInstance("SHA1withRSA");
     sig.initSign(key);
@@ -169,7 +172,16 @@ public final class TFDv1 {
     return b64.encodeToString(signed);
   }
 
-  public Element marshal() throws Exception {
+  private void stampTFD() throws Exception {
+    Element element = marshalTFD();
+    ObjectFactory of = new ObjectFactory();
+    Comprobante.Complemento comp = of.createComprobanteComplemento();
+    List<Element> list = comp.getAny(); 
+    list.add(element);
+    document.setComplemento(comp);
+  } 
+
+  private Element marshalTFD() throws Exception {
     DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
     dbf.setNamespaceAware(true);
     DocumentBuilder db = dbf.newDocumentBuilder(); 
@@ -184,15 +196,14 @@ public final class TFDv1 {
     return doc.getDocumentElement();
   }
 
-
   public void marshal(OutputStream out) throws Exception {
     Marshaller m = CONTEXT.createMarshaller();
     m.setProperty("com.sun.xml.bind.namespacePrefixMapper",
                   new NamespacePrefixMapperImpl());
-    m.setProperty(Marshaller.JAXB_FRAGMENT, Boolean.TRUE);
+    m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
     m.setProperty(Marshaller.JAXB_SCHEMA_LOCATION, 
-         "http://www.sat.gob.mx/TimbreFiscalDigital TimbreFiscalDigital.xsd");
-    m.marshal(tfd, out);
+                  "http://www.sat.gob.mx/cfd/3 cfdv3.xsd");
+    m.marshal(document, out);
   }
 
   private TimbreFiscalDigital createStamp() {
@@ -211,6 +222,9 @@ public final class TFDv1 {
   private TimbreFiscalDigital getTimbreFiscalDigital(Comprobante document) 
     throws Exception {    
     Comprobante.Complemento comp = document.getComplemento();
+    if (comp == null) {
+      return null;
+    }
     List<Element> list = comp.getAny();
     for (Element e : list) {
       Unmarshaller u = CONTEXT.createUnmarshaller();
@@ -220,18 +234,6 @@ public final class TFDv1 {
       }
     }
     return null;
-  }
-
-  // Defensive deep-copy
-  private Comprobante copy(Comprobante comprobante) throws Exception {
-    DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-    dbf.setNamespaceAware(true);
-    DocumentBuilder db = dbf.newDocumentBuilder(); 
-    Document doc = db.newDocument();
-    Marshaller m = CONTEXT.createMarshaller();
-    m.marshal(comprobante, doc);
-    Unmarshaller u = CONTEXT.createUnmarshaller();
-    return (Comprobante) u.unmarshal(doc);
   }
 
 }

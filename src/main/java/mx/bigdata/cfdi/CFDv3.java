@@ -138,7 +138,17 @@ public final class CFDv3 {
     }
   }
 
-  public byte[] getOriginalBytes() throws Exception {
+  public void marshal(OutputStream out) throws Exception {
+    Marshaller m = CONTEXT.createMarshaller();
+    m.setProperty("com.sun.xml.bind.namespacePrefixMapper",
+                  new NamespacePrefixMapperImpl());
+    m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+    m.setProperty(Marshaller.JAXB_SCHEMA_LOCATION, 
+                  "http://www.sat.gob.mx/cfd/3 cfdv3.xsd");
+    m.marshal(document, out);
+  }
+
+  byte[] getOriginalBytes() throws Exception {
     JAXBSource in = new JAXBSource(CONTEXT, document);
     ByteArrayOutputStream baos = new ByteArrayOutputStream();
     Result out = new StreamResult(baos);
@@ -152,17 +162,17 @@ public final class CFDv3 {
     return baos.toByteArray();
   }
   
-  public String getOriginalString() throws Exception {
+  String getOriginalString() throws Exception {
     byte[] bytes = getOriginalBytes();
     return new String(bytes);
   }
   
-  public byte[] getDigest() throws Exception {
+  byte[] getDigest() throws Exception {
     byte[] bytes = getOriginalBytes();
     return DigestUtils.sha(bytes);
   }
   
-  public String getSignature(PrivateKey key) throws Exception {
+  String getSignature(PrivateKey key) throws Exception {
     byte[] bytes = getOriginalBytes();
     Signature sig = Signature.getInstance("SHA1withRSA");
     sig.initSign(key);
@@ -172,27 +182,9 @@ public final class CFDv3 {
     return b64.encodeToString(signed);
   }
 
-  public void marshal(OutputStream out) throws Exception {
-    Marshaller m = CONTEXT.createMarshaller();
-    m.setProperty("com.sun.xml.bind.namespacePrefixMapper",
-                  new NamespacePrefixMapperImpl());
-    m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-    m.setProperty(Marshaller.JAXB_SCHEMA_LOCATION, 
-                  "http://www.sat.gob.mx/cfd/3 cfdv3.xsd");
-    m.marshal(document, out);
-  }
-
   Comprobante getComprobante() throws Exception {
     return copy(document);
   }
-
-  public void setTimbreFiscalDigital(Element element) {
-    ObjectFactory of = new ObjectFactory();
-    Comprobante.Complemento comp = of.createComprobanteComplemento();
-    List<Element> list = comp.getAny(); 
-    list.add(element);
-    document.setComplemento(comp);
-  } 
 
   // Defensive deep-copy
   private Comprobante copy(Comprobante comprobante) throws Exception {

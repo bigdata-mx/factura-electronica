@@ -116,6 +116,8 @@
             <argument>resources/certs/emisor.key</argument>
             <argument>a0123456789</argument>
             <argument>resources/certs/emisor.cer</argument>
+            <argument>resources/certs/pac.key</argument>
+            <argument>resources/certs/pac.cer</argument>
           </arguments>
         </configuration>
       </plugin>

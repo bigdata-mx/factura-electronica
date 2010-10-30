@@ -52,6 +52,14 @@ public final class Main {
     cfd.sign(key, cert);
     cfd.verify();
     cfd.marshal(System.err);
+    TFDv1 tfd = new TFDv1(cfd);
+    PrivateKey ckey = KeyLoader
+      .loadPKCS8PrivateKey(new FileInputStream(args[4]), args[2]);
+    int code = tfd.stamp(ckey);
+    Certificate ccert = KeyLoader
+      .loadX509Certificate(new FileInputStream(args[5]));
+    code = tfd.verify(ccert);
+    tfd.marshal(System.err);
   }
 
   private static Comprobante createComprobante() throws Exception {

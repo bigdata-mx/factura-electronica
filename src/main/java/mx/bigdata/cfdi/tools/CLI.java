@@ -53,6 +53,10 @@ public final class CLI {
       cfd.sign(key, cert);
       OutputStream out = new FileOutputStream(args[5]);
       cfd.marshal(out);
+    } else if (cmd.equals("valida-timbrado")) {
+      CFDv3 cfd = new CFDv3(new FileInputStream(args[1]));
+      TFDv1 tfd = new TFDv1(cfd);
+      tfd.validate(new DefaultHandler());
     } else if (cmd.equals("verifica-timbrado")) { 
       CFDv3 cfd = new CFDv3(new FileInputStream(args[1]));
       TFDv1 tfd = new TFDv1(cfd);
@@ -68,10 +72,8 @@ public final class CLI {
       PrivateKey key = KeyLoader
         .loadPKCS8PrivateKey(new FileInputStream(args[2]), args[3]);
       int code = tfd.stamp(key);
-      Element e = tfd.marshal();
-      cfd.setTimbreFiscalDigital(e);
       OutputStream out = new FileOutputStream(args[4]);
-      cfd.marshal(out);
+      tfd.marshal(out);
     } else {
       System.err.println("No existe ese comando");
     }

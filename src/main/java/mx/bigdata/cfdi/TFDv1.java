@@ -176,7 +176,7 @@ public final class TFDv1 {
     Element element = marshalTFD();
     ObjectFactory of = new ObjectFactory();
     Comprobante.Complemento comp = of.createComprobanteComplemento();
-    List<Element> list = comp.getAny(); 
+    List<Object> list = comp.getAny(); 
     list.add(element);
     document.setComplemento(comp);
   } 
@@ -222,15 +222,12 @@ public final class TFDv1 {
   private TimbreFiscalDigital getTimbreFiscalDigital(Comprobante document) 
     throws Exception {    
     Comprobante.Complemento comp = document.getComplemento();
-    if (comp == null) {
-      return null;
-    }
-    List<Element> list = comp.getAny();
-    for (Element e : list) {
-      Unmarshaller u = CONTEXT.createUnmarshaller();
-      Object o =  u.unmarshal(e);
-      if (o instanceof TimbreFiscalDigital) {
-        return  (TimbreFiscalDigital) o;
+    if (comp != null) {
+      List<Object> list = comp.getAny();
+      for (Object o : list) {
+        if (o instanceof TimbreFiscalDigital) {
+          return (TimbreFiscalDigital) o;
+        }
       }
     }
     return null;

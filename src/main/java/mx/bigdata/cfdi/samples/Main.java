@@ -14,7 +14,7 @@
  *  limitations under the License.
  */
 
-package mx.bigdata.cfdi;
+package mx.bigdata.cfdi.examples;
 
 import java.io.FileInputStream;
 import java.math.BigDecimal;

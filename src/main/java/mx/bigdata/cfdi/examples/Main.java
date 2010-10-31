@@ -24,6 +24,8 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+import mx.bigdata.cfdi.CFDv3;
+import mx.bigdata.cfdi.TFDv1;
 import mx.bigdata.cfdi.schema.ObjectFactory;
 import mx.bigdata.cfdi.schema.Comprobante;
 import mx.bigdata.cfdi.schema.Comprobante.Conceptos;
@@ -42,11 +44,8 @@ public final class Main {
   public static void main(String[] args) throws Exception {
     CFDv3 cfd = new CFDv3(createComprobante());
     cfd.validate();
-    System.err.printf("Cadena original: %s\n", cfd.getOriginalString());
-    CFDv3.dump("Digestion", cfd.getDigest(), System.err);
     PrivateKey key = KeyLoader.loadPKCS8PrivateKey(new FileInputStream(args[1]),
                                             args[2]);
-    System.err.printf("Sello: %s\n", cfd.getSignature(key));
     Certificate cert = KeyLoader
       .loadX509Certificate(new FileInputStream(args[3]));
     cfd.sign(key, cert);

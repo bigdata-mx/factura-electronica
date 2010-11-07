@@ -92,7 +92,8 @@ public final class CFDv3 {
   private TransformerFactory tf;
 
   public void setTransformerFactory(TransformerFactory tf) {
-    this.tf = tf;    
+    this.tf = tf;   
+    tf.setURIResolver(new URIResolverImpl()); 
   }
 
   public void sign(PrivateKey key, Certificate cert) throws Exception {
@@ -155,7 +156,8 @@ public final class CFDv3 {
     TransformerFactory factory = tf;
     if (factory == null) {
       factory = TransformerFactory.newInstance();
-    } 
+      factory.setURIResolver(new URIResolverImpl());
+    }     
     Transformer transformer = factory
       .newTransformer(new StreamSource(getClass().getResourceAsStream(XSLT)));
     transformer.transform(in, out);

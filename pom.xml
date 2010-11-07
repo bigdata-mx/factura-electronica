@@ -74,6 +74,7 @@
   <repositories>
   </repositories>
   <build>
+    <defaultGoal>install</defaultGoal>
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -138,7 +139,6 @@
         <artifactId>maven-release-plugin</artifactId>
         <configuration>
           <releaseProfiles>release</releaseProfiles>
-          <goals>assembly:assembly</goals>
         </configuration>
       </plugin>
     </plugins>

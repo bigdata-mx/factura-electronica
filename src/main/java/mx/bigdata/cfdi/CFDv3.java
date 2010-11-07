@@ -67,7 +67,7 @@ public final class CFDv3 {
 
   private static final String XSLT = "/xslt/cadenaoriginal_3_0.xslt";
   
-  private static final String XSD = "/xsd/cfdv3.xsd";
+  private static final String XSD = "/xsd/v3/cfdv3.xsd";
       
   private static final JAXBContext CONTEXT = createContext();
   

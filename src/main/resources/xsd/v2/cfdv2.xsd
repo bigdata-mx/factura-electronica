@@ -1,6 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- edited with XMLSpy v2008 (http://www.altova.com) by SAT (.) -->
-<xs:schema xmlns="http://www.sat.gob.mx/cfd/2" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.sat.gob.mx/cfd/2" elementFormDefault="qualified" attributeFormDefault="unqualified">
+<xs:schema xmlns="http://www.sat.gob.mx/cfd/2" 
+           xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+           targetNamespace="http://www.sat.gob.mx/cfd/2" 
+           elementFormDefault="qualified" 
+           attributeFormDefault="unqualified"
+           xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
+	   xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
+	   jaxb:extensionBindingPrefixes="xjc" jaxb:version="2.1">
+  <xs:annotation>
+    <xs:appinfo>
+      <jaxb:globalBindings>
+        <xjc:serializable uid="-6026937020915831338" />
+        <jaxb:javaType 
+           name="java.util.Date"
+	   xmlType="xs:dateTime"
+   parseMethod="mx.bigdata.cfdi.binder.DateTimeCustomBinder.parseDateTime"
+   printMethod="mx.bigdata.cfdi.binder.DateTimeCustomBinder.printDateTime" />
+      </jaxb:globalBindings>
+    </xs:appinfo>
+  </xs:annotation>
 	<xs:element name="Comprobante">
 		<xs:annotation>
 			<xs:documentation>Estándar para la expresión de comprobantes fiscales digitales.</xs:documentation>

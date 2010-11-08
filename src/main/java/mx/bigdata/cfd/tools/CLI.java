@@ -1,0 +1,59 @@
+/*
+ *  Copyright 2010 BigData.mx
+ *
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ */
+
+package mx.bigdata.cfd.tools;
+
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
+import java.security.PrivateKey;
+import java.security.cert.Certificate;
+import java.security.cert.X509Certificate;
+
+import org.w3c.dom.Element;
+import org.xml.sax.helpers.DefaultHandler;
+
+import mx.bigdata.cfd.CFDv2;
+import mx.bigdata.cfdi.security.KeyLoader;
+
+public final class CLI {
+
+  public static void main(String[] args) throws Exception {
+    String cmd = args[0];
+    if (cmd.equals("valida")) {
+      CFDv2 cfd = new CFDv2(new FileInputStream(args[1]));
+      cfd.validate(new DefaultHandler());
+    } else if (cmd.equals("verifica")) { 
+      CFDv2 cfd = new CFDv2(new FileInputStream(args[1]));
+      if (args.length == 3) {
+        Certificate cert = KeyLoader
+          .loadX509Certificate(new FileInputStream(args[2]));
+        cfd.verify(cert);
+      } else {
+        cfd.verify();
+      }
+    } else if (cmd.equals("firma")) { 
+      CFDv2 cfd = new CFDv2(new FileInputStream(args[1]));
+      PrivateKey key = KeyLoader
+        .loadPKCS8PrivateKey(new FileInputStream(args[2]), args[3]);
+      X509Certificate cert = KeyLoader
+        .loadX509Certificate(new FileInputStream(args[4]));
+      cfd.sign(key, cert);
+      OutputStream out = new FileOutputStream(args[5]);
+      cfd.marshal(out);
+    } 
+  }
+}

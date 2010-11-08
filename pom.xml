@@ -127,9 +127,8 @@
           </execution>
         </executions>
         <configuration>
-          <mainClass>mx.bigdata.cfdi.examples.Main</mainClass>
+          <mainClass>mx.bigdata.cfd.examples.Main</mainClass>
           <arguments>
-            <argument>resources/xml/cfdv3.xml</argument>
             <argument>resources/certs/emisor.key</argument>
             <argument>a0123456789</argument>
             <argument>resources/certs/emisor.cer</argument>

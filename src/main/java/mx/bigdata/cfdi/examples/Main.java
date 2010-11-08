@@ -44,19 +44,19 @@ public final class Main {
   public static void main(String[] args) throws Exception {
     CFDv3 cfd = new CFDv3(createComprobante());
     cfd.validate();
-    PrivateKey key = KeyLoader.loadPKCS8PrivateKey(new FileInputStream(args[1]),
-                                            args[2]);
+    PrivateKey key = KeyLoader.loadPKCS8PrivateKey(new FileInputStream(args[0]),
+                                            args[1]);
     Certificate cert = KeyLoader
-      .loadX509Certificate(new FileInputStream(args[3]));
+      .loadX509Certificate(new FileInputStream(args[2]));
     cfd.sign(key, cert);
     cfd.verify();
     cfd.marshal(System.err);
     TFDv1 tfd = new TFDv1(cfd);
     PrivateKey ckey = KeyLoader
-      .loadPKCS8PrivateKey(new FileInputStream(args[4]), args[2]);
+      .loadPKCS8PrivateKey(new FileInputStream(args[3]), args[1]);
     int code = tfd.stamp(ckey);
     Certificate ccert = KeyLoader
-      .loadX509Certificate(new FileInputStream(args[5]));
+      .loadX509Certificate(new FileInputStream(args[4]));
     code = tfd.verify(ccert);
     tfd.marshal(System.err);
   }

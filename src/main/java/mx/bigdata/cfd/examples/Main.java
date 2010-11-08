@@ -21,6 +21,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.security.PrivateKey;
 import java.security.cert.Certificate;
+import java.security.cert.X509Certificate;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -46,7 +47,7 @@ public final class Main {
     cfd.validate();
     PrivateKey key = KeyLoader.loadPKCS8PrivateKey(new FileInputStream(args[0]),
                                             args[1]);
-    Certificate cert = KeyLoader
+    X509Certificate cert = KeyLoader
       .loadX509Certificate(new FileInputStream(args[2]));
     cfd.sign(key, cert);
     cfd.verify();

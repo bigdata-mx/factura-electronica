@@ -28,7 +28,7 @@ import org.xml.sax.helpers.DefaultHandler;
 import mx.bigdata.sat.cfdi.CFDv3;
 import mx.bigdata.sat.cfdi.TFDv1;
 import mx.bigdata.sat.cfdi.CFDv3Debugger;
-import mx.bigdata.sat.cfdi.security.KeyLoader;
+import mx.bigdata.sat.security.KeyLoader;
 
 public final class CLI {
 

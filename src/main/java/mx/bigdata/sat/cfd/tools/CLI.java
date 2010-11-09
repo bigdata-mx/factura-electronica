@@ -27,7 +27,7 @@ import org.w3c.dom.Element;
 import org.xml.sax.helpers.DefaultHandler;
 
 import mx.bigdata.sat.cfd.CFDv2;
-import mx.bigdata.sat.cfdi.security.KeyLoader;
+import mx.bigdata.sat.security.KeyLoader;
 
 public final class CLI {
 

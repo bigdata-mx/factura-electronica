@@ -61,7 +61,7 @@ import org.apache.commons.codec.digest.DigestUtils;
 import mx.bigdata.sat.cfd.schema.Comprobante;
 import mx.bigdata.sat.cfd.schema.ObjectFactory;
 import mx.bigdata.sat.cfdi.URIResolverImpl;
-import mx.bigdata.sat.cfdi.security.KeyLoader;
+import mx.bigdata.sat.security.KeyLoader;
 
 public class CFDv2 {
 

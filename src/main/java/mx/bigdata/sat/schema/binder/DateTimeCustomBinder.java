@@ -13,7 +13,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package mx.bigdata.sat.cfdi.binder;
+package mx.bigdata.sat.schema.binder;
 
 import java.text.DateFormat;
 import java.text.ParseException;

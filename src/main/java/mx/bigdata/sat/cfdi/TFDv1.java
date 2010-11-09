@@ -61,7 +61,7 @@ import mx.bigdata.sat.cfdi.schema.Comprobante;
 import mx.bigdata.sat.cfdi.schema.Comprobante.Complemento;
 import mx.bigdata.sat.cfdi.schema.ObjectFactory;
 import mx.bigdata.sat.cfdi.schema.TimbreFiscalDigital;
-import mx.bigdata.sat.cfdi.security.KeyLoader;
+import mx.bigdata.sat.security.KeyLoader;
 
 public final class TFDv1 {
 

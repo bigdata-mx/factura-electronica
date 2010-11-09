@@ -37,7 +37,7 @@ import mx.bigdata.sat.cfdi.schema.Comprobante.Impuestos.Traslados.Traslado;
 import mx.bigdata.sat.cfdi.schema.Comprobante.Receptor;
 import mx.bigdata.sat.cfdi.schema.TUbicacionFiscal;
 import mx.bigdata.sat.cfdi.schema.TUbicacion;
-import mx.bigdata.sat.cfdi.security.KeyLoader;
+import mx.bigdata.sat.security.KeyLoader;
 
 public final class Main {
     

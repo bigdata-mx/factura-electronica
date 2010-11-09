@@ -14,7 +14,7 @@
  *  limitations under the License.
  */
 
-package mx.bigdata.sat.cfdi.security;
+package mx.bigdata.sat.security;
 
 import java.io.File;
 import java.io.InputStream;

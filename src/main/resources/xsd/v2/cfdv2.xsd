@@ -15,8 +15,8 @@
         <jaxb:javaType 
            name="java.util.Date"
 	   xmlType="xs:dateTime"
-   parseMethod="mx.bigdata.sat.cfdi.binder.DateTimeCustomBinder.parseDateTime"
-   printMethod="mx.bigdata.sat.cfdi.binder.DateTimeCustomBinder.printDateTime"
+   parseMethod="mx.bigdata.sat.schema.binder.DateTimeCustomBinder.parseDateTime"
+   printMethod="mx.bigdata.sat.schema.binder.DateTimeCustomBinder.printDateTime"
            />
       </jaxb:globalBindings>
     </xs:appinfo>

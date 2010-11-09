@@ -127,7 +127,7 @@
           </execution>
         </executions>
         <configuration>
-          <mainClass>mx.bigdata.sat.cfd.examples.Main</mainClass>
+          <mainClass>mx.bigdata.sat.cfdi.examples.Main</mainClass>
           <arguments>
             <argument>resources/certs/emisor.key</argument>
             <argument>a0123456789</argument>

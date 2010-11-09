@@ -94,7 +94,7 @@
               <goal>xjc</goal>
             </goals>
             <configuration>
-              <packageName>mx.bigdata.cfd.schema</packageName>
+              <packageName>mx.bigdata.sat.cfd.schema</packageName>
               <schemaDirectory>src/main/resources/xsd/v2</schemaDirectory>
               <outputDirectory>${project.build.directory}/generated-sources/xjc1</outputDirectory>   
               <staleFile>${project.build.directory}/generated-sources/xjc1/.staleFlag</staleFile>
@@ -107,7 +107,7 @@
               <goal>xjc</goal>
             </goals>
             <configuration>
-              <packageName>mx.bigdata.cfdi.schema</packageName>
+              <packageName>mx.bigdata.sat.cfdi.schema</packageName>
               <schemaDirectory>src/main/resources/xsd/v3</schemaDirectory>
               <outputDirectory>${project.build.directory}/generated-sources/xjc2</outputDirectory>          
               <staleFile>${project.build.directory}/generated-sources/xjc2/.staleFlag</staleFile>
@@ -127,7 +127,7 @@
           </execution>
         </executions>
         <configuration>
-          <mainClass>mx.bigdata.cfd.examples.Main</mainClass>
+          <mainClass>mx.bigdata.sat.cfd.examples.Main</mainClass>
           <arguments>
             <argument>resources/certs/emisor.key</argument>
             <argument>a0123456789</argument>
@@ -142,7 +142,7 @@
         <configuration>
           <archive>
             <manifest>
-              <mainClass>mx.bigdata.cfdi.tools.CLI</mainClass>
+              <mainClass>mx.bigdata.sat.cfdi.tools.CLI</mainClass>
             </manifest>
           </archive>
           <descriptorRefs>

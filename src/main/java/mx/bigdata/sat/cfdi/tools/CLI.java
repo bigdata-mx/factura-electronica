@@ -14,7 +14,7 @@
  *  limitations under the License.
  */
 
-package mx.bigdata.cfdi.tools;
+package mx.bigdata.sat.cfdi.tools;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -25,10 +25,10 @@ import java.security.cert.Certificate;
 import org.w3c.dom.Element;
 import org.xml.sax.helpers.DefaultHandler;
 
-import mx.bigdata.cfdi.CFDv3;
-import mx.bigdata.cfdi.TFDv1;
-import mx.bigdata.cfdi.CFDv3Debugger;
-import mx.bigdata.cfdi.security.KeyLoader;
+import mx.bigdata.sat.cfdi.CFDv3;
+import mx.bigdata.sat.cfdi.TFDv1;
+import mx.bigdata.sat.cfdi.CFDv3Debugger;
+import mx.bigdata.sat.cfdi.security.KeyLoader;
 
 public final class CLI {
 

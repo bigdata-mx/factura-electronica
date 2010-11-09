@@ -14,7 +14,7 @@
  *  limitations under the License.
  */
 
-package mx.bigdata.cfdi;
+package mx.bigdata.sat.cfd;
 
 import java.io.ByteArrayOutputStream;
 import java.io.ByteArrayInputStream;
@@ -23,17 +23,18 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.PrintStream;
 import java.io.OutputStream;
+import java.math.BigInteger;
 import java.security.PrivateKey;
 import java.security.Signature;
 import java.security.cert.Certificate;
 import java.security.cert.X509Certificate;
-import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 
 import javax.xml.XMLConstants;
 import javax.xml.bind.*;
-import com.sun.xml.bind.marshaller.NamespacePrefixMapper;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAccessType; 
+import javax.xml.bind.annotation.XmlRootElement; 
 import javax.xml.bind.util.JAXBSource;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -57,55 +58,53 @@ import org.xml.sax.ErrorHandler;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.digest.DigestUtils;
 
-import mx.bigdata.cfdi.schema.Comprobante;
-import mx.bigdata.cfdi.schema.Comprobante.Complemento;
-import mx.bigdata.cfdi.schema.ObjectFactory;
-import mx.bigdata.cfdi.schema.TimbreFiscalDigital;
-import mx.bigdata.cfdi.security.KeyLoader;
+import mx.bigdata.sat.cfd.schema.Comprobante;
+import mx.bigdata.sat.cfd.schema.ObjectFactory;
+import mx.bigdata.sat.cfdi.URIResolverImpl;
+import mx.bigdata.sat.cfdi.security.KeyLoader;
 
-public final class TFDv1 {
+public final class CFDv2 {
 
-  private static final String XSLT = "/xslt/cadenaoriginal_TFD_1_0.xslt";
+  private static final String XSLT = "/xslt/cadenaoriginal_2_0.xslt";
   
-  private static final String XSD = "/xsd/TimbreFiscalDigital.xsd";
+  private static final String XSD = "/xsd/v2/cfdv2.xsd";
       
   private static final JAXBContext CONTEXT = createContext();
   
   private static final JAXBContext createContext() {
     try {
-      return JAXBContext.newInstance("mx.bigdata.cfdi.schema");
+      return JAXBContext.newInstance("mx.bigdata.sat.cfd.schema");
     } catch (Exception e) {
       throw new Error(e);
     } 
   }
 
-  private final Comprobante document;
+  final Comprobante document;
 
-  private final String cfdSignature;
+  public CFDv2(InputStream in) throws Exception {
+    this.document = load(in);
+  }
+
+  public CFDv2(Comprobante comprobante) throws Exception {
+    this.document = copy(comprobante);
+  }
 
   private TransformerFactory tf;
 
-  private TimbreFiscalDigital tfd;
-
-  public TFDv1(CFDv3 cfd) throws Exception {
-    this.document = cfd.getComprobante();
-    this.tfd = getTimbreFiscalDigital(document); 
-    this.cfdSignature = document.getSello();
-  }
-
   public void setTransformerFactory(TransformerFactory tf) {
-    this.tf = tf;    
+    this.tf = tf;   
+    tf.setURIResolver(new URIResolverImpl()); 
   }
 
-  public int stamp(PrivateKey key) throws Exception {
-    if (tfd != null) {
-      return 304;
-    }
-    tfd = createStamp();
+  public void sign(PrivateKey key, X509Certificate cert) throws Exception {
     String signature = getSignature(key);
-    tfd.setSelloSAT(signature);
-    stampTFD(); 
-    return 300;
+    document.setSello(signature);
+    byte[] bytes = cert.getEncoded();
+    Base64 b64 = new Base64(-1);
+    String certStr = b64.encodeToString(bytes);
+    document.setCertificado(certStr);
+    BigInteger bi = cert.getSerialNumber();
+    document.setNoCertificado(new String(bi.toByteArray()));
   }
 
   public void validate() throws Exception {
@@ -120,32 +119,50 @@ public final class TFDv1 {
     if (handler != null) {
       validator.setErrorHandler(handler);
     }
-    validator.validate(new JAXBSource(CONTEXT, tfd));
+    validator.validate(new JAXBSource(CONTEXT, document));
   }
 
-  public int verify(Certificate cert) throws Exception {
-    if (tfd == null) {
-      return 601; //No contiene timbrado
-    }
+  public void verify() throws Exception {
+    String certStr = document.getCertificado();
     Base64 b64 = new Base64();
-    String sigStr = tfd.getSelloSAT();
+    byte[] cbs = b64.decode(certStr);
+    X509Certificate cert = KeyLoader
+      .loadX509Certificate(new ByteArrayInputStream(cbs)); 
+    cert.checkValidity(); 
+  }
+   
+  public void verify(Certificate cert) throws Exception {
+    String sigStr = document.getSello();
+    Base64 b64 = new Base64();
     byte[] signature = b64.decode(sigStr); 
     byte[] bytes = getOriginalBytes();
     Signature sig = Signature.getInstance("SHA1withRSA");
     sig.initVerify(cert);
     sig.update(bytes);
-    boolean verified = sig.verify(signature);   
-    return verified ? 600 : 602; //Sello del timbrado no valido
+    boolean bool = sig.verify(signature);
+    if (!bool) {
+      throw new Exception("Invalid signature");
+    }
+  }
+
+  public void marshal(OutputStream out) throws Exception {
+    Marshaller m = CONTEXT.createMarshaller();
+    m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+    m.setProperty(Marshaller.JAXB_SCHEMA_LOCATION, 
+                  "http://www.sat.gob.mx/cfd "
+                  + "http://www.sat.gob.mx/sitio_internet/cfd/2/cfdv2.xsd");
+    m.marshal(document, out);
   }
 
   byte[] getOriginalBytes() throws Exception {
-    JAXBSource in = new JAXBSource(CONTEXT, tfd);
+    JAXBSource in = new JAXBSource(CONTEXT, document);
     ByteArrayOutputStream baos = new ByteArrayOutputStream();
     Result out = new StreamResult(baos);
     TransformerFactory factory = tf;
     if (factory == null) {
       factory = TransformerFactory.newInstance();
-    } 
+      factory.setURIResolver(new URIResolverImpl());
+    }     
     Transformer transformer = factory
       .newTransformer(new StreamSource(getClass().getResourceAsStream(XSLT)));
     transformer.transform(in, out);
@@ -172,65 +189,36 @@ public final class TFDv1 {
     return b64.encodeToString(signed);
   }
 
-  private void stampTFD() throws Exception {
-    Element element = marshalTFD();
-    ObjectFactory of = new ObjectFactory();
-    Comprobante.Complemento comp = of.createComprobanteComplemento();
-    List<Object> list = comp.getAny(); 
-    list.add(element);
-    document.setComplemento(comp);
-  } 
+  Comprobante getComprobante() throws Exception {
+    return copy(document);
+  }
 
-  private Element marshalTFD() throws Exception {
+  // Defensive deep-copy
+  private Comprobante copy(Comprobante comprobante) throws Exception {
     DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
     dbf.setNamespaceAware(true);
     DocumentBuilder db = dbf.newDocumentBuilder(); 
     Document doc = db.newDocument();
     Marshaller m = CONTEXT.createMarshaller();
-    m.setProperty("com.sun.xml.bind.namespacePrefixMapper",
-                  new NamespacePrefixMapperImpl());
-    m.setProperty(Marshaller.JAXB_FRAGMENT, Boolean.TRUE);
-    m.setProperty(Marshaller.JAXB_SCHEMA_LOCATION, 
-         "http://www.sat.gob.mx/TimbreFiscalDigital TimbreFiscalDigital.xsd");
-    m.marshal(tfd, doc);
-    return doc.getDocumentElement();
+    m.marshal(comprobante, doc);
+    Unmarshaller u = CONTEXT.createUnmarshaller();
+    return (Comprobante) u.unmarshal(doc);
   }
 
-  public void marshal(OutputStream out) throws Exception {
-    Marshaller m = CONTEXT.createMarshaller();
-    m.setProperty("com.sun.xml.bind.namespacePrefixMapper",
-                  new NamespacePrefixMapperImpl());
-    m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-    m.setProperty(Marshaller.JAXB_SCHEMA_LOCATION, 
-                  "http://www.sat.gob.mx/cfd/3 cfdv3.xsd");
-    m.marshal(document, out);
-  }
-
-  private TimbreFiscalDigital createStamp() {
-    ObjectFactory of = new ObjectFactory();
-    TimbreFiscalDigital tfd = of.createTimbreFiscalDigital();
-    tfd.setVersion("1.0");
-    Date date = new Date();
-    tfd.setFechaTimbrado(date);
-    tfd.setSelloCFD(cfdSignature);
-    UUID uuid = UUID.randomUUID(); 
-    tfd.setUUID(uuid.toString());
-    tfd.setNoCertificadoSAT("30001000000100000801");
-    return tfd;
-  }
-
-  private TimbreFiscalDigital getTimbreFiscalDigital(Comprobante document) 
-    throws Exception {    
-    Comprobante.Complemento comp = document.getComplemento();
-    if (comp != null) {
-      List<Object> list = comp.getAny();
-      for (Object o : list) {
-        if (o instanceof TimbreFiscalDigital) {
-          return (TimbreFiscalDigital) o;
-        }
-      }
+  private Comprobante load(InputStream source) throws Exception {
+    try {
+      Unmarshaller u = CONTEXT.createUnmarshaller();
+      return (Comprobante) u.unmarshal(source);
+    } finally {
+      source.close();
     }
-    return null;
   }
 
+  public static void dump(String title, byte[] bytes, PrintStream out) {
+    out.printf("%s: ", title);
+    for (byte b : bytes) {
+      out.printf("%02x ", b & 0xff);
+    }
+    out.println();
+  }
 }

@@ -14,7 +14,7 @@
  *  limitations under the License.
  */
 
-package mx.bigdata.cfd;
+package mx.bigdata.sat.cfdi;
 
 import java.io.ByteArrayOutputStream;
 import java.io.ByteArrayInputStream;
@@ -23,7 +23,6 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.PrintStream;
 import java.io.OutputStream;
-import java.math.BigInteger;
 import java.security.PrivateKey;
 import java.security.Signature;
 import java.security.cert.Certificate;
@@ -58,22 +57,23 @@ import org.xml.sax.ErrorHandler;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.digest.DigestUtils;
 
-import mx.bigdata.cfd.schema.Comprobante;
-import mx.bigdata.cfd.schema.ObjectFactory;
-import mx.bigdata.cfdi.URIResolverImpl;
-import mx.bigdata.cfdi.security.KeyLoader;
+import mx.bigdata.sat.cfdi.schema.Comprobante;
+import mx.bigdata.sat.cfdi.schema.Comprobante.Complemento;
+import mx.bigdata.sat.cfdi.schema.ObjectFactory;
+import mx.bigdata.sat.cfdi.schema.TimbreFiscalDigital;
+import mx.bigdata.sat.cfdi.security.KeyLoader;
 
-public final class CFDv2 {
+public final class CFDv3 {
 
-  private static final String XSLT = "/xslt/cadenaoriginal_2_0.xslt";
+  private static final String XSLT = "/xslt/cadenaoriginal_3_0.xslt";
   
-  private static final String XSD = "/xsd/v2/cfdv2.xsd";
+  private static final String XSD = "/xsd/v3/cfdv3.xsd";
       
   private static final JAXBContext CONTEXT = createContext();
   
   private static final JAXBContext createContext() {
     try {
-      return JAXBContext.newInstance("mx.bigdata.cfd.schema");
+      return JAXBContext.newInstance("mx.bigdata.sat.cfdi.schema");
     } catch (Exception e) {
       throw new Error(e);
     } 
@@ -81,11 +81,11 @@ public final class CFDv2 {
 
   final Comprobante document;
 
-  public CFDv2(InputStream in) throws Exception {
+  public CFDv3(InputStream in) throws Exception {
     this.document = load(in);
   }
 
-  public CFDv2(Comprobante comprobante) throws Exception {
+  public CFDv3(Comprobante comprobante) throws Exception {
     this.document = copy(comprobante);
   }
 
@@ -96,15 +96,13 @@ public final class CFDv2 {
     tf.setURIResolver(new URIResolverImpl()); 
   }
 
-  public void sign(PrivateKey key, X509Certificate cert) throws Exception {
+  public void sign(PrivateKey key, Certificate cert) throws Exception {
     String signature = getSignature(key);
     document.setSello(signature);
     byte[] bytes = cert.getEncoded();
     Base64 b64 = new Base64(-1);
     String certStr = b64.encodeToString(bytes);
     document.setCertificado(certStr);
-    BigInteger bi = cert.getSerialNumber();
-    document.setNoCertificado(new String(bi.toByteArray()));
   }
 
   public void validate() throws Exception {
@@ -129,11 +127,7 @@ public final class CFDv2 {
     X509Certificate cert = KeyLoader
       .loadX509Certificate(new ByteArrayInputStream(cbs)); 
     cert.checkValidity(); 
-  }
-   
-  public void verify(Certificate cert) throws Exception {
     String sigStr = document.getSello();
-    Base64 b64 = new Base64();
     byte[] signature = b64.decode(sigStr); 
     byte[] bytes = getOriginalBytes();
     Signature sig = Signature.getInstance("SHA1withRSA");
@@ -147,10 +141,11 @@ public final class CFDv2 {
 
   public void marshal(OutputStream out) throws Exception {
     Marshaller m = CONTEXT.createMarshaller();
+    m.setProperty("com.sun.xml.bind.namespacePrefixMapper",
+                  new NamespacePrefixMapperImpl());
     m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
     m.setProperty(Marshaller.JAXB_SCHEMA_LOCATION, 
-                  "http://www.sat.gob.mx/cfd "
-                  + "http://www.sat.gob.mx/sitio_internet/cfd/2/cfdv2.xsd");
+                  "http://www.sat.gob.mx/cfd/3 cfdv3.xsd");
     m.marshal(document, out);
   }
 

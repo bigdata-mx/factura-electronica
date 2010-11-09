@@ -14,7 +14,7 @@
  *  limitations under the License.
  */
 
-package mx.bigdata.cfdi.examples;
+package mx.bigdata.sat.cfdi.examples;
 
 import java.io.FileInputStream;
 import java.math.BigDecimal;
@@ -24,31 +24,31 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-import mx.bigdata.cfdi.CFDv3;
-import mx.bigdata.cfdi.TFDv1;
-import mx.bigdata.cfdi.schema.ObjectFactory;
-import mx.bigdata.cfdi.schema.Comprobante;
-import mx.bigdata.cfdi.schema.Comprobante.Conceptos;
-import mx.bigdata.cfdi.schema.Comprobante.Conceptos.Concepto;
-import mx.bigdata.cfdi.schema.Comprobante.Emisor;
-import mx.bigdata.cfdi.schema.Comprobante.Impuestos;
-import mx.bigdata.cfdi.schema.Comprobante.Impuestos.Traslados;
-import mx.bigdata.cfdi.schema.Comprobante.Impuestos.Traslados.Traslado;
-import mx.bigdata.cfdi.schema.Comprobante.Receptor;
-import mx.bigdata.cfdi.schema.TUbicacionFiscal;
-import mx.bigdata.cfdi.schema.TUbicacion;
-import mx.bigdata.cfdi.security.KeyLoader;
+import mx.bigdata.sat.cfdi.CFDv3;
+import mx.bigdata.sat.cfdi.TFDv1;
+import mx.bigdata.sat.cfdi.schema.ObjectFactory;
+import mx.bigdata.sat.cfdi.schema.Comprobante;
+import mx.bigdata.sat.cfdi.schema.Comprobante.Conceptos;
+import mx.bigdata.sat.cfdi.schema.Comprobante.Conceptos.Concepto;
+import mx.bigdata.sat.cfdi.schema.Comprobante.Emisor;
+import mx.bigdata.sat.cfdi.schema.Comprobante.Impuestos;
+import mx.bigdata.sat.cfdi.schema.Comprobante.Impuestos.Traslados;
+import mx.bigdata.sat.cfdi.schema.Comprobante.Impuestos.Traslados.Traslado;
+import mx.bigdata.sat.cfdi.schema.Comprobante.Receptor;
+import mx.bigdata.sat.cfdi.schema.TUbicacionFiscal;
+import mx.bigdata.sat.cfdi.schema.TUbicacion;
+import mx.bigdata.sat.cfdi.security.KeyLoader;
 
 public final class Main {
     
   public static void main(String[] args) throws Exception {
     CFDv3 cfd = new CFDv3(createComprobante());
-    cfd.validate();
     PrivateKey key = KeyLoader.loadPKCS8PrivateKey(new FileInputStream(args[0]),
                                             args[1]);
     Certificate cert = KeyLoader
       .loadX509Certificate(new FileInputStream(args[2]));
     cfd.sign(key, cert);
+    cfd.validate();
     cfd.verify();
     cfd.marshal(System.err);
     TFDv1 tfd = new TFDv1(cfd);

@@ -14,7 +14,7 @@
  *  limitations under the License.
  */
 
-package mx.bigdata.cfdi;
+package mx.bigdata.sat.cfdi;
 
 import java.io.ByteArrayInputStream;
 import java.security.PrivateKey;
@@ -26,7 +26,7 @@ import javax.crypto.Cipher;
 
 import org.apache.commons.codec.binary.Base64;
 
-import mx.bigdata.cfdi.security.KeyLoader;
+import mx.bigdata.sat.cfdi.security.KeyLoader;
 
 import org.bouncycastle.asn1.ASN1InputStream;
 import org.bouncycastle.asn1.ASN1OctetString;

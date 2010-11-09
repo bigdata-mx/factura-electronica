@@ -14,7 +14,7 @@
  *  limitations under the License.
  */
 
-package mx.bigdata.cfd.examples;
+package mx.bigdata.sat.cfd.examples;
 
 import java.io.FileInputStream;
 import java.math.BigDecimal;
@@ -26,30 +26,30 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-import mx.bigdata.cfd.CFDv2;
-import mx.bigdata.cfd.schema.ObjectFactory;
-import mx.bigdata.cfd.schema.Comprobante;
-import mx.bigdata.cfd.schema.Comprobante.Conceptos;
-import mx.bigdata.cfd.schema.Comprobante.Conceptos.Concepto;
-import mx.bigdata.cfd.schema.Comprobante.Emisor;
-import mx.bigdata.cfd.schema.Comprobante.Impuestos;
-import mx.bigdata.cfd.schema.Comprobante.Impuestos.Traslados;
-import mx.bigdata.cfd.schema.Comprobante.Impuestos.Traslados.Traslado;
-import mx.bigdata.cfd.schema.Comprobante.Receptor;
-import mx.bigdata.cfd.schema.TUbicacionFiscal;
-import mx.bigdata.cfd.schema.TUbicacion;
-import mx.bigdata.cfdi.security.KeyLoader;
+import mx.bigdata.sat.cfd.CFDv2;
+import mx.bigdata.sat.cfd.schema.ObjectFactory;
+import mx.bigdata.sat.cfd.schema.Comprobante;
+import mx.bigdata.sat.cfd.schema.Comprobante.Conceptos;
+import mx.bigdata.sat.cfd.schema.Comprobante.Conceptos.Concepto;
+import mx.bigdata.sat.cfd.schema.Comprobante.Emisor;
+import mx.bigdata.sat.cfd.schema.Comprobante.Impuestos;
+import mx.bigdata.sat.cfd.schema.Comprobante.Impuestos.Traslados;
+import mx.bigdata.sat.cfd.schema.Comprobante.Impuestos.Traslados.Traslado;
+import mx.bigdata.sat.cfd.schema.Comprobante.Receptor;
+import mx.bigdata.sat.cfd.schema.TUbicacionFiscal;
+import mx.bigdata.sat.cfd.schema.TUbicacion;
+import mx.bigdata.sat.cfdi.security.KeyLoader;
 
 public final class Main {
     
   public static void main(String[] args) throws Exception {
     CFDv2 cfd = new CFDv2(createComprobante());
-    cfd.validate();
     PrivateKey key = KeyLoader.loadPKCS8PrivateKey(new FileInputStream(args[0]),
                                             args[1]);
     X509Certificate cert = KeyLoader
       .loadX509Certificate(new FileInputStream(args[2]));
     cfd.sign(key, cert);
+    cfd.validate();
     cfd.verify();
     cfd.marshal(System.err);
   }
@@ -62,8 +62,6 @@ public final class Main {
     comp.setFecha(date);
     comp.setSerie("ABCD");
     comp.setFolio("2");
-    comp.setSello("");
-    comp.setNoCertificado("");
     comp.setNoAprobacion(new BigInteger("49"));
     comp.setAnoAprobacion(new BigInteger("2008"));
     comp.setFormaDePago("UNA SOLA EXHIBICI\u00D3N");

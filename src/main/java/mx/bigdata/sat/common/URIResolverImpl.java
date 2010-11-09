@@ -14,7 +14,7 @@
  *  limitations under the License.
  */
 
-package mx.bigdata.sat.cfdi;
+package mx.bigdata.sat.common;
 
 import javax.xml.transform.Source;
 import javax.xml.transform.URIResolver;

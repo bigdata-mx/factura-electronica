@@ -23,6 +23,7 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.PrintStream;
 import java.io.OutputStream;
+import java.math.BigInteger;
 import java.security.PrivateKey;
 import java.security.Signature;
 import java.security.cert.Certificate;
@@ -97,13 +98,15 @@ public class CFDv3 {
     tf.setURIResolver(new URIResolverImpl()); 
   }
 
-  public void sign(PrivateKey key, Certificate cert) throws Exception {
+  public void sign(PrivateKey key, X509Certificate cert) throws Exception {
     String signature = getSignature(key);
     document.setSello(signature);
     byte[] bytes = cert.getEncoded();
     Base64 b64 = new Base64(-1);
     String certStr = b64.encodeToString(bytes);
     document.setCertificado(certStr);
+    BigInteger bi = cert.getSerialNumber();
+    document.setNoCertificado(new String(bi.toByteArray()));
   }
 
   public void validate() throws Exception {

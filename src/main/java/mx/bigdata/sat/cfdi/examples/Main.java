@@ -20,6 +20,7 @@ import java.io.FileInputStream;
 import java.math.BigDecimal;
 import java.security.PrivateKey;
 import java.security.cert.Certificate;
+import java.security.cert.X509Certificate;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -45,7 +46,7 @@ public final class Main {
     CFDv3 cfd = new CFDv3(createComprobante());
     PrivateKey key = KeyLoader.loadPKCS8PrivateKey(new FileInputStream(args[0]),
                                             args[1]);
-    Certificate cert = KeyLoader
+    X509Certificate cert = KeyLoader
       .loadX509Certificate(new FileInputStream(args[2]));
     cfd.sign(key, cert);
     cfd.validate();
@@ -67,10 +68,7 @@ public final class Main {
     comp.setVersion("3.0");
     Date date = new GregorianCalendar(2010, 02, 06, 20, 38, 12).getTime();
     comp.setFecha(date);
-    comp.setSello("");
     comp.setFormaDePago("PAGO EN UNA SOLA EXHIBICION");
-    comp.setNoCertificado("30001000000100000800");
-    comp.setCertificado("");
     comp.setSubTotal(new BigDecimal("488.50"));
     comp.setTotal(new BigDecimal("488.50"));
     comp.setTipoDeComprobante("ingreso");

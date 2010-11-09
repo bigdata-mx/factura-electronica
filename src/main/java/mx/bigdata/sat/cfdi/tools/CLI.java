@@ -21,6 +21,7 @@ import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.security.PrivateKey;
 import java.security.cert.Certificate;
+import java.security.cert.X509Certificate;
 
 import org.w3c.dom.Element;
 import org.xml.sax.helpers.DefaultHandler;
@@ -48,7 +49,7 @@ public final class CLI {
       CFDv3 cfd = new CFDv3(new FileInputStream(args[1]));
       PrivateKey key = KeyLoader
         .loadPKCS8PrivateKey(new FileInputStream(args[2]), args[3]);
-      Certificate cert = KeyLoader
+      X509Certificate cert = KeyLoader
         .loadX509Certificate(new FileInputStream(args[4]));
       cfd.sign(key, cert);
       OutputStream out = new FileOutputStream(args[5]);

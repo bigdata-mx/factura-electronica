@@ -63,7 +63,7 @@ import mx.bigdata.sat.cfd.schema.ObjectFactory;
 import mx.bigdata.sat.cfdi.URIResolverImpl;
 import mx.bigdata.sat.cfdi.security.KeyLoader;
 
-public final class CFDv2 {
+public class CFDv2 {
 
   private static final String XSLT = "/xslt/cadenaoriginal_2_0.xslt";
   

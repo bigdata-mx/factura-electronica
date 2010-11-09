@@ -63,7 +63,7 @@ import mx.bigdata.sat.cfdi.schema.ObjectFactory;
 import mx.bigdata.sat.cfdi.schema.TimbreFiscalDigital;
 import mx.bigdata.sat.cfdi.security.KeyLoader;
 
-public final class CFDv3 {
+public class CFDv3 {
 
   private static final String XSLT = "/xslt/cadenaoriginal_3_0.xslt";
   

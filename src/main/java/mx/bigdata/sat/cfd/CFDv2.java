@@ -132,7 +132,7 @@ public class CFDv2 {
    * a partir de la version 0.1.3
    */
   @Deprecated public void validate(ErrorHandler handler) throws Exception {
-    validate(handler);
+    validar(handler);
   }
 
   public void validar(ErrorHandler handler) throws Exception {

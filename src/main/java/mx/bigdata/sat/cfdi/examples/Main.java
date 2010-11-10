@@ -38,10 +38,10 @@ public final class Main {
                                             args[1]);
     X509Certificate cert = KeyLoader
       .loadX509Certificate(new FileInputStream(args[2]));
-    cfd.sign(key, cert);
-    cfd.validate();
-    cfd.verify();
-    cfd.marshal(System.err);
+    cfd.sellar(key, cert);
+    cfd.validar();
+    cfd.verificar();
+    cfd.guardar(System.err);
     TFDv1 tfd = new TFDv1(cfd);
     PrivateKey ckey = KeyLoader
       .loadPKCS8PrivateKey(new FileInputStream(args[3]), args[1]);

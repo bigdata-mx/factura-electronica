@@ -98,7 +98,15 @@ public class CFDv3 {
     tf.setURIResolver(new URIResolverImpl()); 
   }
 
+  /**
+   * @deprecated Reemplazado por {@link #sellar(PrivateKey, X509Certificate)}
+   * a partir de la version 0.1.3
+   */
   public void sign(PrivateKey key, X509Certificate cert) throws Exception {
+    sellar(key, cert);
+  }
+
+  public void sellar(PrivateKey key, X509Certificate cert) throws Exception {
     String signature = getSignature(key);
     document.setSello(signature);
     byte[] bytes = cert.getEncoded();
@@ -109,11 +117,28 @@ public class CFDv3 {
     document.setNoCertificado(new String(bi.toByteArray()));
   }
 
-  public void validate() throws Exception {
-    validate(null);
+
+  /**
+   * @deprecated Reemplazado por {@link #validar()}
+   * a partir de la version 0.1.3
+   */
+  @Deprecated public void validate() throws Exception {
+    validar(null);
   }
 
-  public void validate(ErrorHandler handler) throws Exception {
+  public void validar() throws Exception {
+    validar(null);
+  }
+
+  /**
+   * @deprecated Reemplazado por {@link #validar(ErrorHandler)}
+   * a partir de la version 0.1.3
+   */
+  @Deprecated public void validate(ErrorHandler handler) throws Exception {
+    validar(handler);
+  }
+
+  public void validar(ErrorHandler handler) throws Exception {
     SchemaFactory sf =
       SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
     Schema schema = sf.newSchema(getClass().getResource(XSD));
@@ -124,7 +149,15 @@ public class CFDv3 {
     validator.validate(new JAXBSource(CONTEXT, document));
   }
 
-  public void verify() throws Exception {
+  /**
+   * @deprecated Reemplazado por {@link #verificar()}
+   * a partir de la version 0.1.3
+   */
+  @Deprecated public void verify() throws Exception {
+    verificar();
+  }
+
+  public void verificar() throws Exception {
     String certStr = document.getCertificado();
     Base64 b64 = new Base64();
     byte[] cbs = b64.decode(certStr);
@@ -143,7 +176,16 @@ public class CFDv3 {
     }
   }
 
-  public void marshal(OutputStream out) throws Exception {
+
+  /**
+   * @deprecated Reemplazado por {@link #guardar(OutputStream)}
+   * a partir de la version 0.1.3
+   */
+  @Deprecated public void marshal(OutputStream out) throws Exception {
+    guardar(out);
+  }
+  
+  public void guardar(OutputStream out) throws Exception {
     Marshaller m = CONTEXT.createMarshaller();
     m.setProperty("com.sun.xml.bind.namespacePrefixMapper",
                   new NamespacePrefixMapperImpl());
@@ -153,7 +195,7 @@ public class CFDv3 {
     m.marshal(document, out);
   }
 
-  public String getOriginalString() throws Exception {
+  public String getCadenaOriginal() throws Exception {
     byte[] bytes = getOriginalBytes();
     return new String(bytes, "UTF8");
   }

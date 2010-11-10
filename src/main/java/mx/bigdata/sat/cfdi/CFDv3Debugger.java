@@ -42,7 +42,7 @@ final class CFDv3Debugger {
   }
 
   private void dumpDigests() throws Exception {
-    System.err.println(cfd.getOriginalString());
+    System.err.println(cfd.getCadenaOriginal());
     String certStr = cfd.document.getCertificado();
     Base64 b64 = new Base64();
     byte[] cbs = b64.decode(certStr);

@@ -96,7 +96,15 @@ public class CFDv2 {
     tf.setURIResolver(new URIResolverImpl()); 
   }
 
-  public void sign(PrivateKey key, X509Certificate cert) throws Exception {
+  /**
+   * @deprecated Reemplazado por {@link #sellar(PrivateKey, X509Certificate)}
+   * a partir de la version 0.1.3
+   */
+  @Deprecated public void sign(PrivateKey key, X509Certificate cert) throws Exception {
+    sellar(key, cert);
+  }
+
+  public void sellar(PrivateKey key, X509Certificate cert) throws Exception {
     String signature = getSignature(key);
     document.setSello(signature);
     byte[] bytes = cert.getEncoded();
@@ -107,11 +115,27 @@ public class CFDv2 {
     document.setNoCertificado(new String(bi.toByteArray()));
   }
 
-  public void validate() throws Exception {
-    validate(null);
+  /**
+   * @deprecated Reemplazado por {@link #validar()}
+   * a partir de la version 0.1.3
+   */
+  @Deprecated public void validate() throws Exception {
+    validar(null);
   }
 
-  public void validate(ErrorHandler handler) throws Exception {
+  public void validar() throws Exception {
+    validar(null);
+  }
+
+  /**
+   * @deprecated Reemplazado por {@link #validar(ErrorHandler)}
+   * a partir de la version 0.1.3
+   */
+  @Deprecated public void validate(ErrorHandler handler) throws Exception {
+    validate(handler);
+  }
+
+  public void validar(ErrorHandler handler) throws Exception {
     SchemaFactory sf =
       SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
     Schema schema = sf.newSchema(getClass().getResource(XSD));
@@ -122,7 +146,15 @@ public class CFDv2 {
     validator.validate(new JAXBSource(CONTEXT, document));
   }
 
-  public void verify() throws Exception {
+  /**
+   * @deprecated Reemplazado por {@link #verificar()}
+   * a partir de la version 0.1.3
+   */
+  @Deprecated public void verify() throws Exception {
+    verificar();
+  }
+
+  public void verificar() throws Exception {
     String certStr = document.getCertificado();
     Base64 b64 = new Base64();
     byte[] cbs = b64.decode(certStr);
@@ -131,7 +163,15 @@ public class CFDv2 {
     cert.checkValidity(); 
   }
    
-  public void verify(Certificate cert) throws Exception {
+  /**
+   * @deprecated Reemplazado por {@link #verificar(Certificate)}
+   * a partir de la version 0.1.3
+   */
+  @Deprecated public void verify(Certificate cert) throws Exception {
+    verificar(cert);
+  }
+
+  public void verificar(Certificate cert) throws Exception {
     String sigStr = document.getSello();
     Base64 b64 = new Base64();
     byte[] signature = b64.decode(sigStr); 
@@ -145,7 +185,7 @@ public class CFDv2 {
     }
   }
 
-  public void marshal(OutputStream out) throws Exception {
+  public void guardar(OutputStream out) throws Exception {
     Marshaller m = CONTEXT.createMarshaller();
     m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
     m.setProperty(Marshaller.JAXB_SCHEMA_LOCATION, 
@@ -153,8 +193,16 @@ public class CFDv2 {
                   + "http://www.sat.gob.mx/sitio_internet/cfd/2/cfdv2.xsd");
     m.marshal(document, out);
   }
+
+  /**
+   * @deprecated Reemplazado por {@link #guardar(OutputStream)}
+   * a partir de la version 0.1.3
+   */
+  @Deprecated public void marshal(OutputStream out) throws Exception {
+    guardar(out);
+  }
   
-  String getOriginalString() throws Exception {
+  public String getCadenaOriginal() throws Exception {
     byte[] bytes = getOriginalBytes();
     return new String(bytes, "UTF8");
   }
@@ -172,11 +220,6 @@ public class CFDv2 {
       .newTransformer(new StreamSource(getClass().getResourceAsStream(XSLT)));
     transformer.transform(in, out);
     return baos.toByteArray();
-  }
-  
-  byte[] getDigest() throws Exception {
-    byte[] bytes = getOriginalBytes();
-    return DigestUtils.sha(bytes);
   }
   
   String getSignature(PrivateKey key) throws Exception {
@@ -212,13 +255,5 @@ public class CFDv2 {
     } finally {
       source.close();
     }
-  }
-
-  public static void dump(String title, byte[] bytes, PrintStream out) {
-    out.printf("%s: ", title);
-    for (byte b : bytes) {
-      out.printf("%02x ", b & 0xff);
-    }
-    out.println();
   }
 }

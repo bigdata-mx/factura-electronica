@@ -208,7 +208,7 @@ public class CFDv3 {
     }
   }
 
-  public static void dump(String title, byte[] bytes, PrintStream out) {
+  static void dump(String title, byte[] bytes, PrintStream out) {
     out.printf("%s: ", title);
     for (byte b : bytes) {
       out.printf("%02x ", b & 0xff);

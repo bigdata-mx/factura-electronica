@@ -153,6 +153,11 @@ public class CFDv2 {
                   + "http://www.sat.gob.mx/sitio_internet/cfd/2/cfdv2.xsd");
     m.marshal(document, out);
   }
+  
+  String getOriginalString() throws Exception {
+    byte[] bytes = getOriginalBytes();
+    return new String(bytes, "UTF8");
+  }
 
   byte[] getOriginalBytes() throws Exception {
     JAXBSource in = new JAXBSource(CONTEXT, document);
@@ -167,11 +172,6 @@ public class CFDv2 {
       .newTransformer(new StreamSource(getClass().getResourceAsStream(XSLT)));
     transformer.transform(in, out);
     return baos.toByteArray();
-  }
-  
-  String getOriginalString() throws Exception {
-    byte[] bytes = getOriginalBytes();
-    return new String(bytes);
   }
   
   byte[] getDigest() throws Exception {

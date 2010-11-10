@@ -17,6 +17,7 @@
 package mx.bigdata.sat.cfdi;
 
 import java.io.ByteArrayInputStream;
+import java.io.FileInputStream;
 import java.security.PrivateKey;
 import java.security.Signature;
 import java.security.cert.Certificate;
@@ -32,18 +33,16 @@ import org.bouncycastle.asn1.ASN1InputStream;
 import org.bouncycastle.asn1.ASN1OctetString;
 import org.bouncycastle.asn1.ASN1Sequence;
 
-public final class CFDv3Debugger {
+final class CFDv3Debugger {
 
   private final CFDv3 cfd;
 
-  public CFDv3Debugger(CFDv3 cfd) throws Exception {
+  private CFDv3Debugger(CFDv3 cfd) throws Exception {
     this.cfd = cfd;
   }
 
-  public void dumpDigests() throws Exception {
+  private void dumpDigests() throws Exception {
     System.err.println(cfd.getOriginalString());
-    byte[] digest = cfd.getDigest();
-    CFDv3.dump("Digestion generada", digest, System.err);
     String certStr = cfd.document.getCertificado();
     Base64 b64 = new Base64();
     byte[] cbs = b64.decode(certStr);
@@ -61,5 +60,11 @@ public final class CFDv3Debugger {
     ASN1Sequence seq = (ASN1Sequence) aIn.readObject();
     ASN1OctetString sigHash = (ASN1OctetString) seq.getObjectAt(1);
     CFDv3.dump("Sello", sigHash.getOctets(), System.err);
+  }
+
+  public static void main(String[] args) throws Exception {
+    CFDv3Debugger cfd = 
+      new CFDv3Debugger(new CFDv3(new FileInputStream(args[1])));
+    cfd.dumpDigests();
   }
 }

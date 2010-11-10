@@ -153,6 +153,11 @@ public class CFDv3 {
     m.marshal(document, out);
   }
 
+  public String getOriginalString() throws Exception {
+    byte[] bytes = getOriginalBytes();
+    return new String(bytes, "UTF8");
+  }
+
   byte[] getOriginalBytes() throws Exception {
     JAXBSource in = new JAXBSource(CONTEXT, document);
     ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -167,17 +172,7 @@ public class CFDv3 {
     transformer.transform(in, out);
     return baos.toByteArray();
   }
-  
-  String getOriginalString() throws Exception {
-    byte[] bytes = getOriginalBytes();
-    return new String(bytes);
-  }
-  
-  byte[] getDigest() throws Exception {
-    byte[] bytes = getOriginalBytes();
-    return DigestUtils.sha(bytes);
-  }
-  
+    
   String getSignature(PrivateKey key) throws Exception {
     byte[] bytes = getOriginalBytes();
     Signature sig = Signature.getInstance("SHA1withRSA");

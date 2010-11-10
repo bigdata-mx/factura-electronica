@@ -43,7 +43,7 @@ import mx.bigdata.sat.security.KeyLoader;
 public final class Main {
     
   public static void main(String[] args) throws Exception {
-    CFDv2 cfd = new CFDv2(createComprobante());
+    CFDv2 cfd = new CFDv2(ExampleCFDFactory.createComprobante());
     PrivateKey key = KeyLoader.loadPKCS8PrivateKey(new FileInputStream(args[0]),
                                             args[1]);
     X509Certificate cert = KeyLoader
@@ -53,88 +53,5 @@ public final class Main {
     cfd.verify();
     cfd.marshal(System.err);
   }
-
-  private static Comprobante createComprobante() throws Exception {
-    ObjectFactory of = new ObjectFactory();
-    Comprobante comp = of.createComprobante();
-    comp.setVersion("2.0");
-    Date date = new GregorianCalendar(2010, 05, 03, 14, 11, 36).getTime();
-    comp.setFecha(date);
-    comp.setSerie("ABCD");
-    comp.setFolio("2");
-    comp.setNoAprobacion(new BigInteger("49"));
-    comp.setAnoAprobacion(new BigInteger("2008"));
-    comp.setFormaDePago("UNA SOLA EXHIBICI\u00D3N");
-    comp.setSubTotal(new BigDecimal("2000.00"));
-    comp.setTotal(new BigDecimal("2320.00"));
-    comp.setDescuento(new BigDecimal("0.00"));
-    comp.setTipoDeComprobante("ingreso");
-    comp.setEmisor(createEmisor(of));
-    comp.setReceptor(createReceptor(of));
-    comp.setConceptos(createConceptos(of));
-    comp.setImpuestos(createImpuestos(of));
-    return comp;
-  }
-    
-  private static Emisor createEmisor(ObjectFactory of) {
-    Emisor emisor = of.createComprobanteEmisor();
-    emisor.setNombre("CONTRIBUYENTE PRUEBASEIS PATERNOSEIS MATERNOSEIS");
-    emisor.setRfc("PAMC660606ER9");
-    TUbicacionFiscal uf = of.createTUbicacionFiscal();
-    uf.setCalle("PRUEBA SEIS");
-    uf.setCodigoPostal("72000");
-    uf.setColonia("PUEBLA CENTRO"); 
-    uf.setMunicipio("PUEBLA"); 
-    uf.setEstado("PUEBLA"); 
-    uf.setNoExterior("6"); 
-    uf.setNoInterior("6"); 
-    uf.setPais("M\u00C9XICO"); 
-    emisor.setDomicilioFiscal(uf);
-    return emisor;
-  }
-
-  private static Receptor createReceptor(ObjectFactory of) {
-    Receptor receptor = of.createComprobanteReceptor();
-    receptor.setNombre("ROSA MAR\u00CDA CALDER\u00D3N UIRIEGAS");
-    receptor.setRfc("CAUR390312S87");
-    TUbicacion uf = of.createTUbicacion();
-    uf.setCalle("TOPOCHICO");
-    uf.setCodigoPostal("95465");
-    uf.setColonia("JARDINES DEL VALLE"); 
-    uf.setEstado("NUEVO LEON"); 
-    uf.setNoExterior("52"); 
-    uf.setPais("M\u00E9xico"); 
-    receptor.setDomicilio(uf);
-    return receptor;
-  }
-
-  private static Conceptos createConceptos(ObjectFactory of) {
-    Conceptos cps = of.createComprobanteConceptos();
-    List<Concepto> list = cps.getConcepto(); 
-    Concepto c1 = of.createComprobanteConceptosConcepto();
-    c1.setUnidad("Servicio");
-    c1.setNoIdentificacion("01");
-    c1.setImporte(new BigDecimal("2000.00"));
-    c1.setCantidad(new BigDecimal("1.00"));
-    c1.setDescripcion("Asesoria Fiscal y administrativa");
-    c1.setValorUnitario(new BigDecimal("2000.00"));
-    list.add(c1);
-    return cps;
-  }
-
-  private static Impuestos createImpuestos(ObjectFactory of) {
-    Impuestos imps = of.createComprobanteImpuestos();
-    imps.setTotalImpuestosTrasladados(new BigDecimal("320.00"));
-    Traslados trs = of.createComprobanteImpuestosTraslados();
-    List<Traslado> list = trs.getTraslado(); 
-    Traslado t1 = of.createComprobanteImpuestosTrasladosTraslado();
-    t1.setImporte(new BigDecimal("320.00"));
-    t1.setImpuesto("IVA");
-    t1.setTasa(new BigDecimal("16.00"));
-    list.add(t1);
-    imps.setTraslados(trs);
-    return imps;
-  }
-
 
 }

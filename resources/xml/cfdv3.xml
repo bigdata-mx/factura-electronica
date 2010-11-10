@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<cfdi:Comprobante xsi:schemaLocation="http://www.sat.gob.mx/cfd/3 cfdv3.xsd" xmlns:cfdi="http://www.sat.gob.mx/cfd/3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="3.0" fecha="2010-03-06T20:38:12" formaDePago="PAGO EN UNA SOLA EXHIBICION" noCertificado="30001000000100000800" tipoDeComprobante="ingreso">
+<cfdi:Comprobante xsi:schemaLocation="http://www.sat.gob.mx/cfd/3 cfdv3.xsd" xmlns:cfdi="http://www.sat.gob.mx/cfd/3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="3.0" fecha="2010-03-06T20:38:12" formaDePago="PAGO EN UNA SOLA EXHIBICION" noCertificado="30001000000100000800" tipoDeComprobante="ingreso" total="488.50" subTotal="488.50">
 	<cfdi:Emisor rfc="PPL961114GZ1" nombre="PHARMA PLUS SA DE CV">
 		<cfdi:DomicilioFiscal pais="Mexico" calle="AV. RIO MIXCOAC" estado="MEXICO, D.F." colonia="ACACIAS" municipio="BENITO JUAREZ" noExterior="No. 140" codigoPostal="03240"/>
 		<cfdi:ExpedidoEn pais="Mexico" calle="AV. UNIVERSIDAD" estado="DISTRITO FEDERAL" colonia="OXTOPULCO" noExterior="1858" codigoPostal="03910"/>

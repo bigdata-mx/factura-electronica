@@ -28,7 +28,6 @@ import org.xml.sax.helpers.DefaultHandler;
 
 import mx.bigdata.sat.cfdi.CFDv3;
 import mx.bigdata.sat.cfdi.TFDv1;
-import mx.bigdata.sat.cfdi.CFDv3Debugger;
 import mx.bigdata.sat.security.KeyLoader;
 
 public final class CLI {
@@ -41,10 +40,6 @@ public final class CLI {
     } else if (cmd.equals("verifica")) { 
       CFDv3 cfd = new CFDv3(new FileInputStream(args[1]));
       cfd.verify();
-    } else if (cmd.equals("dump")) { 
-      CFDv3Debugger cfd = 
-        new CFDv3Debugger(new CFDv3(new FileInputStream(args[1])));
-      cfd.dumpDigests();
     } else if (cmd.equals("firma")) { 
       CFDv3 cfd = new CFDv3(new FileInputStream(args[1]));
       PrivateKey key = KeyLoader

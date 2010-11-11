@@ -57,13 +57,14 @@ import org.xml.sax.ErrorHandler;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.digest.DigestUtils;
 
+import mx.bigdata.sat.cfdi.CFDv3;
 import mx.bigdata.sat.cfdi.schema.Comprobante;
 import mx.bigdata.sat.cfdi.schema.Comprobante.Complemento;
 import mx.bigdata.sat.cfdi.schema.ObjectFactory;
 import mx.bigdata.sat.cfdi.schema.TimbreFiscalDigital;
 import mx.bigdata.sat.security.KeyLoader;
 
-public final class TFDv1 {
+public class TFDv1 {
 
   private static final String XSLT = "/xslt/cadenaoriginal_TFD_1_0.xslt";
   

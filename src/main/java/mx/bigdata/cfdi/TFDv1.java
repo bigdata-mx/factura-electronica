@@ -14,22 +14,18 @@
  *  limitations under the License.
  */
 
-package mx.bigdata.cfd;
+package mx.bigdata.cfdi;
 
-import java.io.InputStream;
-
-import mx.bigdata.sat.cfd.schema.Comprobante;
+import mx.bigdata.sat.cfdi.CFDv3;
 
 /**
- * @deprecated Reemplazado por {@link mx.bigdata.sat.cfd.CFDv2}
+ * @deprecated Reemplazado por {@link mx.bigdata.sat.cfdi.TFDv1}
  * a partir de la version 0.1.3
  */
-@Deprecated public final class CFDv2 extends mx.bigdata.sat.cfd.CFDv2 {
-  public CFDv2(InputStream in) throws Exception {
-    super(in);
+@Deprecated public final class TFDv1 extends mx.bigdata.sat.cfdi.TFDv1 {
+
+  public TFDv1(CFDv3 cfd) throws Exception {
+    super(cfd);
   }
 
-  public CFDv2(Comprobante comprobante) throws Exception {
-    super(comprobante);
-  }
 }

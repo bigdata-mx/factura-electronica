@@ -21,10 +21,10 @@ import java.io.InputStream;
 import mx.bigdata.sat.cfdi.schema.Comprobante;
 
 /**
- * @deprecated  As of release 0.1.3, replaced by {@link mx.bigdata.sat.cfdi.CFDv3}
+ * @deprecated Reemplazado por {@link mx.bigdata.sat.cfdi.CFDv3}
+ * a partir de la version 0.1.3
  */
-@Deprecated
-public final class CFDv3 extends mx.bigdata.sat.cfdi.CFDv3 {
+@Deprecated public final class CFDv3 extends mx.bigdata.sat.cfdi.CFDv3 {
 
   public CFDv3(InputStream in) throws Exception {
     super(in);

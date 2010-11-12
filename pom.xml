@@ -71,8 +71,18 @@
       <version>2.2</version>
     </dependency>
   </dependencies>
-  <repositories>
-  </repositories>
+  <distributionManagement>
+    <repository>
+      <id>releases</id>
+      <name>Internal Repository</name>
+      <url>http://localhost:8081/nexus/content/repositories/releases</url>
+    </repository>
+    <snapshotRepository>
+      <id>snapshots</id>
+      <name>Internal Repository</name>
+      <url>http://localhost:8081/nexus/content/repositories/snapshot</url>
+    </snapshotRepository>
+  </distributionManagement>
   <build>
     <defaultGoal>install</defaultGoal>
     <plugins>
@@ -150,12 +160,6 @@
           </descriptorRefs>
         </configuration>
       </plugin>
-      <plugin>
-        <artifactId>maven-release-plugin</artifactId>
-        <configuration>
-          <releaseProfiles>release</releaseProfiles>
-        </configuration>
-      </plugin>
-    </plugins>
+    </plugins>  
   </build>
 </project>

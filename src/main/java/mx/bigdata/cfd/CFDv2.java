@@ -49,7 +49,7 @@ import mx.bigdata.sat.cfd.schema.Comprobante;
   }
     
   /**
-   * @deprecated Reemplazado por {@link mx.bigdata.sat.cfd.CFDv2.sellar(PrivateKey, X509Certificate)}
+   * @deprecated Reemplazado por {@link mx.bigdata.sat.cfd.CFDv2#sellar(PrivateKey, X509Certificate)}
    * a partir de la version 0.1.3
    */
   @Deprecated public void sign(PrivateKey key, X509Certificate cert) throws Exception {
@@ -57,7 +57,7 @@ import mx.bigdata.sat.cfd.schema.Comprobante;
   }
 
   /**
-   * @deprecated Reemplazado por {@link mx.bigdata.sat.cfd.CFDv2.validar()}
+   * @deprecated Reemplazado por {@link mx.bigdata.sat.cfd.CFDv2#validar()}
    * a partir de la version 0.1.3
    */
   @Deprecated public void validate() throws Exception {
@@ -65,7 +65,7 @@ import mx.bigdata.sat.cfd.schema.Comprobante;
   }
 
   /**
-   * @deprecated Reemplazado por {@link mx.bigdata.sat.cfd.CFDv2.validar(ErrorHandler)}
+   * @deprecated Reemplazado por {@link mx.bigdata.sat.cfd.CFDv2#validar(ErrorHandler)}
    * a partir de la version 0.1.3
    */
   @Deprecated public void validate(ErrorHandler handler) throws Exception {
@@ -73,7 +73,7 @@ import mx.bigdata.sat.cfd.schema.Comprobante;
   }
 
   /**
-   * @deprecated Reemplazado por {@link mx.bigdata.sat.cfd.CFDv2.verificar()}
+   * @deprecated Reemplazado por {@link mx.bigdata.sat.cfd.CFDv2#verificar()}
    * a partir de la version 0.1.3
    */
   @Deprecated public void verify() throws Exception {
@@ -81,7 +81,7 @@ import mx.bigdata.sat.cfd.schema.Comprobante;
   }
    
   /**
-   * @deprecated Reemplazado por {@link mx.bigdata.sat.cfd.CFDv2.verificar(Certificate)}
+   * @deprecated Reemplazado por {@link mx.bigdata.sat.cfd.CFDv2#verificar(Certificate)}
    * a partir de la version 0.1.3
    */
   @Deprecated public void verify(Certificate cert) throws Exception {
@@ -89,7 +89,7 @@ import mx.bigdata.sat.cfd.schema.Comprobante;
   }
 
   /**
-   * @deprecated Reemplazado por {@link mx.bigdata.sat.cfd.CFDv2.guardar(OutputStream)}
+   * @deprecated Reemplazado por {@link mx.bigdata.sat.cfd.CFDv2#guardar(OutputStream)}
    * a partir de la version 0.1.3
    */
   @Deprecated public void marshal(OutputStream out) throws Exception {

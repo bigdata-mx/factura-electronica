@@ -45,7 +45,7 @@ import mx.bigdata.sat.cfdi.schema.Comprobante;
   }
 
   /**
-   * @deprecated Reemplazado por {@link mx.bigdata.sat.cfdi.CFDv3.sellar(PrivateKey, X509Certificate)}
+   * @deprecated Reemplazado por {@link mx.bigdata.sat.cfdi.CFDv3#sellar(PrivateKey, X509Certificate)}
    * a partir de la version 0.1.3
    */
   public void sign(PrivateKey key, X509Certificate cert) throws Exception {
@@ -53,7 +53,7 @@ import mx.bigdata.sat.cfdi.schema.Comprobante;
   }
 
   /**
-   * @deprecated Reemplazado por {@link mx.bigdata.sat.cfdi.CFDv3.validar()}
+   * @deprecated Reemplazado por {@link mx.bigdata.sat.cfdi.CFDv3#validar()}
    * a partir de la version 0.1.3
    */
   @Deprecated public void validate() throws Exception {
@@ -61,7 +61,7 @@ import mx.bigdata.sat.cfdi.schema.Comprobante;
   }
 
   /**
-   * @deprecated Reemplazado por {@link mx.bigdata.sat.cfdi.CFDv3.validar(ErrorHandler)}
+   * @deprecated Reemplazado por {@link mx.bigdata.sat.cfdi.CFDv3#validar(ErrorHandler)}
    * a partir de la version 0.1.3
    */
   @Deprecated public void validate(ErrorHandler handler) throws Exception {
@@ -69,7 +69,7 @@ import mx.bigdata.sat.cfdi.schema.Comprobante;
   }
 
   /**
-   * @deprecated Reemplazado por {@link mx.bigdata.sat.cfdi.CFDv3.verificar()}
+   * @deprecated Reemplazado por {@link mx.bigdata.sat.cfdi.CFDv3#verificar()}
    * a partir de la version 0.1.3
    */
   @Deprecated public void verify() throws Exception {
@@ -77,7 +77,7 @@ import mx.bigdata.sat.cfdi.schema.Comprobante;
   }
 
   /**
-   * @deprecated Reemplazado por {@link mx.bigdata.sat.cfdi.CFDv3.guardar(OutputStream)}
+   * @deprecated Reemplazado por {@link mx.bigdata.sat.cfdi.CFDv3#guardar(OutputStream)}
    * a partir de la version 0.1.3
    */
   @Deprecated public void marshal(OutputStream out) throws Exception {

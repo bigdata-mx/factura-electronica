@@ -64,7 +64,7 @@ final class CFDv3Debugger {
 
   public static void main(String[] args) throws Exception {
     CFDv3Debugger cfd = 
-      new CFDv3Debugger(new CFDv3(new FileInputStream(args[1])));
+      new CFDv3Debugger(new CFDv3(new FileInputStream(args[0])));
     cfd.dumpDigests();
   }
 }

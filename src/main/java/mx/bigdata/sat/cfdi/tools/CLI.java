@@ -49,13 +49,13 @@ public final class CLI {
       cfd.sellar(key, cert);
       OutputStream out = new FileOutputStream(args[5]);
       cfd.guardar(out);
-    } else if (cmd.equals("valida-timbrado")) {
+    } else if (cmd.equals("validar-timbrado")) {
       CFDv3 cfd = new CFDv3(new FileInputStream(args[1]));
       X509Certificate cert = KeyLoader
         .loadX509Certificate(new FileInputStream(args[2]));
       TFDv1 tfd = new TFDv1(cfd, cert);
       tfd.validar(new DefaultHandler());
-    } else if (cmd.equals("verifica-timbrado")) { 
+    } else if (cmd.equals("verificar-timbrado")) { 
       CFDv3 cfd = new CFDv3(new FileInputStream(args[1]));
       X509Certificate cert = KeyLoader
         .loadX509Certificate(new FileInputStream(args[2]));

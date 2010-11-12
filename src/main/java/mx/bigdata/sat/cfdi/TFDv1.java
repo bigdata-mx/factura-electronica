@@ -23,6 +23,7 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.PrintStream;
 import java.io.OutputStream;
+import java.math.BigInteger;
 import java.security.PrivateKey;
 import java.security.Signature;
 import java.security.cert.Certificate;
@@ -68,7 +69,7 @@ public class TFDv1 {
 
   private static final String XSLT = "/xslt/cadenaoriginal_TFD_1_0.xslt";
   
-  private static final String XSD = "/xsd/TimbreFiscalDigital.xsd";
+  private static final String XSD = "/xsd/v3/TimbreFiscalDigital.xsd";
       
   private static final JAXBContext CONTEXT = createContext();
   
@@ -82,38 +83,65 @@ public class TFDv1 {
 
   private final Comprobante document;
 
-  private final String cfdSignature;
+  private final TimbreFiscalDigital tfd;
 
   private TransformerFactory tf;
 
-  private TimbreFiscalDigital tfd;
-
-  public TFDv1(CFDv3 cfd) throws Exception {
+  public TFDv1(CFDv3 cfd, X509Certificate cert) throws Exception {
+    this(cfd, cert, UUID.randomUUID(), new Date()); 
+  }
+  
+  TFDv1(CFDv3 cfd, X509Certificate cert, UUID uuid, Date date)
+    throws Exception {
     this.document = cfd.getComprobante();
-    this.tfd = getTimbreFiscalDigital(document); 
-    this.cfdSignature = document.getSello();
+    this.tfd = getTimbreFiscalDigital(document, cert, uuid, date); 
   }
 
   public void setTransformerFactory(TransformerFactory tf) {
     this.tf = tf;    
   }
 
-  public int stamp(PrivateKey key) throws Exception {
-    if (tfd != null) {
+  /**
+   * @deprecated Reemplazado por {@link #timbrar(PrivateKey)}
+   * a partir de la version 0.1.3
+   */
+  @Deprecated public int stamp(PrivateKey key) throws Exception {
+    return timbrar(key);
+  }
+
+
+  public int timbrar(PrivateKey key) throws Exception {
+    if (tfd.getSelloSAT() != null) {
       return 304;
     }
-    tfd = createStamp();
     String signature = getSignature(key);
     tfd.setSelloSAT(signature);
-    stampTFD(); 
+    stamp(); 
+    tfd.setNoCertificadoSAT("30001000000100000801");
     return 300;
   }
 
-  public void validate() throws Exception {
-    validate(null);
+ /**
+   * @deprecated Reemplazado por {@link #validar()}
+   * a partir de la version 0.1.3
+   */
+  @Deprecated public void validate() throws Exception {
+    validar();
   }
 
-  public void validate(ErrorHandler handler) throws Exception {
+  public void validar() throws Exception {
+    validar(null);
+  }
+  
+ /**
+   * @deprecated Reemplazado por {@link #validar(ErrorHandler)}
+   * a partir de la version 0.1.3
+   */
+  @Deprecated public void validate(ErrorHandler handler) throws Exception {
+    validar(handler);
+  }
+
+  public void validar(ErrorHandler handler) throws Exception {
     SchemaFactory sf =
       SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
     Schema schema = sf.newSchema(getClass().getResource(XSD));
@@ -123,8 +151,16 @@ public class TFDv1 {
     }
     validator.validate(new JAXBSource(CONTEXT, tfd));
   }
+  
+ /**
+   * @deprecated Reemplazado por {@link #verificar(Certificate)}
+   * a partir de la version 0.1.3
+   */
+  @Deprecated public int verify(Certificate cert) throws Exception {
+    return verificar(cert);
+  }
 
-  public int verify(Certificate cert) throws Exception {
+  public int verificar(Certificate cert) throws Exception {
     if (tfd == null) {
       return 601; //No contiene timbrado
     }
@@ -137,6 +173,33 @@ public class TFDv1 {
     sig.update(bytes);
     boolean verified = sig.verify(signature);   
     return verified ? 600 : 602; //Sello del timbrado no valido
+  }
+
+  public String getCadenaOriginal() throws Exception {
+    byte[] bytes = getOriginalBytes();
+    return new String(bytes);
+  }
+
+  /**
+   * @deprecated Reemplazado por {@link #guardar(OutputStream)}
+   * a partir de la version 0.1.3
+   */
+  @Deprecated public void marshal(OutputStream out) throws Exception {
+    guardar(out);
+  }
+
+  public void guardar(OutputStream out) throws Exception {
+    Marshaller m = CONTEXT.createMarshaller();
+    m.setProperty("com.sun.xml.bind.namespacePrefixMapper",
+                  new NamespacePrefixMapperImpl());
+    m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+    m.setProperty(Marshaller.JAXB_SCHEMA_LOCATION, 
+                  "http://www.sat.gob.mx/cfd/3 cfdv3.xsd");
+    m.marshal(document, out);
+  }
+
+  TimbreFiscalDigital getTimbre() {
+    return tfd;
   }
 
   byte[] getOriginalBytes() throws Exception {
@@ -152,17 +215,7 @@ public class TFDv1 {
     transformer.transform(in, out);
     return baos.toByteArray();
   }
-  
-  String getOriginalString() throws Exception {
-    byte[] bytes = getOriginalBytes();
-    return new String(bytes);
-  }
-  
-  byte[] getDigest() throws Exception {
-    byte[] bytes = getOriginalBytes();
-    return DigestUtils.sha(bytes);
-  }
-  
+    
   String getSignature(PrivateKey key) throws Exception {
     byte[] bytes = getOriginalBytes();
     Signature sig = Signature.getInstance("SHA1withRSA");
@@ -173,7 +226,7 @@ public class TFDv1 {
     return b64.encodeToString(signed);
   }
 
-  private void stampTFD() throws Exception {
+  private void stamp() throws Exception {
     Element element = marshalTFD();
     ObjectFactory of = new ObjectFactory();
     Comprobante.Complemento comp = of.createComprobanteComplemento();
@@ -197,30 +250,22 @@ public class TFDv1 {
     return doc.getDocumentElement();
   }
 
-  public void marshal(OutputStream out) throws Exception {
-    Marshaller m = CONTEXT.createMarshaller();
-    m.setProperty("com.sun.xml.bind.namespacePrefixMapper",
-                  new NamespacePrefixMapperImpl());
-    m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-    m.setProperty(Marshaller.JAXB_SCHEMA_LOCATION, 
-                  "http://www.sat.gob.mx/cfd/3 cfdv3.xsd");
-    m.marshal(document, out);
-  }
-
-  private TimbreFiscalDigital createStamp() {
+  private TimbreFiscalDigital createStamp(X509Certificate cert, UUID uuid, 
+                                          Date date) {
     ObjectFactory of = new ObjectFactory();
     TimbreFiscalDigital tfd = of.createTimbreFiscalDigital();
     tfd.setVersion("1.0");
-    Date date = new Date();
     tfd.setFechaTimbrado(date);
-    tfd.setSelloCFD(cfdSignature);
-    UUID uuid = UUID.randomUUID(); 
+    tfd.setSelloCFD(document.getSello());
     tfd.setUUID(uuid.toString());
-    tfd.setNoCertificadoSAT("30001000000100000801");
+    BigInteger bi = cert.getSerialNumber();
+    tfd.setNoCertificadoSAT(new String(bi.toByteArray()));
     return tfd;
   }
 
-  private TimbreFiscalDigital getTimbreFiscalDigital(Comprobante document) 
+  private TimbreFiscalDigital getTimbreFiscalDigital(Comprobante document, 
+                                                     X509Certificate cert, 
+                                                     UUID uuid, Date date) 
     throws Exception {    
     Comprobante.Complemento comp = document.getComplemento();
     if (comp != null) {
@@ -231,7 +276,7 @@ public class TFDv1 {
         }
       }
     }
-    return null;
+    return createStamp(cert, uuid, date);
   }
 
 }

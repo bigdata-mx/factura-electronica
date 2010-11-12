@@ -176,7 +176,6 @@ public class CFDv3 {
     }
   }
 
-
   /**
    * @deprecated Reemplazado por {@link #guardar(OutputStream)}
    * a partir de la version 0.1.3

@@ -34,13 +34,13 @@ public final class CLI {
 
   public static void main(String[] args) throws Exception {
     String cmd = args[0];
-    if (cmd.equals("valida")) {
+    if (cmd.equals("validar")) {
       CFDv3 cfd = new CFDv3(new FileInputStream(args[1]));
       cfd.validate(new DefaultHandler());
-    } else if (cmd.equals("verifica")) { 
+    } else if (cmd.equals("verificar")) { 
       CFDv3 cfd = new CFDv3(new FileInputStream(args[1]));
       cfd.verify();
-    } else if (cmd.equals("firma")) { 
+    } else if (cmd.equals("sellar")) { 
       CFDv3 cfd = new CFDv3(new FileInputStream(args[1]));
       PrivateKey key = KeyLoader
         .loadPKCS8PrivateKey(new FileInputStream(args[2]), args[3]);
@@ -49,29 +49,32 @@ public final class CLI {
       cfd.sign(key, cert);
       OutputStream out = new FileOutputStream(args[5]);
       cfd.marshal(out);
-    } else if (cmd.equals("valida-timbrado")) {
+    } /*else if (cmd.equals("valida-timbrado")) {
       CFDv3 cfd = new CFDv3(new FileInputStream(args[1]));
       TFDv1 tfd = new TFDv1(cfd);
       tfd.validate(new DefaultHandler());
-    } else if (cmd.equals("verifica-timbrado")) { 
+      }*/ else if (cmd.equals("verifica-timbrado")) { 
       CFDv3 cfd = new CFDv3(new FileInputStream(args[1]));
-      TFDv1 tfd = new TFDv1(cfd);
-      Certificate cert = KeyLoader
+      X509Certificate cert = KeyLoader
         .loadX509Certificate(new FileInputStream(args[2]));
+      TFDv1 tfd = new TFDv1(cfd, cert);
       int code = tfd.verify(cert);
       if (code != 600) {
         throw new Exception("Timbrado invalido: " +  code);
       }
-    } else if (cmd.equals("timbrado")) { 
+    } else if (cmd.equals("timbrar")) { 
       CFDv3 cfd = new CFDv3(new FileInputStream(args[1]));
-      TFDv1 tfd = new TFDv1(cfd);
       PrivateKey key = KeyLoader
         .loadPKCS8PrivateKey(new FileInputStream(args[2]), args[3]);
+      X509Certificate cert = KeyLoader
+        .loadX509Certificate(new FileInputStream(args[4]));
+      TFDv1 tfd = new TFDv1(cfd, cert);
       int code = tfd.stamp(key);
-      OutputStream out = new FileOutputStream(args[4]);
+      OutputStream out = new FileOutputStream(args[5]);
       tfd.marshal(out);
     } else {
       System.err.println("No existe ese comando");
+      System.exit(1);
     }
   }
 }

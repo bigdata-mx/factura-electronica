@@ -16,6 +16,8 @@
 
 package mx.bigdata.cfdi;
 
+import java.security.cert.X509Certificate;
+
 import mx.bigdata.sat.cfdi.CFDv3;
 
 /**
@@ -24,8 +26,8 @@ import mx.bigdata.sat.cfdi.CFDv3;
  */
 @Deprecated public final class TFDv1 extends mx.bigdata.sat.cfdi.TFDv1 {
 
-  public TFDv1(CFDv3 cfd) throws Exception {
-    super(cfd);
+  public TFDv1(CFDv3 cfd, X509Certificate cert) throws Exception {
+    super(cfd, cert);
   }
 
 }

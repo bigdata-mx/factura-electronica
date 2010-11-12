@@ -84,6 +84,8 @@ public class TFDv1 {
   private final Comprobante document;
 
   private final TimbreFiscalDigital tfd;
+  
+  private final X509Certificate cert;
 
   private TransformerFactory tf;
 
@@ -93,8 +95,9 @@ public class TFDv1 {
   
   TFDv1(CFDv3 cfd, X509Certificate cert, UUID uuid, Date date)
     throws Exception {
+    this.cert = cert;
     this.document = cfd.getComprobante();
-    this.tfd = getTimbreFiscalDigital(document, cert, uuid, date); 
+    this.tfd = getTimbreFiscalDigital(document, uuid, date); 
   }
 
   public void setTransformerFactory(TransformerFactory tf) {
@@ -117,7 +120,6 @@ public class TFDv1 {
     String signature = getSignature(key);
     tfd.setSelloSAT(signature);
     stamp(); 
-    tfd.setNoCertificadoSAT("30001000000100000801");
     return 300;
   }
 
@@ -153,14 +155,14 @@ public class TFDv1 {
   }
   
  /**
-   * @deprecated Reemplazado por {@link #verificar(Certificate)}
+   * @deprecated Reemplazado por {@link #verificar()}
    * a partir de la version 0.1.3
    */
-  @Deprecated public int verify(Certificate cert) throws Exception {
-    return verificar(cert);
+  @Deprecated public int verify() throws Exception {
+    return verificar();
   }
 
-  public int verificar(Certificate cert) throws Exception {
+  public int verificar() throws Exception {
     if (tfd == null) {
       return 601; //No contiene timbrado
     }
@@ -250,8 +252,7 @@ public class TFDv1 {
     return doc.getDocumentElement();
   }
 
-  private TimbreFiscalDigital createStamp(X509Certificate cert, UUID uuid, 
-                                          Date date) {
+  private TimbreFiscalDigital createStamp(UUID uuid, Date date) {
     ObjectFactory of = new ObjectFactory();
     TimbreFiscalDigital tfd = of.createTimbreFiscalDigital();
     tfd.setVersion("1.0");
@@ -264,7 +265,6 @@ public class TFDv1 {
   }
 
   private TimbreFiscalDigital getTimbreFiscalDigital(Comprobante document, 
-                                                     X509Certificate cert, 
                                                      UUID uuid, Date date) 
     throws Exception {    
     Comprobante.Complemento comp = document.getComplemento();
@@ -276,7 +276,7 @@ public class TFDv1 {
         }
       }
     }
-    return createStamp(cert, uuid, date);
+    return createStamp(uuid, date);
   }
 
 }

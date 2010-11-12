@@ -42,13 +42,5 @@ public final class Main {
     cfd.validar();
     cfd.verificar();
     cfd.guardar(System.err);
-    TFDv1 tfd = new TFDv1(cfd);
-    PrivateKey ckey = KeyLoader
-      .loadPKCS8PrivateKey(new FileInputStream(args[3]), args[1]);
-    int code = tfd.stamp(ckey);
-    Certificate ccert = KeyLoader
-      .loadX509Certificate(new FileInputStream(args[4]));
-    code = tfd.verify(ccert);
-    tfd.marshal(System.err);
   }
 }

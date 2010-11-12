@@ -49,16 +49,18 @@ public final class CLI {
       cfd.sign(key, cert);
       OutputStream out = new FileOutputStream(args[5]);
       cfd.marshal(out);
-    } /*else if (cmd.equals("valida-timbrado")) {
-      CFDv3 cfd = new CFDv3(new FileInputStream(args[1]));
-      TFDv1 tfd = new TFDv1(cfd);
-      tfd.validate(new DefaultHandler());
-      }*/ else if (cmd.equals("verifica-timbrado")) { 
+    } else if (cmd.equals("valida-timbrado")) {
       CFDv3 cfd = new CFDv3(new FileInputStream(args[1]));
       X509Certificate cert = KeyLoader
         .loadX509Certificate(new FileInputStream(args[2]));
       TFDv1 tfd = new TFDv1(cfd, cert);
-      int code = tfd.verify(cert);
+      tfd.validate(new DefaultHandler());
+    } else if (cmd.equals("verifica-timbrado")) { 
+      CFDv3 cfd = new CFDv3(new FileInputStream(args[1]));
+      X509Certificate cert = KeyLoader
+        .loadX509Certificate(new FileInputStream(args[2]));
+      TFDv1 tfd = new TFDv1(cfd, cert);
+      int code = tfd.verify();
       if (code != 600) {
         throw new Exception("Timbrado invalido: " +  code);
       }

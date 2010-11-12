@@ -85,7 +85,7 @@ public final class TFDv1Test {
   @Test public void testValidateVerify() throws Exception {
     tfd.timbrar(pacKey);
     tfd.validar();
-    tfd.verificar(pacCert);
+    tfd.verificar();
   }
 
   @Test public void testValidateVerifyWithFile() throws Exception {
@@ -97,6 +97,6 @@ public final class TFDv1Test {
     CFDv3 cfd2 = new CFDv3(new ByteArrayInputStream(baos.toByteArray()));
     TFDv1 tfd2 = new TFDv1(cfd2, pacCert);
     tfd2.validar();
-    tfd2.verificar(pacCert);
+    tfd2.verificar();
   }
 }

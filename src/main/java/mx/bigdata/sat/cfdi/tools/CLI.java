@@ -36,31 +36,31 @@ public final class CLI {
     String cmd = args[0];
     if (cmd.equals("validar")) {
       CFDv3 cfd = new CFDv3(new FileInputStream(args[1]));
-      cfd.validate(new DefaultHandler());
+      cfd.validar(new DefaultHandler());
     } else if (cmd.equals("verificar")) { 
       CFDv3 cfd = new CFDv3(new FileInputStream(args[1]));
-      cfd.verify();
+      cfd.verificar();
     } else if (cmd.equals("sellar")) { 
       CFDv3 cfd = new CFDv3(new FileInputStream(args[1]));
       PrivateKey key = KeyLoader
         .loadPKCS8PrivateKey(new FileInputStream(args[2]), args[3]);
       X509Certificate cert = KeyLoader
         .loadX509Certificate(new FileInputStream(args[4]));
-      cfd.sign(key, cert);
+      cfd.sellar(key, cert);
       OutputStream out = new FileOutputStream(args[5]);
-      cfd.marshal(out);
+      cfd.guardar(out);
     } else if (cmd.equals("valida-timbrado")) {
       CFDv3 cfd = new CFDv3(new FileInputStream(args[1]));
       X509Certificate cert = KeyLoader
         .loadX509Certificate(new FileInputStream(args[2]));
       TFDv1 tfd = new TFDv1(cfd, cert);
-      tfd.validate(new DefaultHandler());
+      tfd.validar(new DefaultHandler());
     } else if (cmd.equals("verifica-timbrado")) { 
       CFDv3 cfd = new CFDv3(new FileInputStream(args[1]));
       X509Certificate cert = KeyLoader
         .loadX509Certificate(new FileInputStream(args[2]));
       TFDv1 tfd = new TFDv1(cfd, cert);
-      int code = tfd.verify();
+      int code = tfd.verificar();
       if (code != 600) {
         throw new Exception("Timbrado invalido: " +  code);
       }
@@ -71,9 +71,9 @@ public final class CLI {
       X509Certificate cert = KeyLoader
         .loadX509Certificate(new FileInputStream(args[4]));
       TFDv1 tfd = new TFDv1(cfd, cert);
-      int code = tfd.stamp(key);
+      int code = tfd.timbrar(key);
       OutputStream out = new FileOutputStream(args[5]);
-      tfd.marshal(out);
+      tfd.guardar(out);
     } else {
       System.err.println("No existe ese comando");
       System.exit(1);

@@ -17,6 +17,14 @@
 package mx.bigdata.cfdi;
 
 import java.io.InputStream;
+import java.io.OutputStream;
+import java.security.PrivateKey;
+import java.security.cert.Certificate;
+import java.security.cert.X509Certificate;
+
+import javax.xml.transform.TransformerFactory;
+
+import org.xml.sax.ErrorHandler;
 
 import mx.bigdata.sat.cfdi.schema.Comprobante;
 
@@ -24,13 +32,55 @@ import mx.bigdata.sat.cfdi.schema.Comprobante;
  * @deprecated Reemplazado por {@link mx.bigdata.sat.cfdi.CFDv3}
  * a partir de la version 0.1.3
  */
-@Deprecated public final class CFDv3 extends mx.bigdata.sat.cfdi.CFDv3 {
+@Deprecated public final class CFDv3 {
+  
+  private final mx.bigdata.sat.cfdi.CFDv3 cfd;
 
   public CFDv3(InputStream in) throws Exception {
-    super(in);
+    this.cfd = new mx.bigdata.sat.cfdi.CFDv3(in);
   }
 
   public CFDv3(Comprobante comprobante) throws Exception {
-    super(comprobante);
+    this.cfd = new mx.bigdata.sat.cfdi.CFDv3(comprobante);
+  }
+
+  /**
+   * @deprecated Reemplazado por {@link mx.bigdata.sat.cfdi.CFDv3.sellar(PrivateKey, X509Certificate)}
+   * a partir de la version 0.1.3
+   */
+  public void sign(PrivateKey key, X509Certificate cert) throws Exception {
+    cfd.sellar(key, cert);
+  }
+
+  /**
+   * @deprecated Reemplazado por {@link mx.bigdata.sat.cfdi.CFDv3.validar()}
+   * a partir de la version 0.1.3
+   */
+  @Deprecated public void validate() throws Exception {
+    cfd.validar(null);
+  }
+
+  /**
+   * @deprecated Reemplazado por {@link mx.bigdata.sat.cfdi.CFDv3.validar(ErrorHandler)}
+   * a partir de la version 0.1.3
+   */
+  @Deprecated public void validate(ErrorHandler handler) throws Exception {
+    cfd.validar(handler);
+  }
+
+  /**
+   * @deprecated Reemplazado por {@link mx.bigdata.sat.cfdi.CFDv3.verificar()}
+   * a partir de la version 0.1.3
+   */
+  @Deprecated public void verify() throws Exception {
+    cfd.verificar();
+  }
+
+  /**
+   * @deprecated Reemplazado por {@link mx.bigdata.sat.cfdi.CFDv3.guardar(OutputStream)}
+   * a partir de la version 0.1.3
+   */
+  @Deprecated public void marshal(OutputStream out) throws Exception {
+    cfd.guardar(out);
   }
 }

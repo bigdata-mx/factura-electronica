@@ -65,7 +65,7 @@ import mx.bigdata.sat.cfdi.schema.TimbreFiscalDigital;
 import mx.bigdata.sat.common.URIResolverImpl;
 import mx.bigdata.sat.security.KeyLoader;
 
-public class CFDv3 {
+public final class CFDv3 {
 
   private static final String XSLT = "/xslt/cadenaoriginal_3_0.xslt";
   
@@ -98,14 +98,6 @@ public class CFDv3 {
     tf.setURIResolver(new URIResolverImpl()); 
   }
 
-  /**
-   * @deprecated Reemplazado por {@link #sellar(PrivateKey, X509Certificate)}
-   * a partir de la version 0.1.3
-   */
-  public void sign(PrivateKey key, X509Certificate cert) throws Exception {
-    sellar(key, cert);
-  }
-
   public void sellar(PrivateKey key, X509Certificate cert) throws Exception {
     String signature = getSignature(key);
     document.setSello(signature);
@@ -117,25 +109,8 @@ public class CFDv3 {
     document.setNoCertificado(new String(bi.toByteArray()));
   }
 
-
-  /**
-   * @deprecated Reemplazado por {@link #validar()}
-   * a partir de la version 0.1.3
-   */
-  @Deprecated public void validate() throws Exception {
-    validar(null);
-  }
-
   public void validar() throws Exception {
     validar(null);
-  }
-
-  /**
-   * @deprecated Reemplazado por {@link #validar(ErrorHandler)}
-   * a partir de la version 0.1.3
-   */
-  @Deprecated public void validate(ErrorHandler handler) throws Exception {
-    validar(handler);
   }
 
   public void validar(ErrorHandler handler) throws Exception {
@@ -147,14 +122,6 @@ public class CFDv3 {
       validator.setErrorHandler(handler);
     }
     validator.validate(new JAXBSource(CONTEXT, document));
-  }
-
-  /**
-   * @deprecated Reemplazado por {@link #verificar()}
-   * a partir de la version 0.1.3
-   */
-  @Deprecated public void verify() throws Exception {
-    verificar();
   }
 
   public void verificar() throws Exception {
@@ -174,14 +141,6 @@ public class CFDv3 {
     if (!bool) {
       throw new Exception("Invalid signature");
     }
-  }
-
-  /**
-   * @deprecated Reemplazado por {@link #guardar(OutputStream)}
-   * a partir de la version 0.1.3
-   */
-  @Deprecated public void marshal(OutputStream out) throws Exception {
-    guardar(out);
   }
   
   public void guardar(OutputStream out) throws Exception {

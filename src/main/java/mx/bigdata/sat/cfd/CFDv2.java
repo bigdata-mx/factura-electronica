@@ -63,7 +63,7 @@ import mx.bigdata.sat.cfd.schema.ObjectFactory;
 import mx.bigdata.sat.common.URIResolverImpl;
 import mx.bigdata.sat.security.KeyLoader;
 
-public class CFDv2 {
+public final class CFDv2 {
 
   private static final String XSLT = "/xslt/cadenaoriginal_2_0.xslt";
   
@@ -96,13 +96,6 @@ public class CFDv2 {
     tf.setURIResolver(new URIResolverImpl()); 
   }
 
-  /**
-   * @deprecated Reemplazado por {@link #sellar(PrivateKey, X509Certificate)}
-   * a partir de la version 0.1.3
-   */
-  @Deprecated public void sign(PrivateKey key, X509Certificate cert) throws Exception {
-    sellar(key, cert);
-  }
 
   public void sellar(PrivateKey key, X509Certificate cert) throws Exception {
     String signature = getSignature(key);
@@ -115,24 +108,8 @@ public class CFDv2 {
     document.setNoCertificado(new String(bi.toByteArray()));
   }
 
-  /**
-   * @deprecated Reemplazado por {@link #validar()}
-   * a partir de la version 0.1.3
-   */
-  @Deprecated public void validate() throws Exception {
-    validar(null);
-  }
-
   public void validar() throws Exception {
     validar(null);
-  }
-
-  /**
-   * @deprecated Reemplazado por {@link #validar(ErrorHandler)}
-   * a partir de la version 0.1.3
-   */
-  @Deprecated public void validate(ErrorHandler handler) throws Exception {
-    validar(handler);
   }
 
   public void validar(ErrorHandler handler) throws Exception {
@@ -146,14 +123,6 @@ public class CFDv2 {
     validator.validate(new JAXBSource(CONTEXT, document));
   }
 
-  /**
-   * @deprecated Reemplazado por {@link #verificar()}
-   * a partir de la version 0.1.3
-   */
-  @Deprecated public void verify() throws Exception {
-    verificar();
-  }
-
   public void verificar() throws Exception {
     String certStr = document.getCertificado();
     Base64 b64 = new Base64();
@@ -161,14 +130,6 @@ public class CFDv2 {
     X509Certificate cert = KeyLoader
       .loadX509Certificate(new ByteArrayInputStream(cbs)); 
     cert.checkValidity(); 
-  }
-   
-  /**
-   * @deprecated Reemplazado por {@link #verificar(Certificate)}
-   * a partir de la version 0.1.3
-   */
-  @Deprecated public void verify(Certificate cert) throws Exception {
-    verificar(cert);
   }
 
   public void verificar(Certificate cert) throws Exception {
@@ -192,14 +153,6 @@ public class CFDv2 {
                   "http://www.sat.gob.mx/cfd "
                   + "http://www.sat.gob.mx/sitio_internet/cfd/2/cfdv2.xsd");
     m.marshal(document, out);
-  }
-
-  /**
-   * @deprecated Reemplazado por {@link #guardar(OutputStream)}
-   * a partir de la version 0.1.3
-   */
-  @Deprecated public void marshal(OutputStream out) throws Exception {
-    guardar(out);
   }
   
   public String getCadenaOriginal() throws Exception {

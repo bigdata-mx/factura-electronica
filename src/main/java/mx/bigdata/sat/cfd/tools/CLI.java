@@ -33,27 +33,27 @@ public final class CLI {
 
   public static void main(String[] args) throws Exception {
     String cmd = args[0];
-    if (cmd.equals("valida")) {
+    if (cmd.equals("validar")) {
       CFDv2 cfd = new CFDv2(new FileInputStream(args[1]));
-      cfd.validate(new DefaultHandler());
-    } else if (cmd.equals("verifica")) { 
+      cfd.validar(new DefaultHandler());
+    } else if (cmd.equals("verificar")) { 
       CFDv2 cfd = new CFDv2(new FileInputStream(args[1]));
       if (args.length == 3) {
         Certificate cert = KeyLoader
           .loadX509Certificate(new FileInputStream(args[2]));
-        cfd.verify(cert);
+        cfd.verificar(cert);
       } else {
-        cfd.verify();
+        cfd.verificar();
       }
-    } else if (cmd.equals("firma")) { 
+    } else if (cmd.equals("sellar")) { 
       CFDv2 cfd = new CFDv2(new FileInputStream(args[1]));
       PrivateKey key = KeyLoader
         .loadPKCS8PrivateKey(new FileInputStream(args[2]), args[3]);
       X509Certificate cert = KeyLoader
         .loadX509Certificate(new FileInputStream(args[4]));
-      cfd.sign(key, cert);
+      cfd.sellar(key, cert);
       OutputStream out = new FileOutputStream(args[5]);
-      cfd.marshal(out);
+      cfd.guardar(out);
     } 
   }
 }

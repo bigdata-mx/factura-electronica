@@ -65,7 +65,7 @@ import mx.bigdata.sat.cfdi.schema.ObjectFactory;
 import mx.bigdata.sat.cfdi.schema.TimbreFiscalDigital;
 import mx.bigdata.sat.security.KeyLoader;
 
-public class TFDv1 {
+public final class TFDv1 {
 
   private static final String XSLT = "/xslt/cadenaoriginal_TFD_1_0.xslt";
   
@@ -104,15 +104,6 @@ public class TFDv1 {
     this.tf = tf;    
   }
 
-  /**
-   * @deprecated Reemplazado por {@link #timbrar(PrivateKey)}
-   * a partir de la version 0.1.3
-   */
-  @Deprecated public int stamp(PrivateKey key) throws Exception {
-    return timbrar(key);
-  }
-
-
   public int timbrar(PrivateKey key) throws Exception {
     if (tfd.getSelloSAT() != null) {
       return 304;
@@ -123,24 +114,8 @@ public class TFDv1 {
     return 300;
   }
 
- /**
-   * @deprecated Reemplazado por {@link #validar()}
-   * a partir de la version 0.1.3
-   */
-  @Deprecated public void validate() throws Exception {
-    validar();
-  }
-
   public void validar() throws Exception {
     validar(null);
-  }
-  
- /**
-   * @deprecated Reemplazado por {@link #validar(ErrorHandler)}
-   * a partir de la version 0.1.3
-   */
-  @Deprecated public void validate(ErrorHandler handler) throws Exception {
-    validar(handler);
   }
 
   public void validar(ErrorHandler handler) throws Exception {
@@ -152,14 +127,6 @@ public class TFDv1 {
       validator.setErrorHandler(handler);
     }
     validator.validate(new JAXBSource(CONTEXT, tfd));
-  }
-  
- /**
-   * @deprecated Reemplazado por {@link #verificar()}
-   * a partir de la version 0.1.3
-   */
-  @Deprecated public int verify() throws Exception {
-    return verificar();
   }
 
   public int verificar() throws Exception {
@@ -180,14 +147,6 @@ public class TFDv1 {
   public String getCadenaOriginal() throws Exception {
     byte[] bytes = getOriginalBytes();
     return new String(bytes);
-  }
-
-  /**
-   * @deprecated Reemplazado por {@link #guardar(OutputStream)}
-   * a partir de la version 0.1.3
-   */
-  @Deprecated public void marshal(OutputStream out) throws Exception {
-    guardar(out);
   }
 
   public void guardar(OutputStream out) throws Exception {

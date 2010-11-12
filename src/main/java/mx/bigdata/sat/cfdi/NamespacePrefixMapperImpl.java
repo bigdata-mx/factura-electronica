@@ -18,7 +18,7 @@ package mx.bigdata.sat.cfdi;
 
 import com.sun.xml.bind.marshaller.NamespacePrefixMapper;
 
-public class NamespacePrefixMapperImpl extends NamespacePrefixMapper {
+public final class NamespacePrefixMapperImpl extends NamespacePrefixMapper {
   
   public String getPreferredPrefix(String namespaceUri, String suggestion, 
                                    boolean requirePrefix) {

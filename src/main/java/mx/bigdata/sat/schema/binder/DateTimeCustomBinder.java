@@ -20,7 +20,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class DateTimeCustomBinder {
+public final class DateTimeCustomBinder {
   public static Date parseDateTime(String s) {
     try {
       DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");

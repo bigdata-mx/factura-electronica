@@ -23,11 +23,10 @@ import java.security.PrivateKey;
 import java.security.cert.Certificate;
 import java.security.cert.X509Certificate;
 
-import org.w3c.dom.Element;
-import org.xml.sax.helpers.DefaultHandler;
-
 import mx.bigdata.sat.cfd.CFDv2;
 import mx.bigdata.sat.security.KeyLoader;
+
+import org.xml.sax.helpers.DefaultHandler;
 
 public final class CLI {
 

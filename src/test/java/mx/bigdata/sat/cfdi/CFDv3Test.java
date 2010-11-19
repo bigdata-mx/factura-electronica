@@ -16,20 +16,17 @@
  */
 package mx.bigdata.sat.cfdi;
 
-import java.io.FileInputStream;
+import static org.junit.Assert.assertEquals;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.FileInputStream;
 import java.security.PrivateKey;
 import java.security.cert.X509Certificate;
 
-import mx.bigdata.sat.cfdi.CFDv3;
-import mx.bigdata.sat.cfdi.TFDv1;
 import mx.bigdata.sat.cfdi.examples.ExampleCFDFactory;
-import mx.bigdata.sat.cfdi.schema.Comprobante;
 import mx.bigdata.sat.security.KeyLoader;
 
-import static org.junit.Assert.*;
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -38,8 +35,6 @@ public final class CFDv3Test {
   private static PrivateKey key;
 
   private static X509Certificate cert;
-
-  private static Comprobante comprobante;
   
   @BeforeClass public static void loadKeys() throws Exception {
     key = KeyLoader
@@ -47,7 +42,6 @@ public final class CFDv3Test {
                            "a0123456789");
     cert = KeyLoader
       .loadX509Certificate(new FileInputStream("resources/certs/emisor.cer"));
-    comprobante = ExampleCFDFactory.createComprobante();
   }
   
   @Test public void testOriginalString() throws Exception {

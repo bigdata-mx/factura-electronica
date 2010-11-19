@@ -16,29 +16,22 @@
 
 package mx.bigdata.sat.cfdi.examples;
 
-import java.io.FileInputStream;
 import java.math.BigDecimal;
-import java.security.PrivateKey;
-import java.security.cert.Certificate;
-import java.security.cert.X509Certificate;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-import mx.bigdata.sat.cfdi.CFDv3;
-import mx.bigdata.sat.cfdi.TFDv1;
-import mx.bigdata.sat.cfdi.schema.ObjectFactory;
 import mx.bigdata.sat.cfdi.schema.Comprobante;
+import mx.bigdata.sat.cfdi.schema.ObjectFactory;
+import mx.bigdata.sat.cfdi.schema.TUbicacion;
+import mx.bigdata.sat.cfdi.schema.TUbicacionFiscal;
 import mx.bigdata.sat.cfdi.schema.Comprobante.Conceptos;
-import mx.bigdata.sat.cfdi.schema.Comprobante.Conceptos.Concepto;
 import mx.bigdata.sat.cfdi.schema.Comprobante.Emisor;
 import mx.bigdata.sat.cfdi.schema.Comprobante.Impuestos;
+import mx.bigdata.sat.cfdi.schema.Comprobante.Receptor;
+import mx.bigdata.sat.cfdi.schema.Comprobante.Conceptos.Concepto;
 import mx.bigdata.sat.cfdi.schema.Comprobante.Impuestos.Traslados;
 import mx.bigdata.sat.cfdi.schema.Comprobante.Impuestos.Traslados.Traslado;
-import mx.bigdata.sat.cfdi.schema.Comprobante.Receptor;
-import mx.bigdata.sat.cfdi.schema.TUbicacionFiscal;
-import mx.bigdata.sat.cfdi.schema.TUbicacion;
-import mx.bigdata.sat.security.KeyLoader;
 
 public final class ExampleCFDFactory {
     

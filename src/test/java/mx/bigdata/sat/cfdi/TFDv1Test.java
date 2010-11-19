@@ -16,22 +16,20 @@
  */
 package mx.bigdata.sat.cfdi;
 
-import java.io.FileInputStream;
+import static org.junit.Assert.assertEquals;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.FileInputStream;
 import java.security.PrivateKey;
 import java.security.cert.X509Certificate;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.UUID;
 
-import mx.bigdata.sat.cfdi.CFDv3;
-import mx.bigdata.sat.cfdi.TFDv1;
 import mx.bigdata.sat.cfdi.examples.ExampleCFDFactory;
-import mx.bigdata.sat.cfdi.schema.Comprobante;
 import mx.bigdata.sat.security.KeyLoader;
 
-import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;

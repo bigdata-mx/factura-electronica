@@ -20,15 +20,13 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.security.PrivateKey;
-import java.security.cert.Certificate;
 import java.security.cert.X509Certificate;
-
-import org.w3c.dom.Element;
-import org.xml.sax.helpers.DefaultHandler;
 
 import mx.bigdata.sat.cfdi.CFDv3;
 import mx.bigdata.sat.cfdi.TFDv1;
 import mx.bigdata.sat.security.KeyLoader;
+
+import org.xml.sax.helpers.DefaultHandler;
 
 public final class CLI {
 
@@ -71,7 +69,7 @@ public final class CLI {
       X509Certificate cert = KeyLoader
         .loadX509Certificate(new FileInputStream(args[4]));
       TFDv1 tfd = new TFDv1(cfd, cert);
-      int code = tfd.timbrar(key);
+      tfd.timbrar(key);
       OutputStream out = new FileOutputStream(args[5]);
       tfd.guardar(out);
     } else {

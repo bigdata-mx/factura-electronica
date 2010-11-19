@@ -17,17 +17,10 @@
 package mx.bigdata.sat.cfdi.examples;
 
 import java.io.FileInputStream;
-import java.math.BigDecimal;
 import java.security.PrivateKey;
-import java.security.cert.Certificate;
 import java.security.cert.X509Certificate;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.List;
 
 import mx.bigdata.sat.cfdi.CFDv3;
-import mx.bigdata.sat.cfdi.TFDv1;
-import mx.bigdata.sat.cfdi.schema.ObjectFactory;
 import mx.bigdata.sat.security.KeyLoader;
 
 public final class Main {

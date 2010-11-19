@@ -18,17 +18,13 @@ package mx.bigdata.sat.cfdi;
 
 import java.io.ByteArrayInputStream;
 import java.io.FileInputStream;
-import java.security.PrivateKey;
-import java.security.Signature;
-import java.security.cert.Certificate;
 import java.security.cert.X509Certificate;
 
 import javax.crypto.Cipher;
 
-import org.apache.commons.codec.binary.Base64;
-
 import mx.bigdata.sat.security.KeyLoader;
 
+import org.apache.commons.codec.binary.Base64;
 import org.bouncycastle.asn1.ASN1InputStream;
 import org.bouncycastle.asn1.ASN1OctetString;
 import org.bouncycastle.asn1.ASN1Sequence;

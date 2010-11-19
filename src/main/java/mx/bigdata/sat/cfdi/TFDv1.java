@@ -17,53 +17,38 @@
 package mx.bigdata.sat.cfdi;
 
 import java.io.ByteArrayOutputStream;
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
-import java.io.PrintStream;
 import java.io.OutputStream;
 import java.math.BigInteger;
 import java.security.PrivateKey;
 import java.security.Signature;
-import java.security.cert.Certificate;
 import java.security.cert.X509Certificate;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
 import javax.xml.XMLConstants;
-import javax.xml.bind.*;
-import com.sun.xml.bind.marshaller.NamespacePrefixMapper;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.Marshaller;
 import javax.xml.bind.util.JAXBSource;
-import javax.xml.datatype.DatatypeFactory;
-import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.transform.Result;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.sax.SAXTransformerFactory;
-import javax.xml.transform.sax.TransformerHandler;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
-
-import javax.xml.validation.SchemaFactory;
 import javax.xml.validation.Schema;
+import javax.xml.validation.SchemaFactory;
 import javax.xml.validation.Validator;
 
+import mx.bigdata.sat.cfdi.schema.Comprobante;
+import mx.bigdata.sat.cfdi.schema.ObjectFactory;
+import mx.bigdata.sat.cfdi.schema.TimbreFiscalDigital;
+
+import org.apache.commons.codec.binary.Base64;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.xml.sax.ErrorHandler;
-
-import org.apache.commons.codec.binary.Base64;
-import org.apache.commons.codec.digest.DigestUtils;
-
-import mx.bigdata.sat.cfdi.CFDv3;
-import mx.bigdata.sat.cfdi.schema.Comprobante;
-import mx.bigdata.sat.cfdi.schema.Comprobante.Complemento;
-import mx.bigdata.sat.cfdi.schema.ObjectFactory;
-import mx.bigdata.sat.cfdi.schema.TimbreFiscalDigital;
-import mx.bigdata.sat.security.KeyLoader;
 
 public final class TFDv1 {
 

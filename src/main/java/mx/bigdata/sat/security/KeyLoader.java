@@ -16,18 +16,16 @@
 
 package mx.bigdata.sat.security;
 
-import java.io.File;
 import java.io.InputStream;
-import java.io.FileInputStream;
 import java.security.KeyFactory;
 import java.security.PrivateKey;
 import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
 import java.security.spec.PKCS8EncodedKeySpec;
 
-import com.google.common.io.ByteStreams;
-
 import org.apache.commons.ssl.PKCS8Key;
+
+import com.google.common.io.ByteStreams;
 
 public final class KeyLoader {
 

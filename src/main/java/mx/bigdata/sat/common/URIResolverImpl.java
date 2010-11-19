@@ -22,7 +22,6 @@ import javax.xml.transform.stream.StreamSource;
 
 public final class URIResolverImpl implements URIResolver {
   
-  @Override
   public Source resolve(String href, String base) {
     return new StreamSource(getClass().getResourceAsStream(href));
   }

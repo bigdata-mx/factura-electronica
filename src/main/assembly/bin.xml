@@ -43,10 +43,6 @@
         <include>*.key</include>
       </includes>
     </fileSet>
-    <fileSet>
-      <directory>${project.build.directory}/site</directory>
-      <outputDirectory>docs</outputDirectory>
-    </fileSet>
   </fileSets>
   <dependencySets>
     <dependencySet>
@@ -57,6 +53,10 @@
         <exclude>javax.xml.stream:stax-api</exclude>
         <exclude>javax.activation:activation</exclude>
       </excludes>
+    </dependencySet>
+    <dependencySet>
+      <useProjectArtifact>false</useProjectArtifact>
+      <useProjectAttachments>true</useProjectAttachments>
     </dependencySet>
   </dependencySets>
 </assembly>

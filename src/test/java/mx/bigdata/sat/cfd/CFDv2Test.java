@@ -77,4 +77,11 @@ public final class CFDv2Test {
     cfd2.validar();
     cfd2.verificar();
   }
+
+  @Test public void testValidateVerifyWithExternalFile() throws Exception {
+    CFDv2 cfd = 
+      new CFDv2(new FileInputStream("resources/xml/cfdv2.externo.xml"));
+    cfd.validar();
+    cfd.verificar();
+  }
 }

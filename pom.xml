@@ -3,7 +3,7 @@
   <groupId>mx.bigdata.cfdi</groupId>
   <artifactId>cfdi</artifactId>
   <packaging>jar</packaging>
-  <version>0.1.6-SNAPSHOT</version>
+  <version>0.1.5-SNAPSHOT</version>
   <name>cfdi</name>
   <url>http://code.google.com/p/factura-electronica</url>
   <issueManagement>
@@ -128,6 +128,30 @@
                 </resource>
               </resources>
             </configuration>            
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-source-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>attach-sources</id>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>attach-javadocs</id>
+            <goals>
+              <goal>jar</goal>
+            </goals>
           </execution>
         </executions>
       </plugin>

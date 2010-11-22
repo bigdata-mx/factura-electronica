@@ -54,9 +54,5 @@
         <exclude>javax.activation:activation</exclude>
       </excludes>
     </dependencySet>
-    <dependencySet>
-      <useProjectArtifact>false</useProjectArtifact>
-      <useProjectAttachments>true</useProjectAttachments>
-    </dependencySet>
   </dependencySets>
 </assembly>

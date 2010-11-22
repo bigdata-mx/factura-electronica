@@ -21,20 +21,31 @@ import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.security.PrivateKey;
 import java.security.cert.X509Certificate;
+import java.util.List;
+
+import org.xml.sax.SAXParseException;
 
 import mx.bigdata.sat.cfdi.CFDv3;
 import mx.bigdata.sat.cfdi.TFDv1;
+import mx.bigdata.sat.common.ValidationErrorHandler;
 import mx.bigdata.sat.security.KeyLoader;
-
-import org.xml.sax.helpers.DefaultHandler;
 
 public final class CLI {
 
   public static void main(String[] args) throws Exception {
     String cmd = args[0];
     if (cmd.equals("validar")) {
-      CFDv3 cfd = new CFDv3(new FileInputStream(args[1]));
-      cfd.validar(new DefaultHandler());
+      String file = args[1];
+      CFDv3 cfd = new CFDv3(new FileInputStream(file));
+      ValidationErrorHandler handler = new ValidationErrorHandler();
+      cfd.validar(handler);
+      List<SAXParseException> errors = handler.getErrors();
+      if (errors.size() > 0) {
+        for (SAXParseException e : errors) {
+          System.err.printf("%s %s\n", file, e.getMessage());
+        }
+        System.exit(1);
+      }
     } else if (cmd.equals("verificar")) { 
       CFDv3 cfd = new CFDv3(new FileInputStream(args[1]));
       cfd.verificar();
@@ -48,11 +59,20 @@ public final class CLI {
       OutputStream out = new FileOutputStream(args[5]);
       cfd.guardar(out);
     } else if (cmd.equals("validar-timbrado")) {
-      CFDv3 cfd = new CFDv3(new FileInputStream(args[1]));
+      String file = args[1];
+      CFDv3 cfd = new CFDv3(new FileInputStream(file));
       X509Certificate cert = KeyLoader
         .loadX509Certificate(new FileInputStream(args[2]));
       TFDv1 tfd = new TFDv1(cfd, cert);
-      tfd.validar(new DefaultHandler());
+      ValidationErrorHandler handler = new ValidationErrorHandler();
+      tfd.validar(handler);
+      List<SAXParseException> errors = handler.getErrors();
+      if (errors.size() > 0) {
+        for (SAXParseException e : errors) {
+          System.err.printf("%s %s", file, e.getMessage());
+        }
+        System.exit(1);
+      }
     } else if (cmd.equals("verificar-timbrado")) { 
       CFDv3 cfd = new CFDv3(new FileInputStream(args[1]));
       X509Certificate cert = KeyLoader

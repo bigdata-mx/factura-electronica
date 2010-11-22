@@ -1,0 +1,40 @@
+           FACTURA ELECTRONICA (CFDI) LICENSE INFORMATION
+
+November 19, 2010
+
+The Factura Electronica (CFDI) software is licensed under the Apache License,
+Version 2.0. Other software included in this distribution is provided under 
+other licenses, as listed in the Included Software and Licenses section at 
+the bottom of this page. Source code for software included in this distribution
+is available from the Factura Electronica (CFDI) project or as otherwise 
+indicated at the bottom of this page. 
+
+===
+
+LICENSE INFORMATION REGARDING BUNDLED THIRD-PARTY SOFTWARE
+
+The following third party software is distributed with Factura 
+Electronica (CFDI) software and is provided under other licenses and/or
+has source available from other locations.
+
+* Google guava-libraries
+  License: Apache License, Version 2.0 
+  Source code availability: http://code.google.com/p/guava-libraries/
+
+* Apache Commons
+  License: Apache License, Version 2.0
+  Source code availability: http://commons.apache.org/codec/
+
+* Not-Yet-Commons-SSL
+  License: Apache License, Version 2.0
+  Source code availability: http://juliusdavies.ca/commons-ssl/
+  
+* JAXB
+  License: COMMON DEVELOPMENT AND DISTRIBUTION LICENSE (CDDL)Version 1.1
+    https://glassfish.dev.java.net/public/CDDL+GPL_1_1.html
+  Source code availability: https://jaxb.dev.java.net/
+
+* Bouncy Castle Crypto APIs
+  License: (Custom)
+    http://www.bouncycastle.org/licence.html
+  Source code availability: http://www.bouncycastle.org/java.html

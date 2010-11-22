@@ -22,19 +22,30 @@ import java.io.OutputStream;
 import java.security.PrivateKey;
 import java.security.cert.Certificate;
 import java.security.cert.X509Certificate;
+import java.util.List;
+
+import org.xml.sax.SAXParseException;
 
 import mx.bigdata.sat.cfd.CFDv2;
+import mx.bigdata.sat.common.ValidationErrorHandler;
 import mx.bigdata.sat.security.KeyLoader;
-
-import org.xml.sax.helpers.DefaultHandler;
 
 public final class CLI {
 
   public static void main(String[] args) throws Exception {
     String cmd = args[0];
     if (cmd.equals("validar")) {
-      CFDv2 cfd = new CFDv2(new FileInputStream(args[1]));
-      cfd.validar(new DefaultHandler());
+      String file = args[1];
+      CFDv2 cfd = new CFDv2(new FileInputStream(file));
+      ValidationErrorHandler handler = new ValidationErrorHandler();
+      cfd.validar(handler);
+      List<SAXParseException> errors = handler.getErrors();
+      if (errors.size() > 0) {
+        for (SAXParseException e : errors) {
+          System.err.printf("%s %s\n", file, e.getMessage());
+        }
+        System.exit(1);
+      }
     } else if (cmd.equals("verificar")) { 
       CFDv2 cfd = new CFDv2(new FileInputStream(args[1]));
       if (args.length == 3) {

@@ -85,6 +85,7 @@ public final class CFDv2 {
 
 
   public void sellar(PrivateKey key, X509Certificate cert) throws Exception {
+    cert.checkValidity(); 
     String signature = getSignature(key);
     document.setSello(signature);
     byte[] bytes = cert.getEncoded();
@@ -116,7 +117,7 @@ public final class CFDv2 {
     byte[] cbs = b64.decode(certStr);
     X509Certificate cert = KeyLoader
       .loadX509Certificate(new ByteArrayInputStream(cbs)); 
-    cert.checkValidity(); 
+    verificar(cert);
   }
 
   public void verificar(Certificate cert) throws Exception {

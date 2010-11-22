@@ -35,6 +35,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.transform.Result;
 import javax.xml.transform.Transformer;
+import javax.xml.transform.Source;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
@@ -55,6 +56,8 @@ public final class CFDv3 {
   private static final String XSLT = "/xslt/cadenaoriginal_3_0.xslt";
   
   private static final String XSD = "/xsd/v3/cfdv3.xsd";
+
+  private static final String XSD_TFD = "/xsd/v3/TimbreFiscalDigital.xsd";
       
   private static final JAXBContext CONTEXT = createContext();
   
@@ -84,6 +87,7 @@ public final class CFDv3 {
   }
 
   public void sellar(PrivateKey key, X509Certificate cert) throws Exception {
+    cert.checkValidity(); 
     String signature = getSignature(key);
     document.setSello(signature);
     byte[] bytes = cert.getEncoded();
@@ -101,7 +105,11 @@ public final class CFDv3 {
   public void validar(ErrorHandler handler) throws Exception {
     SchemaFactory sf =
       SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-    Schema schema = sf.newSchema(getClass().getResource(XSD));
+    Source[] schemas = new Source[] {
+      new StreamSource(getClass().getResourceAsStream(XSD)),
+      new StreamSource(getClass().getResourceAsStream(XSD_TFD))  
+    };
+    Schema schema = sf.newSchema(schemas);
     Validator validator = schema.newValidator();
     if (handler != null) {
       validator.setErrorHandler(handler);
@@ -115,7 +123,6 @@ public final class CFDv3 {
     byte[] cbs = b64.decode(certStr);
     X509Certificate cert = KeyLoader
       .loadX509Certificate(new ByteArrayInputStream(cbs)); 
-    cert.checkValidity(); 
     String sigStr = document.getSello();
     byte[] signature = b64.decode(sigStr); 
     byte[] bytes = getOriginalBytes();

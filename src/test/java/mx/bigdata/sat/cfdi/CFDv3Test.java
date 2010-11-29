@@ -25,6 +25,7 @@ import java.security.PrivateKey;
 import java.security.cert.X509Certificate;
 
 import mx.bigdata.sat.cfdi.examples.ExampleCFDFactory;
+import mx.bigdata.sat.cfdi.schema.Comprobante;
 import mx.bigdata.sat.security.KeyLoader;
 
 import org.junit.BeforeClass;
@@ -81,6 +82,14 @@ public final class CFDv3Test {
   @Test public void testValidateVerifyExternal() throws Exception {
     CFDv3 cfd = 
       new CFDv3(new FileInputStream("resources/xml/cfdv3.externo.xml"));
+    cfd.validar();
+    cfd.verificar();
+  }
+
+  @Test public void testLoad() throws Exception {
+    Comprobante c = CFDv3
+      .newComprobante(new FileInputStream("resources/xml/cfdv3.externo.xml"));
+    CFDv3 cfd = new CFDv3(c);
     cfd.validar();
     cfd.verificar();
   }

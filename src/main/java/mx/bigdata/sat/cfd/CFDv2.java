@@ -148,6 +148,10 @@ public final class CFDv2 {
     return new String(bytes, "UTF8");
   }
 
+  public static Comprobante newComprobante(InputStream in) throws Exception {
+    return load(in);
+  }
+
   byte[] getOriginalBytes() throws Exception {
     JAXBSource in = new JAXBSource(CONTEXT, document);
     ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -189,12 +193,12 @@ public final class CFDv2 {
     return (Comprobante) u.unmarshal(doc);
   }
 
-  private Comprobante load(InputStream source) throws Exception {
+  private static Comprobante load(InputStream in) throws Exception {
     try {
       Unmarshaller u = CONTEXT.createUnmarshaller();
-      return (Comprobante) u.unmarshal(source);
+      return (Comprobante) u.unmarshal(in);
     } finally {
-      source.close();
+      in.close();
     }
   }
 }

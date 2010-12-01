@@ -97,6 +97,12 @@ public final class CFDv3 {
     BigInteger bi = cert.getSerialNumber();
     document.setNoCertificado(new String(bi.toByteArray()));
   }
+  
+  public Comprobante sellarComprobante(PrivateKey key, X509Certificate cert) 
+    throws Exception {
+    sellar(key, cert);
+    return getComprobante();
+  }
 
   public void validar() throws Exception {
     validar(null);

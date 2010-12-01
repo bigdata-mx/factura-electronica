@@ -17,6 +17,7 @@
 package mx.bigdata.sat.cfd;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -92,5 +93,15 @@ public final class CFDv2Test {
     CFDv2 cfd = new CFDv2(c);
     cfd.validar();
     cfd.verificar();
+  }
+
+  @Test public void testSellarComprobante() throws Exception {
+    Comprobante c = CFDv2
+      .newComprobante(new FileInputStream("resources/xml/cfdv2.xml"));
+    CFDv2 cfd = new CFDv2(c);
+    Comprobante sellado = cfd.sellarComprobante(key, cert);
+    assertNotNull(sellado.getSello());
+    assertNotNull(sellado.getNoCertificado());
+    assertNotNull(sellado.getCertificado());
   }
 }

@@ -1,4 +1,4 @@
-package mx.bigdata.cfdi;
+package mx.bigdata.sat.plugins;
 
 import junit.framework.Test;
 import junit.framework.TestCase;

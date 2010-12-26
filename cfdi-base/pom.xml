@@ -163,12 +163,6 @@
             </goals>
           </execution>
         </executions>
-      </plugin> 
-      <plugin>
-        <artifactId>maven-release-plugin</artifactId>
-        <configuration>
-          <goals>package</goals>
-        </configuration>
       </plugin>
       <plugin>
         <groupId>org.codehaus.mojo</groupId>

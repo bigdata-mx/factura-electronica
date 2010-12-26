@@ -29,6 +29,11 @@
   <modules>
     <module>cfdi-base</module>
     <module>cfdi-plugins</module>
-  </modules>
-
+  </modules> 
+  <plugin>
+    <artifactId>maven-release-plugin</artifactId>
+    <configuration>
+      <goals>package</goals>
+    </configuration>
+  </plugin>
 </project>

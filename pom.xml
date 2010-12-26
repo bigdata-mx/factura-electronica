@@ -30,10 +30,15 @@
     <module>cfdi-base</module>
     <module>cfdi-plugins</module>
   </modules> 
-  <plugin>
-    <artifactId>maven-release-plugin</artifactId>
-    <configuration>
-      <goals>package</goals>
-    </configuration>
-  </plugin>
+  <build>
+    <defaultGoal>install</defaultGoal>
+    <plugins>
+      <plugin>
+        <artifactId>maven-release-plugin</artifactId>
+        <configuration>
+          <goals>package</goals>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
 </project>

@@ -375,10 +375,9 @@
 						<xs:documentation>Nodo opcional donde se incluirá el complemento Timbre Fiscal Digital de manera obligatoria y los nodos complementarios determinados por el SAT, de acuerdo a las disposiciones particulares a un sector o actividad especifica. </xs:documentation>
 					</xs:annotation>
 					<xs:complexType>
-					  <xs:sequence>
-					    <xs:any minOccurs="0" 
-                                                    maxOccurs="unbounded"/>
-					  </xs:sequence>
+						<xs:sequence>
+							<xs:any minOccurs="0" maxOccurs="unbounded"/>
+						</xs:sequence>
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="Addenda" minOccurs="0">

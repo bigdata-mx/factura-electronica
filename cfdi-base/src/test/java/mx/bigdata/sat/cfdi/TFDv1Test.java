@@ -21,6 +21,7 @@ import static org.junit.Assert.assertEquals;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
+import java.math.BigInteger;
 import java.security.PrivateKey;
 import java.security.cert.X509Certificate;
 import java.util.Date;
@@ -68,15 +69,16 @@ public final class TFDv1Test {
   }
   
   @Test public void testOriginalString() throws Exception {
-    String cadena = "||1.0|843a05d7-207d-4adc-91e8-bda7175bcda3|2010-11-12T08:51:00|uo+1Boc1MWbT4so1/Rp1lG1xjVLJBMAMmV2Bkh4psNCRvGLQqi/22cD45XqTV9MWwmCU8nBSE7PJJp0xMSi0JML7HAXZollIBUAdzzSFhSP64+EGokW0bc+a8JVbNnkRFaxtTiScw+vOjDUzoA4ZUdV8qk9hBj3sLTPNosKxEpk=|30001000000100000801||";
+    String cadena = "||1.0|843a05d7-207d-4adc-91e8-bda7175bcda3|2010-11-12T08:51:00|QepNuYG/YJNY12CSs0J2FeNLZCf43wqxxWSSdB0BQZXLK99hpkCLyxRXaHgxBaxNRTinHuDeR83ArT1+YpUbNxtkzBkoVJ/6JvY1HgpbvBsoncDvT/8NaJTsYQYIvygrLPFnabF2uPkASrOsMmKN30cRF5/sHOjOjfUBuYN5mno=|30001000000100000801||";
     assertEquals(cadena, tfd.getCadenaOriginal());
   }
     
   @Test public void testStamp() throws Exception {
     tfd.timbrar(pacKey);
-    String signature = "CHDar0kb7HhNvh9u1ldhzfCvrbaLQEMsY4LWL49WE5pqrVkp/vKpH07GKCBBDrLS2FtuCd3VUdFLEEqAZPdGByL5CNRFtneVMW8uwLkq3wey1hFkFqeNVizc3iFPV4BL6kwWMXkmAV3rsCM7QL5ZCy7ceepfjxy87rp0xgFUrr8=";
-    assertEquals(signature, tfd.getTimbre().getSelloSAT());
-    String certificateNum = "30001000000100000801";
+    String signature = "H6pS6I7OX7LLvA2BrQ+frCtahJMDw4O67YASlR9gO7cEOq68d0vaDMATTgdT/W9ATBIR7BjSVRCDo74HoLin0fa6KwglL+tZUOVb7rUeA7adMFXrwMDIg993J7umPIOB8SdlbMxQ0APX1UQD53/huV85mHQpDcds3IjuI9/4JdU=";
+    assertEquals(signature, tfd.getTimbre().getSelloSAT());    
+    BigInteger bi = pacCert.getSerialNumber();
+    String certificateNum = new String(bi.toByteArray());
     assertEquals(certificateNum, tfd.getTimbre().getNoCertificadoSAT());
   }
   

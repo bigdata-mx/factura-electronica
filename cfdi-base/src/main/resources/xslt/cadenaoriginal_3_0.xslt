@@ -27,12 +27,6 @@
 		<xsl:call-template name="Requerido">
 			<xsl:with-param name="valor" select="./@version"/>
 		</xsl:call-template>
-		<xsl:call-template name="Opcional">
-			<xsl:with-param name="valor" select="./@serie"/>
-		</xsl:call-template>
-		<xsl:call-template name="Opcional">
-			<xsl:with-param name="valor" select="./@folio"/>
-		</xsl:call-template>
 		<xsl:call-template name="Requerido">
 			<xsl:with-param name="valor" select="./@fecha"/>
 		</xsl:call-template>
@@ -51,10 +45,10 @@
 		<xsl:call-template name="Opcional">
 			<xsl:with-param name="valor" select="./@descuento"/>
 		</xsl:call-template>
-		<xsl:call-template name="Requerido">
+		<xsl:call-template name="Opcional">
 			<xsl:with-param name="valor" select="./@TipoCambio"/>
 		</xsl:call-template>
-		<xsl:call-template name="Requerido">
+		<xsl:call-template name="Opcional">
 			<xsl:with-param name="valor" select="./@Moneda"/>
 		</xsl:call-template>
 		<xsl:call-template name="Requerido">

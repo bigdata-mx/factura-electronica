@@ -20,6 +20,7 @@ import java.io.FileInputStream;
 import java.security.PrivateKey;
 import java.security.cert.X509Certificate;
 
+import mx.bigdata.sat.cfdi.schema.Comprobante;
 import mx.bigdata.sat.cfdi.CFDv3;
 import mx.bigdata.sat.security.KeyLoader;
 
@@ -31,9 +32,10 @@ public final class Main {
                                             args[1]);
     X509Certificate cert = KeyLoader
       .loadX509Certificate(new FileInputStream(args[2]));
-    cfd.sellar(key, cert);
+    Comprobante sellado = cfd.sellarComprobante(key, cert);
+    System.err.println(sellado.getSello());
     cfd.validar();
     cfd.verificar();
-    cfd.guardar(System.err);
+    cfd.guardar(System.out);
   }
 }

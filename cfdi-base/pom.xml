@@ -5,6 +5,14 @@
   <packaging>jar</packaging>
   <version>0.1.5-SNAPSHOT</version>
   <name>cfdi</name>
+  <parent>
+    <groupId>mx.bigdata.cfdi</groupId>
+    <artifactId>cfdi</artifactId>
+    <version>1.0</version>
+  </parent>
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
   <repositories>
     <repository>
       <id>java.net</id>

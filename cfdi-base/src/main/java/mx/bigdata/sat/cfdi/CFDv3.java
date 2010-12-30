@@ -44,6 +44,7 @@ import javax.xml.validation.SchemaFactory;
 import javax.xml.validation.Validator;
 
 import mx.bigdata.sat.cfdi.schema.Comprobante;
+import mx.bigdata.sat.common.CFD;
 import mx.bigdata.sat.common.URIResolverImpl;
 import mx.bigdata.sat.security.KeyLoader;
 
@@ -51,7 +52,7 @@ import org.apache.commons.codec.binary.Base64;
 import org.w3c.dom.Document;
 import org.xml.sax.ErrorHandler;
 
-public final class CFDv3 {
+public final class CFDv3 implements CFD {
 
   private static final String XSLT = "/xslt/cadenaoriginal_3_0.xslt";
   

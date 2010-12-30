@@ -25,6 +25,7 @@
   </scm>
   <modules>
     <module>cfdi-base</module>
+    <module>cfdi-dsl</module>
     <module>cfdi-plugins</module>
   </modules> 
   <build>
@@ -34,6 +35,15 @@
         <artifactId>maven-release-plugin</artifactId>
         <configuration>
           <goals>package</goals>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>1.5</source>
+          <target>1.5</target>
+          <showDeprecation>true</showDeprecation>
         </configuration>
       </plugin>
     </plugins>

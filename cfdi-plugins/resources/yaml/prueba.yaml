@@ -1,0 +1,46 @@
+version: "2.0"
+fecha: 2011-01-01 14:11:36 -5
+serie: ABCD
+folio: "2"
+noAprobacion: 49
+anoAprobacion: 2008
+formaDePago: UNA SOLA EXHIBICIÓN
+subTotal: 2000.0
+total: 2320.0
+tipoDeComprobante: ingreso
+emisor:
+  nombre: CONTRIBUYENTE PRUEBASEIS PATERNOSEIS MATERNOSEIS
+  rfc: PAMC660606ER9
+  domicilioFiscal:
+    calle: PRUEBA SEIS 
+    codigoPostal: "72000"
+    colonia: PUEBLA CENTRO
+    municipio: PUEBLA
+    estado: PUEBLA
+    noExterior: "6"
+    noInterior: "6"
+    pais: MÉXICO
+receptor:
+  nombre: ROSA MARÍA CALDERÓN UIRIEGAS
+  rfc: CAUR390312S87
+  domicilio:
+    calle: TOPOCHICO
+    noExterior: "52"
+    codigoPostal: "95465"
+    colonia: JARDINES DEL VALLE
+    estado: NUEVO LEON
+    pais: México
+conceptos:
+- concepto: 
+    cantidad: 1.0
+    unidad: Servicio
+    descripcion: Asesoria Fiscal y administrativa
+    valorUnitario: 2000.00
+    importe: 2000.00
+impuestos:
+  traslados: 
+  - traslado:
+      impuesto: IVA
+      tasa: 16.00
+      importe: 320.00
+  

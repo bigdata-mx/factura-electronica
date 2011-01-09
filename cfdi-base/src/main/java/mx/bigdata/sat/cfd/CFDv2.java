@@ -25,6 +25,8 @@ import java.security.PrivateKey;
 import java.security.Signature;
 import java.security.cert.Certificate;
 import java.security.cert.X509Certificate;
+import java.util.Calendar;
+import java.util.Date;
 
 import javax.xml.XMLConstants;
 import javax.xml.bind.JAXBContext;
@@ -132,7 +134,8 @@ public final class CFDv2 implements CFD {
     Base64 b64 = new Base64();
     byte[] signature = b64.decode(sigStr); 
     byte[] bytes = getOriginalBytes();
-    Signature sig = Signature.getInstance("SHA1withRSA");
+    String alg = getDigestAlgorithm();
+    Signature sig = Signature.getInstance(alg);
     sig.initVerify(cert);
     sig.update(bytes);
     boolean bool = sig.verify(signature);
@@ -145,7 +148,7 @@ public final class CFDv2 implements CFD {
     Marshaller m = CONTEXT.createMarshaller();
     m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
     m.setProperty(Marshaller.JAXB_SCHEMA_LOCATION, 
-                  "http://www.sat.gob.mx/cfd "
+                  getSchemaLocation() + " "
                   + "http://www.sat.gob.mx/sitio_internet/cfd/2/cfdv2.xsd");
     m.marshal(document, out);
   }
@@ -176,10 +179,12 @@ public final class CFDv2 implements CFD {
   
   String getSignature(PrivateKey key) throws Exception {
     byte[] bytes = getOriginalBytes();
-    Signature sig = Signature.getInstance("SHA1withRSA");
+    byte[] signed;
+    String alg = getDigestAlgorithm();
+    Signature sig = Signature.getInstance(alg);
     sig.initSign(key);
     sig.update(bytes);
-    byte[] signed = sig.sign();
+    signed = sig.sign();
     Base64 b64 = new Base64(-1);
     return b64.encodeToString(signed);
   }
@@ -198,6 +203,22 @@ public final class CFDv2 implements CFD {
     m.marshal(comprobante, doc);
     Unmarshaller u = CONTEXT.createUnmarshaller();
     return (Comprobante) u.unmarshal(doc);
+  }
+  
+  private String getDigestAlgorithm() {
+    return (getYear() > 2010) ? "SHA1withRSA" : "MD5withRSA";
+  }
+
+  private String getSchemaLocation() {
+    return (getYear() > 2010) ? "http://www.sat.gob.mx/cfd" 
+      : "http://www.sat.gob.mx/cfd/2";
+  }
+
+  private int getYear() {
+    Date date = document.getFecha();
+    Calendar c = Calendar.getInstance();
+    c.setTime(date);
+    return c.get(Calendar.YEAR);
   }
 
   private static Comprobante load(InputStream in) throws Exception {

@@ -23,6 +23,7 @@ import java.io.OutputStream;
 import java.math.BigInteger;
 import java.security.PrivateKey;
 import java.security.Signature;
+import java.security.SignatureException;
 import java.security.cert.Certificate;
 import java.security.cert.X509Certificate;
 import java.util.Calendar;
@@ -58,6 +59,9 @@ public final class CFDv2 implements CFD {
   private static final String XSLT = "/xslt/cadenaoriginal_2_0.xslt";
   
   private static final String XSD = "/xsd/v2/cfdv2.xsd";
+  
+  private static final String XML_HEADER = 
+    "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
       
   private static final JAXBContext CONTEXT = createContext();
   
@@ -134,22 +138,38 @@ public final class CFDv2 implements CFD {
     Base64 b64 = new Base64();
     byte[] signature = b64.decode(sigStr); 
     byte[] bytes = getOriginalBytes();
-    String alg = getDigestAlgorithm();
-    Signature sig = Signature.getInstance(alg);
-    sig.initVerify(cert);
-    sig.update(bytes);
-    boolean bool = sig.verify(signature);
-    if (!bool) {
-      throw new Exception("Invalid signature");
+    boolean md5 = true;
+    if (getYear() < 2011) {
+      Signature sig = Signature.getInstance("MD5withRSA");
+      sig.initVerify(cert);
+      sig.update(bytes);
+      try {
+        sig.verify(signature);
+      } catch (SignatureException e){
+        // Not MD5
+        md5 = false;
+      }
+    } 
+    if (getYear() > 2010 || !md5) {
+      Signature sig = Signature.getInstance("SHA1withRSA");
+      sig.initVerify(cert);
+      sig.update(bytes);
+      boolean bool = sig.verify(signature);
+      if (!bool) {
+        throw new Exception("Invalid signature");
+      }
     }
   }
 
   public void guardar(OutputStream out) throws Exception {
     Marshaller m = CONTEXT.createMarshaller();
+    m.setProperty(Marshaller.JAXB_FRAGMENT, Boolean.TRUE);
     m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
     m.setProperty(Marshaller.JAXB_SCHEMA_LOCATION, 
-                  getSchemaLocation() + " "
+                  "http://www.sat.gob.mx/cfd/2 "
                   + "http://www.sat.gob.mx/sitio_internet/cfd/2/cfdv2.xsd");
+    byte[] xmlHeaderBytes = XML_HEADER.getBytes("UTF8");
+    out.write(xmlHeaderBytes); 
     m.marshal(document, out);
   }
   
@@ -189,7 +209,7 @@ public final class CFDv2 implements CFD {
     return b64.encodeToString(signed);
   }
 
-  Comprobante getComprobante() throws Exception {
+  private Comprobante getComprobante() throws Exception {
     return copy(document);
   }
 
@@ -207,11 +227,6 @@ public final class CFDv2 implements CFD {
   
   private String getDigestAlgorithm() {
     return (getYear() > 2010) ? "SHA1withRSA" : "MD5withRSA";
-  }
-
-  private String getSchemaLocation() {
-    return (getYear() > 2010) ? "http://www.sat.gob.mx/cfd" 
-      : "http://www.sat.gob.mx/cfd/2";
   }
 
   private int getYear() {

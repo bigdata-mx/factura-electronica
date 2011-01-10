@@ -59,6 +59,9 @@ public final class CFDv3 implements CFD {
   private static final String XSD = "/xsd/v3/cfdv3.xsd";
 
   private static final String XSD_TFD = "/xsd/v3/TimbreFiscalDigital.xsd";
+  
+  private static final String XML_HEADER = 
+    "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
       
   private static final JAXBContext CONTEXT = createContext();
   
@@ -146,9 +149,12 @@ public final class CFDv3 implements CFD {
     Marshaller m = CONTEXT.createMarshaller();
     m.setProperty("com.sun.xml.bind.namespacePrefixMapper",
                   new NamespacePrefixMapperImpl());
+    m.setProperty(Marshaller.JAXB_FRAGMENT, Boolean.TRUE);
     m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
     m.setProperty(Marshaller.JAXB_SCHEMA_LOCATION, 
                   "http://www.sat.gob.mx/cfd/3 cfdv3.xsd");
+    byte[] xmlHeaderBytes = XML_HEADER.getBytes("UTF8");
+    out.write(xmlHeaderBytes); 
     m.marshal(document, out);
   }
 

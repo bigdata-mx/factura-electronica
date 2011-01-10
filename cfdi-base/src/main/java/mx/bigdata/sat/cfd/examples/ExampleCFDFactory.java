@@ -37,10 +37,14 @@ import mx.bigdata.sat.cfd.schema.Comprobante.Impuestos.Traslados.Traslado;
 public final class ExampleCFDFactory {
     
   public static Comprobante createComprobante() throws Exception {
+    return createComprobante(2010);
+  }
+
+  public static Comprobante createComprobante(int year) throws Exception {
     ObjectFactory of = new ObjectFactory();
     Comprobante comp = of.createComprobante();
     comp.setVersion("2.0");
-    Date date = new GregorianCalendar(2010, 04, 03, 14, 11, 36).getTime();
+    Date date = new GregorianCalendar(year, 04, 03, 14, 11, 36).getTime();
     comp.setFecha(date);
     comp.setSerie("ABCD");
     comp.setFolio("2");

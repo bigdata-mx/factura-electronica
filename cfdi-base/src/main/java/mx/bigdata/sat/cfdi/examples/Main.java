@@ -27,7 +27,8 @@ import mx.bigdata.sat.security.KeyLoader;
 public final class Main {
     
   public static void main(String[] args) throws Exception {
-    CFDv3 cfd = new CFDv3(ExampleCFDFactory.createComprobante());
+    CFDv3 cfd = new CFDv3(ExampleCFDFactory.createComprobante(), 
+                          "mx.bigdata.sat.cfdi.examples");
     PrivateKey key = KeyLoader.loadPKCS8PrivateKey(new FileInputStream(args[0]),
                                             args[1]);
     X509Certificate cert = KeyLoader

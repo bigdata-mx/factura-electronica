@@ -25,6 +25,7 @@ import java.math.BigInteger;
 import java.security.PrivateKey;
 import java.security.Signature;
 import java.security.cert.X509Certificate;
+import java.util.List;
 
 import javax.xml.XMLConstants;
 import javax.xml.bind.JAXBContext;
@@ -52,6 +53,9 @@ import org.apache.commons.codec.binary.Base64;
 import org.w3c.dom.Document;
 import org.xml.sax.ErrorHandler;
 
+import com.google.common.base.Joiner;
+import com.google.common.collect.Lists;
+
 public final class CFDv3 implements CFD {
 
   private static final String XSLT = "/xslt/cadenaoriginal_3_0.xslt";
@@ -59,27 +63,25 @@ public final class CFDv3 implements CFD {
   private static final String XSD = "/xsd/v3/cfdv3.xsd";
 
   private static final String XSD_TFD = "/xsd/v3/TimbreFiscalDigital.xsd";
-  
+
   private static final String XML_HEADER = 
     "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
-      
-  private static final JAXBContext CONTEXT = createContext();
+
+  private static final String BASE_CONTEXT = "mx.bigdata.sat.cfdi.schema";
   
-  private static final JAXBContext createContext() {
-    try {
-      return JAXBContext.newInstance("mx.bigdata.sat.cfdi.schema");
-    } catch (Exception e) {
-      throw new Error(e);
-    } 
-  }
+  private final static Joiner JOINER = Joiner.on(':');
+      
+  private final JAXBContext context;
 
   final Comprobante document;
 
-  public CFDv3(InputStream in) throws Exception {
+  public CFDv3(InputStream in, String... contexts) throws Exception {
+    this.context = getContext(contexts);
     this.document = load(in);
   }
 
-  public CFDv3(Comprobante comprobante) throws Exception {
+  public CFDv3(Comprobante comprobante, String... contexts) throws Exception {
+    this.context = getContext(contexts);
     this.document = copy(comprobante);
   }
 
@@ -124,7 +126,7 @@ public final class CFDv3 implements CFD {
     if (handler != null) {
       validator.setErrorHandler(handler);
     }
-    validator.validate(new JAXBSource(CONTEXT, document));
+    validator.validate(new JAXBSource(context, document));
   }
 
   public void verificar() throws Exception {
@@ -146,7 +148,7 @@ public final class CFDv3 implements CFD {
   }
   
   public void guardar(OutputStream out) throws Exception {
-    Marshaller m = CONTEXT.createMarshaller();
+    Marshaller m = context.createMarshaller();
     m.setProperty("com.sun.xml.bind.namespacePrefixMapper",
                   new NamespacePrefixMapperImpl());
     m.setProperty(Marshaller.JAXB_FRAGMENT, Boolean.TRUE);
@@ -168,7 +170,7 @@ public final class CFDv3 implements CFD {
   }
 
   byte[] getOriginalBytes() throws Exception {
-    JAXBSource in = new JAXBSource(CONTEXT, document);
+    JAXBSource in = new JAXBSource(context, document);
     ByteArrayOutputStream baos = new ByteArrayOutputStream();
     Result out = new StreamResult(baos);
     TransformerFactory factory = tf;
@@ -202,15 +204,22 @@ public final class CFDv3 implements CFD {
     dbf.setNamespaceAware(true);
     DocumentBuilder db = dbf.newDocumentBuilder(); 
     Document doc = db.newDocument();
-    Marshaller m = CONTEXT.createMarshaller();
+    Marshaller m = context.createMarshaller();
     m.marshal(comprobante, doc);
-    Unmarshaller u = CONTEXT.createUnmarshaller();
+    Unmarshaller u = context.createUnmarshaller();
     return (Comprobante) u.unmarshal(doc);
   }
+  
+  private static JAXBContext getContext(String[] contexts) throws Exception {
+    List<String> ctx = Lists.asList(BASE_CONTEXT, contexts);
+    return JAXBContext.newInstance(JOINER.join(ctx));
+  }
 
-  private static Comprobante load(InputStream source) throws Exception {
+  private static Comprobante load(InputStream source, String... contexts) 
+    throws Exception {
+    JAXBContext context = getContext(contexts);
     try {
-      Unmarshaller u = CONTEXT.createUnmarshaller();
+      Unmarshaller u = context.createUnmarshaller();
       return (Comprobante) u.unmarshal(source);
     } finally {
       source.close();

@@ -61,7 +61,8 @@ public final class TFDv1Test {
   }
 
   @Before public void setupTFD() throws Exception {
-    CFDv3 cfd = new CFDv3(ExampleCFDFactory.createComprobante());
+    CFDv3 cfd = new CFDv3(ExampleCFDFactory.createComprobante(), 
+                          "mx.bigdata.sat.cfdi.examples");
     cfd.sellar(key, cert);
     Date date = new GregorianCalendar(2010, 10, 12, 8, 51, 00).getTime();
     UUID uuid = UUID.fromString("843a05d7-207d-4adc-91e8-bda7175bcda3");

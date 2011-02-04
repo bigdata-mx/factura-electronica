@@ -21,10 +21,13 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+import javax.xml.bind.annotation.*;
+
 import mx.bigdata.sat.cfdi.schema.Comprobante;
 import mx.bigdata.sat.cfdi.schema.ObjectFactory;
 import mx.bigdata.sat.cfdi.schema.TUbicacion;
 import mx.bigdata.sat.cfdi.schema.TUbicacionFiscal;
+import mx.bigdata.sat.cfdi.schema.Comprobante.Addenda;
 import mx.bigdata.sat.cfdi.schema.Comprobante.Conceptos;
 import mx.bigdata.sat.cfdi.schema.Comprobante.Emisor;
 import mx.bigdata.sat.cfdi.schema.Comprobante.Impuestos;
@@ -49,6 +52,7 @@ public final class ExampleCFDFactory {
     comp.setReceptor(createReceptor(of));
     comp.setConceptos(createConceptos(of));
     comp.setImpuestos(createImpuestos(of));
+    comp.setAddenda(createAddenda(of));
     return comp;
   }
     
@@ -138,5 +142,24 @@ public final class ExampleCFDFactory {
     return imps;
   }
 
+  private static Addenda createAddenda(ObjectFactory of) {
+    Addenda addenda = of.createComprobanteAddenda();
+    Company c = new Company();
+    c.transaction = new Transaction();
+    c.transaction.purchaseOrder = "4600364283";
+    addenda.getAny().add(c);
+    return addenda;
+  }
 
+  @XmlRootElement(name="Company")
+  private final static class Company {
+    @XmlElement(name="Transaction")
+    Transaction transaction;
+  }
+  
+  @XmlRootElement
+  private final static class Transaction {
+    @XmlAttribute(name="PurchaseOrder")
+    String purchaseOrder;
+  }  
 }

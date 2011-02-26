@@ -64,19 +64,19 @@ public final class TFDv1Test {
     CFDv3 cfd = new CFDv3(ExampleCFDFactory.createComprobante(), 
                           "mx.bigdata.sat.cfdi.examples");
     cfd.sellar(key, cert);
-    Date date = new GregorianCalendar(2010, 10, 12, 8, 51, 00).getTime();
+    Date date = new GregorianCalendar(2011, 01, 07, 8, 51, 00).getTime();
     UUID uuid = UUID.fromString("843a05d7-207d-4adc-91e8-bda7175bcda3");
     tfd = new TFDv1(cfd, pacCert, uuid, date);  
   }
   
   @Test public void testOriginalString() throws Exception {
-    String cadena = "||1.0|843a05d7-207d-4adc-91e8-bda7175bcda3|2010-11-12T08:51:00|QepNuYG/YJNY12CSs0J2FeNLZCf43wqxxWSSdB0BQZXLK99hpkCLyxRXaHgxBaxNRTinHuDeR83ArT1+YpUbNxtkzBkoVJ/6JvY1HgpbvBsoncDvT/8NaJTsYQYIvygrLPFnabF2uPkASrOsMmKN30cRF5/sHOjOjfUBuYN5mno=|30001000000100000801||";
+    String cadena = "||1.0|843a05d7-207d-4adc-91e8-bda7175bcda3|2011-02-07T08:51:00|C3erAp8WBWhndqVrWHF4stkhtEYqxhg1jeqgypnzFaj7q+NVTkBsBbRqGo48IUsgvb2mSDjEdRvFqb3bcQX3iA7mykWCqXWi0DD75DmguGSjNkEDPdvzPR8+JFSILDdmEvJHSDl+tFM3vf4ApccIrRO5Ouk6ruQloZGl4xWKS7k=|30001000000100000801||";
     assertEquals(cadena, tfd.getCadenaOriginal());
   }
     
   @Test public void testStamp() throws Exception {
     tfd.timbrar(pacKey);
-    String signature = "H6pS6I7OX7LLvA2BrQ+frCtahJMDw4O67YASlR9gO7cEOq68d0vaDMATTgdT/W9ATBIR7BjSVRCDo74HoLin0fa6KwglL+tZUOVb7rUeA7adMFXrwMDIg993J7umPIOB8SdlbMxQ0APX1UQD53/huV85mHQpDcds3IjuI9/4JdU=";
+    String signature = "dtClAtpaCX6095uxE+QGyOc9wIxtUyFLfRZIKtP56czfHVT/rTozD0JNYfEoL8Al1u26MHqLTIImO6cg0I2jSv9N3h9F1VRLHZWAEha70NrVvyARgcWjGWJ6yPf2//u0WWf1oSQ++16ab5XDR/rT1eZKKkYp/SwELHzWqap+zEM=";
     assertEquals(signature, tfd.getTimbre().getSelloSAT());    
     BigInteger bi = pacCert.getSerialNumber();
     String certificateNum = new String(bi.toByteArray());

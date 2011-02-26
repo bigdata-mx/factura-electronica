@@ -44,6 +44,7 @@ import javax.xml.validation.Validator;
 import mx.bigdata.sat.cfdi.schema.Comprobante;
 import mx.bigdata.sat.cfdi.schema.ObjectFactory;
 import mx.bigdata.sat.cfdi.schema.TimbreFiscalDigital;
+import mx.bigdata.sat.common.NamespacePrefixMapperImpl;
 
 import org.apache.commons.codec.binary.Base64;
 import org.w3c.dom.Document;
@@ -137,10 +138,11 @@ public final class TFDv1 {
   public void guardar(OutputStream out) throws Exception {
     Marshaller m = CONTEXT.createMarshaller();
     m.setProperty("com.sun.xml.bind.namespacePrefixMapper",
-                  new NamespacePrefixMapperImpl());
+                  new NamespacePrefixMapperImpl(CFDv3.PREFIXES));
     m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
     m.setProperty(Marshaller.JAXB_SCHEMA_LOCATION, 
-                  "http://www.sat.gob.mx/cfd/3 cfdv3.xsd");
+                  "http://www.sat.gob.mx/cfd/3  "
+                  + "http://www.sat.gob.mx/sitio_internet/cfd/3/cfdv3.xsd");
     m.marshal(document, out);
   }
 
@@ -188,7 +190,7 @@ public final class TFDv1 {
     Document doc = db.newDocument();
     Marshaller m = CONTEXT.createMarshaller();
     m.setProperty("com.sun.xml.bind.namespacePrefixMapper",
-                  new NamespacePrefixMapperImpl());
+                  new NamespacePrefixMapperImpl(CFDv3.PREFIXES));
     m.setProperty(Marshaller.JAXB_FRAGMENT, Boolean.TRUE);
     m.setProperty(Marshaller.JAXB_SCHEMA_LOCATION, 
          "http://www.sat.gob.mx/TimbreFiscalDigital TimbreFiscalDigital.xsd");

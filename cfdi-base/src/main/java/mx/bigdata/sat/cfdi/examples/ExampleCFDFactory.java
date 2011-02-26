@@ -1,5 +1,5 @@
 /*
- *  Copyright 2010 BigData.mx
+ *  Copyright 2010-2011 BigData.mx
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -42,10 +42,10 @@ public final class ExampleCFDFactory {
     ObjectFactory of = new ObjectFactory();
     Comprobante comp = of.createComprobante();
     comp.setVersion("3.0");
-    Date date = new GregorianCalendar(2010, 02, 06, 20, 38, 12).getTime();
+    Date date = new GregorianCalendar(2011, 01, 06, 20, 38, 12).getTime();
     comp.setFecha(date);
     comp.setFormaDePago("PAGO EN UNA SOLA EXHIBICION");
-    comp.setSubTotal(new BigDecimal("488.50"));
+    comp.setSubTotal(new BigDecimal("466.43"));
     comp.setTotal(new BigDecimal("488.50"));
     comp.setTipoDeComprobante("ingreso");
     comp.setEmisor(createEmisor(of));
@@ -64,7 +64,7 @@ public final class ExampleCFDFactory {
     uf.setCalle("AV. RIO MIXCOAC");
     uf.setCodigoPostal("03240");
     uf.setColonia("ACACIAS"); 
-    uf.setEstado("MEXICO, D.F."); 
+    uf.setEstado("DISTRITO FEDERAL"); 
     uf.setMunicipio("BENITO JUAREZ"); 
     uf.setNoExterior("No. 140"); 
     uf.setPais("Mexico"); 

@@ -1,5 +1,5 @@
 /*
- *  Copyright 2010 BigData.mx
+ *  Copyright 2010-2011 BigData.mx
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -14,24 +14,24 @@
  *  limitations under the License.
  */
 
-package mx.bigdata.sat.cfdi;
+package mx.bigdata.sat.common;
+
+import java.util.Map;
 
 import com.sun.xml.bind.marshaller.NamespacePrefixMapper;
 
 public final class NamespacePrefixMapperImpl extends NamespacePrefixMapper {
   
+  private final Map<String, String> map;
+
+  public NamespacePrefixMapperImpl(Map<String, String> map) {
+    this.map = map;
+  }
+
   public String getPreferredPrefix(String namespaceUri, String suggestion, 
                                    boolean requirePrefix) {
-    if ("http://www.w3.org/2001/XMLSchema-instance".equals(namespaceUri)) {
-      return "xsi";
-    }
-    if("http://www.sat.gob.mx/cfd/3".equals(namespaceUri)) {
-      return "cfdi";
-    }
-    if("http://www.sat.gob.mx/TimbreFiscalDigital".equals(namespaceUri)) {
-      return "tfd";
-    }
-    return suggestion;
+    String value = map.get(namespaceUri);
+    return (value != null) ? value : suggestion;
   }
     
   public String[] getPreDeclaredNamespaceUris() {

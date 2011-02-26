@@ -1,5 +1,5 @@
 /*
- *  Copyright 2010 BigData.mx
+ *  Copyright 2010-2011 BigData.mx
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -29,6 +29,7 @@ public final class Main {
   public static void main(String[] args) throws Exception {
     CFDv3 cfd = new CFDv3(ExampleCFDFactory.createComprobante(), 
                           "mx.bigdata.sat.cfdi.examples");
+    cfd.addNamespace("http://www.bigdata.mx/cfdi/example", "example");
     PrivateKey key = KeyLoader.loadPKCS8PrivateKey(new FileInputStream(args[0]),
                                             args[1]);
     X509Certificate cert = KeyLoader

@@ -26,6 +26,7 @@ import java.security.PrivateKey;
 import java.security.Signature;
 import java.security.cert.X509Certificate;
 import java.util.List;
+import java.util.Map;
 
 import javax.xml.XMLConstants;
 import javax.xml.bind.JAXBContext;
@@ -46,6 +47,7 @@ import javax.xml.validation.Validator;
 
 import mx.bigdata.sat.cfdi.schema.Comprobante;
 import mx.bigdata.sat.common.CFD;
+import mx.bigdata.sat.common.NamespacePrefixMapperImpl;
 import mx.bigdata.sat.common.URIResolverImpl;
 import mx.bigdata.sat.security.KeyLoader;
 
@@ -55,6 +57,8 @@ import org.xml.sax.ErrorHandler;
 
 import com.google.common.base.Joiner;
 import com.google.common.collect.Lists;
+import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.Maps;
 
 public final class CFDv3 implements CFD {
 
@@ -73,6 +77,15 @@ public final class CFDv3 implements CFD {
       
   private final JAXBContext context;
 
+  public static final ImmutableMap<String, String> PREFIXES = 
+    ImmutableMap.of("http://www.w3.org/2001/XMLSchema-instance","xsi", 
+                    "http://www.sat.gob.mx/cfd/3", "cfdi", 
+                    "http://www.sat.gob.mx/TimbreFiscalDigital", "tfd");
+
+  private final Map<String, String> localPrefixes = Maps.newHashMap(PREFIXES);
+  
+  private TransformerFactory tf;
+
   final Comprobante document;
 
   public CFDv3(InputStream in, String... contexts) throws Exception {
@@ -85,7 +98,9 @@ public final class CFDv3 implements CFD {
     this.document = copy(comprobante);
   }
 
-  private TransformerFactory tf;
+  public void addNamespace(String uri, String prefix) {
+    localPrefixes.put(uri, prefix);
+  }
 
   public void setTransformerFactory(TransformerFactory tf) {
     this.tf = tf;   
@@ -146,15 +161,16 @@ public final class CFDv3 implements CFD {
       throw new Exception("Invalid signature");
     }
   }
-  
+
   public void guardar(OutputStream out) throws Exception {
     Marshaller m = context.createMarshaller();
     m.setProperty("com.sun.xml.bind.namespacePrefixMapper",
-                  new NamespacePrefixMapperImpl());
+                  new NamespacePrefixMapperImpl(localPrefixes));
     m.setProperty(Marshaller.JAXB_FRAGMENT, Boolean.TRUE);
     m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
     m.setProperty(Marshaller.JAXB_SCHEMA_LOCATION, 
-                  "http://www.sat.gob.mx/cfd/3 cfdv3.xsd");
+                  "http://www.sat.gob.mx/cfd/3  "
+                  + "http://www.sat.gob.mx/sitio_internet/cfd/3/cfdv3.xsd");
     byte[] xmlHeaderBytes = XML_HEADER.getBytes("UTF8");
     out.write(xmlHeaderBytes); 
     m.marshal(document, out);

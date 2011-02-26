@@ -29,6 +29,7 @@ import java.security.cert.X509Certificate;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.xml.XMLConstants;
 import javax.xml.bind.JAXBContext;
@@ -49,6 +50,7 @@ import javax.xml.validation.Validator;
 import mx.bigdata.sat.cfd.schema.Comprobante;
 import mx.bigdata.sat.common.CFD;
 import mx.bigdata.sat.common.URIResolverImpl;
+import mx.bigdata.sat.common.NamespacePrefixMapperImpl;
 import mx.bigdata.sat.security.KeyLoader;
 
 import org.apache.commons.codec.binary.Base64;
@@ -57,6 +59,8 @@ import org.xml.sax.ErrorHandler;
 
 import com.google.common.base.Joiner;
 import com.google.common.collect.Lists;
+import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.Maps;
 
 public final class CFDv2 implements CFD {
 
@@ -73,6 +77,14 @@ public final class CFDv2 implements CFD {
       
   private final JAXBContext context;
 
+  private TransformerFactory tf;
+
+  public static final ImmutableMap<String, String> PREFIXES = 
+    ImmutableMap.of("http://www.w3.org/2001/XMLSchema-instance","xsi", 
+                    "http://www.sat.gob.mx/cfd/2", "");
+
+  private final Map<String, String> localPrefixes = Maps.newHashMap(PREFIXES);
+
   final Comprobante document;
 
   public CFDv2(InputStream in, String... contexts) throws Exception {
@@ -85,7 +97,10 @@ public final class CFDv2 implements CFD {
     this.document = copy(comprobante);
   }
 
-  private TransformerFactory tf;
+  public void addNamespace(String uri, String prefix) {
+    localPrefixes.put(uri, prefix);
+  }
+
 
   public void setTransformerFactory(TransformerFactory tf) {
     this.tf = tf;   
@@ -165,6 +180,8 @@ public final class CFDv2 implements CFD {
 
   public void guardar(OutputStream out) throws Exception {
     Marshaller m = context.createMarshaller();
+    m.setProperty("com.sun.xml.bind.namespacePrefixMapper",
+                  new NamespacePrefixMapperImpl(localPrefixes));
     m.setProperty(Marshaller.JAXB_FRAGMENT, Boolean.TRUE);
     m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
     m.setProperty(Marshaller.JAXB_SCHEMA_LOCATION, 

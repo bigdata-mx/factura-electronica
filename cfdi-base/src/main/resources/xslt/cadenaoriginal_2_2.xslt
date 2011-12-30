@@ -7,7 +7,7 @@
 	<!--
 		En esta sección se define la inclusión de las plantillas de utilería
 	-->
-	<xsl:include href="/xsltcfd/2/cadenaoriginal_2_0/utilerias.xslt"/>
+	<xsl:include href="/xslt/cfd/2/cadenaoriginal_2_0/utilerias.xslt"/>
 	<!-- 
 		En esta sección se define la inclusión de las demás plantillas de transformación para 
 		la generación de las cadenas originales de los complementos fiscales 

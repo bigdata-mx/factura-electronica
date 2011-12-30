@@ -30,6 +30,7 @@ import mx.bigdata.sat.cfdi.v32.schema.TUbicacionFiscal;
 import mx.bigdata.sat.cfdi.v32.schema.Comprobante.Addenda;
 import mx.bigdata.sat.cfdi.v32.schema.Comprobante.Conceptos;
 import mx.bigdata.sat.cfdi.v32.schema.Comprobante.Emisor;
+import mx.bigdata.sat.cfdi.v32.schema.Comprobante.Emisor.RegimenFiscal;
 import mx.bigdata.sat.cfdi.v32.schema.Comprobante.Impuestos;
 import mx.bigdata.sat.cfdi.v32.schema.Comprobante.Receptor;
 import mx.bigdata.sat.cfdi.v32.schema.Comprobante.Conceptos.Concepto;
@@ -41,13 +42,15 @@ public final class ExampleCFDv32Factory {
   public static Comprobante createComprobante() throws Exception {
     ObjectFactory of = new ObjectFactory();
     Comprobante comp = of.createComprobante();
-    comp.setVersion("3.0");
-    Date date = new GregorianCalendar(2011, 01, 06, 20, 38, 12).getTime();
+    comp.setVersion("3.2");
+    Date date = new GregorianCalendar(2012, 01, 06, 20, 38, 12).getTime();
     comp.setFecha(date);
     comp.setFormaDePago("PAGO EN UNA SOLA EXHIBICION");
     comp.setSubTotal(new BigDecimal("466.43"));
     comp.setTotal(new BigDecimal("488.50"));
     comp.setTipoDeComprobante("ingreso");
+    comp.setMetodoDePago("efectivo");
+    comp.setLugarExpedicion("Mexico");
     comp.setEmisor(createEmisor(of));
     comp.setReceptor(createReceptor(of));
     comp.setConceptos(createConceptos(of));
@@ -77,6 +80,9 @@ public final class ExampleCFDv32Factory {
     u.setNoExterior("1858");
     u.setPais("Mexico"); 
     emisor.setExpedidoEn(u); 
+    RegimenFiscal rf = of.createComprobanteEmisorRegimenFiscal();
+    rf.setRegimen("simplificado");
+    emisor.getRegimenFiscal().add(rf);
     return emisor;
   }
 

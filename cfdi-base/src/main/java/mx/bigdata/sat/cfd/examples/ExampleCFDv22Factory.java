@@ -28,6 +28,7 @@ import mx.bigdata.sat.cfd.v22.schema.TUbicacion;
 import mx.bigdata.sat.cfd.v22.schema.TUbicacionFiscal;
 import mx.bigdata.sat.cfd.v22.schema.Comprobante.Conceptos;
 import mx.bigdata.sat.cfd.v22.schema.Comprobante.Emisor;
+import mx.bigdata.sat.cfd.v22.schema.Comprobante.Emisor.RegimenFiscal;
 import mx.bigdata.sat.cfd.v22.schema.Comprobante.Impuestos;
 import mx.bigdata.sat.cfd.v22.schema.Comprobante.Receptor;
 import mx.bigdata.sat.cfd.v22.schema.Comprobante.Conceptos.Concepto;
@@ -37,13 +38,13 @@ import mx.bigdata.sat.cfd.v22.schema.Comprobante.Impuestos.Traslados.Traslado;
 public final class ExampleCFDv22Factory {
     
   public static Comprobante createComprobante() throws Exception {
-    return createComprobante(2010);
+    return createComprobante(2012);
   }
 
   public static Comprobante createComprobante(int year) throws Exception {
     ObjectFactory of = new ObjectFactory();
     Comprobante comp = of.createComprobante();
-    comp.setVersion("2.0");
+    comp.setVersion("2.2");
     Date date = new GregorianCalendar(year, 04, 03, 14, 11, 36).getTime();
     comp.setFecha(date);
     comp.setSerie("ABCD");
@@ -55,6 +56,8 @@ public final class ExampleCFDv22Factory {
     comp.setTotal(new BigDecimal("2320.00"));
     comp.setDescuento(new BigDecimal("0.00"));
     comp.setTipoDeComprobante("ingreso");
+    comp.setMetodoDePago("efectivo");
+    comp.setLugarExpedicion("Mexico");
     comp.setEmisor(createEmisor(of));
     comp.setReceptor(createReceptor(of));
     comp.setConceptos(createConceptos(of));
@@ -76,7 +79,20 @@ public final class ExampleCFDv22Factory {
     uf.setNoExterior("6"); 
     uf.setNoInterior("6"); 
     uf.setPais("M\u00C9XICO"); 
-    emisor.setDomicilioFiscal(uf);
+    TUbicacion u = of.createTUbicacion();
+    u.setCalle("PRUEBA SEIS");
+    u.setCodigoPostal("72000");
+    u.setColonia("PUEBLA CENTRO"); 
+    u.setLocalidad("PUEBLA");  
+    u.setMunicipio("PUEBLA"); 
+    u.setEstado("PUEBLA"); 
+    u.setNoExterior("6"); 
+    u.setNoInterior("6"); 
+    u.setPais("M\u00C9XICO"); 
+    emisor.setExpedidoEn(u);
+    RegimenFiscal rf = of.createComprobanteEmisorRegimenFiscal();
+    rf.setRegimen("simplificado");
+    emisor.getRegimenFiscal().add(rf);
     return emisor;
   }
 

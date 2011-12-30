@@ -193,13 +193,8 @@ public final class CFDv22 implements CFD {
   }
   
   public String getCadenaOriginal() throws Exception {
-    try {
     byte[] bytes = getOriginalBytes();
     return new String(bytes, "UTF8");
-    } catch (Exception e) {
-      e.printStackTrace();
-      throw e;
-    }
   }
 
   public static Comprobante newComprobante(InputStream in) throws Exception {

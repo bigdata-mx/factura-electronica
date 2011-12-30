@@ -6,24 +6,24 @@
 	<!--
 		En esta sección se define la inclusión de las plantillas de utilerías para colapsar espacios
 	-->
-	<xsl:include href="http://www.sat.gob.mx/sitio_internet/cfd/2/cadenaoriginal_2_0/utilerias.xslt"/>
+	<xsl:include href="/xslt/cfd/2/cadenaoriginal_2_0/utilerias.xslt"/>
 	<!-- 
 		En esta sección se define la inclusión de las demás plantillas de transformación para 
 		la generación de las cadenas originales de los complementos fiscales 
 	-->
-	<xsl:include href="http://www.sat.gob.mx/sitio_internet/cfd/ecc/ecc.xslt"/>
-	<xsl:include href="http://www.sat.gob.mx/sitio_internet/cfd/psgecfd/psgecfd.xslt"/>
-	<xsl:include href="http://www.sat.gob.mx/sitio_internet/cfd/donat/donat11.xslt"/>
-	<xsl:include href="http://www.sat.gob.mx/sitio_internet/cfd/divisas/divisas.xslt"/>
-	<xsl:include href="http://www.sat.gob.mx/sitio_internet/cfd/ecb/ecb.xslt"/>
-	<xsl:include href="http://www.sat.gob.mx/sitio_internet/cfd/detallista/detallista.xslt"/>
-	<xsl:include href="http://www.sat.gob.mx/sitio_internet/cfd/implocal/implocal.xslt"/>
-	<xsl:include href="http://www.sat.gob.mx/sitio_internet/cfd/terceros/terceros11.xslt"/>
-	<xsl:include href="http://www.sat.gob.mx/sitio_internet/cfd/iedu/iedu.xslt"/>
-	<xsl:include href="http://www.sat.gob.mx/sitio_internet/cfd/ventavehiculos/ventavehiculos.xslt"/>
-	<xsl:include href="http://www.sat.gob.mx/sitio_internet/cfd/pfic/pfic.xslt"/>
-	<xsl:include href="http://www.sat.gob.mx/sitio_internet/cfd/TuristaPasajeroExtranjero/TuristaPasajeroExtranjero.xslt"/>
-	<xsl:include href="http://www.sat.gob.mx/sitio_internet/cfd/leyendasFiscales/leyendasFisc.xslt"/>
+	<xsl:include href="/xslt/cfd/ecc/ecc.xslt"/>
+	<xsl:include href="/xslt/cfd/psgecfd/psgecfd.xslt"/>
+	<xsl:include href="/xslt/cfd/donat/donat11.xslt"/>
+	<xsl:include href="/xslt/cfd/divisas/divisas.xslt"/>
+	<xsl:include href="/xslt/cfd/ecb/ecb.xslt"/>
+	<xsl:include href="/xslt/cfd/detallista/detallista.xslt"/>
+	<xsl:include href="/xslt/cfd/implocal/implocal.xslt"/>
+	<xsl:include href="/xslt/cfd/terceros/terceros11.xslt"/>
+	<xsl:include href="/xslt/cfd/iedu/iedu.xslt"/>
+	<xsl:include href="/xslt/cfd/ventavehiculos/ventavehiculos.xslt"/>
+	<xsl:include href="/xslt/cfd/pfic/pfic.xslt"/>
+	<xsl:include href="/xslt/cfd/TuristaPasajeroExtranjero/TuristaPasajeroExtranjero.xslt"/>
+	<xsl:include href="/xslt/cfd/leyendasFiscales/leyendasFisc.xslt"/>
 	<!-- Aquí iniciamos el procesamiento de la cadena original con su | inicial y el terminador || -->
 	<xsl:template match="/">|<xsl:apply-templates select="/cfdi:Comprobante"/>||</xsl:template>
 	<!--  Aquí iniciamos el procesamiento de los datos incluidos en el comprobante -->

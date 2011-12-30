@@ -13,13 +13,6 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
-  <!--repositories>
-    <repository>
-      <id>java.net</id>
-      <url>http://download.java.net/maven/1</url>
-      <layout>legacy</layout>
-    </repository>
-  </repositories--> 
   <build>
     <defaultGoal>install</defaultGoal>
     <plugins>
@@ -50,6 +43,32 @@
               <schemaDirectory>src/main/resources/xsd/v3</schemaDirectory>
               <outputDirectory>${project.build.directory}/generated-sources/xjc2</outputDirectory>          
               <staleFile>${project.build.directory}/generated-sources/xjc2/.staleFlag</staleFile>
+              <extension>true</extension>
+            </configuration>
+          </execution>
+          <execution>
+            <id>schema3-xjc</id>
+            <goals>
+              <goal>xjc</goal>
+            </goals>
+            <configuration>
+              <packageName>mx.bigdata.sat.cfd.v22.schema</packageName>
+              <schemaDirectory>src/main/resources/xsd/v22</schemaDirectory>
+              <outputDirectory>${project.build.directory}/generated-sources/xjc3</outputDirectory>          
+              <staleFile>${project.build.directory}/generated-sources/xjc3/.staleFlag</staleFile>
+              <extension>true</extension>
+            </configuration>
+          </execution>
+          <execution>
+            <id>schema4-xjc</id>
+            <goals>
+              <goal>xjc</goal>
+            </goals>
+            <configuration>
+              <packageName>mx.bigdata.sat.cfdi.v32.schema</packageName>
+              <schemaDirectory>src/main/resources/xsd/v32</schemaDirectory>
+              <outputDirectory>${project.build.directory}/generated-sources/xjc4</outputDirectory>          
+              <staleFile>${project.build.directory}/generated-sources/xjc4/.staleFlag</staleFile>
               <extension>true</extension>
             </configuration>
           </execution>

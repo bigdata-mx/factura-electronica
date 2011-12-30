@@ -32,6 +32,6 @@ public final class DateTimeCustomBinder {
   
   public static String printDateTime(Date dt) {
     DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-    return formatter.format(dt);
+    return (dt == null) ? "" : formatter.format(dt);
   }
 }

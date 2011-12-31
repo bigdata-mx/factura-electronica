@@ -64,9 +64,24 @@ public final class CFDv32 implements CFD {
 
   private static final String XSLT = "/xslt/cadenaoriginal_3_2.xslt";
   
-  private static final String XSD = "/xsd/v32/cfdv32.xsd";
-
-  private static final String XSD_TFD = "/xsd/v3/TimbreFiscalDigital.xsd";
+  private static final String[] XSD = new String[] {
+      "/xsd/v32/cfdv32.xsd",
+      "/xsd/v3/TimbreFiscalDigital.xsd", 
+      "/xsd/common/TuristaPasajeroExtranjero/TuristaPasajeroExtranjero.xsd",
+      "/xsd/common/detallista/detallista.xsd",
+      "/xsd/common/divisas/divisas.xsd",
+      "/xsd/common/donat/donat11.xsd",
+      "/xsd/common/ecb/ecb.xsd",
+      "/xsd/common/ecc/ecc.xsd",
+      "/xsd/common/iedu/iedu.xsd",
+      "/xsd/common/implocal/implocal.xsd",
+      "/xsd/common/leyendasFisc/leyendasFisc.xsd",
+      "/xsd/common/pfic/pfic.xsd",
+      "/xsd/common/psgcfdsp/psgcfdsp.xsd",
+      "/xsd/common/psgecfd/psgecfd.xsd",
+      "/xsd/common/terceros/terceros11.xsd",
+      "/xsd/common/ventavehiculos/ventavehiculos.xsd"
+  };
 
   private static final String XML_HEADER = 
     "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
@@ -132,10 +147,10 @@ public final class CFDv32 implements CFD {
   public void validar(ErrorHandler handler) throws Exception {
     SchemaFactory sf =
       SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-    Source[] schemas = new Source[] {
-      new StreamSource(getClass().getResourceAsStream(XSD)),
-      new StreamSource(getClass().getResourceAsStream(XSD_TFD))  
-    };
+    Source[] schemas = new Source[XSD.length];
+    for (int i = 0; i < XSD.length; i++) {
+      schemas[i] = new StreamSource(getClass().getResourceAsStream(XSD[i]));
+    }
     Schema schema = sf.newSchema(schemas);
     Validator validator = schema.newValidator();
     if (handler != null) {

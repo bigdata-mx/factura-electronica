@@ -39,6 +39,7 @@ import javax.xml.bind.util.JAXBSource;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.transform.Result;
+import javax.xml.transform.Source;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamResult;
@@ -66,7 +67,23 @@ public final class CFDv22 implements CFD {
 
   private static final String XSLT = "/xslt/cadenaoriginal_2_2.xslt";
   
-  private static final String XSD = "/xsd/v22/cfdv22.xsd";
+  private static final String[] XSD = new String[] {
+    "/xsd/v22/cfdv22.xsd", 
+    "/xsd/common/TuristaPasajeroExtranjero/TuristaPasajeroExtranjero.xsd",
+    "/xsd/common/detallista/detallista.xsd",
+    "/xsd/common/divisas/divisas.xsd",
+    "/xsd/common/donat/donat11.xsd",
+    "/xsd/common/ecb/ecb.xsd",
+    "/xsd/common/ecc/ecc.xsd",
+    "/xsd/common/iedu/iedu.xsd",
+    "/xsd/common/implocal/implocal.xsd",
+    "/xsd/common/leyendasFisc/leyendasFisc.xsd",
+    "/xsd/common/pfic/pfic.xsd",
+    "/xsd/common/psgcfdsp/psgcfdsp.xsd",
+    "/xsd/common/psgecfd/psgecfd.xsd",
+    "/xsd/common/terceros/terceros11.xsd",
+    "/xsd/common/ventavehiculos/ventavehiculos.xsd"
+  };
   
   private static final String XML_HEADER = 
     "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
@@ -133,7 +150,11 @@ public final class CFDv22 implements CFD {
   public void validar(ErrorHandler handler) throws Exception {
     SchemaFactory sf =
       SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-    Schema schema = sf.newSchema(getClass().getResource(XSD));
+    Source[] schemas = new Source[XSD.length];
+    for (int i = 0; i < XSD.length; i++) {
+      schemas[i] = new StreamSource(getClass().getResourceAsStream(XSD[i]));
+    }
+    Schema schema = sf.newSchema(schemas);
     Validator validator = schema.newValidator();
     if (handler != null) {
       validator.setErrorHandler(handler);

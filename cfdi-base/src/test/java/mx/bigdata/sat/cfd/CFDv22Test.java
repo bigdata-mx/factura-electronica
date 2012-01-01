@@ -89,14 +89,14 @@ public final class CFDv22Test {
 
 //  @Test public void testValidateVerifyWithExternalFile() throws Exception {
 //    CFDv22 cfd = 
-//      new CFDv22(new FileInputStream("resources/xml/cfdv2.externo.xml"));
+//      new CFDv22(new FileInputStream("resources/xml/cfdv22.externo.xml"));
 //    cfd.validar();
 //    cfd.verificar();
 //  }
 
 //  @Test public void testLoad() throws Exception {
 //    Comprobante c = CFDv22
-//      .newComprobante(new FileInputStream("resources/xml/cfdv2.externo.xml"));
+//      .newComprobante(new FileInputStream("resources/xml/cfdv22.externo.xml"));
 //    CFDv22 cfd = new CFDv22(c);
 //    cfd.validar();
 //    cfd.verificar();

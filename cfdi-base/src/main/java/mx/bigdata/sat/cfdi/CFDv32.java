@@ -185,7 +185,7 @@ public final class CFDv32 implements CFD {
     m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
     m.setProperty(Marshaller.JAXB_SCHEMA_LOCATION, 
                   "http://www.sat.gob.mx/cfd/3  "
-                  + "http://www.sat.gob.mx/sitio_internet/cfd/3/cfdv3.xsd");
+                  + "http://www.sat.gob.mx/sitio_internet/cfd/3/cfdv32.xsd");
     byte[] xmlHeaderBytes = XML_HEADER.getBytes("UTF8");
     out.write(xmlHeaderBytes); 
     m.marshal(document, out);

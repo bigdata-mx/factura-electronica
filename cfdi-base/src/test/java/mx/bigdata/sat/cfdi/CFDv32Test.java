@@ -75,38 +75,38 @@ public final class CFDv32Test {
     cfd.verificar();
   }
 
-//  @Test public void testValidateVerifyWithFile() throws Exception {
-//    CFDv32 cfd = new CFDv32(new FileInputStream("resources/xml/cfdv3.xml"));
-//    cfd.sellar(key, cert);
-//    ByteArrayOutputStream baos = new ByteArrayOutputStream();
-//    cfd.guardar(baos);
-//    CFDv32 cfd2 = new CFDv32(new ByteArrayInputStream(baos.toByteArray()));
-//    cfd2.validar();
-//    cfd2.verificar();
+  @Test public void testValidateVerifyWithFile() throws Exception {
+    CFDv32 cfd = new CFDv32(new FileInputStream("resources/xml/cfdv32.xml"));
+    cfd.sellar(key, cert);
+    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+    cfd.guardar(baos);
+    CFDv32 cfd2 = new CFDv32(new ByteArrayInputStream(baos.toByteArray()));
+    cfd2.validar();
+    cfd2.verificar();
+  }
+
+//  @Test public void testValidateVerifyExternal() throws Exception {
+//    CFDv32 cfd = 
+//      new CFDv32(new FileInputStream("resources/xml/cfdv32.externo.xml"));
+//    cfd.validar();
+//    cfd.verificar();
 //  }
 //
-  @Test public void testValidateVerifyExternal() throws Exception {
-    CFDv32 cfd = 
-      new CFDv32(new FileInputStream("resources/xml/cfdv32.externo.xml"));
-    cfd.validar();
-    cfd.verificar();
-  }
-
-  @Test public void testLoad() throws Exception {
-    Comprobante c = CFDv32
-      .newComprobante(new FileInputStream("resources/xml/cfdv32.externo.xml"));
-    CFDv32 cfd = new CFDv32(c);
-    cfd.validar();
-    cfd.verificar();
-  }
-
-//  @Test public void testSellarComprobante() throws Exception {
+//  @Test public void testLoad() throws Exception {
 //    Comprobante c = CFDv32
-//      .newComprobante(new FileInputStream("resources/xml/cfdv3.xml"));
+//      .newComprobante(new FileInputStream("resources/xml/cfdv32.externo.xml"));
 //    CFDv32 cfd = new CFDv32(c);
-//    Comprobante sellado = cfd.sellarComprobante(key, cert);
-//    assertNotNull(sellado.getSello());
-//    assertNotNull(sellado.getNoCertificado());
-//    assertNotNull(sellado.getCertificado());
+//    cfd.validar();
+//    cfd.verificar();
 //  }
+
+  @Test public void testSellarComprobante() throws Exception {
+    Comprobante c = CFDv32
+      .newComprobante(new FileInputStream("resources/xml/cfdv3.xml"));
+    CFDv32 cfd = new CFDv32(c);
+    Comprobante sellado = cfd.sellarComprobante(key, cert);
+    assertNotNull(sellado.getSello());
+    assertNotNull(sellado.getNoCertificado());
+    assertNotNull(sellado.getCertificado());
+  }
 }

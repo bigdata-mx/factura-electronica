@@ -77,15 +77,15 @@ public final class CFDv22Test {
     cfd.verificar();
   }
 
-//  @Test public void testValidateVerifyWithFile() throws Exception {
-//    CFDv22 cfd = new CFDv22(new FileInputStream("resources/xml/cfdv2.xml"));
-//    cfd.sellar(key, cert);
-//    ByteArrayOutputStream baos = new ByteArrayOutputStream();
-//    cfd.guardar(baos);
-//    CFDv22 cfd2 = new CFDv22(new ByteArrayInputStream(baos.toByteArray()));
-//    cfd2.validar();
-//    cfd2.verificar();
-//  }
+  @Test public void testValidateVerifyWithFile() throws Exception {
+    CFDv22 cfd = new CFDv22(new FileInputStream("resources/xml/cfdv22.xml"));
+    cfd.sellar(key, cert);
+    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+    cfd.guardar(baos);
+    CFDv22 cfd2 = new CFDv22(new ByteArrayInputStream(baos.toByteArray()));
+    cfd2.validar();
+    cfd2.verificar();
+  }
 
 //  @Test public void testValidateVerifyWithExternalFile() throws Exception {
 //    CFDv22 cfd = 
@@ -102,13 +102,13 @@ public final class CFDv22Test {
 //    cfd.verificar();
 //  }
 
-//  @Test public void testSellarComprobante() throws Exception {
-//    Comprobante c = CFDv22
-//      .newComprobante(new FileInputStream("resources/xml/cfdv2.xml"));
-//    CFDv22 cfd = new CFDv22(c);
-//    Comprobante sellado = cfd.sellarComprobante(key, cert);
-//    assertNotNull(sellado.getSello());
-//    assertNotNull(sellado.getNoCertificado());
-//    assertNotNull(sellado.getCertificado());
-//  }
+  @Test public void testSellarComprobante() throws Exception {
+    Comprobante c = CFDv22
+      .newComprobante(new FileInputStream("resources/xml/cfdv2.xml"));
+    CFDv22 cfd = new CFDv22(c);
+    Comprobante sellado = cfd.sellarComprobante(key, cert);
+    assertNotNull(sellado.getSello());
+    assertNotNull(sellado.getNoCertificado());
+    assertNotNull(sellado.getCertificado());
+  }
 }

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cfdi:Comprobante
+	xsi:schemaLocation="http://www.sat.gob.mx/cfd/3 http://www.sat.gob.mx/sitio_internet/cfd/3/cfdv32.xsd"
+	xmlns:cfdi="http://www.sat.gob.mx/cfd/3"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="3.2"
+	fecha="2012-01-01T20:38:12" formaDePago="PAGO EN UNA SOLA EXHIBICION"
+	tipoDeComprobante="ingreso" total="488.50" subTotal="488.50"
+	LugarExpedicion="México" metodoDePago="cheque">
+	<cfdi:Emisor rfc="PPL961114GZ1" nombre="PHARMA PLUS SA DE CV">
+		<cfdi:DomicilioFiscal pais="Mexico" calle="AV. RIO MIXCOAC"
+			estado="MEXICO, D.F." colonia="ACACIAS" municipio="BENITO JUAREZ"
+			noExterior="No. 140" codigoPostal="03240" />
+		<cfdi:ExpedidoEn pais="Mexico" calle="AV. UNIVERSIDAD"
+			estado="DISTRITO FEDERAL" colonia="OXTOPULCO" noExterior="1858"
+			codigoPostal="03910" />
+		<cfdi:RegimenFiscal Regimen="simplificado" />
+	</cfdi:Emisor>
+	<cfdi:Receptor rfc="PEPJ8001019Q8" nombre="JUAN PEREZ PEREZ">
+		<cfdi:Domicilio pais="Mexico" calle="AV UNIVERSIDAD"
+			estado="DISTRITO FEDERAL" colonia="COPILCO UNIVERSIDAD"
+			municipio="COYOACAN" noExterior="16 EDF 3" noInterior="DPTO 101"
+			codigoPostal="04360" />
+	</cfdi:Receptor>
+	<cfdi:Conceptos>
+		<cfdi:Concepto unidad="CAPSULAS" importe="244.00" cantidad="1.0"
+			descripcion="VIBRAMICINA 100MG 10" valorUnitario="244.00" />
+		<cfdi:Concepto unidad="BOTELLA" importe="137.93" cantidad="1.0"
+			descripcion="CLORUTO 500M" valorUnitario="137.93" />
+		<cfdi:Concepto unidad="TABLETAS" importe="84.50" cantidad="1.0"
+			descripcion="SEDEPRON 250MG 10" valorUnitario="84.50" />
+	</cfdi:Conceptos>
+	<cfdi:Impuestos>
+		<cfdi:Traslados>
+			<cfdi:Traslado tasa="0.00" importe="0.00" impuesto="IVA" />
+			<cfdi:Traslado tasa="16.00" importe="22.07" impuesto="IVA" />
+		</cfdi:Traslados>
+	</cfdi:Impuestos>
+	<cfdi:Complemento />
+	<cfdi:Addenda />
+</cfdi:Comprobante>

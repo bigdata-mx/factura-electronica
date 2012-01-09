@@ -41,9 +41,12 @@ import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 import javax.xml.validation.Validator;
 
+import mx.bigdata.sat.common.ComprobanteBase;
+
 import mx.bigdata.sat.cfdi.schema.Comprobante;
 import mx.bigdata.sat.cfdi.schema.ObjectFactory;
 import mx.bigdata.sat.cfdi.schema.TimbreFiscalDigital;
+import mx.bigdata.sat.common.CFDI;
 import mx.bigdata.sat.common.NamespacePrefixMapperImpl;
 
 import org.apache.commons.codec.binary.Base64;
@@ -67,7 +70,7 @@ public final class TFDv1 {
     } 
   }
 
-  private final Comprobante document;
+  private final ComprobanteBase document;
 
   private final TimbreFiscalDigital tfd;
   
@@ -75,11 +78,11 @@ public final class TFDv1 {
 
   private TransformerFactory tf;
 
-  public TFDv1(CFDv3 cfd, X509Certificate cert) throws Exception {
+  public TFDv1(CFDI cfd, X509Certificate cert) throws Exception {
     this(cfd, cert, UUID.randomUUID(), new Date()); 
   }
   
-  TFDv1(CFDv3 cfd, X509Certificate cert, UUID uuid, Date date)
+  TFDv1(CFDI cfd, X509Certificate cert, UUID uuid, Date date)
     throws Exception {
     this.cert = cert;
     this.document = cfd.getComprobante();
@@ -143,7 +146,7 @@ public final class TFDv1 {
     m.setProperty(Marshaller.JAXB_SCHEMA_LOCATION, 
                   "http://www.sat.gob.mx/cfd/3  "
                   + "http://www.sat.gob.mx/sitio_internet/cfd/3/cfdv3.xsd");
-    m.marshal(document, out);
+    m.marshal(document.getComprobante(), out);
   }
 
   TimbreFiscalDigital getTimbre() {
@@ -176,11 +179,7 @@ public final class TFDv1 {
 
   private void stamp() throws Exception {
     Element element = marshalTFD();
-    ObjectFactory of = new ObjectFactory();
-    Comprobante.Complemento comp = of.createComprobanteComplemento();
-    List<Object> list = comp.getAny(); 
-    list.add(element);
-    document.setComplemento(comp);
+    document.setComplemento(element);
   } 
 
   private Element marshalTFD() throws Exception {
@@ -210,12 +209,11 @@ public final class TFDv1 {
     return tfd;
   }
 
-  private TimbreFiscalDigital getTimbreFiscalDigital(Comprobante document, 
+  private TimbreFiscalDigital getTimbreFiscalDigital(ComprobanteBase document, 
                                                      UUID uuid, Date date) 
     throws Exception {    
-    Comprobante.Complemento comp = document.getComplemento();
-    if (comp != null) {
-      List<Object> list = comp.getAny();
+    if (document.hasComplemento()) {
+      List<Object> list = document.getComplementoGetAny();
       for (Object o : list) {
         if (o instanceof TimbreFiscalDigital) {
           return (TimbreFiscalDigital) o;

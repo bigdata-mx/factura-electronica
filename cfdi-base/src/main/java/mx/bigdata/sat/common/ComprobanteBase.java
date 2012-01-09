@@ -16,20 +16,19 @@
 
 package mx.bigdata.sat.common;
 
-import java.io.OutputStream;
-import java.security.PrivateKey;
-import java.security.cert.Certificate;
-import java.security.cert.X509Certificate;
-import javax.xml.transform.TransformerFactory;
+import java.util.List;
 
-import org.xml.sax.ErrorHandler;
+import org.w3c.dom.Element;
 
-public interface CFD {
-  void setTransformerFactory(TransformerFactory tf); 
-  void sellar(PrivateKey key, X509Certificate cert) throws Exception;
-  void validar() throws Exception;
-  void validar(ErrorHandler handler) throws Exception;
-  void verificar() throws Exception;
-  void guardar(OutputStream out) throws Exception;
-  String getCadenaOriginal() throws Exception;
+public interface ComprobanteBase {
+  
+  boolean hasComplemento();
+  
+  List<Object> getComplementoGetAny();
+  
+  String getSello();
+  
+  void setComplemento(Element e);
+  
+  Object getComprobante();
 }

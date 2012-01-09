@@ -48,7 +48,7 @@ import javax.xml.validation.SchemaFactory;
 import javax.xml.validation.Validator;
 
 import mx.bigdata.sat.cfd.schema.Comprobante;
-import mx.bigdata.sat.common.CFD;
+import mx.bigdata.sat.common.CFD2;
 import mx.bigdata.sat.common.URIResolverImpl;
 import mx.bigdata.sat.common.NamespacePrefixMapperImpl;
 import mx.bigdata.sat.security.KeyLoader;
@@ -62,7 +62,7 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
 
-public final class CFDv2 implements CFD {
+public final class CFDv2 implements CFD2 {
 
   private static final String XSLT = "/xslt/cadenaoriginal_2_0.xslt";
   

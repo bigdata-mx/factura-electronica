@@ -36,8 +36,8 @@ import javax.xml.bind.util.JAXBSource;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.transform.Result;
-import javax.xml.transform.Transformer;
 import javax.xml.transform.Source;
+import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
@@ -45,22 +45,25 @@ import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 import javax.xml.validation.Validator;
 
+import mx.bigdata.sat.cfdi.v32.schema.ObjectFactory;
 import mx.bigdata.sat.cfdi.v32.schema.Comprobante;
-import mx.bigdata.sat.common.CFD;
+import mx.bigdata.sat.common.CFDI;
+import mx.bigdata.sat.common.ComprobanteBase;
 import mx.bigdata.sat.common.NamespacePrefixMapperImpl;
 import mx.bigdata.sat.common.URIResolverImpl;
 import mx.bigdata.sat.security.KeyLoader;
 
 import org.apache.commons.codec.binary.Base64;
 import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 import org.xml.sax.ErrorHandler;
 
 import com.google.common.base.Joiner;
-import com.google.common.collect.Lists;
 import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
-public final class CFDv32 implements CFD {
+public final class CFDv32 implements CFDI {
 
   private static final String XSLT = "/xslt/cadenaoriginal_3_2.xslt";
   
@@ -137,7 +140,7 @@ public final class CFDv32 implements CFD {
   public Comprobante sellarComprobante(PrivateKey key, X509Certificate cert) 
     throws Exception {
     sellar(key, cert);
-    return getComprobante();
+    return doGetComprobante();
   }
 
   public void validar() throws Exception {
@@ -225,7 +228,11 @@ public final class CFDv32 implements CFD {
     return b64.encodeToString(signed);
   }
 
-  Comprobante getComprobante() throws Exception {
+  public ComprobanteBase getComprobante() throws Exception {
+    return new CFDv32ComprobanteBase(doGetComprobante());
+  }
+  
+  Comprobante doGetComprobante() throws Exception {
     return copy(document);
   }
 
@@ -239,6 +246,39 @@ public final class CFDv32 implements CFD {
     m.marshal(comprobante, doc);
     Unmarshaller u = context.createUnmarshaller();
     return (Comprobante) u.unmarshal(doc);
+  }
+  
+  public static final class CFDv32ComprobanteBase implements ComprobanteBase {
+
+    private final Comprobante document;
+    
+    public CFDv32ComprobanteBase(Comprobante document) {
+      this.document = document;
+    }
+    
+    public boolean hasComplemento() {
+      return document.getComplemento() != null;
+    } 
+    
+    public List<Object> getComplementoGetAny() {
+      return document.getComplemento().getAny();
+    }    
+    
+    public String getSello() {
+      return document.getSello();
+    }
+    
+    public void setComplemento(Element element) {
+      ObjectFactory of = new ObjectFactory();
+      Comprobante.Complemento comp = of.createComprobanteComplemento();
+      List<Object> list = comp.getAny(); 
+      list.add(element);
+      document.setComplemento(comp);
+    }
+    
+    public Object getComprobante() {
+      return document;
+    }
   }
   
   private static JAXBContext getContext(String[] contexts) throws Exception {

@@ -27,6 +27,8 @@ import org.xml.sax.SAXParseException;
 
 import mx.bigdata.sat.cfdi.CFDv3;
 import mx.bigdata.sat.cfdi.TFDv1;
+import mx.bigdata.sat.cfdi.CFDv32;
+import mx.bigdata.sat.common.CFDI;
 import mx.bigdata.sat.common.ValidationErrorHandler;
 import mx.bigdata.sat.security.KeyLoader;
 
@@ -35,8 +37,9 @@ public final class CLI {
   public static void main(String[] args) throws Exception {
     String cmd = args[0];
     if (cmd.equals("validar")) {
+      String version = (args.length > 2) ? args[2] : "3";
       String file = args[1];
-      CFDv3 cfd = new CFDv3(new FileInputStream(file));
+      CFDI cfd = new CFDv3(new FileInputStream(file));
       ValidationErrorHandler handler = new ValidationErrorHandler();
       cfd.validar(handler);
       List<SAXParseException> errors = handler.getErrors();
@@ -47,10 +50,12 @@ public final class CLI {
         System.exit(1);
       }
     } else if (cmd.equals("verificar")) { 
-      CFDv3 cfd = new CFDv3(new FileInputStream(args[1]));
+      String version = (args.length > 2) ? args[2] : "3";
+      CFDI cfd = new CFDv3(new FileInputStream(args[1]));
       cfd.verificar();
     } else if (cmd.equals("sellar")) { 
-      CFDv3 cfd = new CFDv3(new FileInputStream(args[1]));
+      String version = (args.length > 6) ? args[6] : "3";
+      CFDI cfd = new CFDv3(new FileInputStream(args[1]));
       PrivateKey key = KeyLoader
         .loadPKCS8PrivateKey(new FileInputStream(args[2]), args[3]);
       X509Certificate cert = KeyLoader
@@ -59,8 +64,9 @@ public final class CLI {
       OutputStream out = new FileOutputStream(args[5]);
       cfd.guardar(out);
     } else if (cmd.equals("validar-timbrado")) {
+      String version = (args.length > 3) ? args[3] : "3";
       String file = args[1];
-      CFDv3 cfd = new CFDv3(new FileInputStream(file));
+      CFDI cfd = new CFDv3(new FileInputStream(file));
       X509Certificate cert = KeyLoader
         .loadX509Certificate(new FileInputStream(args[2]));
       TFDv1 tfd = new TFDv1(cfd, cert);
@@ -74,7 +80,8 @@ public final class CLI {
         System.exit(1);
       }
     } else if (cmd.equals("verificar-timbrado")) { 
-      CFDv3 cfd = new CFDv3(new FileInputStream(args[1]));
+      String version = (args.length > 3) ? args[3] : "3";
+      CFDI cfd = new CFDv3(new FileInputStream(args[1]));
       X509Certificate cert = KeyLoader
         .loadX509Certificate(new FileInputStream(args[2]));
       TFDv1 tfd = new TFDv1(cfd, cert);
@@ -83,7 +90,8 @@ public final class CLI {
         throw new Exception("Timbrado invalido: " +  code);
       }
     } else if (cmd.equals("timbrar")) { 
-      CFDv3 cfd = new CFDv3(new FileInputStream(args[1]));
+      String version = (args.length > 6) ? args[6] : "3";
+      CFDI cfd = new CFDv3(new FileInputStream(args[1]));
       PrivateKey key = KeyLoader
         .loadPKCS8PrivateKey(new FileInputStream(args[2]), args[3]);
       X509Certificate cert = KeyLoader

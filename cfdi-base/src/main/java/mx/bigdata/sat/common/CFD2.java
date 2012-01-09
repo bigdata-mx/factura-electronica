@@ -24,12 +24,6 @@ import javax.xml.transform.TransformerFactory;
 
 import org.xml.sax.ErrorHandler;
 
-public interface CFD {
-  void setTransformerFactory(TransformerFactory tf); 
-  void sellar(PrivateKey key, X509Certificate cert) throws Exception;
-  void validar() throws Exception;
-  void validar(ErrorHandler handler) throws Exception;
-  void verificar() throws Exception;
-  void guardar(OutputStream out) throws Exception;
-  String getCadenaOriginal() throws Exception;
+public interface CFD2 extends CFD {
+  void verificar(Certificate cert) throws Exception;
 }

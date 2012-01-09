@@ -27,6 +27,8 @@ import java.util.List;
 import org.xml.sax.SAXParseException;
 
 import mx.bigdata.sat.cfd.CFDv2;
+import mx.bigdata.sat.cfd.CFDv22;
+import mx.bigdata.sat.common.CFD2;
 import mx.bigdata.sat.common.ValidationErrorHandler;
 import mx.bigdata.sat.security.KeyLoader;
 
@@ -35,8 +37,9 @@ public final class CLI {
   public static void main(String[] args) throws Exception {
     String cmd = args[0];
     if (cmd.equals("validar")) {
+      String version = (args.length > 2) ? args[2] : "2";
       String file = args[1];
-      CFDv2 cfd = new CFDv2(new FileInputStream(file));
+      CFD2 cfd = getCFD(version, file);
       ValidationErrorHandler handler = new ValidationErrorHandler();
       cfd.validar(handler);
       List<SAXParseException> errors = handler.getErrors();
@@ -46,8 +49,9 @@ public final class CLI {
         }
         System.exit(1);
       }
-    } else if (cmd.equals("verificar")) { 
-      CFDv2 cfd = new CFDv2(new FileInputStream(args[1]));
+    } else if (cmd.equals("verificar")) {
+      String version = (args.length > 3) ? args[3] : "2"; 
+      CFD2 cfd = getCFD(version, args[1]);
       if (args.length == 3) {
         Certificate cert = KeyLoader
           .loadX509Certificate(new FileInputStream(args[2]));
@@ -56,7 +60,8 @@ public final class CLI {
         cfd.verificar();
       }
     } else if (cmd.equals("sellar")) { 
-      CFDv2 cfd = new CFDv2(new FileInputStream(args[1]));
+      String version = (args.length > 6) ? args[6] : "2"; 
+      CFD2 cfd = getCFD(version, args[1]);
       PrivateKey key = KeyLoader
         .loadPKCS8PrivateKey(new FileInputStream(args[2]), args[3]);
       X509Certificate cert = KeyLoader
@@ -65,5 +70,13 @@ public final class CLI {
       OutputStream out = new FileOutputStream(args[5]);
       cfd.guardar(out);
     } 
+  }
+  
+  private static CFD2 getCFD(String version, String file) throws Exception {
+    if (version.equals("2.2")) {
+      return new CFDv22(new FileInputStream(file));
+    } else {
+      return new CFDv2(new FileInputStream(file));
+    }
   }
 }

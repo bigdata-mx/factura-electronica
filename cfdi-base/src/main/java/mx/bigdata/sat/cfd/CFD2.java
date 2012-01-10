@@ -14,16 +14,12 @@
  *  limitations under the License.
  */
 
-package mx.bigdata.sat.common;
+package mx.bigdata.sat.cfd;
 
-import java.io.OutputStream;
-import java.security.PrivateKey;
 import java.security.cert.Certificate;
-import java.security.cert.X509Certificate;
-import javax.xml.transform.TransformerFactory;
 
-import org.xml.sax.ErrorHandler;
+import mx.bigdata.sat.common.CFD;
 
-public interface CFDI extends CFD {
-  ComprobanteBase getComprobante() throws Exception;
+public interface CFD2 extends CFD {
+  void verificar(Certificate cert) throws Exception;
 }

@@ -21,6 +21,7 @@ import static org.junit.Assert.assertNotNull;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.FileInputStream;
 import java.math.BigInteger;
 import java.security.PrivateKey;
@@ -76,18 +77,17 @@ public final class CFDv3Test {
   }
 
   @Test public void testValidateVerifyWithFile() throws Exception {
-    CFDv3 cfd = new CFDv3(new FileInputStream("resources/xml/cfdv3.xml"));
+    CFDI cfd = CFDIFactory.load(new File("resources/xml/cfdv3.xml"));
     cfd.sellar(key, cert);
     ByteArrayOutputStream baos = new ByteArrayOutputStream();
     cfd.guardar(baos);
-    CFDv3 cfd2 = new CFDv3(new ByteArrayInputStream(baos.toByteArray()));
+    CFDI cfd2 = CFDIFactory.load(new ByteArrayInputStream(baos.toByteArray()));
     cfd2.validar();
     cfd2.verificar();
   }
 
   @Test public void testValidateVerifyExternal() throws Exception {
-    CFDv3 cfd = 
-      new CFDv3(new FileInputStream("resources/xml/cfdv3.externo.xml"));
+    CFDI cfd = CFDIFactory.load(new File("resources/xml/cfdv3.externo.xml"));
     cfd.validar();
     cfd.verificar();
   }
@@ -95,7 +95,7 @@ public final class CFDv3Test {
   @Test public void testLoad() throws Exception {
     Comprobante c = CFDv3
       .newComprobante(new FileInputStream("resources/xml/cfdv3.externo.xml"));
-    CFDv3 cfd = new CFDv3(c);
+    CFDI cfd = new CFDv3(c);
     cfd.validar();
     cfd.verificar();
   }

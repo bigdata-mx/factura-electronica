@@ -21,6 +21,7 @@ import static org.junit.Assert.assertNotNull;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.FileInputStream;
 import java.math.BigInteger;
 import java.security.PrivateKey;
@@ -76,11 +77,11 @@ public final class CFDv32Test {
   }
 
   @Test public void testValidateVerifyWithFile() throws Exception {
-    CFDv32 cfd = new CFDv32(new FileInputStream("resources/xml/cfdv32.xml"));
+    CFDI cfd = CFDIFactory.load(new File("resources/xml/cfdv32.xml"));
     cfd.sellar(key, cert);
     ByteArrayOutputStream baos = new ByteArrayOutputStream();
     cfd.guardar(baos);
-    CFDv32 cfd2 = new CFDv32(new ByteArrayInputStream(baos.toByteArray()));
+    CFDI cfd2 = CFDIFactory.load(new ByteArrayInputStream(baos.toByteArray()));
     cfd2.validar();
     cfd2.verificar();
   }

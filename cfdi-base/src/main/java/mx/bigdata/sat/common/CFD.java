@@ -18,8 +18,8 @@ package mx.bigdata.sat.common;
 
 import java.io.OutputStream;
 import java.security.PrivateKey;
-import java.security.cert.Certificate;
 import java.security.cert.X509Certificate;
+
 import javax.xml.transform.TransformerFactory;
 
 import org.xml.sax.ErrorHandler;

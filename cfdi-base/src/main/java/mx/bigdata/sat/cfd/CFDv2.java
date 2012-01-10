@@ -48,7 +48,6 @@ import javax.xml.validation.SchemaFactory;
 import javax.xml.validation.Validator;
 
 import mx.bigdata.sat.cfd.schema.Comprobante;
-import mx.bigdata.sat.common.CFD2;
 import mx.bigdata.sat.common.URIResolverImpl;
 import mx.bigdata.sat.common.NamespacePrefixMapperImpl;
 import mx.bigdata.sat.security.KeyLoader;

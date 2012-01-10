@@ -21,21 +21,23 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-import javax.xml.bind.annotation.*;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
 import mx.bigdata.sat.cfdi.v32.schema.Comprobante;
-import mx.bigdata.sat.cfdi.v32.schema.ObjectFactory;
-import mx.bigdata.sat.cfdi.v32.schema.TUbicacion;
-import mx.bigdata.sat.cfdi.v32.schema.TUbicacionFiscal;
 import mx.bigdata.sat.cfdi.v32.schema.Comprobante.Addenda;
 import mx.bigdata.sat.cfdi.v32.schema.Comprobante.Conceptos;
+import mx.bigdata.sat.cfdi.v32.schema.Comprobante.Conceptos.Concepto;
 import mx.bigdata.sat.cfdi.v32.schema.Comprobante.Emisor;
 import mx.bigdata.sat.cfdi.v32.schema.Comprobante.Emisor.RegimenFiscal;
 import mx.bigdata.sat.cfdi.v32.schema.Comprobante.Impuestos;
-import mx.bigdata.sat.cfdi.v32.schema.Comprobante.Receptor;
-import mx.bigdata.sat.cfdi.v32.schema.Comprobante.Conceptos.Concepto;
 import mx.bigdata.sat.cfdi.v32.schema.Comprobante.Impuestos.Traslados;
 import mx.bigdata.sat.cfdi.v32.schema.Comprobante.Impuestos.Traslados.Traslado;
+import mx.bigdata.sat.cfdi.v32.schema.Comprobante.Receptor;
+import mx.bigdata.sat.cfdi.v32.schema.ObjectFactory;
+import mx.bigdata.sat.cfdi.v32.schema.TUbicacion;
+import mx.bigdata.sat.cfdi.v32.schema.TUbicacionFiscal;
 
 public final class ExampleCFDv32Factory {
     
@@ -165,6 +167,7 @@ public final class ExampleCFDv32Factory {
   
   @XmlRootElement
   private final static class Transaction2 {
+    @SuppressWarnings("unused")
     @XmlAttribute(name="PurchaseOrder2")
     String purchaseOrder;
   }  

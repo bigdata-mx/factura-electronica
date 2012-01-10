@@ -159,6 +159,7 @@ public final class ExampleCFDFactory {
   
   @XmlRootElement
   private final static class Transaction {
+    @SuppressWarnings("unused")
     @XmlAttribute(name="PurchaseOrder")
     String purchaseOrder;
   }  

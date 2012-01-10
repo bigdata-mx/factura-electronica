@@ -16,6 +16,7 @@
 
 package mx.bigdata.sat.cfd.tools;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
@@ -24,22 +25,20 @@ import java.security.cert.Certificate;
 import java.security.cert.X509Certificate;
 import java.util.List;
 
-import org.xml.sax.SAXParseException;
-
-import mx.bigdata.sat.cfd.CFDv2;
-import mx.bigdata.sat.cfd.CFDv22;
-import mx.bigdata.sat.common.CFD2;
+import mx.bigdata.sat.cfd.CFD2;
+import mx.bigdata.sat.cfd.CFD2Factory;
 import mx.bigdata.sat.common.ValidationErrorHandler;
 import mx.bigdata.sat.security.KeyLoader;
+
+import org.xml.sax.SAXParseException;
 
 public final class CLI {
 
   public static void main(String[] args) throws Exception {
     String cmd = args[0];
     if (cmd.equals("validar")) {
-      String version = (args.length > 2) ? args[2] : "2";
       String file = args[1];
-      CFD2 cfd = getCFD(version, file);
+      CFD2 cfd = CFD2Factory.load(new File(file));
       ValidationErrorHandler handler = new ValidationErrorHandler();
       cfd.validar(handler);
       List<SAXParseException> errors = handler.getErrors();
@@ -50,18 +49,18 @@ public final class CLI {
         System.exit(1);
       }
     } else if (cmd.equals("verificar")) {
-      String version = (args.length > 3) ? args[3] : "2"; 
-      CFD2 cfd = getCFD(version, args[1]);
+      String file = args[1];
+      CFD2 cfd = CFD2Factory.load(new File(file));
       if (args.length == 3) {
         Certificate cert = KeyLoader
-          .loadX509Certificate(new FileInputStream(args[2]));
+        .loadX509Certificate(new FileInputStream(args[2]));
         cfd.verificar(cert);
       } else {
         cfd.verificar();
       }
     } else if (cmd.equals("sellar")) { 
-      String version = (args.length > 6) ? args[6] : "2"; 
-      CFD2 cfd = getCFD(version, args[1]);
+      String file = args[1];
+      CFD2 cfd = CFD2Factory.load(new File(file));
       PrivateKey key = KeyLoader
         .loadPKCS8PrivateKey(new FileInputStream(args[2]), args[3]);
       X509Certificate cert = KeyLoader
@@ -70,13 +69,5 @@ public final class CLI {
       OutputStream out = new FileOutputStream(args[5]);
       cfd.guardar(out);
     } 
-  }
-  
-  private static CFD2 getCFD(String version, String file) throws Exception {
-    if (version.equals("2.2")) {
-      return new CFDv22(new FileInputStream(file));
-    } else {
-      return new CFDv2(new FileInputStream(file));
-    }
   }
 }

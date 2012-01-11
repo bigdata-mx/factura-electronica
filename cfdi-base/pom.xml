@@ -74,7 +74,6 @@
   </dependencies>
   <build>
     <defaultGoal>install</defaultGoal>
-    <plugins>
   <plugins>
       <plugin>
         <artifactId>maven-release-plugin</artifactId>

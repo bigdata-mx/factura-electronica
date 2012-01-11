@@ -2,13 +2,13 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>mx.bigdata.cfdi</groupId>
   <artifactId>cfdi-plugins</artifactId>
-  <version>0.2.0-SNAPSHOT</version>
+  <version>0.2.1-SNAPSHOT</version>
   <packaging>jar</packaging>
   <name>cfdi-plugins</name>
   <parent>
     <groupId>mx.bigdata.cfdi</groupId>
     <artifactId>cfdi</artifactId>
-    <version>0.2.0-SNAPSHOT</version>
+    <version>0.2.1-SNAPSHOT</version>
   </parent>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

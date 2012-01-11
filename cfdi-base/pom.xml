@@ -26,8 +26,8 @@
     </license>
   </licenses>
   <scm>
-    <connection>http://factura-electronica.googlecode.com/svn/cfdi-base/</connection>
-    <developerConnection>scm:svn:https://factura-electronica.googlecode.com/svn/cfdi-base/</developerConnection>
+    <connection>http://factura-electronica.googlecode.com/svn/trunk/cfdi-base/</connection>
+    <developerConnection>scm:svn:https://factura-electronica.googlecode.com/svn/trunk/cfdi-base/</developerConnection>
     <url>http://code.google.com/p/factura-electronica/source/browse/</url>
   </scm>
   <properties>

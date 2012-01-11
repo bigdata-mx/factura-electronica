@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuite failures="0" time="0.041" errors="0" skipped="0" tests="1" name="mx.bigdata.sat.plugins.AppTest">
+  <properties>
+    <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
+    <property name="sun.boot.library.path" value="/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Libraries"/>
+    <property name="java.vm.version" value="20.4-b02-402"/>
+    <property name="awt.nativeDoubleBuffering" value="true"/>
+    <property name="gopherProxySet" value="false"/>
+    <property name="mrj.build" value="10M3527"/>
+    <property name="java.vm.vendor" value="Apple Inc."/>
+    <property name="java.vendor.url" value="http://www.apple.com/"/>
+    <property name="path.separator" value=":"/>
+    <property name="java.vm.name" value="Java HotSpot(TM) 64-Bit Server VM"/>
+    <property name="file.encoding.pkg" value="sun.io"/>
+    <property name="user.country" value="US"/>
+    <property name="sun.java.launcher" value="SUN_STANDARD"/>
+    <property name="sun.os.patch.level" value="unknown"/>
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
+    <property name="user.dir" value="/Users/elmer/src/bigdata.mx/factura-electronica/trunk/cfdi-plugins"/>
+    <property name="java.runtime.version" value="1.6.0_29-b11-402-10M3527"/>
+    <property name="java.awt.graphicsenv" value="apple.awt.CGraphicsEnvironment"/>
+    <property name="basedir" value="/Users/elmer/src/bigdata.mx/factura-electronica/trunk/cfdi-plugins"/>
+    <property name="java.endorsed.dirs" value="/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Home/lib/endorsed"/>
+    <property name="os.arch" value="x86_64"/>
+    <property name="surefire.real.class.path" value="/Users/elmer/src/bigdata.mx/factura-electronica/trunk/cfdi-plugins/target/surefire/surefirebooter6363499666421854719.jar"/>
+    <property name="java.io.tmpdir" value="/var/folders/xr/xrVF3CNDESavVu9mqCJuwE+++TI/-Tmp-/"/>
+    <property name="line.separator" value="
+"/>
+    <property name="java.vm.specification.vendor" value="Sun Microsystems Inc."/>
+    <property name="os.name" value="Mac OS X"/>
+    <property name="sun.jnu.encoding" value="MacRoman"/>
+    <property name="java.library.path" value=".:/Users/elmer/Library/Java/Extensions:/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java"/>
+    <property name="surefire.test.class.path" value="/Users/elmer/src/bigdata.mx/factura-electronica/trunk/cfdi-plugins/target/test-classes:/Users/elmer/src/bigdata.mx/factura-electronica/trunk/cfdi-plugins/target/classes:/Users/elmer/.m2/repository/org/yaml/snakeyaml/1.7/snakeyaml-1.7.jar:/Users/elmer/src/bigdata.mx/factura-electronica/trunk/cfdi-base/target/cfdi-base-0.1.6-SNAPSHOT.jar:/Users/elmer/.m2/repository/junit/junit/4.8.1/junit-4.8.1.jar:/Users/elmer/.m2/repository/com/google/guava/guava/r06/guava-r06.jar:/Users/elmer/.m2/repository/commons-codec/commons-codec/1.4/commons-codec-1.4.jar:/Users/elmer/.m2/repository/ca/juliusdavies/not-yet-commons-ssl/0.3.11/not-yet-commons-ssl-0.3.11.jar:/Users/elmer/.m2/repository/org/bouncycastle/bcprov-ext-jdk15/1.45/bcprov-ext-jdk15-1.45.jar:/Users/elmer/.m2/repository/com/sun/xml/bind/jaxb-xjc/2.1.12/jaxb-xjc-2.1.12.jar:/Users/elmer/.m2/repository/com/sun/xml/bind/jaxb-impl/2.1.12/jaxb-impl-2.1.12.jar:/Users/elmer/.m2/repository/javax/xml/bind/jaxb-api/2.1/jaxb-api-2.1.jar:/Users/elmer/.m2/repository/javax/xml/stream/stax-api/1.0-2/stax-api-1.0-2.jar:/Users/elmer/.m2/repository/javax/activation/activation/1.1/activation-1.1.jar:"/>
+    <property name="java.specification.name" value="Java Platform API Specification"/>
+    <property name="java.class.version" value="50.0"/>
+    <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
+    <property name="os.version" value="10.6.8"/>
+    <property name="http.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
+    <property name="user.home" value="/Users/elmer"/>
+    <property name="user.timezone" value=""/>
+    <property name="java.awt.printerjob" value="apple.awt.CPrinterJob"/>
+    <property name="java.specification.version" value="1.6"/>
+    <property name="file.encoding" value="MacRoman"/>
+    <property name="user.name" value="elmer"/>
+    <property name="java.class.path" value="/Users/elmer/src/bigdata.mx/factura-electronica/trunk/cfdi-plugins/target/test-classes:/Users/elmer/src/bigdata.mx/factura-electronica/trunk/cfdi-plugins/target/classes:/Users/elmer/.m2/repository/org/yaml/snakeyaml/1.7/snakeyaml-1.7.jar:/Users/elmer/src/bigdata.mx/factura-electronica/trunk/cfdi-base/target/cfdi-base-0.1.6-SNAPSHOT.jar:/Users/elmer/.m2/repository/junit/junit/4.8.1/junit-4.8.1.jar:/Users/elmer/.m2/repository/com/google/guava/guava/r06/guava-r06.jar:/Users/elmer/.m2/repository/commons-codec/commons-codec/1.4/commons-codec-1.4.jar:/Users/elmer/.m2/repository/ca/juliusdavies/not-yet-commons-ssl/0.3.11/not-yet-commons-ssl-0.3.11.jar:/Users/elmer/.m2/repository/org/bouncycastle/bcprov-ext-jdk15/1.45/bcprov-ext-jdk15-1.45.jar:/Users/elmer/.m2/repository/com/sun/xml/bind/jaxb-xjc/2.1.12/jaxb-xjc-2.1.12.jar:/Users/elmer/.m2/repository/com/sun/xml/bind/jaxb-impl/2.1.12/jaxb-impl-2.1.12.jar:/Users/elmer/.m2/repository/javax/xml/bind/jaxb-api/2.1/jaxb-api-2.1.jar:/Users/elmer/.m2/repository/javax/xml/stream/stax-api/1.0-2/stax-api-1.0-2.jar:/Users/elmer/.m2/repository/javax/activation/activation/1.1/activation-1.1.jar:"/>
+    <property name="java.vm.specification.version" value="1.0"/>
+    <property name="sun.arch.data.model" value="64"/>
+    <property name="java.home" value="/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Home"/>
+    <property name="sun.java.command" value="/Users/elmer/src/bigdata.mx/factura-electronica/trunk/cfdi-plugins/target/surefire/surefirebooter6363499666421854719.jar /Users/elmer/src/bigdata.mx/factura-electronica/trunk/cfdi-plugins/target/surefire/surefire4867859410740510823tmp /Users/elmer/src/bigdata.mx/factura-electronica/trunk/cfdi-plugins/target/surefire/surefire6049073189529928462tmp"/>
+    <property name="java.specification.vendor" value="Sun Microsystems Inc."/>
+    <property name="user.language" value="en"/>
+    <property name="awt.toolkit" value="apple.awt.CToolkit"/>
+    <property name="java.vm.info" value="mixed mode"/>
+    <property name="java.version" value="1.6.0_29"/>
+    <property name="java.ext.dirs" value="/Users/elmer/Library/Java/Extensions:/Library/Java/Extensions:/System/Library/Java/Extensions:/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Home/lib/ext"/>
+    <property name="sun.boot.class.path" value="/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Classes/jsfd.jar:/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Classes/classes.jar:/System/Library/Frameworks/JavaVM.framework/Frameworks/JavaRuntimeSupport.framework/Resources/Java/JavaRuntimeSupport.jar:/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Classes/ui.jar:/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Classes/laf.jar:/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Classes/sunrsasign.jar:/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Classes/jsse.jar:/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Classes/jce.jar:/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Classes/charsets.jar"/>
+    <property name="java.vendor" value="Apple Inc."/>
+    <property name="localRepository" value="/Users/elmer/.m2/repository"/>
+    <property name="file.separator" value="/"/>
+    <property name="java.vendor.url.bug" value="http://bugreport.apple.com/"/>
+    <property name="sun.cpu.endian" value="little"/>
+    <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
+    <property name="mrj.version" value="1060.1.6.0_29-402"/>
+    <property name="socksNonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
+    <property name="ftp.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
+    <property name="sun.cpu.isalist" value=""/>
+  </properties>
+  <testcase time="0.002" classname="mx.bigdata.sat.plugins.AppTest" name="testApp"/>
+</testsuite>

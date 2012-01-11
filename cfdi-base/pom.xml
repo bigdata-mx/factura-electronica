@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>mx.bigdata.cfdi</groupId>
   <artifactId>cfdi-base</artifactId>
-  <version>0.2.1-SNAPSHOT</version>
+  <version>0.2.1</version>
   <packaging>jar</packaging>
   <name>cfdi-base</name>
   <url>http://code.google.com/p/factura-electronica</url>
@@ -26,9 +26,9 @@
     </license>
   </licenses>
   <scm>
-    <connection>http://factura-electronica.googlecode.com/svn/trunk/cfdi-base/</connection>
-    <developerConnection>scm:svn:https://factura-electronica.googlecode.com/svn/trunk/cfdi-base/</developerConnection>
-    <url>http://code.google.com/p/factura-electronica/source/browse/</url>
+    <connection>http://factura-electronica.googlecode.com/svn/tags/cfdi-base-0.2.1</connection>
+    <developerConnection>scm:svn:https://factura-electronica.googlecode.com/svn/tags/cfdi-base-0.2.1</developerConnection>
+    <url>http://code.google.com/p/factura-electronica/source/browse/tags/cfdi-base-0.2.1</url>
   </scm>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

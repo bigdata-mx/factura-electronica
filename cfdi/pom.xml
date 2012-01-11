@@ -3,7 +3,7 @@
   <groupId>mx.bigdata.cfdi</groupId>
   <artifactId>cfdi</artifactId>
   <packaging>pom</packaging>
-  <version>0.2.2-SNAPSHOT</version>
+  <version>0.2.1-SNAPSHOT</version>
   <name>factura-electronica // Librerías de Facturación Electrónica en Java</name>
   <url>http://code.google.com/p/factura-electronica</url>
   

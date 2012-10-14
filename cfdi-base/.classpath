@@ -1,27 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" output="target/classes" path="src/main/java"/>
-	<classpathentry kind="src" output="target/classes" path="target/generated-sources/xjc1"/>
-	<classpathentry kind="src" output="target/classes" path="target/generated-sources/xjc2"/>
-	<classpathentry kind="src" output="target/classes" path="target/generated-sources/xjc3"/>
-	<classpathentry kind="src" output="target/classes" path="target/generated-sources/xjc4"/>
-	<classpathentry kind="src" output="target/classes" path="target/generated-sources/xjc5"/>
-	<classpathentry kind="src" output="target/classes" path="target/generated-sources/xjc6"/>
-	<classpathentry kind="src" output="target/classes" path="target/generated-sources/xjc7"/>
-	<classpathentry kind="src" output="target/classes" path="target/generated-sources/xjc8"/>
-	<classpathentry kind="src" output="target/classes" path="target/generated-sources/xjc9"/>
-	<classpathentry kind="src" output="target/classes" path="target/generated-sources/xjc10"/>
-	<classpathentry kind="src" output="target/classes" path="target/generated-sources/xjc11"/>
-	<classpathentry kind="src" output="target/classes" path="target/generated-sources/xjc12"/>
-	<classpathentry kind="src" output="target/classes" path="target/generated-sources/xjc13"/>
-	<classpathentry kind="src" output="target/classes" path="target/generated-sources/xjc14"/>
-	<classpathentry kind="src" output="target/classes" path="target/generated-sources/xjc15"/>
-	<classpathentry kind="src" output="target/classes" path="target/generated-sources/xjc16"/>
-	<classpathentry kind="src" output="target/classes" path="target/generated-sources/xjc17"/>
-	<classpathentry kind="src" output="target/classes" path="target/generated-sources/xjc18"/>
 	<classpathentry excluding="**" kind="src" output="target/classes" path="src/main/resources"/>
 	<classpathentry kind="src" output="target/test-classes" path="src/test/java"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/J2SE-1.5"/>
+	<classpathentry kind="src" path="target/generated-sources/xjc1"/>
+	<classpathentry kind="src" path="target/generated-sources/xjc10"/>
+	<classpathentry kind="src" path="target/generated-sources/xjc11"/>
+	<classpathentry kind="src" path="target/generated-sources/xjc12"/>
+	<classpathentry kind="src" path="target/generated-sources/xjc13"/>
+	<classpathentry kind="src" path="target/generated-sources/xjc14"/>
+	<classpathentry kind="src" path="target/generated-sources/xjc15"/>
+	<classpathentry kind="src" path="target/generated-sources/xjc16"/>
+	<classpathentry kind="src" path="target/generated-sources/xjc17"/>
+	<classpathentry kind="src" path="target/generated-sources/xjc18"/>
+	<classpathentry kind="src" path="target/generated-sources/xjc2"/>
+	<classpathentry kind="src" path="target/generated-sources/xjc3"/>
+	<classpathentry kind="src" path="target/generated-sources/xjc4"/>
+	<classpathentry kind="src" path="target/generated-sources/xjc5"/>
+	<classpathentry kind="src" path="target/generated-sources/xjc6"/>
+	<classpathentry kind="src" path="target/generated-sources/xjc7"/>
+	<classpathentry kind="src" path="target/generated-sources/xjc8"/>
+	<classpathentry kind="src" path="target/generated-sources/xjc9"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
+	<classpathentry kind="con" path="org.eclipse.m2e.MAVEN2_CLASSPATH_CONTAINER"/>
 	<classpathentry kind="con" path="org.maven.ide.eclipse.MAVEN2_CLASSPATH_CONTAINER"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>mx.bigdata.cfdi</groupId>
   <artifactId>cfdi-base</artifactId>
-  <version>0.2.3</version>
+  <version>0.2.4-SNAPSHOT</version>
   <packaging>jar</packaging>
   <name>cfdi-base</name>
   <url>http://code.google.com/p/factura-electronica</url>

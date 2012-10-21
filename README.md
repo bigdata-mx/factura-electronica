@@ -63,9 +63,9 @@ Cada uno de estos elementos tiene la funcionalidad necesaria para: validar, firm
 ```
 
 ### Descarga las dependencias
- 1. Descarga la última versión de las librerías
- 2. Descomprime el archivo cfdi-X.Y.Z-bin.zip o cfdi-X.Y.Z-bin.tar.gz
- 3. Agrega los archivos jar al classpath.
+ 1. Descarga la [última versión](https://github.com/downloads/bigdata-mx/factura-electronica/cfdi-base-0.2.4-bin.zip) de las librerías
+ 2. Descomprime el archivo cfdi-base-0.2.4-bin.zip
+ 3. Agrega todos los archivos jar al classpath de tu aplicación.
 
 ## Documentos
 

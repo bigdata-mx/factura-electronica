@@ -50,13 +50,19 @@ Cada uno de estos elementos tiene la funcionalidad necesaria para: validar, firm
 
 ## Instalación
 
-### Utilizar maven
+### Utiliza maven
+```
+<dependency>
+  <groupId>mx.bigdata.cfdi</groupId>
+  <artifactId>cfdi-base</artifactId>
+  <version>0.2.4</version>
+</dependency>
+```
 
-Próximamente...
-
-### Descargar las dependencias
+### Descarga las dependencias
  1. Descarga la última versión de las librerías
  2. Descomprime el archivo cfdi-X.Y.Z-bin.zip o cfdi-X.Y.Z-bin.tar.gz
+ 3. Agrega los archivos jar al classpath.
 
 ## Documentos
 

@@ -76,12 +76,6 @@
     <defaultGoal>install</defaultGoal>
   <plugins>
       <plugin>
-        <artifactId>maven-release-plugin</artifactId>
-        <configuration>
-          <goals>package</goals>
-        </configuration>
-      </plugin>
-      <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
         <configuration>

@@ -60,22 +60,28 @@ Cada uno de estos elementos tiene la funcionalidad necesaria para: validar, firm
 * [Linea de Comandos](https://github.com/bigdata-mx/factura-electronica/wiki/Linea-de-comandos)
 * [Código fuente](https://github.com/bigdata-mx/factura-electronica/wiki/Compilar-el-codigo-fuente)
 * [Guia del usuario](https://github.com/bigdata-mx/factura-electronica/wiki/Guia-del-usuario)
-* [Preguntas frecuentes]
-* [Documentación del API][http://factura-electronica.googlecode.com/svn/javadoc/index.html]
+* [Preguntas frecuentes](https://github.com/bigdata-mx/factura-electronica/wiki/Preguntas-frecuentes)
+* [Documentación del API](http://factura-electronica.googlecode.com/svn/javadoc/index.html)
 
 Entérate de las mejoras y actualizaciones a las librerías a través de nuestra [cuenta de twitter]([http://www.twitter.com/bigdata_mx)
 
-Valida tus CFD-I utilizando el [https://www.consulta.sat.gob.mx/sicofi_web/moduloECFD_plus/ValidadorCFDI/Validador%20cfdi.html Validador de forma y sintaxis de Comprobantes Fiscales Digitales v3]
+Valida tus CFD-I utilizando el [Validador de forma y sintaxis de Comprobantes Fiscales Digitales v3](https://www.consulta.sat.gob.mx/sicofi_web/moduloECFD_plus/ValidadorCFDI/Validador%20cfdi.html)
 
 
 Encuentra más información sobre los CFDI en las siguientes referencias las siguientes referencias:
 
-  * [http://www.sat.gob.mx/sitio_internet/asistencia_contribuyente/principiantes/comprobantes_fiscales/66_19339.html Comunicado de prensa] `[`03/09/2010`]`
-  * [http://www.sat.gob.mx/sitio_internet/asistencia_contribuyente/principiantes/comprobantes_fiscales/66_19209.html Nuevo esquema de facturación electrónica 2011] `[`08/10/2010`]`
-  * [http://www.sat.gob.mx/sitio_internet/asistencia_contribuyente/principiantes/comprobantes_fiscales/66_19069.html Información para proveedores de certificación de CFDI] `[`22/10/2010`]`
-  * [http://www.sat.gob.mx/sitio_internet/asistencia_contribuyente/principiantes/comprobantes_fiscales/66_19430.html Ejemplos y preguntas frecuentes de tecnología] `[`22/10/2010`]`
-  * [http://www.sat.gob.mx/sitio_internet/asistencia_contribuyente/principiantes/comprobantes_fiscales/66_18889.html Fundamento legal] `[`24/09/2010`]`
-  * [http://www.sat.gob.mx/sitio_internet/e_sat/comprobantes_fiscales/15_15565.html Validadores y referencias para los CFD v2] `[`19/07/2010`]`
+* [Comunicado de prensa](http://www.sat.gob.mx/sitio_internet/asistencia_contribuyente/principiantes/comprobantes_fiscales/66_19339.html)
+ [03/09/2010]
+* [Nuevo esquema de facturación electrónica 2011](http://www.sat.gob.mx/sitio_internet/asistencia_contribuyente/principiantes/comprobantes_fiscales/66_19209.html)
+ [08/10/2010]
+* [Información para proveedores de certificación de CFDI](http://www.sat.gob.mx/sitio_internet/asistencia_contribuyente/principiantes/comprobantes_fiscales/66_19069.html)
+ [22/10/2010]
+* [Ejemplos y preguntas frecuentes de tecnología](http://www.sat.gob.mx/sitio_internet/asistencia_contribuyente/principiantes/comprobantes_fiscales/66_19430.html)
+ [22/10/2010]
+* [Fundamento legal](http://www.sat.gob.mx/sitio_internet/asistencia_contribuyente/principiantes/comprobantes_fiscales/66_18889.html)
+ [24/09/2010]
+* [Validadores y referencias para los CFD v2](http://www.sat.gob.mx/sitio_internet/e_sat/comprobantes_fiscales/15_15565.html)
+ [19/07/2010]
 
 
 ### Dudas y comentarios

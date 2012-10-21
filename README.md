@@ -49,6 +49,12 @@ Cada uno de estos elementos tiene la funcionalidad necesaria para: validar, firm
 ```
 
 ## Instalación
+
+### Utilizar maven
+
+Próximamente...
+
+### Descargar las dependencias
  1. Descarga la última versión de las librerías
  2. Descomprime el archivo cfdi-X.Y.Z-bin.zip o cfdi-X.Y.Z-bin.tar.gz
 

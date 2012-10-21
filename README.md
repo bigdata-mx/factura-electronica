@@ -98,6 +98,6 @@ Encuentra más información sobre los CFDI en las siguientes referencias las sig
 ### Dudas y comentarios
 ¿Tienes algún problema o sugerencia de mejora?
 
-Busca la respuesta en la sección de preguntas frecuentes o en la sección de 
-seguimiento. Si no encuentras la respuesta, crea una nueva entrada utilizando 
+Busca la respuesta en la sección de [preguntas frecuentes](https://github.com/bigdata-mx/factura-electronica/wiki/Preguntas-frecuentes) o en la sección de 
+[seguimiento](https://github.com/bigdata-mx/factura-electronica/issues?state=open). Si no encuentras la respuesta, crea una nueva entrada utilizando 
 la liga de New Issue y haremos todo lo posible por solucionarlo.

@@ -49,13 +49,10 @@ Cada uno de estos elementos tiene la funcionalidad necesaria para: validar, firm
 ```
 
 ## Instalación
-
-### Instalación
-
  1. Descarga la última versión de las librerías
  2. Descomprime el archivo cfdi-X.Y.Z-bin.zip o cfdi-X.Y.Z-bin.tar.gz
 
-### Documentos
+## Documentos
 
 * [Linea de Comandos](https://github.com/bigdata-mx/factura-electronica/wiki/Linea-de-comandos)
 * [Código fuente](https://github.com/bigdata-mx/factura-electronica/wiki/Compilar-el-codigo-fuente)
@@ -66,7 +63,6 @@ Cada uno de estos elementos tiene la funcionalidad necesaria para: validar, firm
 Entérate de las mejoras y actualizaciones a las librerías a través de nuestra [cuenta de twitter](http://www.twitter.com/bigdata_mx)
 
 Valida tus CFD-I utilizando el [Validador de forma y sintaxis de Comprobantes Fiscales Digitales v3](https://www.consulta.sat.gob.mx/sicofi_web/moduloECFD_plus/ValidadorCFDI/Validador%20cfdi.html)
-
 
 Encuentra más información sobre los CFDI en las siguientes referencias las siguientes referencias:
 

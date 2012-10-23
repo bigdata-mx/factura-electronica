@@ -1,8 +1,7 @@
 factura-electronica
 ====================
 
-Librería de componentes Java para el desarrollo de aplicaciones de 
-Factura Electrónica (CFDI)
+Librería de componentes Java para el desarrollo de aplicaciones de Factura Electrónica (CFDI)
 
 [![Build Status](https://secure.travis-ci.org/bigdata-mx/factura-electronica.png)](http://travis-ci.org/bigdata-mx/factura-electronica)
 
@@ -10,8 +9,8 @@ Factura Electrónica (CFDI)
 ## Librería de componentes
 
 La librería presenta una interfaz muy simple centrada en el Comprobante Fiscal
-Digital (CFD), las clases principales son CFDv3 y CFDv2 que tienen la lógica 
-correspondiente a las versiones 3.0 y 2.0 del CFD respectivamente.
+Digital (CFD), las clases principales son `CFDv32` y `CFDv22` que tienen la lógica 
+correspondiente a las versiones 3.2 y 2.2 del CFD respectivamente.
 
 Cada uno de estos elementos tiene la funcionalidad necesaria para: validar, firmar, verificar y serializar CFDs.
 
@@ -70,8 +69,8 @@ Cada uno de estos elementos tiene la funcionalidad necesaria para: validar, firm
 ## Documentos
 
 * [Guia del usuario](https://github.com/bigdata-mx/factura-electronica/wiki/Guia-del-usuario)
-* [Preguntas frecuentes](https://github.com/bigdata-mx/factura-electronica/wiki/Preguntas-frecuentes)
 * [Documentación del API](http://factura-electronica.googlecode.com/svn/javadoc/index.html)
+* [Preguntas frecuentes](https://github.com/bigdata-mx/factura-electronica/wiki/Preguntas-frecuentes)
 * [Linea de Comandos](https://github.com/bigdata-mx/factura-electronica/wiki/Linea-de-comandos)
 * [Código fuente](https://github.com/bigdata-mx/factura-electronica/wiki/Compilar-el-codigo-fuente)
 

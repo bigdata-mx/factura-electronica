@@ -45,7 +45,7 @@ public final class ExampleCFDv22Factory {
     ObjectFactory of = new ObjectFactory();
     Comprobante comp = of.createComprobante();
     comp.setVersion("2.2");
-    Date date = new GregorianCalendar(year, 04, 03, 14, 11, 36).getTime();
+    Date date = new GregorianCalendar(year, 4, 3, 14, 11, 36).getTime();
     comp.setFecha(date);
     comp.setSerie("ABCD");
     comp.setFolio("2");

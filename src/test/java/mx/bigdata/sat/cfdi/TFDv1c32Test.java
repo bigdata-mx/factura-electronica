@@ -64,7 +64,7 @@ public final class TFDv1c32Test {
     CFDv32 cfd = new CFDv32(ExampleCFDv32Factory.createComprobante(), 
                           "mx.bigdata.sat.cfdi.examples");
     cfd.sellar(key, cert);
-    Date date = new GregorianCalendar(2011, 01, 07, 8, 51, 00).getTime();
+    Date date = new GregorianCalendar(2011, 1, 7, 8, 51, 0).getTime();
     UUID uuid = UUID.fromString("843a05d7-207d-4adc-91e8-bda7175bcda3");
     tfd = new TFDv1c32(cfd, pacCert, uuid, date);  
   }

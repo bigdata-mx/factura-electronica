@@ -28,8 +28,9 @@ import java.util.List;
 import mx.bigdata.sat.cfd.CFD2;
 import mx.bigdata.sat.cfd.CFD2Factory;
 import mx.bigdata.sat.common.ValidationErrorHandler;
-import mx.bigdata.sat.security.KeyLoader;
 
+import mx.bigdata.sat.security.KeyLoaderEnumeration;
+import mx.bigdata.sat.security.factory.KeyLoaderFactory;
 import org.xml.sax.SAXParseException;
 
 public final class CLI {
@@ -52,8 +53,12 @@ public final class CLI {
       String file = args[1];
       CFD2 cfd = CFD2Factory.load(new File(file));
       if (args.length == 3) {
-        Certificate cert = KeyLoader
-        .loadX509Certificate(new FileInputStream(args[2]));
+
+        Certificate cert = KeyLoaderFactory.createInstance(
+                KeyLoaderEnumeration.PUBLIC_KEY_LOADER,
+                new FileInputStream(args[2])
+        ).getKey();
+
         cfd.verificar(cert);
       } else {
         cfd.verificar();
@@ -61,10 +66,18 @@ public final class CLI {
     } else if (cmd.equals("sellar")) { 
       String file = args[1];
       CFD2 cfd = CFD2Factory.load(new File(file));
-      PrivateKey key = KeyLoader
-        .loadPKCS8PrivateKey(new FileInputStream(args[2]), args[3]);
-      X509Certificate cert = KeyLoader
-        .loadX509Certificate(new FileInputStream(args[4]));
+
+      PrivateKey key = (PrivateKey) KeyLoaderFactory.createInstance(
+              KeyLoaderEnumeration.PRIVATE_KEY_LOADER,
+              new FileInputStream(args[2]),
+              args[3]
+      ).getKey();
+
+      X509Certificate cert = KeyLoaderFactory.createInstance(
+              KeyLoaderEnumeration.PUBLIC_KEY_LOADER,
+              new FileInputStream(args[4])
+      ).getKey();
+
       cfd.sellar(key, cert);
       OutputStream out = new FileOutputStream(args[5]);
       cfd.guardar(out);

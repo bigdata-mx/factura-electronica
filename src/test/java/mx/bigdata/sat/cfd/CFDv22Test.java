@@ -28,8 +28,9 @@ import java.security.cert.X509Certificate;
 
 import mx.bigdata.sat.cfd.examples.ExampleCFDv22Factory;
 import mx.bigdata.sat.cfd.v22.schema.Comprobante;
-import mx.bigdata.sat.security.KeyLoader;
 
+import mx.bigdata.sat.security.KeyLoaderEnumeration;
+import mx.bigdata.sat.security.factory.KeyLoaderFactory;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -40,11 +41,16 @@ public final class CFDv22Test {
   private static X509Certificate cert;
 
   @BeforeClass public static void loadKeys() throws Exception {
-    key = KeyLoader
-      .loadPKCS8PrivateKey(new FileInputStream("resources/certs/aaa010101aaa__csd_01.key"),
-                           "12345678a");
-    cert = KeyLoader
-      .loadX509Certificate(new FileInputStream("resources/certs/aaa010101aaa__csd_01.cer"));
+    key = KeyLoaderFactory.createInstance(
+            KeyLoaderEnumeration.PRIVATE_KEY_LOADER,
+            new FileInputStream("resources/certs/aaa010101aaa__csd_01.key"),
+            "12345678a"
+    ).getKey();
+
+    cert = KeyLoaderFactory.createInstance(
+            KeyLoaderEnumeration.PUBLIC_KEY_LOADER,
+            new FileInputStream("resources/certs/aaa010101aaa__csd_01.cer")
+    ).getKey();
   }
   
   @Test public void testOriginalString() throws Exception {

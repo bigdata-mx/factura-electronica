@@ -22,8 +22,8 @@ import java.security.cert.X509Certificate;
 
 import javax.crypto.Cipher;
 
-import mx.bigdata.sat.security.KeyLoader;
-
+import mx.bigdata.sat.security.KeyLoaderEnumeration;
+import mx.bigdata.sat.security.factory.KeyLoaderFactory;
 import org.apache.commons.codec.binary.Base64;
 import org.bouncycastle.asn1.ASN1InputStream;
 import org.bouncycastle.asn1.ASN1OctetString;
@@ -42,8 +42,9 @@ final class CFDv3Debugger {
     String certStr = cfd.document.getCertificado();
     Base64 b64 = new Base64();
     byte[] cbs = b64.decode(certStr);
-    X509Certificate cert = KeyLoader
-      .loadX509Certificate(new ByteArrayInputStream(cbs)); 
+    X509Certificate cert = (X509Certificate) KeyLoaderFactory.createInstance(
+            KeyLoaderEnumeration.PUBLIC_KEY_LOADER,
+            new ByteArrayInputStream(cbs)).getKey();
     cert.checkValidity(); 
     String sigStr = cfd.document.getSello();
     byte[] signature = b64.decode(sigStr); 

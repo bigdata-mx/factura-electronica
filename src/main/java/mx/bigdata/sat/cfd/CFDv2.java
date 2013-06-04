@@ -50,8 +50,9 @@ import javax.xml.validation.Validator;
 import mx.bigdata.sat.cfd.schema.Comprobante;
 import mx.bigdata.sat.common.URIResolverImpl;
 import mx.bigdata.sat.common.NamespacePrefixMapperImpl;
-import mx.bigdata.sat.security.KeyLoader;
 
+import mx.bigdata.sat.security.KeyLoaderEnumeration;
+import mx.bigdata.sat.security.factory.KeyLoaderFactory;
 import org.apache.commons.codec.binary.Base64;
 import org.w3c.dom.Document;
 import org.xml.sax.ErrorHandler;
@@ -144,8 +145,12 @@ public final class CFDv2 implements CFD2 {
     String certStr = document.getCertificado();
     Base64 b64 = new Base64();
     byte[] cbs = b64.decode(certStr);
-    X509Certificate cert = KeyLoader
-      .loadX509Certificate(new ByteArrayInputStream(cbs)); 
+
+    X509Certificate cert = KeyLoaderFactory.createInstance(
+            KeyLoaderEnumeration.PUBLIC_KEY_LOADER,
+            new ByteArrayInputStream(cbs)
+    ).getKey();
+
     verificar(cert);
   }
 

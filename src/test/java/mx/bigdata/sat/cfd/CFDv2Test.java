@@ -28,8 +28,10 @@ import java.security.cert.X509Certificate;
 
 import mx.bigdata.sat.cfd.examples.ExampleCFDFactory;
 import mx.bigdata.sat.cfd.schema.Comprobante;
-import mx.bigdata.sat.security.KeyLoader;
 
+import mx.bigdata.sat.security.KeyLoader;
+import mx.bigdata.sat.security.KeyLoaderEnumeration;
+import mx.bigdata.sat.security.factory.KeyLoaderFactory;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -39,14 +41,21 @@ public final class CFDv2Test {
 
   private static X509Certificate cert;
 
-  @BeforeClass public static void loadKeys() throws Exception {
-    key = KeyLoader
-      .loadPKCS8PrivateKey(new FileInputStream("resources/certs/aaa010101aaa__csd_01.key"),
-                           "12345678a");
-    cert = KeyLoader
-      .loadX509Certificate(new FileInputStream("resources/certs/aaa010101aaa__csd_01.cer"));
-  }
-  
+    @BeforeClass
+    public static void loadKeys() throws Exception {
+
+        key = KeyLoaderFactory.createInstance(
+                KeyLoaderEnumeration.PRIVATE_KEY_LOADER,
+                "resources/certs/aaa010101aaa__csd_01.key",
+                "12345678a"
+        ).getKey();
+
+        cert = KeyLoaderFactory.createInstance(
+                KeyLoaderEnumeration.PUBLIC_KEY_LOADER,
+                "resources/certs/aaa010101aaa__csd_01.cer"
+        ).getKey();
+    }
+
   @Test public void testOriginalString() throws Exception {
     CFDv2 cfd = new CFDv2(ExampleCFDFactory.createComprobante());
     String cadena = "||2.0|ABCD|2|2010-05-03T14:11:36|49|2008|ingreso|UNA SOLA EXHIBICI\u00D3N|2000.00|0.00|2320.00|PAMC660606ER9|CONTRIBUYENTE PRUEBASEIS PATERNOSEIS MATERNOSEIS|PRUEBA SEIS|6|6|PUEBLA CENTRO|PUEBLA|PUEBLA|PUEBLA|M\u00C9XICO|72000|CAUR390312S87|ROSA MAR\u00CDA CALDER\u00D3N UIRIEGAS|TOPOCHICO|52|JARDINES DEL VALLE|NUEVO LEON|M\u00E9xico|95465|1.00|Servicio|01|Asesoria Fiscal y administrativa|2000.00|2000.00|IVA|16.00|320.00|320.00||";

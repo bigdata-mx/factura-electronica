@@ -28,8 +28,9 @@ import mx.bigdata.sat.cfdi.CFDI;
 import mx.bigdata.sat.cfdi.CFDIFactory;
 import mx.bigdata.sat.cfdi.TFDv1;
 import mx.bigdata.sat.common.ValidationErrorHandler;
-import mx.bigdata.sat.security.KeyLoader;
 
+import mx.bigdata.sat.security.KeyLoaderEnumeration;
+import mx.bigdata.sat.security.factory.KeyLoaderFactory;
 import org.xml.sax.SAXParseException;
 
 public final class CLI {
@@ -55,18 +56,30 @@ public final class CLI {
     } else if (cmd.equals("sellar")) { 
       String file = args[1];
       CFDI cfd = CFDIFactory.load(new File(file));
-      PrivateKey key = KeyLoader
-        .loadPKCS8PrivateKey(new FileInputStream(args[2]), args[3]);
-      X509Certificate cert = KeyLoader
-        .loadX509Certificate(new FileInputStream(args[4]));
+
+      PrivateKey key = KeyLoaderFactory.createInstance(
+              KeyLoaderEnumeration.PRIVATE_KEY_LOADER,
+              new FileInputStream(args[2]),
+              args[3]
+      ).getKey();
+
+      X509Certificate cert = KeyLoaderFactory.createInstance(
+              KeyLoaderEnumeration.PUBLIC_KEY_LOADER,
+              new FileInputStream(args[4])
+      ).getKey();
+
       cfd.sellar(key, cert);
       OutputStream out = new FileOutputStream(args[5]);
       cfd.guardar(out);
     } else if (cmd.equals("validar-timbrado")) {
       String file = args[1];
       CFDI cfd = CFDIFactory.load(new File(file));
-      X509Certificate cert = KeyLoader
-        .loadX509Certificate(new FileInputStream(args[2]));
+
+      X509Certificate cert = KeyLoaderFactory.createInstance(
+              KeyLoaderEnumeration.PUBLIC_KEY_LOADER,
+              new FileInputStream(args[2])
+      ).getKey();
+
       TFDv1 tfd = new TFDv1(cfd, cert);
       ValidationErrorHandler handler = new ValidationErrorHandler();
       tfd.validar(handler);
@@ -80,8 +93,12 @@ public final class CLI {
     } else if (cmd.equals("verificar-timbrado")) { 
       String file = args[1];
       CFDI cfd = CFDIFactory.load(new File(file));
-      X509Certificate cert = KeyLoader
-        .loadX509Certificate(new FileInputStream(args[2]));
+
+      X509Certificate cert = KeyLoaderFactory.createInstance(
+              KeyLoaderEnumeration.PUBLIC_KEY_LOADER,
+              new FileInputStream(args[2])
+      ).getKey();
+
       TFDv1 tfd = new TFDv1(cfd, cert);
       int code = tfd.verificar();
       if (code != 600) {
@@ -90,10 +107,18 @@ public final class CLI {
     } else if (cmd.equals("timbrar")) { 
       String file = args[1];
       CFDI cfd = CFDIFactory.load(new File(file));
-      PrivateKey key = KeyLoader
-        .loadPKCS8PrivateKey(new FileInputStream(args[2]), args[3]);
-      X509Certificate cert = KeyLoader
-        .loadX509Certificate(new FileInputStream(args[4]));
+
+      PrivateKey key = KeyLoaderFactory.createInstance(
+              KeyLoaderEnumeration.PRIVATE_KEY_LOADER,
+              new FileInputStream(args[2]),
+              args[3]
+      ).getKey();
+
+      X509Certificate cert = KeyLoaderFactory.createInstance(
+              KeyLoaderEnumeration.PUBLIC_KEY_LOADER,
+              new FileInputStream(args[4])
+      ).getKey();
+
       TFDv1 tfd = new TFDv1(cfd, cert);
       tfd.timbrar(key);
       OutputStream out = new FileOutputStream(args[5]);

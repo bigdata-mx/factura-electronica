@@ -5,7 +5,7 @@ package mx.bigdata.sat.exceptions;
  * User: Gerardo Aquino
  * Date: 3/06/13
  */
-public class KeyException extends Exception {
+public class KeyException extends RuntimeException {
 
     public KeyException() {
         super();

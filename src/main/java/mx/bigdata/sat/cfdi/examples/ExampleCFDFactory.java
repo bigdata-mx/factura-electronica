@@ -42,7 +42,7 @@ public final class ExampleCFDFactory {
     ObjectFactory of = new ObjectFactory();
     Comprobante comp = of.createComprobante();
     comp.setVersion("3.0");
-    Date date = new GregorianCalendar(2011, 01, 06, 20, 38, 12).getTime();
+    Date date = new GregorianCalendar(2011, 1, 6, 20, 38, 12).getTime();
     comp.setFecha(date);
     comp.setFormaDePago("PAGO EN UNA SOLA EXHIBICION");
     comp.setSubTotal(new BigDecimal("466.43"));

@@ -29,8 +29,9 @@ import java.util.GregorianCalendar;
 import java.util.UUID;
 
 import mx.bigdata.sat.cfdi.examples.ExampleCFDFactory;
-import mx.bigdata.sat.security.KeyLoader;
 
+import mx.bigdata.sat.security.KeyLoaderEnumeration;
+import mx.bigdata.sat.security.factory.KeyLoaderFactory;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -48,23 +49,35 @@ public final class TFDv1Test {
   private TFDv1 tfd;
   
   @BeforeClass public static void loadKeys() throws Exception {
-    key = KeyLoader
-      .loadPKCS8PrivateKey(new FileInputStream("resources/certs/aaa010101aaa__csd_01.key"),
-                           "12345678a");
-    cert = KeyLoader
-      .loadX509Certificate(new FileInputStream("resources/certs/aaa010101aaa__csd_01.cer"));
-    pacKey = KeyLoader
-      .loadPKCS8PrivateKey(new FileInputStream("resources/certs/aaa010101aaa__csd_02.key"),
-                           "12345678a");
-    pacCert = KeyLoader
-      .loadX509Certificate(new FileInputStream("resources/certs/aaa010101aaa__csd_02.cer"));
+
+    key = KeyLoaderFactory.createInstance(
+            KeyLoaderEnumeration.PRIVATE_KEY_LOADER,
+            new FileInputStream("resources/certs/aaa010101aaa__csd_01.key"),
+            "12345678a"
+    ).getKey();
+
+    cert = KeyLoaderFactory.createInstance(
+            KeyLoaderEnumeration.PUBLIC_KEY_LOADER,
+            new FileInputStream("resources/certs/aaa010101aaa__csd_01.cer")
+    ).getKey();
+
+    pacKey = KeyLoaderFactory.createInstance(
+            KeyLoaderEnumeration.PRIVATE_KEY_LOADER,
+            new FileInputStream("resources/certs/aaa010101aaa__csd_02.key"),
+            "12345678a"
+    ).getKey();
+
+    pacCert = KeyLoaderFactory.createInstance(
+            KeyLoaderEnumeration.PUBLIC_KEY_LOADER,
+            new FileInputStream("resources/certs/aaa010101aaa__csd_02.cer")
+    ).getKey();
   }
 
   @Before public void setupTFD() throws Exception {
     CFDv3 cfd = new CFDv3(ExampleCFDFactory.createComprobante(), 
                           "mx.bigdata.sat.cfdi.examples");
     cfd.sellar(key, cert);
-    Date date = new GregorianCalendar(2011, 01, 07, 8, 51, 00).getTime();
+    Date date = new GregorianCalendar(2011, 1, 7, 8, 51, 0).getTime();
     UUID uuid = UUID.fromString("843a05d7-207d-4adc-91e8-bda7175bcda3");
     tfd = new TFDv1(cfd, pacCert, uuid, date);  
   }

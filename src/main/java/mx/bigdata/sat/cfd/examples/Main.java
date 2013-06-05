@@ -22,16 +22,25 @@ import java.security.cert.X509Certificate;
 
 import mx.bigdata.sat.cfd.CFDv2;
 import mx.bigdata.sat.cfd.schema.Comprobante;
-import mx.bigdata.sat.security.KeyLoader;
+import mx.bigdata.sat.security.KeyLoaderEnumeration;
+import mx.bigdata.sat.security.factory.KeyLoaderFactory;
 
 public final class Main {
     
   public static void main(String[] args) throws Exception {
     CFDv2 cfd = new CFDv2(ExampleCFDFactory.createComprobante());
-    PrivateKey key = KeyLoader.loadPKCS8PrivateKey(new FileInputStream(args[0]),
-                                            args[1]);
-    X509Certificate cert = KeyLoader
-      .loadX509Certificate(new FileInputStream(args[2]));
+
+    PrivateKey key = KeyLoaderFactory.createInstance(
+            KeyLoaderEnumeration.PRIVATE_KEY_LOADER,
+            new FileInputStream(args[0]),
+            args[1]
+    ).getKey();
+
+    X509Certificate cert = KeyLoaderFactory.createInstance(
+            KeyLoaderEnumeration.PUBLIC_KEY_LOADER,
+            new FileInputStream(args[2])
+    ).getKey();
+
     Comprobante sellado = cfd.sellarComprobante(key, cert);
     System.err.println(sellado.getSello());
     cfd.validar();

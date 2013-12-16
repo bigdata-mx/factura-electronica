@@ -46,4 +46,12 @@ public class PublicKeyLoader implements KeyLoader {
         }
     }
 
+
+
+	@Override
+	public <T> T getKey() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

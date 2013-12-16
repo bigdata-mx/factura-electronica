@@ -96,12 +96,4 @@ public class PrivateKeyLoader implements KeyLoader {
 
         return bytes;
     }
-
-
-	@Override
-	public <T> T getKey() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }

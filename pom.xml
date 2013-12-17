@@ -328,6 +328,19 @@
               <extension>true</extension>
             </configuration>
           </execution>
+          <execution>
+            <id>schema19-xjc</id>
+            <goals>
+              <goal>xjc</goal>
+            </goals>
+            <configuration>
+              <packageName>mx.bigdata.sat.common.nomina.schema</packageName>
+              <schemaDirectory>src/main/resources/xsd/common/nomina</schemaDirectory>
+              <outputDirectory>${project.build.directory}/generated-sources/xjc19</outputDirectory>          
+              <staleFile>${project.build.directory}/generated-sources/xjc19/.staleFlag</staleFile>
+              <extension>true</extension>
+            </configuration>
+          </execution>
         </executions>
       </plugin>
       <plugin>

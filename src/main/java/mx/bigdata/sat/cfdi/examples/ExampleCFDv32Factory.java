@@ -25,8 +25,11 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.bouncycastle.crypto.macs.CMac;
+
 import mx.bigdata.sat.cfdi.v32.schema.Comprobante;
 import mx.bigdata.sat.cfdi.v32.schema.Comprobante.Addenda;
+import mx.bigdata.sat.cfdi.v32.schema.Comprobante.Complemento;
 import mx.bigdata.sat.cfdi.v32.schema.Comprobante.Conceptos;
 import mx.bigdata.sat.cfdi.v32.schema.Comprobante.Conceptos.Concepto;
 import mx.bigdata.sat.cfdi.v32.schema.Comprobante.Emisor;
@@ -58,7 +61,15 @@ public final class ExampleCFDv32Factory {
     comp.setConceptos(createConceptos(of));
     comp.setImpuestos(createImpuestos(of));
     comp.setAddenda(createAddenda(of));
+    comp.setComplemento(createComplemento(of));
     return comp;
+  }
+  
+  private static Complemento createComplemento(ObjectFactory of){
+	  Complemento complemento = new Complemento();
+	  
+	  
+	  return complemento;
   }
     
   private static Emisor createEmisor(ObjectFactory of) {

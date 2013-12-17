@@ -29,9 +29,12 @@ import java.security.cert.X509Certificate;
 
 import mx.bigdata.sat.cfdi.examples.ExampleCFDv32Factory;
 import mx.bigdata.sat.cfdi.v32.schema.Comprobante;
-
+import mx.bigdata.sat.cfdi.v32.schema.Comprobante.Complemento;
+import mx.bigdata.sat.common.nomina.schema.Nomina;
+import mx.bigdata.sat.common.nomina.schema.ObjectFactory;
 import mx.bigdata.sat.security.KeyLoaderEnumeration;
 import mx.bigdata.sat.security.factory.KeyLoaderFactory;
+
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -74,6 +77,7 @@ public final class CFDv32Test {
     BigInteger bi = cert.getSerialNumber();
     String certificateNum = new String(bi.toByteArray());
     assertEquals(certificateNum, cfd.doGetComprobante().getNoCertificado());
+    
   }
   
   @Test public void testValidateVerify() throws Exception {

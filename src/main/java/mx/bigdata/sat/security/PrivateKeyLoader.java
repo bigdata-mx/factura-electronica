@@ -96,5 +96,4 @@ public class PrivateKeyLoader implements KeyLoader {
 
         return bytes;
     }
-
 }

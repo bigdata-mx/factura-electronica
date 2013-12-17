@@ -83,7 +83,8 @@ public final class CFDv32 implements CFDI {
       "/xsd/common/psgcfdsp/psgcfdsp.xsd",
       "/xsd/common/psgecfd/psgecfd.xsd",
       "/xsd/common/terceros/terceros11.xsd",
-      "/xsd/common/ventavehiculos/ventavehiculos.xsd"
+      "/xsd/common/ventavehiculos/ventavehiculos.xsd",
+      "/xsd/common/nomina/nomina11.xsd"
   };
 
   private static final String XML_HEADER = 

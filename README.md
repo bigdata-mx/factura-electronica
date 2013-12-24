@@ -57,13 +57,13 @@ Cada uno de estos elementos tiene la funcionalidad necesaria para: validar, firm
 <dependency>
   <groupId>mx.bigdata.cfdi</groupId>
   <artifactId>cfdi-base</artifactId>
-  <version>0.2.4</version>
+  <version>0.2.5</version>
 </dependency>
 ```
 
 ### Descarga las dependencias
- 1. Descarga la [última versión](https://github.com/downloads/bigdata-mx/factura-electronica/cfdi-base-0.2.4-bin.zip) de las librerías
- 2. Descomprime el archivo cfdi-base-0.2.4-bin.zip
+ 1. Descarga la [última versión](https://github.com/downloads/bigdata-mx/factura-electronica/cfdi-base-0.2.5-bin.zip) de las librerías
+ 2. Descomprime el archivo cfdi-base-0.2.5-bin.zip
  3. Agrega todos los archivos jar al classpath de tu aplicación.
 
 ## Documentos

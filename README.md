@@ -93,6 +93,9 @@ Encuentra más información sobre los CFDI en las siguientes referencias las sig
 * [Validadores y referencias para los CFD v2](http://www.sat.gob.mx/sitio_internet/e_sat/comprobantes_fiscales/15_15565.html)
  [19/07/2010]
 
+### Proyectos relacionados
+[Facturatron](http://phesus.com/Facturatron/) Interfaz gráfica open source para faturación, que permite conectarse con múltiples PAC.
+
 
 ### Dudas y comentarios
 ¿Tienes algún problema o sugerencia de mejora?

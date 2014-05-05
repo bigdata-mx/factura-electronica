@@ -80,11 +80,11 @@ public class PrivateKeyLoader implements KeyLoader {
 
 
     private byte[] extractProtectedPrivateKey(InputStream privateKeyInputStream, String keyPassword) {
-        byte[] bytes = null;
+        byte[] bytes;
 
         try {
             if(keyPassword == null) {
-                ByteStreams.toByteArray(privateKeyInputStream);
+                bytes = ByteStreams.toByteArray(privateKeyInputStream);
             } else {
                 bytes = new PKCS8Key(privateKeyInputStream, keyPassword.toCharArray()).getDecryptedBytes();
             }

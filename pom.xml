@@ -341,6 +341,48 @@
               <extension>true</extension>
             </configuration>
           </execution>
+          <execution>
+            <id>schema100-xjc</id>
+            <goals>
+              <goal>xjc</goal>
+            </goals>
+            <configuration>
+              <packageName>mx.bigdata.sat.ce_catalogo_cuentas.schema</packageName>
+              <schemaDirectory>src/main/resources/xsd/ce_catalogo_cuentas</schemaDirectory>
+              <bindingDirectory>src/main/resources</bindingDirectory>
+              <outputDirectory>${project.build.directory}/generated-sources/xjc100</outputDirectory>          
+              <staleFile>${project.build.directory}/generated-sources/xjc100/.staleFlag</staleFile>
+              <extension>true</extension>
+            </configuration>
+          </execution>
+          <execution>
+            <id>schema101-xjc</id>
+            <goals>
+              <goal>xjc</goal>
+            </goals>
+            <configuration>
+              <packageName>mx.bigdata.sat.ce_balanza_comprobacion.schema</packageName>
+              <schemaDirectory>src/main/resources/xsd/ce_balanza_comprobacion</schemaDirectory>
+              <bindingDirectory>src/main/resources</bindingDirectory>
+              <outputDirectory>${project.build.directory}/generated-sources/xjc101</outputDirectory>          
+              <staleFile>${project.build.directory}/generated-sources/xjc101/.staleFlag</staleFile>
+              <extension>true</extension>
+            </configuration>
+          </execution>
+          <execution>
+            <id>schema102-xjc</id>
+            <goals>
+              <goal>xjc</goal>
+            </goals>
+            <configuration>
+              <packageName>mx.bigdata.sat.ce_polizas_periodo.schema</packageName>
+              <schemaDirectory>src/main/resources/xsd/ce_polizas_periodo</schemaDirectory>
+              <bindingDirectory>src/main/resources</bindingDirectory>
+              <outputDirectory>${project.build.directory}/generated-sources/xjc102</outputDirectory>          
+              <staleFile>${project.build.directory}/generated-sources/xjc102/.staleFlag</staleFile>
+              <extension>true</extension>
+            </configuration>
+          </execution>
         </executions>
       </plugin>
       <plugin>

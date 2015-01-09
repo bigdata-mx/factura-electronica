@@ -23,9 +23,9 @@
 											<xs:documentation>Clave agrupadora. Clasifica la percepción conforme al catálogo publicado en el portal del SAT en internet</xs:documentation>
 										</xs:annotation>
 										<xs:simpleType>
-											<xs:restriction base="xs:int">
-												<xs:minInclusive value="1"/>
-												<xs:pattern value="[0-9]{3}"/>
+											<xs:restriction base="xs:string">
+												<xs:minLength value="3"/>
+												<xs:maxLength value="3"/>
 											</xs:restriction>
 										</xs:simpleType>
 									</xs:attribute>
@@ -93,9 +93,9 @@
 											<xs:documentation>Clave agrupadora. Clasifica la deducción conforme al catálogo publicado en el portal del SAT en internet</xs:documentation>
 										</xs:annotation>
 										<xs:simpleType>
-											<xs:restriction base="xs:int">
-												<xs:minInclusive value="1"/>
-												<xs:pattern value="[0-9]{3}"/>
+											<xs:restriction base="xs:string">
+												<xs:minLength value="3"/>
+												<xs:maxLength value="3"/>
 											</xs:restriction>
 										</xs:simpleType>
 									</xs:attribute>
@@ -327,9 +327,9 @@
 					<xs:documentation>Atributo opcional para la expresión del Banco conforme al catálogo, donde se realiza un depósito de nómina</xs:documentation>
 				</xs:annotation>
 				<xs:simpleType>
-					<xs:restriction base="xs:int">
-						<xs:minInclusive value="1"/>
-						<xs:pattern value="[0-9]{3}"/>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="3"/>
+						<xs:maxLength value="3"/>
 					</xs:restriction>
 				</xs:simpleType>
 			</xs:attribute>
@@ -414,8 +414,9 @@
 		<xs:annotation>
 			<xs:documentation>Tipo definido para expresar la CLABE interbancaria</xs:documentation>
 		</xs:annotation>
-		<xs:restriction base="xs:integer">
-			<xs:pattern value="[0-9]{18}"/>
+		<xs:restriction base="xs:string">
+			<xs:minLength value="18"/>
+			<xs:maxLength value="18"/>
 		</xs:restriction>
 	</xs:simpleType>
 </xs:schema>

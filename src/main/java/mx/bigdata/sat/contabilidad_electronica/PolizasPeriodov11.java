@@ -44,7 +44,7 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
 public class PolizasPeriodov11 {
-	private static final String XSLT = "/xslt/contabilidad_electronica/polizas_periodo/PolizasPeriodo_1_1.xslt";
+	private static final String XSLT = "/xslt/ce_polizas_periodo/PolizasPeriodo_1_1.xslt";
 	private static final String[] XSD = new String[] {
 		"/xsd/ce_polizas_periodo/PolizasPeriodo_1_1.xsd"
 	};

@@ -148,7 +148,7 @@ public class BalanzaComprobacionv11 {
 		m.setProperty("com.sun.xml.bind.namespacePrefixMapper", new NamespacePrefixMapperImpl(localPrefixes));
 		m.setProperty(Marshaller.JAXB_FRAGMENT, Boolean.TRUE);
 		m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-		m.setProperty(Marshaller.JAXB_SCHEMA_LOCATION, "http://www.sat.gob.mx/esquemas/ContabilidadE/1_1/BalanzaComprobacion/BalanzaComprobacion_1_1.xsd");
+		m.setProperty(Marshaller.JAXB_SCHEMA_LOCATION, "www.sat.gob.mx/esquemas/ContabilidadE/1_1/BalanzaComprobacion " + "http://www.sat.gob.mx/esquemas/ContabilidadE/1_1/BalanzaComprobacion/BalanzaComprobacion_1_1.xsd");
 		byte[] xmlHeaderBytes = XML_HEADER.getBytes("UTF8");
 		out.write(xmlHeaderBytes); 
 		m.marshal(document, out);

@@ -83,8 +83,16 @@ public final class CFDv32 implements CFDI {
       "/xsd/common/psgcfdsp/psgcfdsp.xsd",
       "/xsd/common/psgecfd/psgecfd.xsd",
       "/xsd/common/terceros/terceros11.xsd",
-      "/xsd/common/ventavehiculos/ventavehiculos.xsd",
-      "/xsd/common/nomina/nomina11.xsd"
+      "/xsd/common/ventavehiculos/ventavehiculos11.xsd",
+      "/xsd/common/nomina/nomina11.xsd",
+      "/xsd/common/spei/spei.xsd",
+      "/xsd/common/cfdiregistrofiscal/cfdiregistrofiscal.xsd",
+      "/xsd/common/pagoenespecie/pagoenespecie.xsd",
+      "/xsd/common/consumodecombustibles/consumodecombustibles.xsd",
+      "/xsd/common/valesdedespensa/valesdedespensa.xsd",
+      "/xsd/common/aerolineas/aerolineas.xsd",
+      "/xsd/common/notariospublicos/notariospublicos.xsd",
+      "/xsd/common/vehiculousado/vehiculousado.xsd"
   };
 
   private static final String XML_HEADER = 
@@ -163,6 +171,25 @@ public final class CFDv32 implements CFDI {
     validator.validate(new JAXBSource(context, document));
   }
 
+  public void verificar(InputStream in) throws Exception{
+      String certStr = document.getCertificado();
+      Base64 b64 = new Base64();
+      byte[] cbs = b64.decode(certStr);
+      X509Certificate cert = KeyLoaderFactory.createInstance(
+              KeyLoaderEnumeration.PUBLIC_KEY_LOADER,
+              new ByteArrayInputStream(cbs)
+      ).getKey();
+      String sigStr = document.getSello();
+      byte[] signature = b64.decode(sigStr);
+      byte[] bytes = getOriginalBytes(in);
+      Signature sig = Signature.getInstance("SHA1withRSA");
+      sig.initVerify(cert);
+      sig.update(bytes);
+      boolean bool = sig.verify(signature);
+      if (!bool) {
+          throw new Exception("Sellado invalido.");
+      }
+  }
   public void verificar() throws Exception {
     String certStr = document.getCertificado();
     Base64 b64 = new Base64();
@@ -191,9 +218,21 @@ public final class CFDv32 implements CFDI {
                   new NamespacePrefixMapperImpl(localPrefixes));
     m.setProperty(Marshaller.JAXB_FRAGMENT, Boolean.TRUE);
     m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-    m.setProperty(Marshaller.JAXB_SCHEMA_LOCATION, 
-                  "http://www.sat.gob.mx/cfd/3  "
-                  + "http://www.sat.gob.mx/sitio_internet/cfd/3/cfdv32.xsd");
+
+
+    String schemas = "http://www.sat.gob.mx/cfd/3 http://www.sat.gob.mx/sitio_internet/cfd/3/cfdv32.xsd";
+    if(document.getComplemento()!=null && document.getComplemento().getAny()!=null){
+        for (int i=0; i < document.getComplemento().getAny().size(); i++) {
+            if (document.getComplemento().getAny().get(i) instanceof mx.bigdata.sat.common.nomina.schema.Nomina) {
+                schemas += " http://www.sat.gob.mx/nomina http://www.sat.gob.mx/sitio_internet/cfd/nomina/nomina11.xsd";
+                break;
+            }
+        }
+    }
+    m.setProperty(Marshaller.JAXB_SCHEMA_LOCATION, schemas);
+    //m.setProperty(Marshaller.JAXB_SCHEMA_LOCATION, 
+    //              "http://www.sat.gob.mx/cfd/3  "
+    //              + "http://www.sat.gob.mx/sitio_internet/cfd/3/cfdv32.xsd");
     byte[] xmlHeaderBytes = XML_HEADER.getBytes("UTF8");
     out.write(xmlHeaderBytes); 
     m.marshal(document, out);
@@ -208,6 +247,25 @@ public final class CFDv32 implements CFDI {
     return load(in);
   }
 
+    byte[] getOriginalBytes(InputStream in) throws Exception{
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        try {
+            Source source = new StreamSource(in);
+            Source xsl = new StreamSource(getClass().getResourceAsStream(XSLT));
+            Result out = new StreamResult(baos);
+            TransformerFactory factory = tf;
+            if (factory == null) {
+                factory = TransformerFactory.newInstance();
+                factory.setURIResolver(new URIResolverImpl());
+            }
+            Transformer transformer = factory
+                    .newTransformer(new StreamSource(getClass().getResourceAsStream(XSLT)));
+            transformer.transform(source, out);
+        } finally {
+            in.close();
+        }
+        return baos.toByteArray();
+    }
   byte[] getOriginalBytes() throws Exception {
     JAXBSource in = new JAXBSource(context, document);
     ByteArrayOutputStream baos = new ByteArrayOutputStream();

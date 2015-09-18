@@ -67,7 +67,23 @@ public final class CFDv3 implements CFDI {
 
   private static final String XSLT = "/xslt/cadenaoriginal_3_0.xslt";
   
-  private static final String XSD = "/xsd/v3/cfdv3.xsd";
+  private static final String[] XSD = new String[] {
+      "/xsd/v3/cfdv3.xsd",
+      "/xsd/v3/TimbreFiscalDigital.xsd", 
+      "/xsd/common/detallista/detallista.xsd",
+      "/xsd/common/divisas/divisas.xsd",
+      "/xsd/common/donat/v10/donat.xsd",
+      "/xsd/common/ecb/ecb.xsd",
+      "/xsd/common/ecc/ecc.xsd",
+      "/xsd/common/iedu/iedu.xsd",
+      "/xsd/common/implocal/implocal.xsd",
+      "/xsd/common/leyendasFisc/leyendasFisc.xsd",
+      "/xsd/common/pfic/pfic.xsd",
+      "/xsd/common/psgcfdsp/psgcfdsp.xsd",
+      "/xsd/common/psgecfd/psgecfd.xsd",
+      "/xsd/common/ventavehiculos/v10/ventavehiculos.xsd"
+  };
+  //private static final String XSD = "/xsd/v3/cfdv3.xsd";
 
   private static final String XSD_TFD = "/xsd/v3/TimbreFiscalDigital.xsd";
 
@@ -133,20 +149,53 @@ public final class CFDv3 implements CFDI {
   }
 
   public void validar(ErrorHandler handler) throws Exception {
-    SchemaFactory sf =
-      SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-    Source[] schemas = new Source[] {
-      new StreamSource(getClass().getResourceAsStream(XSD)),
-      new StreamSource(getClass().getResourceAsStream(XSD_TFD))  
-    };
-    Schema schema = sf.newSchema(schemas);
-    Validator validator = schema.newValidator();
-    if (handler != null) {
-      validator.setErrorHandler(handler);
-    }
-    validator.validate(new JAXBSource(context, document));
+      SchemaFactory sf =
+              SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+      Source[] schemas = new Source[XSD.length];
+      for (int i = 0; i < XSD.length; i++) {
+          schemas[i] = new StreamSource(getClass().getResourceAsStream(XSD[i]));
+      }
+      Schema schema = sf.newSchema(schemas);
+      Validator validator = schema.newValidator();
+      if (handler != null) {
+          validator.setErrorHandler(handler);
+      }
+      validator.validate(new JAXBSource(context, document));
   }
+  //public void validar(ErrorHandler handler) throws Exception {
+  //  SchemaFactory sf =
+  //    SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+  //  Source[] schemas = new Source[] {
+  //    new StreamSource(getClass().getResourceAsStream(XSD)),
+  //    new StreamSource(getClass().getResourceAsStream(XSD_TFD))  
+  //  };
+  //  Schema schema = sf.newSchema(schemas);
+  //  Validator validator = schema.newValidator();
+  //  if (handler != null) {
+  //    validator.setErrorHandler(handler);
+  //  }
+  //  validator.validate(new JAXBSource(context, document));
+  //}
 
+  public void verificar(InputStream in) throws Exception{
+      String certStr = document.getCertificado();
+      Base64 b64 = new Base64();
+      byte[] cbs = b64.decode(certStr);
+      X509Certificate cert = KeyLoaderFactory.createInstance(
+              KeyLoaderEnumeration.PUBLIC_KEY_LOADER,
+              new ByteArrayInputStream(cbs)
+      ).getKey();
+      String sigStr = document.getSello();
+      byte[] signature = b64.decode(sigStr);
+      byte[] bytes = getOriginalBytes(in);
+      Signature sig = Signature.getInstance("SHA1withRSA");
+      sig.initVerify(cert);
+      sig.update(bytes);
+      boolean bool = sig.verify(signature);
+      if (!bool) {
+          throw new Exception("Sellado invalido.");
+      }
+  }
   public void verificar() throws Exception {
     String certStr = document.getCertificado();
     Base64 b64 = new Base64();
@@ -192,6 +241,25 @@ public final class CFDv3 implements CFDI {
     return load(in);
   }
 
+  byte[] getOriginalBytes(InputStream in) throws Exception{
+      ByteArrayOutputStream baos = new ByteArrayOutputStream();
+      try {
+          Source source = new StreamSource(in);
+          Source xsl = new StreamSource(getClass().getResourceAsStream(XSLT));
+          Result out = new StreamResult(baos);
+          TransformerFactory factory = tf;
+          if (factory == null) {
+              factory = TransformerFactory.newInstance();
+              factory.setURIResolver(new URIResolverImpl());
+          }
+          Transformer transformer = factory
+                  .newTransformer(new StreamSource(getClass().getResourceAsStream(XSLT)));
+          transformer.transform(source, out);
+      } finally {
+          in.close();
+      }
+      return baos.toByteArray();
+  }
   byte[] getOriginalBytes() throws Exception {
     JAXBSource in = new JAXBSource(context, document);
     ByteArrayOutputStream baos = new ByteArrayOutputStream();

@@ -13,7 +13,7 @@
 	-->
 	<xsl:include href="/xslt/cfd/ecc/ecc.xslt"/>
 	<xsl:include href="/xslt/cfd/psgecfd/psgecfd.xslt"/>
-	<xsl:include href="/xslt/cfd/donat/donat.xslt"/>
+	<xsl:include href="/xslt/cfd/donat/v10/donat.xslt"/>
 	<xsl:include href="/xslt/cfd/divisas/divisas.xslt"/>
 	<xsl:include href="/xslt/cfd/ecb/ecb.xslt"/>
 	<xsl:include href="/xslt/cfd/detallista/detallista.xslt"/>

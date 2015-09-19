@@ -14,14 +14,14 @@
 	-->
 	<xsl:include href="/xslt/cfd/ecc/ecc.xslt"/>
 	<xsl:include href="/xslt/cfd/psgecfd/psgecfd.xslt"/>
-	<xsl:include href="/xslt/cfd/donat/donat11.xslt"/>
+	<xsl:include href="/xslt/cfd/donat/v11/donat11.xslt"/>
 	<xsl:include href="/xslt/cfd/divisas/divisas.xslt"/>
 	<xsl:include href="/xslt/cfd/ecb/ecb.xslt"/>
 	<xsl:include href="/xslt/cfd/detallista/detallista.xslt"/>
 	<xsl:include href="/xslt/cfd/implocal/implocal.xslt"/>
-	<xsl:include href="/xslt/cfd/terceros/terceros11.xslt"/>
+	<xsl:include href="/xslt/cfd/terceros/terceros.xslt"/>
 	<xsl:include href="/xslt/cfd/iedu/iedu.xslt"/>
-	<xsl:include href="/xslt/cfd/ventavehiculos/ventavehiculos.xslt"/>
+	<xsl:include href="/xslt/cfd/ventavehiculos/v10/ventavehiculos.xslt"/>
 	<xsl:include href="/xslt/cfd/pfic/pfic.xslt"/>
 	<xsl:include href="/xslt/cfd/TuristaPasajeroExtranjero/TuristaPasajeroExtranjero.xslt"/>
 	<xsl:include href="/xslt/cfd/leyendasFiscales/leyendasFisc.xslt"/>

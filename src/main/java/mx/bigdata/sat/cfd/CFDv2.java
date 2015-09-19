@@ -61,6 +61,7 @@ import com.google.common.base.Joiner;
 import com.google.common.collect.Lists;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
+import javax.xml.transform.Source;
 
 public final class CFDv2 implements CFD2 {
 
@@ -159,16 +160,16 @@ public final class CFDv2 implements CFD2 {
       }
       validator.validate(new JAXBSource(context, document));
   }
-  //public void validar(ErrorHandler handler) throws Exception {
-  //  SchemaFactory sf =
-  //    SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-  //  Schema schema = sf.newSchema(getClass().getResource(XSD));
-  //  Validator validator = schema.newValidator();
-  //  if (handler != null) {
-  //    validator.setErrorHandler(handler);
-  //  }
-  //  validator.validate(new JAXBSource(context, document));
-  //}
+//  public void validar(ErrorHandler handler) throws Exception {
+//    SchemaFactory sf =
+//      SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+//    Schema schema = sf.newSchema(getClass().getResource(XSD));
+//    Validator validator = schema.newValidator();
+//    if (handler != null) {
+//      validator.setErrorHandler(handler);
+//    }
+//    validator.validate(new JAXBSource(context, document));
+//  }
 
   public void verificar() throws Exception {
     String certStr = document.getCertificado();

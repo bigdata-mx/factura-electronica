@@ -72,7 +72,7 @@ public final class CFDv22 implements CFD2 {
     "/xsd/common/TuristaPasajeroExtranjero/TuristaPasajeroExtranjero.xsd",
     "/xsd/common/detallista/detallista.xsd",
     "/xsd/common/divisas/divisas.xsd",
-    "/xsd/common/donat/donat11.xsd",
+    "/xsd/common/donat/v11/donat11.xsd",
     "/xsd/common/ecb/ecb.xsd",
     "/xsd/common/ecc/ecc.xsd",
     "/xsd/common/iedu/iedu.xsd",
@@ -81,8 +81,8 @@ public final class CFDv22 implements CFD2 {
     "/xsd/common/pfic/pfic.xsd",
     "/xsd/common/psgcfdsp/psgcfdsp.xsd",
     "/xsd/common/psgecfd/psgecfd.xsd",
-    "/xsd/common/terceros/terceros11.xsd",
-    "/xsd/common/ventavehiculos/ventavehiculos.xsd"
+    "/xsd/common/terceros/terceros.xsd",
+    "/xsd/common/ventavehiculos/v11/ventavehiculos11.xsd"
   };
   
   private static final String XML_HEADER = 
@@ -154,12 +154,14 @@ public final class CFDv22 implements CFD2 {
     for (int i = 0; i < XSD.length; i++) {
       schemas[i] = new StreamSource(getClass().getResourceAsStream(XSD[i]));
     }
-    Schema schema = sf.newSchema(schemas);
-    Validator validator = schema.newValidator();
-    if (handler != null) {
-      validator.setErrorHandler(handler);
+    if(schemas!=null){
+      Schema schema = sf.newSchema(schemas);
+      Validator validator = schema.newValidator();
+      if (handler != null) {
+        validator.setErrorHandler(handler);
+      }
+      validator.validate(new JAXBSource(context, document));
     }
-    validator.validate(new JAXBSource(context, document));
   }
 
   public void verificar() throws Exception {

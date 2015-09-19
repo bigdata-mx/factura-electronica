@@ -22,14 +22,14 @@
 	-->
   <xsl:include href="/xslt/cfd/ecc/ecc.xslt"/>
   <xsl:include href="/xslt/cfd/psgecfd/psgecfd.xslt"/>
-  <xsl:include href="/xslt/cfd/donat/donat11.xslt"/>
+  <xsl:include href="/xslt/cfd/donat/v11/donat11.xslt"/>
   <xsl:include href="/xslt/cfd/divisas/divisas.xslt"/>
   <xsl:include href="/xslt/cfd/ecb/ecb.xslt"/>
   <xsl:include href="/xslt/cfd/detallista/detallista.xslt"/>
   <xsl:include href="/xslt/cfd/implocal/implocal.xslt"/>
-  <xsl:include href="/xslt/cfd/terceros/terceros11.xslt"/>
+  <xsl:include href="/xslt/cfd/terceros/terceros.xslt"/>
   <xsl:include href="/xslt/cfd/iedu/iedu.xslt"/>
-  <xsl:include href="/xslt/cfd/ventavehiculos/ventavehiculos11.xslt"/>
+  <xsl:include href="/xslt/cfd/ventavehiculos/v11/ventavehiculos11.xslt"/>
   <xsl:include href="/xslt/cfd/pfic/pfic.xslt"/>
   <xsl:include href="/xslt/cfd/TuristaPasajeroExtranjero/TuristaPasajeroExtranjero.xslt"/>
   <xsl:include href="/xslt/cfd/leyendasFiscales/leyendasFisc.xslt"/>
@@ -43,9 +43,9 @@
   <xsl:include href="/xslt/cfd/notariospublicos/notariospublicos.xslt"/>
   <xsl:include href="/xslt/cfd/vehiculousado/vehiculousado.xslt"/>
   <xsl:include href="/xslt/cfd/servicioparcialconstruccion/servicioparcialconstruccion.xslt"/>
-  <xsl:include href="/xslt/cfd/certificadodestruccion/certificadodedestruccion.xslt"/>
+  <xsl:include href="/xslt/cfd/certificadodedestruccion/certificadodedestruccion.xslt"/>
   <xsl:include href="/xslt/cfd/renovacionysustitucionvehiculos/renovacionysustitucionvehiculos.xslt"/>
-  <xsl:include href="/xslt/cfd/arteantiguedades/obrasarteantiguedades.xslt"/>
+  <xsl:include href="/xslt/cfd/obrasarteantiguedades/obrasarteantiguedades.xslt"/>
 
   <!-- Aquí iniciamos el procesamiento de la cadena original con su | inicial y el terminador || -->
   <xsl:template match="/">|<xsl:apply-templates select="/cfdi:Comprobante"/>||</xsl:template>

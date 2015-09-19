@@ -44,7 +44,7 @@
     <dependency>
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
-      <version>0.11.4</version>
+      <version>1.14.8</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
@@ -87,7 +87,7 @@
         <configuration>
           <source>1.6</source>
           <target>1.6</target>
-          <encoding>latin1</encoding>
+          <encoding>UTF-8</encoding>
         </configuration>
       </plugin>
       <plugin>
@@ -179,9 +179,22 @@
             </goals>
             <configuration>
               <packageName>mx.bigdata.sat.common.donat.schema</packageName>
-              <schemaDirectory>src/main/resources/xsd/common/donat</schemaDirectory>
+              <schemaDirectory>src/main/resources/xsd/common/donat/v10</schemaDirectory>
               <outputDirectory>${project.build.directory}/generated-sources/xjc7</outputDirectory>          
               <staleFile>${project.build.directory}/generated-sources/xjc7/.staleFlag</staleFile>
+              <extension>true</extension>
+            </configuration>
+          </execution>
+          <execution>
+            <id>schema7-xjc-11</id>
+            <goals>
+              <goal>xjc</goal>
+            </goals>
+            <configuration>
+              <packageName>mx.bigdata.sat.common.donat.schema</packageName>
+              <schemaDirectory>src/main/resources/xsd/common/donat/v11</schemaDirectory>
+              <outputDirectory>${project.build.directory}/generated-sources/xjc7-11</outputDirectory>          
+              <staleFile>${project.build.directory}/generated-sources/xjc7-11/.staleFlag</staleFile>
               <extension>true</extension>
             </configuration>
           </execution>
@@ -322,9 +335,22 @@
             </goals>
             <configuration>
               <packageName>mx.bigdata.sat.common.ventavehiculos.schema</packageName>
-              <schemaDirectory>src/main/resources/xsd/common/ventavehiculos</schemaDirectory>
+              <schemaDirectory>src/main/resources/xsd/common/ventavehiculos/v10</schemaDirectory>
               <outputDirectory>${project.build.directory}/generated-sources/xjc18</outputDirectory>          
               <staleFile>${project.build.directory}/generated-sources/xjc18/.staleFlag</staleFile>
+              <extension>true</extension>
+            </configuration>
+          </execution>
+          <execution>
+            <id>schema18-xjc-11</id>
+            <goals>
+              <goal>xjc</goal>
+            </goals>
+            <configuration>
+              <packageName>mx.bigdata.sat.common.ventavehiculos.schema</packageName>
+              <schemaDirectory>src/main/resources/xsd/common/ventavehiculos/v11</schemaDirectory>
+              <outputDirectory>${project.build.directory}/generated-sources/xjc18-11</outputDirectory>          
+              <staleFile>${project.build.directory}/generated-sources/xjc18-11/.staleFlag</staleFile>
               <extension>true</extension>
             </configuration>
           </execution>
@@ -338,6 +364,162 @@
               <schemaDirectory>src/main/resources/xsd/common/nomina</schemaDirectory>
               <outputDirectory>${project.build.directory}/generated-sources/xjc19</outputDirectory>          
               <staleFile>${project.build.directory}/generated-sources/xjc19/.staleFlag</staleFile>
+              <extension>true</extension>
+            </configuration>
+          </execution>
+          <execution>
+            <id>schema20-xjc</id>
+            <goals>
+              <goal>xjc</goal>
+            </goals>
+            <configuration>
+              <packageName>mx.bigdata.sat.common.aerolineas.schema</packageName>
+              <schemaDirectory>src/main/resources/xsd/common/aerolineas</schemaDirectory>
+              <outputDirectory>${project.build.directory}/generated-sources/xjc20</outputDirectory>          
+              <staleFile>${project.build.directory}/generated-sources/xjc20/.staleFlag</staleFile>
+              <extension>true</extension>
+            </configuration>
+          </execution>
+          <execution>
+            <id>schema21-xjc</id>
+            <goals>
+              <goal>xjc</goal>
+            </goals>
+            <configuration>
+              <packageName>mx.bigdata.sat.common.certificadodedestruccion.schema</packageName>
+              <schemaDirectory>src/main/resources/xsd/common/certificadodedestruccion</schemaDirectory>
+              <outputDirectory>${project.build.directory}/generated-sources/xjc21</outputDirectory>          
+              <staleFile>${project.build.directory}/generated-sources/xjc21/.staleFlag</staleFile>
+              <extension>true</extension>
+            </configuration>
+          </execution>
+          <execution>
+            <id>schema22-xjc</id>
+            <goals>
+              <goal>xjc</goal>
+            </goals>
+            <configuration>
+              <packageName>mx.bigdata.sat.common.cfdiregistrofiscal.schema</packageName>
+              <schemaDirectory>src/main/resources/xsd/common/cfdiregistrofiscal</schemaDirectory>
+              <outputDirectory>${project.build.directory}/generated-sources/xjc22</outputDirectory>          
+              <staleFile>${project.build.directory}/generated-sources/xjc22/.staleFlag</staleFile>
+              <extension>true</extension>
+            </configuration>
+          </execution>
+          <execution>
+            <id>schema23-xjc</id>
+            <goals>
+              <goal>xjc</goal>
+            </goals>
+            <configuration>
+              <packageName>mx.bigdata.sat.common.consumodecombustibles.schema</packageName>
+              <schemaDirectory>src/main/resources/xsd/common/consumodecombustibles</schemaDirectory>
+              <outputDirectory>${project.build.directory}/generated-sources/xjc23</outputDirectory>          
+              <staleFile>${project.build.directory}/generated-sources/xjc23/.staleFlag</staleFile>
+              <extension>true</extension>
+            </configuration>
+          </execution>
+          <execution>
+            <id>schema24-xjc</id>
+            <goals>
+              <goal>xjc</goal>
+            </goals>
+            <configuration>
+              <packageName>mx.bigdata.sat.common.notariospublicos.schema</packageName>
+              <schemaDirectory>src/main/resources/xsd/common/notariospublicos</schemaDirectory>
+              <outputDirectory>${project.build.directory}/generated-sources/xjc24</outputDirectory>          
+              <staleFile>${project.build.directory}/generated-sources/xjc24/.staleFlag</staleFile>
+              <extension>true</extension>
+            </configuration>
+          </execution>
+          <execution>
+            <id>schema25-xjc</id>
+            <goals>
+              <goal>xjc</goal>
+            </goals>
+            <configuration>
+              <packageName>mx.bigdata.sat.common.obrasarteantiguedades.schema</packageName>
+              <schemaDirectory>src/main/resources/xsd/common/obrasarteantiguedades</schemaDirectory>
+              <outputDirectory>${project.build.directory}/generated-sources/xjc25</outputDirectory>          
+              <staleFile>${project.build.directory}/generated-sources/xjc25/.staleFlag</staleFile>
+              <extension>true</extension>
+            </configuration>
+          </execution>
+          <execution>
+            <id>schema26-xjc</id>
+            <goals>
+              <goal>xjc</goal>
+            </goals>
+            <configuration>
+              <packageName>mx.bigdata.sat.common.pagoenespecie.schema</packageName>
+              <schemaDirectory>src/main/resources/xsd/common/pagoenespecie</schemaDirectory>
+              <outputDirectory>${project.build.directory}/generated-sources/xjc26</outputDirectory>          
+              <staleFile>${project.build.directory}/generated-sources/xjc26/.staleFlag</staleFile>
+              <extension>true</extension>
+            </configuration>
+          </execution>
+          <execution>
+            <id>schema27-xjc</id>
+            <goals>
+              <goal>xjc</goal>
+            </goals>
+            <configuration>
+              <packageName>mx.bigdata.sat.common.renovacionysustitucionvehiculos.schema</packageName>
+              <schemaDirectory>src/main/resources/xsd/common/renovacionysustitucionvehiculos</schemaDirectory>
+              <outputDirectory>${project.build.directory}/generated-sources/xjc27</outputDirectory>          
+              <staleFile>${project.build.directory}/generated-sources/xjc27/.staleFlag</staleFile>
+              <extension>true</extension>
+            </configuration>
+          </execution>
+          <execution>
+            <id>schema28-xjc</id>
+            <goals>
+              <goal>xjc</goal>
+            </goals>
+            <configuration>
+              <packageName>mx.bigdata.sat.common.servicioparcialconstruccion.schema</packageName>
+              <schemaDirectory>src/main/resources/xsd/common/servicioparcialconstruccion</schemaDirectory>
+              <outputDirectory>${project.build.directory}/generated-sources/xjc28</outputDirectory>          
+              <staleFile>${project.build.directory}/generated-sources/xjc28/.staleFlag</staleFile>
+              <extension>true</extension>
+            </configuration>
+          </execution>
+          <execution>
+            <id>schema29-xjc</id>
+            <goals>
+              <goal>xjc</goal>
+            </goals>
+            <configuration>
+              <packageName>mx.bigdata.sat.common.spei.schema</packageName>
+              <schemaDirectory>src/main/resources/xsd/common/spei</schemaDirectory>
+              <outputDirectory>${project.build.directory}/generated-sources/xjc29</outputDirectory>          
+              <staleFile>${project.build.directory}/generated-sources/xjc29/.staleFlag</staleFile>
+              <extension>true</extension>
+            </configuration>
+          </execution>
+          <execution>
+            <id>schema30-xjc</id>
+            <goals>
+              <goal>xjc</goal>
+            </goals>
+            <configuration>
+              <packageName>mx.bigdata.sat.common.valesdedespensa.schema</packageName>
+              <schemaDirectory>src/main/resources/xsd/common/valesdedespensa</schemaDirectory>
+              <outputDirectory>${project.build.directory}/generated-sources/xjc30</outputDirectory>          
+              <staleFile>${project.build.directory}/generated-sources/xjc30/.staleFlag</staleFile>
+              <extension>true</extension>
+            </configuration>
+          </execution>
+          <execution>
+            <id>schema31-xjc</id>
+            <goals>
+              <goal>xjc</goal>
+            </goals>
+            <configuration>
+              <packageName>mx.bigdata.sat.common.vehiculousado.schema</packageName>
+              <schemaDirectory>src/main/resources/xsd/common/vehiculousado</schemaDirectory>
+              <outputDirectory>${project.build.directory}/generated-sources/xjc31</outputDirectory>          
+              <staleFile>${project.build.directory}/generated-sources/xjc31/.staleFlag</staleFile>
               <extension>true</extension>
             </configuration>
           </execution>

@@ -52,24 +52,24 @@ public final class TFDv1Test {
 
     key = KeyLoaderFactory.createInstance(
             KeyLoaderEnumeration.PRIVATE_KEY_LOADER,
-            new FileInputStream("resources/certs/aaa010101aaa__csd_01.key"),
+            new FileInputStream("resources/certs/CSD01_AAA010101AAA.key"),
             "12345678a"
     ).getKey();
 
     cert = KeyLoaderFactory.createInstance(
             KeyLoaderEnumeration.PUBLIC_KEY_LOADER,
-            new FileInputStream("resources/certs/aaa010101aaa__csd_01.cer")
+            new FileInputStream("resources/certs/CSD01_AAA010101AAA.cer")
     ).getKey();
 
     pacKey = KeyLoaderFactory.createInstance(
             KeyLoaderEnumeration.PRIVATE_KEY_LOADER,
-            new FileInputStream("resources/certs/aaa010101aaa__csd_02.key"),
+            new FileInputStream("resources/certs/CSD02_AAA010101AAA.key"),
             "12345678a"
     ).getKey();
 
     pacCert = KeyLoaderFactory.createInstance(
             KeyLoaderEnumeration.PUBLIC_KEY_LOADER,
-            new FileInputStream("resources/certs/aaa010101aaa__csd_02.cer")
+            new FileInputStream("resources/certs/CSD02_AAA010101AAA.cer")
     ).getKey();
   }
 
@@ -83,13 +83,13 @@ public final class TFDv1Test {
   }
   
   @Test public void testOriginalString() throws Exception {
-    String cadena = "||1.0|843a05d7-207d-4adc-91e8-bda7175bcda3|2011-02-07T08:51:00|OhtxtV+CmBwBvkWl7v68M45rpLhw4gkYgF9VjnnVKVZudeCh5fbFT+REbUO5ZU5xA6WhuKbmdx5OKYppQRmxK7FBOiJQYuaN6AYdxB/ldIbXDIX8ouhNnOSyRxuNP0Bbb8lEmB+39Z8ID3oEqXaKFGlpGS+DJ7IqvIZEnGofJUc=|20001000000100005868||";
+    String cadena = "||1.0|843a05d7-207d-4adc-91e8-bda7175bcda3|2011-02-07T08:51:00|U0yTrfIKAllJtmASZQlgdzMeJLStjN+7nXyFHJ9Zk02LhT6BV4PD3qN2NZkuQQ27QFh8eluAxZ7BKY8qROyiIu6bi3h0ClZxgXdrHNxicDQVfQdo7EmqSVqj/teQcJdbZhjEmk4DABxTjPzk3vrktsj29DK/Fg1G/qYqCb5T+xY=|20001000000200001429||";
     assertEquals(cadena, tfd.getCadenaOriginal());
   }
     
   @Test public void testStamp() throws Exception {
     tfd.timbrar(pacKey);
-    String signature = "B2K9h9gcAdIoDYM6HwC8lx6+Hy0qmxeBsqT3CelIsrKrq89VGj0M/lR9cqz3y2hmlDq8UK7Sxh8OXngCnDT/QmS6+C0Xp+blQ9jFNfWOhOpUK9L+ddoG6yCDrGpqUWfBwAA5mOB/gwM0qztHorvtnmjPLPVvtdrO1MDkq713t4U=";
+    String signature = "gRWA9WrwQlxo7gRL+ROBL0R+Q5YKyGnG9bcd5Fjgwokh/bbDr5e6IWoFEw3SAwtUef9ePnxmEHxx3CVu16IL7r38f1qmIfa2dIGgeRNsGeux/IvFXkTJ+LPdQlClybnso1Dv3GqiLZDiRu1heATPP5TZgF0xLK7DeHkU6RJBIYQ=";
     assertEquals(signature, tfd.getTimbre().getSelloSAT());    
     BigInteger bi = pacCert.getSerialNumber();
     String certificateNum = new String(bi.toByteArray());

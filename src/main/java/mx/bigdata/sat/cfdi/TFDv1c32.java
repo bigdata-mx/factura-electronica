@@ -75,6 +75,16 @@ public final class TFDv1c32 {
 
   private TransformerFactory tf;
 
+  public TFDv1c32(CFDI cfd, String certStr) throws Exception{
+      Base64 b64 = new Base64();
+      byte[] cbs = b64.decode(certStr);
+      cert = KeyLoaderFactory.createInstance(
+              KeyLoaderEnumeration.PUBLIC_KEY_LOADER,
+              new ByteArrayInputStream(cbs)
+      ).getKey();
+      document = cfd.getComprobante();
+      tfd = getTimbreFiscalDigital(document, UUID.randomUUID(), new Date());
+  }
   public TFDv1c32(CFDI cfd, X509Certificate cert) throws Exception {
     this(cfd, cert, UUID.randomUUID(), new Date()); 
   }

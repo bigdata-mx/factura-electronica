@@ -1,0 +1,130 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:obrasarte="http://www.sat.gob.mx/arteantiguedades"
+  xmlns:xs="http://www.w3.org/2001/XMLSchema"
+targetNamespace="http://www.sat.gob.mx/arteantiguedades"
+elementFormDefault="qualified"
+attributeFormDefault="unqualified">
+  <xs:element name="obrasarteantiguedades">
+    <xs:annotation>
+      <xs:documentation>Complemento al Comprobante Fiscal Digital por Internet (CFDI) para el manejo de la enajenación de obras de artes plásticas y antigüedades.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:attribute name="Version" type="xs:string" use="required" fixed="1.0">
+        <xs:annotation>
+          <xs:documentation>Atributo requerido para la expresión de la versión del complemento.</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="TipoBien" use="required">
+        <xs:annotation>
+          <xs:documentation>Atributo requerido para expresar el tipo de bien enajenado de conformidad con el Catálogo publicado en el portal del SAT en Internet.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="obrasarte:c_TipoBien">
+            <xs:length value="2"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+      <xs:attribute name="OtrosTipoBien" use="optional">
+        <xs:annotation>
+          <xs:documentation>Atributo opcional que sólo debe incluirse en caso de haber elegido “Otros” en el atributo TipoBien.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:minLength value="1"/>
+            <xs:maxLength value="255"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+      <xs:attribute name="TituloAdquirido" use="required">
+        <xs:annotation>
+          <xs:documentation>Atributo requerido para expresar el titulo o forma por el que se adquirió la obra de arte plástica o antigüedades de conformidad con el Catálogo publicado en el portal del SAT en Internet.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="obrasarte:c_Tituloadquirido">
+            <xs:length value="2"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+      <xs:attribute name="OtrosTituloAdquirido" use="optional">
+        <xs:annotation>
+          <xs:documentation>Atributo opcional que sólo debe incluirse en caso de haber elegido “Otros” en el atributo TituloAdquirido.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:minLength value="1"/>
+            <xs:maxLength value="255"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+      <xs:attribute name="Subtotal" type="obrasarte:t_Importe" use="optional">
+        <xs:annotation>
+          <xs:documentation>Atributo opcional para expresar el monto o valor original de adquisición, en su caso.</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="IVA" type="obrasarte:t_Importe" use="optional">
+        <xs:annotation>
+          <xs:documentation>Atributo opcional para expresar el IVA  del monto o valor original de adquisición, en su caso.</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="FechaAdquisicion" use="required" >
+        <xs:annotation>
+          <xs:documentation>Atributo requerido que indica la fecha en que se adquirió originalmente la obra de arte plástica o antigüedades.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:date">
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+      <xs:attribute name="CaracterísticasDeObraoPieza" use="required">
+        <xs:annotation>
+          <xs:documentation>Atributo requerido para expresar las características de la obra o pieza de arte plástica o antigüedades de conformidad con el Catálogo publicado en el portal del SAT en Internet.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="obrasarte:c_CaracterísticasDeObraoPieza">
+            <xs:length value="2"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  <xs:simpleType name="t_Importe">
+    <xs:annotation>
+      <xs:documentation>
+        Tipo definido para expresar importes numéricos con fracción hasta seis decimales
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:decimal">
+      <xs:fractionDigits value="6"/>
+      <xs:whiteSpace value="collapse"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="c_TipoBien">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="01"/>
+      <xs:enumeration value="02"/>
+      <xs:enumeration value="03"/>
+      <xs:enumeration value="04"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="c_Tituloadquirido">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="01"/>
+      <xs:enumeration value="02"/>
+      <xs:enumeration value="03"/>
+      <xs:enumeration value="04"/>
+      <xs:enumeration value="05"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="c_CaracterísticasDeObraoPieza">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="01"/>
+      <xs:enumeration value="02"/>
+      <xs:enumeration value="03"/>
+      <xs:enumeration value="04"/>
+      <xs:enumeration value="05"/>
+      <xs:enumeration value="06"/>
+      <xs:enumeration value="07"/>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>

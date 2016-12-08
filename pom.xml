@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>mx.bigdata.cfdi</groupId>
   <artifactId>cfdi-base</artifactId>
-  <version>0.2.7-SNAPSHOT</version>
+  <version>0.2.8-SNAPSHOT</version>
   <packaging>jar</packaging>
   <name>cfdi-base</name>
   <url>http://code.google.com/p/factura-electronica</url>
@@ -340,6 +340,19 @@
               <schemaDirectory>src/main/resources/xsd/common/nomina</schemaDirectory>
               <outputDirectory>${project.build.directory}/generated-sources/xjc19</outputDirectory>          
               <staleFile>${project.build.directory}/generated-sources/xjc19/.staleFlag</staleFile>
+              <extension>true</extension>
+            </configuration>
+          </execution>
+          <execution>
+            <id>schema20-xjc</id>
+            <goals>
+              <goal>xjc</goal>
+            </goals>
+            <configuration>
+              <packageName>mx.bigdata.sat.common.nomina12.schema</packageName>
+              <schemaDirectory>src/main/resources/xsd/common/nomina12</schemaDirectory>
+              <outputDirectory>${project.build.directory}/generated-sources/xjc20</outputDirectory>          
+              <staleFile>${project.build.directory}/generated-sources/xjc20/.staleFlag</staleFile>
               <extension>true</extension>
             </configuration>
           </execution>

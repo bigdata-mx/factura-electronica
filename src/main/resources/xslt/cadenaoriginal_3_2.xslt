@@ -25,6 +25,7 @@
 	<xsl:include href="/xslt/cfd/TuristaPasajeroExtranjero/TuristaPasajeroExtranjero.xslt"/>
 	<xsl:include href="/xslt/cfd/leyendasFiscales/leyendasFisc.xslt"/>
 	<xsl:include href="/xslt/cfd/nomina/nomina11.xslt"/>
+	<xsl:include href="/xslt/cfd/nomina12/nomina12.xslt"/>
 	
 	<!-- Aquí iniciamos el procesamiento de la cadena original con su | inicial y el terminador || -->
 	<xsl:template match="/">|<xsl:apply-templates select="/cfdi:Comprobante"/>||</xsl:template>

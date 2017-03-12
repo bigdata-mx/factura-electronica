@@ -23,12 +23,9 @@ import java.io.OutputStream;
 import java.security.PrivateKey;
 import java.security.cert.X509Certificate;
 import java.util.List;
-
 import mx.bigdata.sat.cfdi.CFDI;
 import mx.bigdata.sat.cfdi.CFDIFactory;
-import mx.bigdata.sat.cfdi.TFDv1;
 import mx.bigdata.sat.common.ValidationErrorHandler;
-
 import mx.bigdata.sat.security.KeyLoaderEnumeration;
 import mx.bigdata.sat.security.factory.KeyLoaderFactory;
 import org.xml.sax.SAXParseException;
@@ -80,16 +77,16 @@ public final class CLI {
               new FileInputStream(args[2])
       ).getKey();
 
-      TFDv1 tfd = new TFDv1(cfd, cert);
-      ValidationErrorHandler handler = new ValidationErrorHandler();
-      tfd.validar(handler);
-      List<SAXParseException> errors = handler.getErrors();
-      if (errors.size() > 0) {
-        for (SAXParseException e : errors) {
-          System.err.printf("%s %s", file, e.getMessage());
-        }
-        System.exit(1);
-      }
+//      TFDv1 tfd = new TFDv1(cfd, cert);
+//      ValidationErrorHandler handler = new ValidationErrorHandler();
+//      tfd.validar(handler);
+//      List<SAXParseException> errors = handler.getErrors();
+//      if (errors.size() > 0) {
+//        for (SAXParseException e : errors) {
+//          System.err.printf("%s %s", file, e.getMessage());
+//        }
+//        System.exit(1);
+//      }
     } else if (cmd.equals("verificar-timbrado")) { 
       String file = args[1];
       CFDI cfd = CFDIFactory.load(new File(file));
@@ -99,11 +96,11 @@ public final class CLI {
               new FileInputStream(args[2])
       ).getKey();
 
-      TFDv1 tfd = new TFDv1(cfd, cert);
-      int code = tfd.verificar();
-      if (code != 600) {
-        throw new Exception("Timbrado invalido: " +  code);
-      }
+//      TFDv1 tfd = new TFDv1(cfd, cert);
+//      int code = tfd.verificar();
+//      if (code != 600) {
+//        throw new Exception("Timbrado invalido: " +  code);
+//      }
     } else if (cmd.equals("timbrar")) { 
       String file = args[1];
       CFDI cfd = CFDIFactory.load(new File(file));
@@ -119,10 +116,10 @@ public final class CLI {
               new FileInputStream(args[4])
       ).getKey();
 
-      TFDv1 tfd = new TFDv1(cfd, cert);
-      tfd.timbrar(key);
-      OutputStream out = new FileOutputStream(args[5]);
-      tfd.guardar(out);
+//      TFDv1 tfd = new TFDv1(cfd, cert);
+//      tfd.timbrar(key);
+//      OutputStream out = new FileOutputStream(args[5]);
+//      tfd.guardar(out);
     } else {
       System.err.println("No existe ese comando");
       System.exit(1);

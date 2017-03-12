@@ -92,7 +92,7 @@ public final class CFDv32 implements CFDI {
 
     private final JAXBContext context;
 
-    public static final ImmutableMap<String, String> PREFIXES = ImmutableMap.of("http://www.w3.org/2001/XMLSchema-instance", "xsi", "http://www.sat.gob.mx/cfd/3", "cfdi");
+    public static final ImmutableMap<String, String> PREFIXES = ImmutableMap.of("http://www.w3.org/2001/XMLSchema-instance", "xsi", "http://www.sat.gob.mx/cfd/3", "cfdi", "http://www.sat.gob.mx/TimbreFiscalDigital", "tfd");
 
     private final Map<String, String> localPrefixes = Maps.newHashMap(PREFIXES);
 
@@ -219,9 +219,7 @@ public final class CFDv32 implements CFDI {
         String schema = "http://www.sat.gob.mx/cfd/3 http://www.sat.gob.mx/sitio_internet/cfd/3/cfdv32.xsd";
         if (document != null && document.getComplemento() != null && document.getComplemento().getAny() != null) {
             for (Object o : document.getComplemento().getAny()) {
-                if (o instanceof mx.bigdata.sat.cfdi.v32.schema.TimbreFiscalDigital) {
-                    addNamespace("http://www.sat.gob.mx/TimbreFiscalDigital", "tfd");
-                } else if (o instanceof mx.bigdata.sat.common.nomina.schema.Nomina) {
+                if (o instanceof mx.bigdata.sat.common.nomina.schema.Nomina) {
                     schema += " http://www.sat.gob.mx/nomina http://www.sat.gob.mx/sitio_internet/cfd/nomina/nomina11.xsd";
                     addNamespace("http://www.sat.gob.mx/nomina", "nomina");
                 } else if (o instanceof mx.bigdata.sat.common.nomina12.schema.Nomina) {

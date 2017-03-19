@@ -23,12 +23,10 @@ import java.io.OutputStream;
 import java.security.PrivateKey;
 import java.security.cert.X509Certificate;
 import java.util.List;
-
 import mx.bigdata.sat.cfdi.CFDI;
 import mx.bigdata.sat.cfdi.CFDIFactory;
 import mx.bigdata.sat.cfdi.TFDv1;
 import mx.bigdata.sat.common.ValidationErrorHandler;
-
 import mx.bigdata.sat.security.KeyLoaderEnumeration;
 import mx.bigdata.sat.security.factory.KeyLoaderFactory;
 import org.xml.sax.SAXParseException;

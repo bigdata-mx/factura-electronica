@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:nomina12="http://www.sat.gob.mx/nomina12" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:catCFDI="http://www.sat.gob.mx/sitio_internet/cfd/catalogos" xmlns:tdCFDI="http://www.sat.gob.mx/sitio_internet/cfd/tipoDatos/tdCFDI" xmlns:catNomina="http://www.sat.gob.mx/sitio_internet/cfd/catalogos/Nomina" targetNamespace="http://www.sat.gob.mx/nomina12" elementFormDefault="qualified" attributeFormDefault="unqualified">
-  <xs:import namespace="http://www.sat.gob.mx/sitio_internet/cfd/catalogos" schemaLocation="validaciones/catCFDI.xsd"/>
-  <xs:import namespace="http://www.sat.gob.mx/sitio_internet/cfd/tipoDatos/tdCFDI" schemaLocation="validaciones/tdCFDI.xsd"/>
-  <xs:import namespace="http://www.sat.gob.mx/sitio_internet/cfd/catalogos/Nomina" schemaLocation="validaciones/catNomina.xsd"/>
+<xs:import namespace="http://www.sat.gob.mx/sitio_internet/cfd/catalogos" schemaLocation="../../v33/validaciones/catCFDI.xsd"/>
+<xs:import namespace="http://www.sat.gob.mx/sitio_internet/cfd/tipoDatos/tdCFDI" schemaLocation="../../v33/validaciones/tdCFDI.xsd"/>
+<xs:import namespace="http://www.sat.gob.mx/sitio_internet/cfd/catalogos/Nomina" schemaLocation="validaciones/catNomina.xsd"/>
   <xs:element name="Nomina">
     <xs:annotation>
       <xs:documentation>Complemento para incorporar al Comprobante Fiscal Digital por Internet (CFDI) la información que ampara conceptos de ingresos por salarios, la prestación de un servicio personal subordinado o conceptos asimilados a salarios (Nómina).</xs:documentation>

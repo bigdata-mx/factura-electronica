@@ -1,7 +1,7 @@
 <jaxb:bindings xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
-           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-           jaxb:version="2.0">
+               xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+               jaxb:version="2.0">
     <jaxb:bindings >
-        <jaxb:globalBindings typesafeEnumMaxMembers="2000"/>
+        <jaxb:globalBindings typesafeEnumMaxMembers="100000" typesafeEnumMemberName="generateName"/>
     </jaxb:bindings>
 </jaxb:bindings>

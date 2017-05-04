@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tfd="http://www.sat.gob.mx/TimbreFiscalDigital" xmlns:tdCFDI="http://www.sat.gob.mx/sitio_internet/cfd/tipoDatos/tdCFDI" targetNamespace="http://www.sat.gob.mx/TimbreFiscalDigital" elementFormDefault="qualified" attributeFormDefault="unqualified">
-  <xs:import namespace="http://www.sat.gob.mx/sitio_internet/cfd/tipoDatos/tdCFDI" schemaLocation="http://www.sat.gob.mx/sitio_internet/cfd/tipoDatos/tdCFDI/tdCFDI.xsd"/>
+  <xs:import namespace="http://www.sat.gob.mx/sitio_internet/cfd/tipoDatos/tdCFDI" schemaLocation="validaciones/tdCFDI.xsd"/>
   <xs:element name="TimbreFiscalDigital">
 		<xs:annotation>
 			<xs:documentation>Complemento requerido para el Timbrado Fiscal Digital que da validez al Comprobante fiscal digital por Internet y al comprobante de retenciones.</xs:documentation>

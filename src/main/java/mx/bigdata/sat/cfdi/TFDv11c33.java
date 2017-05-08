@@ -52,7 +52,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.xml.sax.ErrorHandler;
 
-public final class TFDv1c33 {
+public final class TFDv11c33 {
 
     private static final String XSLT = "/xslt/cadenaoriginal_TFD_1_1.xslt";
 
@@ -79,11 +79,11 @@ public final class TFDv1c33 {
 
     private TransformerFactory tf;
 
-    public TFDv1c33(CFDI cfd, X509Certificate cert) throws Exception {
+    public TFDv11c33(CFDI cfd, X509Certificate cert) throws Exception {
         this(cfd, cert, UUID.randomUUID(), new Date());
     }
 
-    TFDv1c33(CFDI cfd, X509Certificate cert, UUID uuid, Date date) throws Exception {
+    TFDv11c33(CFDI cfd, X509Certificate cert, UUID uuid, Date date) throws Exception {
         this.cert = cert;
         this.document = cfd.getComprobante();
         this.tfd = getTimbreFiscalDigital(document, uuid, date);

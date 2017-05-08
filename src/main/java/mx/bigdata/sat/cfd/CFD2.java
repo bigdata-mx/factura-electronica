@@ -13,13 +13,13 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-
 package mx.bigdata.sat.cfd;
 
 import java.security.cert.Certificate;
-
 import mx.bigdata.sat.common.CFD;
 
 public interface CFD2 extends CFD {
-  void verificar(Certificate cert) throws Exception;
+
+    void verificar(Certificate cert) throws Exception;
+
 }

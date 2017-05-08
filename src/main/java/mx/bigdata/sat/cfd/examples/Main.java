@@ -13,39 +13,37 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-
 package mx.bigdata.sat.cfd.examples;
 
 import java.io.FileInputStream;
 import java.security.PrivateKey;
 import java.security.cert.X509Certificate;
-
 import mx.bigdata.sat.cfd.CFDv2;
 import mx.bigdata.sat.cfd.schema.Comprobante;
 import mx.bigdata.sat.security.KeyLoaderEnumeration;
 import mx.bigdata.sat.security.factory.KeyLoaderFactory;
 
 public final class Main {
-    
-  public static void main(String[] args) throws Exception {
-    CFDv2 cfd = new CFDv2(ExampleCFDFactory.createComprobante());
 
-    PrivateKey key = KeyLoaderFactory.createInstance(
-            KeyLoaderEnumeration.PRIVATE_KEY_LOADER,
-            new FileInputStream(args[0]),
-            args[1]
-    ).getKey();
+    public static void main(String[] args) throws Exception {
+        CFDv2 cfd = new CFDv2(ExampleCFDFactory.createComprobante());
 
-    X509Certificate cert = KeyLoaderFactory.createInstance(
-            KeyLoaderEnumeration.PUBLIC_KEY_LOADER,
-            new FileInputStream(args[2])
-    ).getKey();
+        PrivateKey key = KeyLoaderFactory.createInstance(
+                KeyLoaderEnumeration.PRIVATE_KEY_LOADER,
+                new FileInputStream(args[0]),
+                args[1]
+        ).getKey();
 
-    Comprobante sellado = cfd.sellarComprobante(key, cert);
-    System.err.println(sellado.getSello());
-    cfd.validar();
-    cfd.verificar();
-    cfd.guardar(System.out);
-  }
+        X509Certificate cert = KeyLoaderFactory.createInstance(
+                KeyLoaderEnumeration.PUBLIC_KEY_LOADER,
+                new FileInputStream(args[2])
+        ).getKey();
+
+        Comprobante sellado = cfd.sellarComprobante(key, cert);
+        System.err.println(sellado.getSello());
+        cfd.validar();
+        cfd.verificar();
+        cfd.guardar(System.out);
+    }
 
 }

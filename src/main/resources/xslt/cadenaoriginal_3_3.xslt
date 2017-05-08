@@ -11,43 +11,37 @@
             la generación de las cadenas originales de los complementos fiscales 
     -->
     <xsl:include href="/xslt/cfd/ecc/ecc.xslt"/>
-    <xsl:include href="/xslt/cfd/psgecfd/psgecfd.xslt"/>
+    <xsl:include href="/xslt/cfd/ecc/ecc11.xslt"/>
     <xsl:include href="/xslt/cfd/donat/donat11.xslt"/>
     <xsl:include href="/xslt/cfd/divisas/divisas.xslt"/>
-    <xsl:include href="/xslt/cfd/ecb/ecb.xslt"/>
-    <xsl:include href="/xslt/cfd/detallista/detallista.xslt"/>
     <xsl:include href="/xslt/cfd/implocal/implocal.xslt"/>
-    <xsl:include href="/xslt/cfd/terceros/terceros11.xslt"/>
-    <xsl:include href="/xslt/cfd/iedu/iedu.xslt"/>
-    <xsl:include href="/xslt/cfd/ventavehiculos/ventavehiculos.xslt"/>
+    <xsl:include href="/xslt/cfd/leyendasFiscales/leyendasFisc.xslt"/>
     <xsl:include href="/xslt/cfd/pfic/pfic.xslt"/>
     <xsl:include href="/xslt/cfd/TuristaPasajeroExtranjero/TuristaPasajeroExtranjero.xslt"/>
-    <xsl:include href="/xslt/cfd/leyendasFiscales/leyendasFisc.xslt"/>
-    <xsl:include href="/xslt/cfd/nomina/nomina11.xslt"/>
-    <xsl:include href="/xslt/cfd/nomina12/nomina12.xslt"/>
+    <xsl:include href="/xslt/cfd/spei/spei.xslt"/>
+    <xsl:include href="/xslt/cfd/detallista/detallista.xslt"/>
+    <xsl:include href="/xslt/cfd/cfdiregistrofiscal/cfdiregistrofiscal.xslt"/>
+    <xsl:include href="/xslt/cfd/nomina/nomina12.xslt"/>
+    <xsl:include href="/xslt/cfd/pagoenespecie/pagoenespecie.xslt"/>
+    <xsl:include href="/xslt/cfd/valesdedespensa/valesdedespensa.xslt"/>
+    <xsl:include href="/xslt/cfd/consumodecombustibles/consumodecombustibles.xslt"/>
+    <xsl:include href="/xslt/cfd/aerolineas/aerolineas.xslt"/>
+    <xsl:include href="/xslt/cfd/notariospublicos/notariospublicos.xslt"/>
+    <xsl:include href="/xslt/cfd/vehiculousado/vehiculousado.xslt"/>
+    <xsl:include href="/xslt/cfd/servicioparcialconstruccion/servicioparcialconstruccion.xslt"/>
+    <xsl:include href="/xslt/cfd/renovacionysustitucionvehiculos/renovacionysustitucionvehiculos.xslt"/>
+    <xsl:include href="/xslt/cfd/certificadodedestruccion/certificadodedestruccion.xslt"/>
+    <xsl:include href="/xslt/cfd/obrasarteantiguedades/obrasarteantiguedades.xslt"/>
+    <xsl:include href="/xslt/cfd/ine/INE11.xslt"/>
+    <xsl:include href="/xslt/cfd/ComercioExterior/ComercioExterior10.xslt"/>
+    <xsl:include href="/xslt/cfd/ComercioExterior/ComercioExterior11.xslt"/>
+    <xsl:include href="/xslt/cfd/iedu/iedu.xslt"/>
+    <xsl:include href="/xslt/cfd/ventavehiculos/ventavehiculos11.xslt"/>
+    <xsl:include href="/xslt/cfd/terceros/terceros.xslt"/>
+    <xsl:include href="/xslt/cfd/Pagos/Pagos10.xslt"/>
+    <xsl:include href="/xslt/cfd/psgecfd/psgecfd.xslt"/>
+    <xsl:include href="/xslt/cfd/ecb/ecb.xslt"/>
 	
-    <!--
-<xsl:include href="http://www.sat.gob.mx/sitio_internet/cfd/spei/spei.xslt"/>
-<xsl:include href="http://www.sat.gob.mx/sitio_internet/cfd/cfdiregistrofiscal/cfdiregistrofiscal.xslt"/>
-<xsl:include href="http://www.sat.gob.mx/sitio_internet/cfd/pagoenespecie/pagoenespecie.xslt"/>
-<xsl:include href="http://www.sat.gob.mx/sitio_internet/cfd/consumodecombustibles/consumodecombustibles.xslt"/>
-<xsl:include href="http://www.sat.gob.mx/sitio_internet/cfd/valesdedespensa/valesdedespensa.xslt"/>
-<xsl:include href="http://www.sat.gob.mx/sitio_internet/cfd/aerolineas/aerolineas.xslt"/>
-<xsl:include href="http://www.sat.gob.mx/sitio_internet/cfd/notariospublicos/notariospublicos.xslt"/>
-<xsl:include href="http://www.sat.gob.mx/sitio_internet/cfd/vehiculousado/vehiculousado.xslt"/>
-<xsl:include href="http://www.sat.gob.mx/sitio_internet/cfd/servicioparcialconstruccion/servicioparcialconstruccion.xslt"/>
-<xsl:include href="http://www.sat.gob.mx/sitio_internet/cfd/certificadodestruccion/certificadodedestruccion.xslt"/>
-<xsl:include href="http://www.sat.gob.mx/sitio_internet/cfd/renovacionysustitucionvehiculos/renovacionysustitucionvehiculos.xslt"/>
-<xsl:include href="http://www.sat.gob.mx/sitio_internet/cfd/arteantiguedades/obrasarteantiguedades.xslt"/>
-<xsl:include href="http://www.sat.gob.mx/sitio_internet/cfd/acreditamiento/AcreditamientoIEPS10.xslt"/>
-<xsl:include href="http://www.sat.gob.mx/sitio_internet/cfd/EstadoDeCuentaCombustible/ecc11.xslt"/>
-<xsl:include href="http://www.sat.gob.mx/sitio_internet/cfd/ComercioExterior/ComercioExterior10.xslt"/>
-<xsl:include href="http://www.sat.gob.mx/sitio_internet/cfd/ine/ine10.xslt"/>
-<xsl:include href="http://www.sat.gob.mx/sitio_internet/cfd/ine/ine11.xslt"/>
-<xsl:include href="http://www.sat.gob.mx/sitio_internet/cfd/Pagos/Pagos10.xslt"/>
-<xsl:include href="http://www.sat.gob.mx/sitio_internet/cfd/ComercioExterior11/ComercioExterior11.xslt"/>
-    -->
-  
     <!-- Aquí iniciamos el procesamiento de la cadena original con su | inicial y el terminador || -->
     <xsl:template match="/">|<xsl:apply-templates select="/cfdi:Comprobante"/>||</xsl:template>
     <!--  Aquí iniciamos el procesamiento de los datos incluidos en el comprobante -->

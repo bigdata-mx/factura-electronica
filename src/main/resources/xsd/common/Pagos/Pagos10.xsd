@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:pago10="http://www.sat.gob.mx/Pagos" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:catCFDI="http://www.sat.gob.mx/sitio_internet/cfd/catalogos" xmlns:tdCFDI="http://www.sat.gob.mx/sitio_internet/cfd/tipoDatos/tdCFDI" xmlns:catPagos="http://www.sat.gob.mx/sitio_internet/cfd/catalogos/Pagos" targetNamespace="http://www.sat.gob.mx/Pagos" elementFormDefault="qualified" attributeFormDefault="unqualified">
+    <xs:import namespace="http://www.sat.gob.mx/sitio_internet/cfd/catalogos" schemaLocation="./../catCFDI.xsd"/>
+    <xs:import namespace="http://www.sat.gob.mx/sitio_internet/cfd/tipoDatos/tdCFDI" schemaLocation="./../tdCFDI.xsd"/>
+    <xs:element name="Pagos">
+        <xs:annotation>
+            <xs:documentation>Complemento para el Comprobante Fiscal Digital por Internet (CFDI) para registrar información sobre la recepción de pagos. El emisor de este complemento para recepción de pagos debe ser quien las leyes le obligue a expedir comprobantes por los actos o actividades que realicen, por los ingresos que se perciban o por las retenciones de contribuciones que efectúen.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="Pago" maxOccurs="unbounded">
+                    <xs:annotation>
+                        <xs:documentation>Elemento requerido para incorporar la información de la recepción de pagos.</xs:documentation>
+                    </xs:annotation>
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="DoctoRelacionado" minOccurs="0" maxOccurs="unbounded">
+                                <xs:annotation>
+                                    <xs:documentation>Nodo condicional para expresar la lista de documentos relacionados con los pagos diferentes de anticipos. Por cada documento que se relacione se debe generar un nodo DoctoRelacionado.</xs:documentation>
+                                </xs:annotation>
+                                <xs:complexType>
+                                    <xs:attribute name="IdDocumento" use="required">
+                                        <xs:annotation>
+                                            <xs:documentation>Atributo requerido para expresar el identificador del documento relacionado con el pago. Este dato puede ser un Folio Fiscal de la Factura Electrónica o bien el número de operación de un documento digital.</xs:documentation>
+                                        </xs:annotation>
+                                        <xs:simpleType>
+                                            <xs:restriction base="xs:string">
+                                                <xs:minLength value="16"/>
+                                                <xs:maxLength value="36"/>
+                                                <xs:whiteSpace value="collapse"/>
+                                                <xs:pattern value="([a-f0-9A-F]{8}-[a-f0-9A-F]{4}-[a-f0-9A-F]{4}-[a-f0-9A-F]{4}-[a-f0-9A-F]{12})|([0-9]{3}-[0-9]{2}-[0-9]{9})"/>
+                                            </xs:restriction>
+                                        </xs:simpleType>
+                                    </xs:attribute>
+                                    <xs:attribute name="Serie" use="optional">
+                                        <xs:annotation>
+                                            <xs:documentation>Atributo opcional para precisar la serie del comprobante para control interno del contribuyente, acepta una cadena de caracteres.</xs:documentation>
+                                        </xs:annotation>
+                                        <xs:simpleType>
+                                            <xs:restriction base="xs:string">
+                                                <xs:minLength value="1"/>
+                                                <xs:maxLength value="25"/>
+                                                <xs:whiteSpace value="collapse"/>
+                                                <xs:pattern value="([A-Z]|[a-z]|[0-9]| |Ñ|ñ|!|&quot;|%|&amp;|&apos;|´|-|:|;|&gt;|=|&lt;|@|_|,|\{|\}|`|~|á|é|í|ó|ú|Á|É|Í|Ó|Ú|ü|Ü){1,25}"/>
+                                            </xs:restriction>
+                                        </xs:simpleType>
+                                    </xs:attribute>
+                                    <xs:attribute name="Folio" use="optional">
+                                        <xs:annotation>
+                                            <xs:documentation>Atributo opcional para precisar el folio del comprobante para control interno del contribuyente, acepta una cadena de caracteres.</xs:documentation>
+                                        </xs:annotation>
+                                        <xs:simpleType>
+                                            <xs:restriction base="xs:string">
+                                                <xs:minLength value="1"/>
+                                                <xs:maxLength value="40"/>
+                                                <xs:whiteSpace value="collapse"/>
+                                                <xs:pattern value="([A-Z]|[a-z]|[0-9]| |Ñ|ñ|!|&quot;|%|&amp;|&apos;|´|-|:|;|&gt;|=|&lt;|@|_|,|\{|\}|`|~|á|é|í|ó|ú|Á|É|Í|Ó|Ú|ü|Ü){1,40}"/>
+                                            </xs:restriction>
+                                        </xs:simpleType>
+                                    </xs:attribute>
+                                    <xs:attribute name="MonedaDR" use="required" type="catCFDI:c_Moneda">
+                                        <xs:annotation>
+                                            <xs:documentation>Atributo requerido para identificar la clave de la moneda utilizada en los importes del documento relacionado, cuando se usa moneda nacional o el documento relacionado no especifica la moneda se registra MXN. Los importes registrados en los atributos “SaldoAnterior”, “ImportePagado” e “ImporteSaldoInsoluto” de éste nodo, deben corresponder a esta moneda. Conforme con la especificación ISO 4217.</xs:documentation>
+                                        </xs:annotation>
+                                    </xs:attribute>
+                                    <xs:attribute name="TipoCambioDR" use="optional">
+                                        <xs:annotation>
+                                            <xs:documentation>Atributo condicional para expresar el tipo de cambio conforme con la moneda registrada en el documento relacionado. Es requerido cuando la moneda del documento relacionado es distinta de la moneda de pago. Se debe registrar el número de unidades de la moneda señalada en el documento relacionado que equivalen a una unidad de la moneda del pago. Por ejemplo: El documento relacionado se registra en USD El pago se realiza por 100 EUR. Este atributo se registra como 1.114700 USD/EUR. El importe pagado equivale a 100 EUR * 1.114700 USD/EUR = 111.47 USD.</xs:documentation>
+                                        </xs:annotation>
+                                        <xs:simpleType>
+                                            <xs:restriction base="xs:decimal">
+                                                <xs:fractionDigits value="6"/>
+                                                <xs:enumeration value="0.000001"/>
+                                                <xs:whiteSpace value="collapse"/>
+                                            </xs:restriction>
+                                        </xs:simpleType>
+                                    </xs:attribute>
+                                    <xs:attribute name="MetodoDePagoDR" use="required" type="catCFDI:c_MetodoPago">
+                                        <xs:annotation>
+                                            <xs:documentation>Atributo requerido para expresar la clave del método de pago que se registró en el documento relacionado.</xs:documentation>
+                                        </xs:annotation>
+                                    </xs:attribute>
+                                    <xs:attribute name="NumParcialidad" use="optional">
+                                        <xs:annotation>
+                                            <xs:documentation>Atributo condicional para expresar el número de parcialidad que corresponde al pago. Es requerido cuando MetodoDePagoDR contiene: “Pago en parcialidades o diferido” o “Pago inicial y parcialidades”.</xs:documentation>
+                                        </xs:annotation>
+                                        <xs:simpleType>
+                                            <xs:restriction base="xs:integer">
+                                                <xs:whiteSpace value="collapse"/>
+                                                <xs:pattern value="[1-9][0-9]{0,2}"/>
+                                            </xs:restriction>
+                                        </xs:simpleType>
+                                    </xs:attribute>
+                                    <xs:attribute name="ImpSaldoAnt" use="optional" type="tdCFDI:t_Importe">
+                                        <xs:annotation>
+                                            <xs:documentation>Atributo condicional para expresar el importe del saldo anterior del documento relacionado o el monto del saldo insoluto de la parcialidad anterior. Es requerido cuando MetodoDePagoDR contiene: “Pago en parcialidades o diferido” o “Pago inicial y parcialidades” En el caso de que sea la primer parcialidad este campo debe contener el importe total del documento relacionado.</xs:documentation>
+                                        </xs:annotation>
+                                    </xs:attribute>
+                                    <xs:attribute name="ImpPagado" use="optional" type="tdCFDI:t_Importe">
+                                        <xs:annotation>
+                                            <xs:documentation>Atributo condicional para expresar el importe pagado para el documento relacionado. Es obligatorio cuando exista más de un documento relacionado o cuando existe un documento relacionado y el TipoCambioDR tiene un valor.</xs:documentation>
+                                        </xs:annotation>
+                                    </xs:attribute>
+                                    <xs:attribute name="ImpSaldoInsoluto" use="optional" type="tdCFDI:t_Importe">
+                                        <xs:annotation>
+                                            <xs:documentation>Atributo condicional para expresar la diferencia entre el importe del saldo anterior y el monto del pago. Es requerido cuando MetodoDePagoDR contiene: “Pago en parcialidades o diferido” o “Pago inicial y parcialidades”.</xs:documentation>
+                                        </xs:annotation>
+                                    </xs:attribute>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="Impuestos" minOccurs="0" maxOccurs="unbounded">
+                                <xs:annotation>
+                                    <xs:documentation>Nodo condicional para expresar el resumen de los impuestos aplicables cuando este documento sea un anticipo.</xs:documentation>
+                                </xs:annotation>
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="Retenciones" minOccurs="0" >
+                                            <xs:annotation>
+                                                <xs:documentation>Nodo condicional para capturar los impuestos retenidos aplicables.</xs:documentation>
+                                            </xs:annotation>
+                                            <xs:complexType>
+                                                <xs:sequence>
+                                                    <xs:element name="Retencion" maxOccurs="unbounded">
+                                                        <xs:annotation>
+                                                            <xs:documentation>Nodo requerido para registrar la información detallada de una retención de impuesto específico.</xs:documentation>
+                                                        </xs:annotation>
+                                                        <xs:complexType>
+                                                            <xs:attribute name="Impuesto" use="required" type="catCFDI:c_Impuesto">
+                                                                <xs:annotation>
+                                                                    <xs:documentation>Atributo requerido para señalar la clave del tipo de impuesto retenido.</xs:documentation>
+                                                                </xs:annotation>
+                                                            </xs:attribute>
+                                                            <xs:attribute name="Importe" use="required" type="tdCFDI:t_Importe">
+                                                                <xs:annotation>
+                                                                    <xs:documentation>Atributo requerido para señalar el importe o monto del impuesto retenido. No se permiten valores negativos.</xs:documentation>
+                                                                </xs:annotation>
+                                                            </xs:attribute>
+                                                        </xs:complexType>
+                                                    </xs:element>
+                                                </xs:sequence>
+                                            </xs:complexType>
+                                        </xs:element>
+                                        <xs:element name="Traslados" minOccurs="0">
+                                            <xs:annotation>
+                                                <xs:documentation>Nodo condicional para capturar los impuestos trasladados aplicables.</xs:documentation>
+                                            </xs:annotation>
+                                            <xs:complexType>
+                                                <xs:sequence>
+                                                    <xs:element name="Traslado" maxOccurs="unbounded">
+                                                        <xs:annotation>
+                                                            <xs:documentation>Nodo requerido para la información detallada de un traslado de impuesto específico.</xs:documentation>
+                                                        </xs:annotation>
+                                                        <xs:complexType>
+                                                            <xs:attribute name="Impuesto" use="required" type="catCFDI:c_Impuesto" >
+                                                                <xs:annotation>
+                                                                    <xs:documentation>Atributo requerido para señalar la clave del tipo de impuesto trasladado.</xs:documentation>
+                                                                </xs:annotation>
+                                                            </xs:attribute>
+                                                            <xs:attribute name="TipoFactor" use="required" type="catCFDI:c_TipoFactor">
+                                                                <xs:annotation>
+                                                                    <xs:documentation>Atributo requerido para señalar la clave del tipo de factor que se aplica a la base del impuesto.</xs:documentation>
+                                                                </xs:annotation>
+                                                            </xs:attribute>
+                                                            <xs:attribute name="TasaOCuota" use="required" type="catCFDI:c_TasaOCuota">
+                                                                <xs:annotation>
+                                                                    <xs:documentation>Atributo requerido para señalar la clave de la tasa o cuota del impuesto que se traslada.</xs:documentation>
+                                                                </xs:annotation>
+                                                            </xs:attribute>
+                                                            <xs:attribute name="Importe" use="required" type="tdCFDI:t_Importe">
+                                                                <xs:annotation>
+                                                                    <xs:documentation>Atributo requerido para señalar el importe del impuesto trasladado. No se permiten valores negativos.</xs:documentation>
+                                                                </xs:annotation>
+                                                            </xs:attribute>
+                                                        </xs:complexType>
+                                                    </xs:element>
+                                                </xs:sequence>
+                                            </xs:complexType>
+                                        </xs:element>
+                                    </xs:sequence>
+                                    <xs:attribute name="TotalImpuestosRetenidos" use="optional" type="tdCFDI:t_Importe">
+                                        <xs:annotation>
+                                            <xs:documentation>Atributo condicional para expresar el total de los impuestos retenidos que se desprenden del pago. No se permiten valores negativos.</xs:documentation>
+                                        </xs:annotation>
+                                    </xs:attribute>
+                                    <xs:attribute name="TotalImpuestosTrasladados" use="optional" type="tdCFDI:t_Importe">
+                                        <xs:annotation>
+                                            <xs:documentation>Atributo condicional para expresar el total de los impuestos trasladados que se desprenden del pago. No se permiten valores negativos.</xs:documentation>
+                                        </xs:annotation>
+                                    </xs:attribute>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                        <xs:attribute name="FechaPago" use="required" type="tdCFDI:t_FechaH" >
+                            <xs:annotation>
+                                <xs:documentation>Atributo requerido para expresar la fecha y hora en la que el beneficiario recibe el pago. Se expresa en la forma aaaa-mm-ddThh:mm:ss, de acuerdo con la especificación ISO 8601.En caso de no contar con la hora se debe registrar 12:00:00.</xs:documentation>
+                            </xs:annotation>
+                        </xs:attribute>
+                        <xs:attribute name="FormaDePagoP" use="required" type="catCFDI:c_FormaPago">
+                            <xs:annotation>
+                                <xs:documentation>Atributo requerido para expresar la clave de la forma en que se realiza el pago.</xs:documentation>
+                            </xs:annotation>
+                        </xs:attribute>
+                        <xs:attribute name="MonedaP" use="required" type="catCFDI:c_Moneda">
+                            <xs:annotation>
+                                <xs:documentation>Atributo requerido para identificar la clave de la moneda utilizada para realizar el pago, cuando se usa moneda nacional se registra MXN. El atributo Pagos:Pago:Monto y los atributos TotalImpuestosRetenidos, TotalImpuestosTrasladados, Traslados:Traslado:Importe y Retenciones:Retencion:Importe del nodo Pago:Impuestos deben ser expresados en esta moneda. Conforme con la especificación ISO 4217.</xs:documentation>
+                            </xs:annotation>
+                        </xs:attribute>
+                        <xs:attribute name="TipoCambioP" use="optional">
+                            <xs:annotation>
+                                <xs:documentation>Atributo condicional para expresar el tipo de cambio de la moneda a la fecha en que se realizó el pago. El valor debe reflejar el número de pesos mexicanos que equivalen a una unidad de la divisa señalada en el atributo MonedaP. Es requerido cuando el atributo MonedaP es diferente a MXN.</xs:documentation>
+                            </xs:annotation>
+                            <xs:simpleType>
+                                <xs:restriction base="xs:decimal">
+                                    <xs:fractionDigits value="6"/>
+                                    <xs:minInclusive value="0.000001"/>
+                                    <xs:whiteSpace value="collapse"/>
+                                </xs:restriction>
+                            </xs:simpleType>
+                        </xs:attribute>
+                        <xs:attribute name="Monto" use="required" type="tdCFDI:t_Importe">
+                            <xs:annotation>
+                                <xs:documentation>Atributo requerido para expresar el importe del pago.</xs:documentation>
+                            </xs:annotation>
+                        </xs:attribute>
+                        <xs:attribute name="NumOperacion" use="optional">
+                            <xs:annotation>
+                                <xs:documentation>Atributo condicional para expresar el número de cheque, número de autorización, número de referencia, clave de rastreo en caso de ser SPEI, línea de captura o algún número de referencia análogo que identifique la operación que ampara el pago efectuado</xs:documentation>
+                            </xs:annotation>
+                            <xs:simpleType>
+                                <xs:restriction base="xs:string">
+                                    <xs:minLength value="1"/>
+                                    <xs:maxLength value="100"/>
+                                    <xs:pattern value="([A-Z]|[a-z]|[0-9]| |Ñ|ñ|!|&quot;|%|&amp;|&apos;|´|-|:|;|&gt;|=|&lt;|@|_|,|\{|\}|`|~|á|é|í|ó|ú|Á|É|Í|Ó|Ú|ü|Ü){1,100}"/>
+                                </xs:restriction>
+                            </xs:simpleType>
+                        </xs:attribute>
+                        <xs:attribute name="RfcEmisorCtaOrd" use="optional">
+                            <xs:annotation>
+                                <xs:documentation>Atributo condicional para expresar la clave RFC de la entidad emisora de la cuenta origen, es decir, la operadora, el banco, la institución financiera, emisor de monedero electrónico, etc., en caso de ser extranjero colocar XEXX010101000, considerar las reglas de obligatoriedad publicadas en la página del SAT para éste atributo de acuerdo con el catálogo catCFDI:c_FormaPago.</xs:documentation>
+                            </xs:annotation>
+                            <xs:simpleType>
+                                <xs:restriction base="xs:string">
+                                    <xs:minLength value="12"/>
+                                    <xs:maxLength value="13"/>
+                                    <xs:pattern value="[XEXX010101000]|[A-Z&amp;Ñ]{3}[0-9]{2}(0[1-9]|1[012])(0[1-9]|[12][0-9]|3[01])[A-Z0-9]{2}[0-9A]"/>
+                                    <xs:whiteSpace value="collapse"/>
+                                </xs:restriction>
+                            </xs:simpleType>
+                        </xs:attribute>
+                        <xs:attribute name="NomBancoOrdExt" use="optional">
+                            <xs:annotation>
+                                <xs:documentation>Atributo condicional para expresar el nombre del banco ordenante, es requerido en caso de ser extranjero. Considerar las reglas de obligatoriedad publicadas en la página del SAT para éste atributo de acuerdo con el catálogo catCFDI:c_FormaPago.</xs:documentation>
+                            </xs:annotation>
+                            <xs:simpleType>
+                                <xs:restriction base="xs:string">
+                                    <xs:minLength value="1"/>
+                                    <xs:maxLength value="300"/>
+                                    <xs:whiteSpace value="collapse"/>
+                                    <xs:pattern value="([A-Z]|[a-z]|[0-9]| |Ñ|ñ|!|&quot;|%|&amp;|&apos;|´|-|:|;|&gt;|=|&lt;|@|_|,|\{|\}|`|~|á|é|í|ó|ú|Á|É|Í|Ó|Ú|ü|Ü){1,300}"/>
+                                </xs:restriction>
+                            </xs:simpleType>
+                        </xs:attribute>
+                        <xs:attribute name="CtaOrdenante" use="optional">
+                            <xs:annotation>
+                                <xs:documentation>Atributo condicional para incorporar el número de la cuenta con la que se realizó el pago. Considerar las reglas de obligatoriedad publicadas en la página del SAT para éste atributo de acuerdo con el catálogo catCFDI:c_FormaPago</xs:documentation>
+                            </xs:annotation>
+                            <xs:simpleType>
+                                <xs:restriction base="xs:string">
+                                    <xs:minLength value="10"/>
+                                    <xs:maxLength value="50"/>
+                                    <xs:whiteSpace value="collapse"/>
+                                    <xs:pattern value="[0-9]{10,11}|[0-9]{15,16}|[0-9]{18}|[A-Z0-9_]{10,50}"/>
+                                </xs:restriction>
+                            </xs:simpleType>
+                        </xs:attribute>
+                        <xs:attribute name="RfcEmisorCtaBen" use="optional" type="tdCFDI:t_RFC_PM">
+                            <xs:annotation>
+                                <xs:documentation>Atributo condicional para expresar la clave RFC de la entidad operadora de la cuenta destino, es decir, la operadora, el banco, la institución financiera, emisor de monedero electrónico, etc. Considerar las reglas de obligatoriedad publicadas en la página del SAT para éste atributo de acuerdo con el catálogo catCFDI:c_FormaPago.</xs:documentation>
+                            </xs:annotation>
+                        </xs:attribute>
+                        <xs:attribute name="CtaBeneficiario" use="optional">
+                            <xs:annotation>
+                                <xs:documentation>Atributo condicional para incorporar el número de cuenta en donde se recibió el pago. Considerar las reglas de obligatoriedad publicadas en la página del SAT para éste atributo de acuerdo con el catálogo catCFDI:c_FormaPago.</xs:documentation>
+                            </xs:annotation>
+                            <xs:simpleType>
+                                <xs:restriction base="xs:string">
+                                    <xs:minLength value="10"/>
+                                    <xs:maxLength value="50"/>
+                                    <xs:whiteSpace value="collapse"/>
+                                    <xs:pattern value="[0-9]{10,11}|[0-9]{15,16}|[0-9]{18}|[A-Z0-9_]{10,50}"/>
+                                </xs:restriction>
+                            </xs:simpleType>
+                        </xs:attribute>
+                        <xs:attribute name="TipoCadPago" use="optional">
+                            <xs:annotation>
+                                <xs:documentation>Atributo condicional para identificar la clave del tipo de cadena de pago que genera la entidad receptora del pago. Considerar las reglas de obligatoriedad publicadas en la página del SAT para éste atributo de acuerdo con el catálogo catCFDI:c_FormaPago.</xs:documentation>
+                            </xs:annotation>
+                            <xs:simpleType>
+                                <xs:restriction base="xs:string">
+                                    <xs:whiteSpace value="collapse"/>
+                                    <xs:enumeration value="01"/>
+                                </xs:restriction>
+                            </xs:simpleType>
+                        </xs:attribute>
+                        <xs:attribute name="CertPago" use="optional">
+                            <xs:annotation>
+                                <xs:documentation>Atributo condicional que sirve para incorporar el certificado que ampara al pago, como una cadena de texto en formato base 64. Es requerido en caso de que el atributo TipoCadPago contenga información.</xs:documentation>
+                            </xs:annotation>
+                            <xs:simpleType>
+                                <xs:restriction base="xs:base64Binary">
+                                    <xs:whiteSpace value="collapse"/>
+                                </xs:restriction>
+                            </xs:simpleType>
+                        </xs:attribute>
+                        <xs:attribute name="CadPago" use="optional">
+                            <xs:annotation>
+                                <xs:documentation>Atributo condicional para expresar la cadena original del comprobante de pago generado por la entidad emisora de la cuenta beneficiaria. Es requerido en caso de que el atributo TipoCadPago contenga información.</xs:documentation>
+                            </xs:annotation>
+                            <xs:simpleType>
+                                <xs:restriction base="xs:string">
+                                    <xs:minLength value="1"/>
+                                    <xs:maxLength value="8192"/>
+                                    <xs:whiteSpace value="collapse"/>
+                                    <xs:pattern value="([A-Z]|[a-z]|[0-9]| |Ñ|ñ|!|&quot;|%|&amp;|&apos;|´|-|:|;|&gt;|=|&lt;|@|_|,|\{|\}|`|~|á|é|í|ó|ú|Á|É|Í|Ó|Ú|ü|Ü){1,8192}"/>
+                                </xs:restriction>
+                            </xs:simpleType>
+                        </xs:attribute>
+                        <xs:attribute name="SelloPago" use="optional">
+                            <xs:annotation>
+                                <xs:documentation>Atributo condicional para integrar el sello digital que se asocie al pago. La entidad que emite el comprobante de pago, ingresa una cadena original y el sello digital en una sección de dicho comprobante, este sello digital es el que se debe registrar en este campo. Debe ser expresado como una cadena de texto en formato base 64. Es requerido en caso de que el atributo TipoCadPago contenga información.</xs:documentation>
+                            </xs:annotation>
+                            <xs:simpleType>
+                                <xs:restriction base="xs:base64Binary">
+                                    <xs:whiteSpace value="collapse"/>
+                                </xs:restriction>
+                            </xs:simpleType>
+                        </xs:attribute>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+            <xs:attribute name="Version" use="required" fixed="1.0">
+                <xs:annotation>
+                    <xs:documentation>Atributo requerido que indica la versión del complemento para recepción de pagos.</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:whiteSpace value="collapse"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

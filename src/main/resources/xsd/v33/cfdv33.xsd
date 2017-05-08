@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:cfdi="http://www.sat.gob.mx/cfd/3" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:catCFDI="http://www.sat.gob.mx/sitio_internet/cfd/catalogos" xmlns:tdCFDI="http://www.sat.gob.mx/sitio_internet/cfd/tipoDatos/tdCFDI" targetNamespace="http://www.sat.gob.mx/cfd/3" elementFormDefault="qualified" attributeFormDefault="unqualified">
-<xs:import namespace="http://www.sat.gob.mx/sitio_internet/cfd/catalogos" schemaLocation="validaciones/catCFDI.xsd"/>
-<xs:import namespace="http://www.sat.gob.mx/sitio_internet/cfd/tipoDatos/tdCFDI" schemaLocation="validaciones/tdCFDI.xsd"/>
+  <xs:import namespace="http://www.sat.gob.mx/sitio_internet/cfd/catalogos" schemaLocation="./../common/catCFDI.xsd"/>
+  <xs:import namespace="http://www.sat.gob.mx/sitio_internet/cfd/tipoDatos/tdCFDI" schemaLocation="./../common/tdCFDI.xsd"/>
   <xs:element name="Comprobante">
     <xs:annotation>
       <xs:documentation>Estándar de Comprobante Fiscal Digital por Internet.</xs:documentation>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:aerolineas="http://www.sat.gob.mx/aerolineas" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.sat.gob.mx/aerolineas" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:element name="Aerolineas">
+		<xs:annotation>
+			<xs:documentation>Complemento al Comprobante Fiscal Digital a través de Internet (CFDI) para el manejo de datos de Aerolíneas para pasajeros.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="OtrosCargos" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Nodo opcional para expresar otros cargos aplicables</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="Cargo" maxOccurs="unbounded">
+								<xs:annotation>
+									<xs:documentation>Nodo para expresar la información detallada de un cargo.</xs:documentation>
+								</xs:annotation>
+								<xs:complexType>
+									<xs:attribute name="CodigoCargo" use="required">
+										<xs:annotation>
+											<xs:documentation>Atributo requerido para indicar el código del cargo según el catálogo de la IATA.</xs:documentation>
+										</xs:annotation>
+										<xs:simpleType>
+											<xs:restriction base="xs:string">
+												<xs:minLength value="1"/>
+                        <xs:maxLength value="8"/>
+											</xs:restriction>
+										</xs:simpleType>
+									</xs:attribute>
+									<xs:attribute name="Importe" type="aerolineas:t_Importe" use="required">
+										<xs:annotation>
+											<xs:documentation>Atributo requerido para representar el importe del cargo.</xs:documentation>
+										</xs:annotation>
+									</xs:attribute>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+						<xs:attribute name="TotalCargos" type="aerolineas:t_Importe" use="required">
+							<xs:annotation>
+								<xs:documentation>Atributo requerido para expresar el total de los cargos adicionales que se están aplicando.</xs:documentation>
+							</xs:annotation>
+						</xs:attribute>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+			<xs:attribute name="Version" type="xs:string" use="required" fixed="1.0">
+				<xs:annotation>
+					<xs:documentation>Atributo requerido para la expresión de la versión del complemento</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="TUA" type="aerolineas:t_Importe" use="required">
+				<xs:annotation>
+					<xs:documentation>Atributo requerido para indicar el importe del TUA aplicable al boleto.</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+	<xs:simpleType name="t_Importe">
+		<xs:annotation>
+			<xs:documentation>Tipo definido para expresar importes numéricos con fracción hasta seis decimales</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:decimal">
+			<xs:fractionDigits value="6"/>
+			<xs:whiteSpace value="collapse"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

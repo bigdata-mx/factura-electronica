@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:nomina12="http://www.sat.gob.mx/nomina12" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:catCFDI="http://www.sat.gob.mx/sitio_internet/cfd/catalogos" xmlns:tdCFDI="http://www.sat.gob.mx/sitio_internet/cfd/tipoDatos/tdCFDI" xmlns:catNomina="http://www.sat.gob.mx/sitio_internet/cfd/catalogos/Nomina" targetNamespace="http://www.sat.gob.mx/nomina12" elementFormDefault="qualified" attributeFormDefault="unqualified">
-<xs:import namespace="http://www.sat.gob.mx/sitio_internet/cfd/catalogos" schemaLocation="../../v33/validaciones/catCFDI.xsd"/>
-<xs:import namespace="http://www.sat.gob.mx/sitio_internet/cfd/tipoDatos/tdCFDI" schemaLocation="../../v33/validaciones/tdCFDI.xsd"/>
-<xs:import namespace="http://www.sat.gob.mx/sitio_internet/cfd/catalogos/Nomina" schemaLocation="validaciones/catNomina.xsd"/>
+  <xs:import namespace="http://www.sat.gob.mx/sitio_internet/cfd/catalogos" schemaLocation="./../../catCFDI.xsd"/>
+  <xs:import namespace="http://www.sat.gob.mx/sitio_internet/cfd/tipoDatos/tdCFDI" schemaLocation="./../../tdCFDI.xsd"/>
+  <xs:import namespace="http://www.sat.gob.mx/sitio_internet/cfd/catalogos/Nomina" schemaLocation="./../../catNomina.xsd"/>
   <xs:element name="Nomina">
     <xs:annotation>
       <xs:documentation>Complemento para incorporar al Comprobante Fiscal Digital por Internet (CFDI) la información que ampara conceptos de ingresos por salarios, la prestación de un servicio personal subordinado o conceptos asimilados a salarios (Nómina).</xs:documentation>
@@ -120,7 +120,7 @@
               <xs:simpleType>
                 <xs:restriction base="xs:string">
                   <xs:whiteSpace value="collapse"/>
-                  <xs:pattern value="P(([1-9][0-9]{0,3})|[0])W|P(([1-9][0-9]?Y)?([1-9]|1[012])M)?([0]|[1-9]|[12][0-9]|3[01])D"/>
+                  <xs:pattern value="P(([1-9][0-9]{0,3})|0)W|P([1-9][0-9]?Y)?(([1-9]|1[012])M)?(0|[1-9]|[12][0-9]|3[01])D"/>
                 </xs:restriction>
               </xs:simpleType>
             </xs:attribute>
@@ -205,7 +205,7 @@
                 <xs:documentation>Atributo condicional para la expresión de la clave del Banco conforme al catálogo, donde se realiza el depósito de nómina.</xs:documentation>
               </xs:annotation>
             </xs:attribute>
-            <xs:attribute name="CuentaBancaria" type="xs:string" use="optional">
+            <xs:attribute name="CuentaBancaria" type="tdCFDI:t_CuentaBancaria" use="optional">
               <xs:annotation>
                 <xs:documentation>Atributo condicional para la expresión de la cuenta bancaria a 11 posiciones o número de teléfono celular a 10 posiciones o número de tarjeta de crédito, débito o servicios a 15 ó 16 posiciones o la CLABE a 18 posiciones o número de monedero electrónico, donde se realiza el depósito de nómina.</xs:documentation>
               </xs:annotation>
@@ -402,8 +402,8 @@
                     </xs:annotation>
                     <xs:simpleType>
                       <xs:restriction base="xs:int">
-                        <xs:minInclusive value="1"/>
-                        <xs:maxInclusive value="75"/>
+                        <xs:minInclusive value="0"/>
+                        <xs:maxInclusive value="99"/>
                         <xs:whiteSpace value="collapse"/>
                       </xs:restriction>
                     </xs:simpleType>
@@ -679,9 +679,9 @@
         <xs:simpleType>
           <xs:restriction base="xs:decimal">
             <xs:minInclusive value="0.001"/>
-            <xs:maxInclusive value="5490.000"/>
+            <xs:maxInclusive value="36160.000"/>
             <xs:fractionDigits value="3"/>
-            <xs:pattern value="(([1-9][0-9]{0,3})|[0])(.[0-9]{3})?"/>
+            <xs:pattern value="(([1-9][0-9]{0,4})|[0])(.[0-9]{3})?"/>
             <xs:whiteSpace value="collapse"/>
           </xs:restriction>
         </xs:simpleType>

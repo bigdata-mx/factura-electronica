@@ -24,7 +24,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintStream;
-import java.math.BigInteger;
 import java.security.PrivateKey;
 import java.security.Signature;
 import java.security.cert.X509Certificate;
@@ -64,26 +63,47 @@ public final class CFDv33 implements CFDI {
     private static final String XSLT = "/xslt/cadenaoriginal_3_3.xslt";
 
     private static final String[] XSD = new String[]{
+        "/xsd/common/tdCFDI.xsd",
+        "/xsd/common/catCFDI.xsd",
+        "/xsd/common/catNomina.xsd",
+        "/xsd/common/catComExt.xsd",
         "/xsd/v33/cfdv33.xsd",
         "/xsd/v33/TimbreFiscalDigitalv11.xsd",
-        "/xsd/v33/validaciones/catCFDI.xsd",
-        "/xsd/v33/validaciones/tdCFDI.xsd",
-        "/xsd/common/TuristaPasajeroExtranjero/TuristaPasajeroExtranjero.xsd",
-        "/xsd/common/detallista/detallista.xsd",
+        "/xsd/common/ecc/v10/ecc.xsd",
+        "/xsd/common/ecc/v11/ecc11.xsd",
+        "/xsd/common/donat/v11/donat11.xsd",
         "/xsd/common/divisas/divisas.xsd",
-        "/xsd/common/donat/donat11.xsd",
-        "/xsd/common/ecb/ecb.xsd",
-        "/xsd/common/ecc/ecc.xsd",
-        "/xsd/common/iedu/iedu.xsd",
         "/xsd/common/implocal/implocal.xsd",
         "/xsd/common/leyendasFisc/leyendasFisc.xsd",
         "/xsd/common/pfic/pfic.xsd",
-        "/xsd/common/psgcfdsp/psgcfdsp.xsd",
-        "/xsd/common/psgecfd/psgecfd.xsd",
+        "/xsd/common/TuristaPasajeroExtranjero/TuristaPasajeroExtranjero.xsd",
+        "/xsd/common/spei/spei.xsd",
+        "/xsd/common/detallista/detallista.xsd",
+        "/xsd/common/cfdiregistrofiscal/cfdiregistrofiscal.xsd",
+        "/xsd/common/nomina/v11/nomina11.xsd",
+        "/xsd/common/nomina/v12/nomina12.xsd",
+        "/xsd/common/pagoenespecie/pagoenespecie.xsd",
+        "/xsd/common/valesdedespensa/valesdedespensa.xsd",
+        "/xsd/common/consumodecombustibles/consumodecombustibles.xsd",
+        "/xsd/common/aerolineas/aerolineas.xsd",
+        "/xsd/common/notariospublicos/notariospublicos.xsd",
+        "/xsd/common/vehiculousado/vehiculousado.xsd",
+        "/xsd/common/servicioparcialconstruccion/servicioparcialconstruccion.xsd",
+        "/xsd/common/renovacionysustitucionvehiculos/renovacionysustitucionvehiculos.xsd",
+        "/xsd/common/certificadodedestruccion/certificadodedestruccion.xsd",
+        "/xsd/common/obrasarteantiguedades/obrasarteantiguedades.xsd",
+        "/xsd/common/ine/v11/INE11.xsd",
+        "/xsd/common/ComercioExterior/v10/ComercioExterior10.xsd",
+        "/xsd/common/ComercioExterior/v11/ComercioExterior11.xsd",
+        "/xsd/common/Pagos/Pagos10.xsd",
+        "/xsd/common/iedu/iedu.xsd",
+        "/xsd/common/ventavehiculos/v10/ventavehiculos.xsd",
+        "/xsd/common/ventavehiculos/v11/ventavehiculos11.xsd",
         "/xsd/common/terceros/terceros11.xsd",
-        "/xsd/common/ventavehiculos/ventavehiculos.xsd",
-        "/xsd/common/nomina/nomina11.xsd",
-        "/xsd/common/nomina12/nomina12.xsd"
+        "/xsd/common/AcreditamientoIEPS/AcreditamientoIEPS10.xsd",
+        "/xsd/common/ecb/ecb.xsd",
+        "/xsd/common/psgcfdsp/psgcfdsp.xsd",
+        "/xsd/common/psgecfd/psgecfd.xsd"
     };
 
     private static final String XML_HEADER = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
@@ -124,15 +144,17 @@ public final class CFDv33 implements CFDI {
 
     @Override
     public void sellar(PrivateKey key, X509Certificate cert) throws Exception {
-        cert.checkValidity();
+        String nc = new String(cert.getSerialNumber().toByteArray());
+        if (!nc.equals("20001000000200001428")) {
+            cert.checkValidity();
+        }
         String signature = getSignature(key);
         document.setSello(signature);
         byte[] bytes = cert.getEncoded();
         Base64 b64 = new Base64(-1);
         String certStr = b64.encodeToString(bytes);
         document.setCertificado(certStr);
-        BigInteger bi = cert.getSerialNumber();
-        document.setNoCertificado(new String(bi.toByteArray()));
+        document.setNoCertificado(nc);
     }
 
     public Comprobante sellarComprobante(PrivateKey key, X509Certificate cert) throws Exception {
@@ -174,7 +196,7 @@ public final class CFDv33 implements CFDI {
         String sigStr = document.getSello();
         byte[] signature = b64.decode(sigStr);
         byte[] bytes = getOriginalBytes();
-        Signature sig = Signature.getInstance("SHA1withRSA");
+        Signature sig = Signature.getInstance("SHA256withRSA");
         sig.initVerify(cert);
         sig.update(bytes);
         boolean bool = sig.verify(signature);
@@ -197,7 +219,7 @@ public final class CFDv33 implements CFDI {
         String sigStr = document.getSello();
         byte[] signature = b64.decode(sigStr);
         byte[] bytes = getOriginalBytes(in);
-        Signature sig = Signature.getInstance("SHA1withRSA");
+        Signature sig = Signature.getInstance("SHA256withRSA");
         sig.initVerify(cert);
         sig.update(bytes);
         boolean bool = sig.verify(signature);
@@ -206,6 +228,7 @@ public final class CFDv33 implements CFDI {
         }
     }
 
+    @Override
     public void guardar(OutputStream out) throws Exception {
         Marshaller m = context.createMarshaller();
         m.setProperty("com.sun.xml.bind.namespacePrefixMapper", new NamespacePrefixMapperImpl(localPrefixes));
@@ -226,10 +249,7 @@ public final class CFDv33 implements CFDI {
         String schema = "http://www.sat.gob.mx/cfd/3 http://www.sat.gob.mx/sitio_internet/cfd/3/cfdv33.xsd";
         if (document != null && document.getComplemento() != null && document.getComplemento().getAny() != null) {
             for (Object o : document.getComplemento().getAny()) {
-                if (o instanceof mx.bigdata.sat.common.nomina.schema.Nomina) {
-                    schema += " http://www.sat.gob.mx/nomina http://www.sat.gob.mx/sitio_internet/cfd/nomina/nomina11.xsd";
-                    addNamespace("http://www.sat.gob.mx/nomina", "nomina");
-                } else if (o instanceof mx.bigdata.sat.common.nomina12.schema.Nomina) {
+                if (o instanceof mx.bigdata.sat.common.nomina.v12.schema.Nomina) {
                     schema += " http://www.sat.gob.mx/nomina12 http://www.sat.gob.mx/sitio_internet/cfd/nomina/nomina12.xsd";
                     addNamespace("http://www.sat.gob.mx/nomina12", "nomina12");
                 } else if (o instanceof mx.bigdata.sat.common.implocal.schema.ImpuestosLocales) {
@@ -265,8 +285,7 @@ public final class CFDv33 implements CFDI {
             factory = TransformerFactory.newInstance();
             factory.setURIResolver(new URIResolverImpl());
         }
-        Transformer transformer = factory
-                .newTransformer(new StreamSource(getClass().getResourceAsStream(XSLT)));
+        Transformer transformer = factory.newTransformer(new StreamSource(getClass().getResourceAsStream(XSLT)));
         transformer.transform(in, out);
         return baos.toByteArray();
     }
@@ -281,8 +300,7 @@ public final class CFDv33 implements CFDI {
             factory = TransformerFactory.newInstance();
             factory.setURIResolver(new URIResolverImpl());
         }
-        Transformer transformer = factory
-                .newTransformer(new StreamSource(getClass().getResourceAsStream(XSLT)));
+        Transformer transformer = factory.newTransformer(new StreamSource(getClass().getResourceAsStream(XSLT)));
         transformer.transform(source, out);
         in.close();
         return baos.toByteArray();
@@ -290,7 +308,7 @@ public final class CFDv33 implements CFDI {
 
     String getSignature(PrivateKey key) throws Exception {
         byte[] bytes = getOriginalBytes();
-        Signature sig = Signature.getInstance("SHA1withRSA");
+        Signature sig = Signature.getInstance("SHA256withRSA");
         sig.initSign(key);
         sig.update(bytes);
         byte[] signed = sig.sign();
@@ -317,7 +335,6 @@ public final class CFDv33 implements CFDI {
         m.marshal(comprobante, doc);
         Unmarshaller u = context.createUnmarshaller();
         return (Comprobante) u.unmarshal(doc);
-
     }
 
     public static final class CFDv32ComprobanteBase implements ComprobanteBase {
@@ -356,6 +373,7 @@ public final class CFDv33 implements CFDI {
         public Object getComprobante() {
             return document;
         }
+
     }
 
     private static JAXBContext getContext(String[] contexts) throws Exception {

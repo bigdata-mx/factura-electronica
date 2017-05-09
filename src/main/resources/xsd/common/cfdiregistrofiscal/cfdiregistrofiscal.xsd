@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:registrofiscal="http://www.sat.gob.mx/registrofiscal" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.sat.gob.mx/registrofiscal" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:element name="CFDIRegistroFiscal">
+		<xs:annotation>
+			<xs:documentation>Complemento para incluir los datos de identificación de los CFDIs generados en Registro Fiscal.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:attribute name="Version" type="xs:string" use="required" fixed="1.0">
+				<xs:annotation>
+					<xs:documentation>Atributo requerido que indica la versión del complemento CFDI Registro Fiscal.</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="Folio" use="required">
+				<xs:annotation>
+					<xs:documentation>Atributo requerido para expresar la relación del CFDI con el Registro Fiscal.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:pattern value="[0-9]{16}"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

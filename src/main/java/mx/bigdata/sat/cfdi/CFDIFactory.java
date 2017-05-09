@@ -13,42 +13,42 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-
 package mx.bigdata.sat.cfdi;
 
+import com.google.common.io.ByteStreams;
+import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.InputStream;
-
+import java.io.InputStreamReader;
 import mx.bigdata.sat.common.CFDFactory;
 
-import com.google.common.io.ByteStreams;
-
 public final class CFDIFactory extends CFDFactory {
-  
-  public static CFDI load(File file) throws Exception {
-    InputStream in = new FileInputStream(file);
-    try {
-      return load(in);
-    } finally {
-      in.close();
+
+    public static CFDI load(File file) throws Exception {
+        try (InputStream in = new FileInputStream(file)) {
+            return load(in);
+        }
     }
-  }
-  
-  public static CFDI load(InputStream in) throws Exception {
-    return getCFDI(in);
-  }
-  
-  private static CFDI getCFDI(InputStream in) throws Exception {
-    ByteArrayOutputStream baos = new ByteArrayOutputStream();
-    ByteStreams.copy(in, baos);
-    byte[] data = baos.toByteArray();
-    if (getVersion(data).equals("3.2")) {
-      return new CFDv32(new ByteArrayInputStream(data));
-    } else {
-      return new CFDv3(new ByteArrayInputStream(data));
+
+    public static CFDI load(InputStream in) throws Exception {
+        return getCFDI(in);
     }
-  }
+
+    private static CFDI getCFDI(InputStream in) throws Exception {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        ByteStreams.copy(in, baos);
+        byte[] data = baos.toByteArray();
+        if (getVersion(data).equals("3.2")) {
+            return new CFDv32(new ByteArrayInputStream(data));
+        } else if (getVersion(data).equals("3.3")) {
+            return new CFDv33(new ByteArrayInputStream(data));
+        } else {
+            return new CFDv3(new ByteArrayInputStream(data));
+        }
+    }
+
 }

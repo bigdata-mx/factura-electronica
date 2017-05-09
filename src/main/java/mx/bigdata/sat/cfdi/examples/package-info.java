@@ -13,10 +13,9 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-
-@XmlSchema( 
-    namespace="http://www.bigdata.mx/cfdi/example", 
-    elementFormDefault = XmlNsForm.QUALIFIED) 
+@XmlSchema(
+        namespace = "http://www.bigdata.mx/cfdi/example",
+        elementFormDefault = XmlNsForm.QUALIFIED)
 package mx.bigdata.sat.cfdi.examples;
 
 import javax.xml.bind.annotation.XmlNsForm;

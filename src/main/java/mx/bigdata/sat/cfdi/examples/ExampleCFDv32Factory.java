@@ -13,7 +13,6 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-
 package mx.bigdata.sat.cfdi.examples;
 
 import java.math.BigDecimal;
@@ -25,7 +24,6 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import org.bouncycastle.crypto.macs.CMac;
 
 import mx.bigdata.sat.cfdi.v32.schema.Comprobante;
 import mx.bigdata.sat.cfdi.v32.schema.Comprobante.Addenda;
@@ -43,143 +41,144 @@ import mx.bigdata.sat.cfdi.v32.schema.TUbicacion;
 import mx.bigdata.sat.cfdi.v32.schema.TUbicacionFiscal;
 
 public final class ExampleCFDv32Factory {
-    
-  public static Comprobante createComprobante() throws Exception {
-    ObjectFactory of = new ObjectFactory();
-    Comprobante comp = of.createComprobante();
-    comp.setVersion("3.2");
-    Date date = new GregorianCalendar(2012, 1, 6, 20, 38, 12).getTime();
-    comp.setFecha(date);
-    comp.setFormaDePago("PAGO EN UNA SOLA EXHIBICION");
-    comp.setSubTotal(new BigDecimal("466.43"));
-    comp.setTotal(new BigDecimal("488.50"));
-    comp.setTipoDeComprobante("ingreso");
-    comp.setMetodoDePago("efectivo");
-    comp.setLugarExpedicion("Mexico");
-    comp.setEmisor(createEmisor(of));
-    comp.setReceptor(createReceptor(of));
-    comp.setConceptos(createConceptos(of));
-    comp.setImpuestos(createImpuestos(of));
-    comp.setAddenda(createAddenda(of));
-    comp.setComplemento(createComplemento(of));
-    return comp;
-  }
-  
-  private static Complemento createComplemento(ObjectFactory of){
-	  Complemento complemento = new Complemento();
-	  
-	  
-	  return complemento;
-  }
-    
-  private static Emisor createEmisor(ObjectFactory of) {
-    Emisor emisor = of.createComprobanteEmisor();
-    emisor.setNombre("PHARMA PLUS SA DE CV");
-    emisor.setRfc("PPL961114GZ1");
-    TUbicacionFiscal uf = of.createTUbicacionFiscal();
-    uf.setCalle("AV. RIO MIXCOAC");
-    uf.setCodigoPostal("03240");
-    uf.setColonia("ACACIAS"); 
-    uf.setEstado("DISTRITO FEDERAL"); 
-    uf.setMunicipio("BENITO JUAREZ"); 
-    uf.setNoExterior("No. 140"); 
-    uf.setPais("Mexico"); 
-    emisor.setDomicilioFiscal(uf);
-    TUbicacion u = of.createTUbicacion();
-    u.setCalle("AV. UNIVERSIDAD");
-    u.setCodigoPostal("03910");
-    u.setColonia("OXTOPULCO"); 
-    u.setEstado("DISTRITO FEDERAL");
-    u.setNoExterior("1858");
-    u.setPais("Mexico"); 
-    emisor.setExpedidoEn(u); 
-    RegimenFiscal rf = of.createComprobanteEmisorRegimenFiscal();
-    rf.setRegimen("simplificado");
-    emisor.getRegimenFiscal().add(rf);
-    return emisor;
-  }
 
-  private static Receptor createReceptor(ObjectFactory of) {
-    Receptor receptor = of.createComprobanteReceptor();
-    receptor.setNombre("JUAN PEREZ PEREZ");
-    receptor.setRfc("PEPJ8001019Q8");
-    TUbicacion uf = of.createTUbicacion();
-    uf.setCalle("AV UNIVERSIDAD");
-    uf.setCodigoPostal("04360");
-    uf.setColonia("COPILCO UNIVERSIDAD"); 
-    uf.setEstado("DISTRITO FEDERAL"); 
-    uf.setMunicipio("COYOACAN"); 
-    uf.setNoExterior("16 EDF 3"); 
-    uf.setNoInterior("DPTO 101"); 
-    uf.setPais("Mexico"); 
-    receptor.setDomicilio(uf);
-    return receptor;
-  }
+    public static Comprobante createComprobante() throws Exception {
+        ObjectFactory of = new ObjectFactory();
+        Comprobante comp = of.createComprobante();
+        comp.setVersion("3.2");
+        Date date = new GregorianCalendar(2012, 1, 6, 20, 38, 12).getTime();
+        comp.setFecha(date);
+        comp.setFormaDePago("PAGO EN UNA SOLA EXHIBICION");
+        comp.setSubTotal(new BigDecimal("466.43"));
+        comp.setTotal(new BigDecimal("488.50"));
+        comp.setTipoDeComprobante("ingreso");
+        comp.setMetodoDePago("efectivo");
+        comp.setLugarExpedicion("Mexico");
+        comp.setEmisor(createEmisor(of));
+        comp.setReceptor(createReceptor(of));
+        comp.setConceptos(createConceptos(of));
+        comp.setImpuestos(createImpuestos(of));
+        comp.setAddenda(createAddenda(of));
+        comp.setComplemento(createComplemento(of));
+        return comp;
+    }
 
-  private static Conceptos createConceptos(ObjectFactory of) {
-    Conceptos cps = of.createComprobanteConceptos();
-    List<Concepto> list = cps.getConcepto(); 
-    Concepto c1 = of.createComprobanteConceptosConcepto();
-    c1.setUnidad("CAPSULAS");
-    c1.setImporte(new BigDecimal("244.00"));
-    c1.setCantidad(new BigDecimal("1.0"));
-    c1.setDescripcion("VIBRAMICINA 100MG 10");
-    c1.setValorUnitario(new BigDecimal("244.00"));
-    list.add(c1);
-    Concepto c2 = of.createComprobanteConceptosConcepto();
-    c2.setUnidad("BOTELLA");
-    c2.setImporte(new BigDecimal("137.93"));
-    c2.setCantidad(new BigDecimal("1.0"));
-    c2.setDescripcion("CLORUTO 500M");
-    c2.setValorUnitario(new BigDecimal("137.93"));
-    list.add(c2);
-    Concepto c3 = of.createComprobanteConceptosConcepto();    
-    c3.setUnidad("TABLETAS");
-    c3.setImporte(new BigDecimal("84.50"));
-    c3.setCantidad(new BigDecimal("1.0"));
-    c3.setDescripcion("SEDEPRON 250MG 10");
-    c3.setValorUnitario(new BigDecimal("84.50"));
-    list.add(c3);
-    return cps;
-  }
+    private static Complemento createComplemento(ObjectFactory of) {
+        Complemento complemento = new Complemento();
 
-  private static Impuestos createImpuestos(ObjectFactory of) {
-    Impuestos imps = of.createComprobanteImpuestos();
-    Traslados trs = of.createComprobanteImpuestosTraslados();
-    List<Traslado> list = trs.getTraslado(); 
-    Traslado t1 = of.createComprobanteImpuestosTrasladosTraslado();
-    t1.setImporte(new BigDecimal("0.00"));
-    t1.setImpuesto("IVA");
-    t1.setTasa(new BigDecimal("0.00"));
-    list.add(t1);
-    Traslado t2 = of.createComprobanteImpuestosTrasladosTraslado();
-    t2.setImporte(new BigDecimal("22.07"));
-    t2.setImpuesto("IVA");
-    t2.setTasa(new BigDecimal("16.00"));
-    list.add(t2);
-    imps.setTraslados(trs);
-    return imps;
-  }
+        return complemento;
+    }
 
-  private static Addenda createAddenda(ObjectFactory of) {
-    Addenda addenda = of.createComprobanteAddenda();
-    Company2 c = new Company2();
-    c.transaction = new Transaction2();
-    c.transaction.purchaseOrder = "4600364283";
-    addenda.getAny().add(c);
-    return addenda;
-  }
+    private static Emisor createEmisor(ObjectFactory of) {
+        Emisor emisor = of.createComprobanteEmisor();
+        emisor.setNombre("PHARMA PLUS SA DE CV");
+        emisor.setRfc("PPL961114GZ1");
+        TUbicacionFiscal uf = of.createTUbicacionFiscal();
+        uf.setCalle("AV. RIO MIXCOAC");
+        uf.setCodigoPostal("03240");
+        uf.setColonia("ACACIAS");
+        uf.setEstado("DISTRITO FEDERAL");
+        uf.setMunicipio("BENITO JUAREZ");
+        uf.setNoExterior("No. 140");
+        uf.setPais("Mexico");
+        emisor.setDomicilioFiscal(uf);
+        TUbicacion u = of.createTUbicacion();
+        u.setCalle("AV. UNIVERSIDAD");
+        u.setCodigoPostal("03910");
+        u.setColonia("OXTOPULCO");
+        u.setEstado("DISTRITO FEDERAL");
+        u.setNoExterior("1858");
+        u.setPais("Mexico");
+        emisor.setExpedidoEn(u);
+        RegimenFiscal rf = of.createComprobanteEmisorRegimenFiscal();
+        rf.setRegimen("simplificado");
+        emisor.getRegimenFiscal().add(rf);
+        return emisor;
+    }
 
-  @XmlRootElement(name="Company2")
-  private final static class Company2 {
-    @XmlElement(name="Transaction2")
-    Transaction2 transaction;
-  }
-  
-  @XmlRootElement
-  private final static class Transaction2 {
-    @SuppressWarnings("unused")
-    @XmlAttribute(name="PurchaseOrder2")
-    String purchaseOrder;
-  }  
+    private static Receptor createReceptor(ObjectFactory of) {
+        Receptor receptor = of.createComprobanteReceptor();
+        receptor.setNombre("JUAN PEREZ PEREZ");
+        receptor.setRfc("PEPJ8001019Q8");
+        TUbicacion uf = of.createTUbicacion();
+        uf.setCalle("AV UNIVERSIDAD");
+        uf.setCodigoPostal("04360");
+        uf.setColonia("COPILCO UNIVERSIDAD");
+        uf.setEstado("DISTRITO FEDERAL");
+        uf.setMunicipio("COYOACAN");
+        uf.setNoExterior("16 EDF 3");
+        uf.setNoInterior("DPTO 101");
+        uf.setPais("Mexico");
+        receptor.setDomicilio(uf);
+        return receptor;
+    }
+
+    private static Conceptos createConceptos(ObjectFactory of) {
+        Conceptos cps = of.createComprobanteConceptos();
+        List<Concepto> list = cps.getConcepto();
+        Concepto c1 = of.createComprobanteConceptosConcepto();
+        c1.setUnidad("CAPSULAS");
+        c1.setImporte(new BigDecimal("244.00"));
+        c1.setCantidad(new BigDecimal("1.0"));
+        c1.setDescripcion("VIBRAMICINA 100MG 10");
+        c1.setValorUnitario(new BigDecimal("244.00"));
+        list.add(c1);
+        Concepto c2 = of.createComprobanteConceptosConcepto();
+        c2.setUnidad("BOTELLA");
+        c2.setImporte(new BigDecimal("137.93"));
+        c2.setCantidad(new BigDecimal("1.0"));
+        c2.setDescripcion("CLORUTO 500M");
+        c2.setValorUnitario(new BigDecimal("137.93"));
+        list.add(c2);
+        Concepto c3 = of.createComprobanteConceptosConcepto();
+        c3.setUnidad("TABLETAS");
+        c3.setImporte(new BigDecimal("84.50"));
+        c3.setCantidad(new BigDecimal("1.0"));
+        c3.setDescripcion("SEDEPRON 250MG 10");
+        c3.setValorUnitario(new BigDecimal("84.50"));
+        list.add(c3);
+        return cps;
+    }
+
+    private static Impuestos createImpuestos(ObjectFactory of) {
+        Impuestos imps = of.createComprobanteImpuestos();
+        Traslados trs = of.createComprobanteImpuestosTraslados();
+        List<Traslado> list = trs.getTraslado();
+        Traslado t1 = of.createComprobanteImpuestosTrasladosTraslado();
+        t1.setImporte(new BigDecimal("0.00"));
+        t1.setImpuesto("IVA");
+        t1.setTasa(new BigDecimal("0.00"));
+        list.add(t1);
+        Traslado t2 = of.createComprobanteImpuestosTrasladosTraslado();
+        t2.setImporte(new BigDecimal("22.07"));
+        t2.setImpuesto("IVA");
+        t2.setTasa(new BigDecimal("16.00"));
+        list.add(t2);
+        imps.setTraslados(trs);
+        return imps;
+    }
+
+    private static Addenda createAddenda(ObjectFactory of) {
+        Addenda addenda = of.createComprobanteAddenda();
+        Company2 c = new Company2();
+        c.transaction = new Transaction2();
+        c.transaction.purchaseOrder = "4600364283";
+        addenda.getAny().add(c);
+        return addenda;
+    }
+
+    @XmlRootElement(name = "Company2")
+    private final static class Company2 {
+
+        @XmlElement(name = "Transaction2")
+        Transaction2 transaction;
+    }
+
+    @XmlRootElement
+    private final static class Transaction2 {
+
+        @SuppressWarnings("unused")
+        @XmlAttribute(name = "PurchaseOrder2")
+        String purchaseOrder;
+    }
 }

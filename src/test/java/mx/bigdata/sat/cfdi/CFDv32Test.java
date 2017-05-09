@@ -16,9 +16,6 @@
  */
 package mx.bigdata.sat.cfdi;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -26,15 +23,12 @@ import java.io.FileInputStream;
 import java.math.BigInteger;
 import java.security.PrivateKey;
 import java.security.cert.X509Certificate;
-
 import mx.bigdata.sat.cfdi.examples.ExampleCFDv32Factory;
 import mx.bigdata.sat.cfdi.v32.schema.Comprobante;
-import mx.bigdata.sat.cfdi.v32.schema.Comprobante.Complemento;
-import mx.bigdata.sat.common.nomina.schema.Nomina;
-import mx.bigdata.sat.common.nomina.schema.ObjectFactory;
 import mx.bigdata.sat.security.KeyLoaderEnumeration;
 import mx.bigdata.sat.security.factory.KeyLoaderFactory;
-
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import org.junit.BeforeClass;
 import org.junit.Test;
 

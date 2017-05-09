@@ -16,8 +16,6 @@
  */
 package mx.bigdata.sat.cfdi;
 
-import static org.junit.Assert.assertEquals;
-
 import java.io.FileInputStream;
 import java.math.BigInteger;
 import java.security.PrivateKey;
@@ -25,11 +23,10 @@ import java.security.cert.X509Certificate;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.UUID;
-
 import mx.bigdata.sat.cfdi.examples.ExampleCFDv33Factory;
-
 import mx.bigdata.sat.security.KeyLoaderEnumeration;
 import mx.bigdata.sat.security.factory.KeyLoaderFactory;
+import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -77,19 +74,21 @@ public final class TFDv11c33Test {
         cfd.sellar(key, cert);
         Date date = new GregorianCalendar(2017, 6, 7, 8, 51, 0).getTime();
         UUID uuid = UUID.fromString("843a05d7-207d-4adc-91e8-bda7175bcda3");
-        tfd = new TFDv11c33(cfd, pacCert, uuid, date);
+        String PAC = "FLI081010EK2";
+        String leyenda = "Leyenda opciones del Pac 01";
+        tfd = new TFDv11c33(cfd, pacCert, uuid, date, PAC, leyenda);
     }
 
     @Test
     public void testOriginalString() throws Exception {
-        String cadena = "||1.1|843a05d7-207d-4adc-91e8-bda7175bcda3|2017-06-01T00:00:00|FLI081010EK2|LeyendaPrueba|LHaPp1wvZI2IifCJ5qiZWuHWEnksGN1xFShhAJJpjKXqPQK3tFbXuLI/0nX6/aULEobNMDusIX2N32RFUoFOIbuNZp0piFL9Qi9yJyiB/qxfgo6rdVCmUKNgsjfk2VcDPfvBAvg1E5I6/LmnuwUuN5KFBHxJhUD6bcvqcOG96AE=|20001000000200001429||";
+        String cadena = "||1.1|843a05d7-207d-4adc-91e8-bda7175bcda3|2017-06-07T08:51:00|FLI081010EK2|Leyenda opciones del Pac 01|LHaPp1wvZI2IifCJ5qiZWuHWEnksGN1xFShhAJJpjKXqPQK3tFbXuLI/0nX6/aULEobNMDusIX2N32RFUoFOIbuNZp0piFL9Qi9yJyiB/qxfgo6rdVCmUKNgsjfk2VcDPfvBAvg1E5I6/LmnuwUuN5KFBHxJhUD6bcvqcOG96AE=|20001000000200001429||";
         assertEquals(cadena, tfd.getCadenaOriginal());
     }
 
     @Test
     public void testStamp() throws Exception {
         tfd.timbrar(pacKey);
-        String signature = "oCSIlYhs/rm6egNPWFcSkPXR66Ky3WRTjrPJidOuBav9v9QqR36v4Fl4TDHm6kRDdBByYuIzMpvmStLztMgy8r4lnepeyJKIaYu4HOaNqX16roGoeHUGcGlKUl/GCCOoFEQuS89VIgVmAx+g/kJLzPqQuT7c1YIbPWv4kPeXaZw=";
+        String signature = "nSIpPWhumDJZlUr+6lWi1NYwrarloCkXOqdHp8MR8dsW42uA8dxLxZSiCOCUGykDnherNUCcixHV7wghIWKznktBpcrfINRcdBYlmoB7SSd4gJxdiLkq2inPCaTiNnlrrCaXMDoNaDHP79b101aqp4LlXxwW9iUnERwNp6TOXy0=";
         assertEquals(signature, tfd.getTimbre().getSelloSAT());
         BigInteger bi = pacCert.getSerialNumber();
         String certificateNum = new String(bi.toByteArray());

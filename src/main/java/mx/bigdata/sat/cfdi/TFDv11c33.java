@@ -21,6 +21,7 @@ import java.math.BigInteger;
 import java.security.PrivateKey;
 import java.security.Signature;
 import java.security.cert.X509Certificate;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -79,14 +80,14 @@ public final class TFDv11c33 {
 
     private TransformerFactory tf;
 
-    public TFDv11c33(CFDI cfd, X509Certificate cert) throws Exception {
-        this(cfd, cert, UUID.randomUUID(), new Date());
+    public TFDv11c33(CFDI cfd, X509Certificate cert, String PAC, String leyenda) throws Exception {
+        this(cfd, cert, UUID.randomUUID(), new Date(), PAC, leyenda);
     }
 
-    TFDv11c33(CFDI cfd, X509Certificate cert, UUID uuid, Date date) throws Exception {
+    TFDv11c33(CFDI cfd, X509Certificate cert, UUID uuid, Date date, String PAC, String leyenda) throws Exception {
         this.cert = cert;
         this.document = cfd.getComprobante();
-        this.tfd = getTimbreFiscalDigital(document, uuid, date);
+        this.tfd = getTimbreFiscalDigital(document, uuid, date, PAC, leyenda);
     }
 
     public void setTransformerFactory(TransformerFactory tf) {
@@ -129,7 +130,7 @@ public final class TFDv11c33 {
         String sigStr = tfd.getSelloSAT();
         byte[] signature = b64.decode(sigStr);
         byte[] bytes = getOriginalBytes();
-        Signature sig = Signature.getInstance("SHA1withRSA");
+        Signature sig = Signature.getInstance("SHA256withRSA");
         sig.initVerify(cert);
         sig.update(bytes);
         boolean verified = sig.verify(signature);
@@ -138,7 +139,8 @@ public final class TFDv11c33 {
 
     public String getCadenaOriginal() throws Exception {
         byte[] bytes = getOriginalBytes();
-        return new String(bytes);
+        String co = new String(bytes).replace("\r\n", " ").replace("       ", "");
+        return co;
     }
 
     public void guardar(OutputStream out) throws Exception {
@@ -168,7 +170,7 @@ public final class TFDv11c33 {
 
     String getSignature(PrivateKey key) throws Exception {
         byte[] bytes = getOriginalBytes();
-        Signature sig = Signature.getInstance("SHA1withRSA");
+        Signature sig = Signature.getInstance("SHA256withRSA");
         sig.initSign(key);
         sig.update(bytes);
         byte[] signed = sig.sign();
@@ -194,21 +196,23 @@ public final class TFDv11c33 {
         return doc.getDocumentElement();
     }
 
-    private TimbreFiscalDigital createStamp(UUID uuid, Date date) throws DatatypeConfigurationException {
+    private TimbreFiscalDigital createStamp(UUID uuid, Date date, String PAC, String leyenda) throws DatatypeConfigurationException {
+        Calendar c = Calendar.getInstance();
+        c.setTime(date);
         ObjectFactory of = new ObjectFactory();
         TimbreFiscalDigital tfds = of.createTimbreFiscalDigital();
         tfds.setVersion("1.1");
         tfds.setUUID(uuid.toString());
-        tfds.setFechaTimbrado(DatatypeFactory.newInstance().newXMLGregorianCalendar(2017, 06, 1, 0, 0, 0, DatatypeConstants.FIELD_UNDEFINED, DatatypeConstants.FIELD_UNDEFINED));
-        tfds.setRfcProvCertif("FLI081010EK2");
-        tfds.setLeyenda("LeyendaPrueba");
+        tfds.setFechaTimbrado(DatatypeFactory.newInstance().newXMLGregorianCalendar(c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DATE), c.get(Calendar.HOUR), c.get(Calendar.MINUTE), c.get(Calendar.SECOND), DatatypeConstants.FIELD_UNDEFINED, DatatypeConstants.FIELD_UNDEFINED));
+        tfds.setRfcProvCertif(PAC);
+        tfds.setLeyenda(leyenda);
         tfds.setSelloCFD(document.getSello());
         BigInteger bi = cert.getSerialNumber();
         tfds.setNoCertificadoSAT(new String(bi.toByteArray()));
         return tfds;
     }
 
-    private TimbreFiscalDigital getTimbreFiscalDigital(ComprobanteBase document, UUID uuid, Date date) throws Exception {
+    private TimbreFiscalDigital getTimbreFiscalDigital(ComprobanteBase document, UUID uuid, Date date, String PAC, String leyenda) throws Exception {
         if (document.hasComplemento()) {
             List<Object> list = document.getComplementoGetAny();
             for (Object o : list) {
@@ -217,7 +221,7 @@ public final class TFDv11c33 {
                 }
             }
         }
-        return createStamp(uuid, date);
+        return createStamp(uuid, date, PAC, leyenda);
     }
 
 }

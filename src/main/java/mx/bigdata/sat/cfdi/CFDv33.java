@@ -148,13 +148,13 @@ public final class CFDv33 implements CFDI {
         if (!nc.equals("20001000000200001428")) {
             cert.checkValidity();
         }
-        String signature = getSignature(key);
-        document.setSello(signature);
         byte[] bytes = cert.getEncoded();
         Base64 b64 = new Base64(-1);
         String certStr = b64.encodeToString(bytes);
         document.setCertificado(certStr);
         document.setNoCertificado(nc);
+        String signature = getSignature(key);
+        document.setSello(signature);
     }
 
     public Comprobante sellarComprobante(PrivateKey key, X509Certificate cert) throws Exception {

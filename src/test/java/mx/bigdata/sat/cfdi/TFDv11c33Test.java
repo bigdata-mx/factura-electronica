@@ -81,14 +81,15 @@ public final class TFDv11c33Test {
 
     @Test
     public void testOriginalString() throws Exception {
-        String cadena = "||1.1|843a05d7-207d-4adc-91e8-bda7175bcda3|2017-06-07T08:51:00|FLI081010EK2|Leyenda opciones del Pac 01|LHaPp1wvZI2IifCJ5qiZWuHWEnksGN1xFShhAJJpjKXqPQK3tFbXuLI/0nX6/aULEobNMDusIX2N32RFUoFOIbuNZp0piFL9Qi9yJyiB/qxfgo6rdVCmUKNgsjfk2VcDPfvBAvg1E5I6/LmnuwUuN5KFBHxJhUD6bcvqcOG96AE=|20001000000200001429||";
+        String cadena = "||1.1|843a05d7-207d-4adc-91e8-bda7175bcda3|2017-06-07T08:51:00|FLI081010EK2|Leyenda opciones del Pac 01|lv5UVJIRZEW3pmyFxjo4S01iyoE72OrjP6/SThdOK8/Gkfla/QRdtEPa3JCK/HDh7dhg466Hu58L4WsAng0q3Q/4vfl2rdUWAN3uqQMQvYEycgrFCgLF3pR0+eYGKZmI7GDeGGNcrFAbkkVA8xR/ZTk9O1vsFHP2aubur1dQo4M=|20001000000200001429||";
+        System.out.println("Cadena:"+tfd.getCadenaOriginal());
         assertEquals(cadena, tfd.getCadenaOriginal());
     }
 
     @Test
     public void testStamp() throws Exception {
         tfd.timbrar(pacKey);
-        String signature = "nSIpPWhumDJZlUr+6lWi1NYwrarloCkXOqdHp8MR8dsW42uA8dxLxZSiCOCUGykDnherNUCcixHV7wghIWKznktBpcrfINRcdBYlmoB7SSd4gJxdiLkq2inPCaTiNnlrrCaXMDoNaDHP79b101aqp4LlXxwW9iUnERwNp6TOXy0=";
+        String signature = "CeytnQFeFvAeChPYHC4ny/LKgSed4aYSrWMmQWl2nIrBgDw3qCcyhap4eE1I5jdVx6r52UYioE2Wd0+CUotaRpKBInf6AOEoLP46+DLFJmK+6gKxU/1yOLvL+2OTr9pYdGgACJW6FiCswOzK1Z9HmDRSZn9hnSa2n6PjDiIwTxI=";
         assertEquals(signature, tfd.getTimbre().getSelloSAT());
         BigInteger bi = pacCert.getSerialNumber();
         String certificateNum = new String(bi.toByteArray());

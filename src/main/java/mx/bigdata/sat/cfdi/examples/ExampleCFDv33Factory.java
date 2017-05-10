@@ -45,13 +45,13 @@ public final class ExampleCFDv33Factory {
         comp.setVersion("3.3");
         comp.setSerie("F");
         comp.setFolio("12345");
-        comp.setFecha(DatatypeFactory.newInstance().newXMLGregorianCalendar(2017, 06, 1, 0, 0, 0, DatatypeConstants.FIELD_UNDEFINED, DatatypeConstants.FIELD_UNDEFINED));
+        comp.setFecha(DatatypeFactory.newInstance().newXMLGregorianCalendar(2017, 07, 1, 0, 0, 0, DatatypeConstants.FIELD_UNDEFINED, DatatypeConstants.FIELD_UNDEFINED));
 //        comp.setSello();
         comp.setFormaPago("02");
         comp.setNoCertificado("20001000000200001428");
 //        comp.setCertificado();
         comp.setCondicionesDePago("Crédito a 20 días");
-        comp.setSubTotal(new BigDecimal("1650.00"));
+        comp.setSubTotal(new BigDecimal("1550.00"));
         comp.setDescuento(new BigDecimal("100.00"));
         comp.setMoneda(CMoneda.MXN);
         comp.setTipoCambio(new BigDecimal("1"));
@@ -171,7 +171,7 @@ public final class ExampleCFDv33Factory {
         it.setImpuesto("002");
         it.setTipoFactor(CTipoFactor.TASA);
         it.setTasaOCuota("0.160000");
-        it.setImporte(new BigDecimal("124.00"));
+        it.setImporte(new BigDecimal("248.00"));
         its.getTraslado().add(it);
         return its;
     }

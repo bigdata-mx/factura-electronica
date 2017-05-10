@@ -21,6 +21,7 @@ import java.math.BigInteger;
 import java.security.PrivateKey;
 import java.security.Signature;
 import java.security.cert.X509Certificate;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -29,6 +30,9 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.util.JAXBSource;
+import javax.xml.datatype.DatatypeConfigurationException;
+import javax.xml.datatype.DatatypeConstants;
+import javax.xml.datatype.DatatypeFactory;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.transform.Result;
@@ -39,8 +43,8 @@ import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 import javax.xml.validation.Validator;
-import mx.bigdata.sat.cfdi.schema.ObjectFactory;
-import mx.bigdata.sat.cfdi.schema.TimbreFiscalDigital;
+import mx.bigdata.sat.cfdi.v33.schema.ObjectFactory;
+import mx.bigdata.sat.cfdi.v33.schema.TimbreFiscalDigital;
 import mx.bigdata.sat.common.ComprobanteBase;
 import mx.bigdata.sat.common.NamespacePrefixMapperImpl;
 import org.apache.commons.codec.binary.Base64;
@@ -73,14 +77,14 @@ public final class TFDv11 {
     private TransformerFactory tf;
 
     public TFDv11(CFDI cfd, X509Certificate cert) throws Exception {
-        this(cfd, cert, UUID.randomUUID(), new Date());
+        this(cfd, cert, UUID.randomUUID(), new Date(), "XAX010101000", "LeyendaOpcional2");
     }
 
-    TFDv11(CFDI cfd, X509Certificate cert, UUID uuid, Date date)
+    TFDv11(CFDI cfd, X509Certificate cert, UUID uuid, Date date, String PAC, String leyenda)
             throws Exception {
         this.cert = cert;
         this.document = cfd.getComprobante();
-        this.tfd = getTimbreFiscalDigital(document, uuid, date);
+        this.tfd = getTimbreFiscalDigital(document, uuid, date, PAC, leyenda);
     }
 
     public void setTransformerFactory(TransformerFactory tf) {
@@ -184,19 +188,23 @@ public final class TFDv11 {
         return doc.getDocumentElement();
     }
 
-    private TimbreFiscalDigital createStamp(UUID uuid, Date date) {
+    private TimbreFiscalDigital createStamp(UUID uuid, Date date, String PAC, String leyenda) throws DatatypeConfigurationException {
         ObjectFactory of = new ObjectFactory();
         TimbreFiscalDigital tfds = of.createTimbreFiscalDigital();
         tfds.setVersion("1.1");
-        tfds.setFechaTimbrado(date);
-        tfds.setSelloCFD(document.getSello());
         tfds.setUUID(uuid.toString());
+        Calendar c = Calendar.getInstance();
+        c.setTime(date);
+        tfds.setFechaTimbrado(DatatypeFactory.newInstance().newXMLGregorianCalendar(c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH), c.get(Calendar.HOUR_OF_DAY), c.get(Calendar.MINUTE), c.get(Calendar.SECOND), DatatypeConstants.FIELD_UNDEFINED, DatatypeConstants.FIELD_UNDEFINED));
+        tfds.setRfcProvCertif(PAC);
+        tfds.setLeyenda(leyenda);
+        tfds.setSelloCFD(document.getSello());
         BigInteger bi = cert.getSerialNumber();
         tfds.setNoCertificadoSAT(new String(bi.toByteArray()));
         return tfds;
     }
 
-    private TimbreFiscalDigital getTimbreFiscalDigital(ComprobanteBase document, UUID uuid, Date date) throws Exception {
+    private TimbreFiscalDigital getTimbreFiscalDigital(ComprobanteBase document, UUID uuid, Date date, String PAC, String leyenda) throws Exception {
         if (document.hasComplemento()) {
             List<Object> list = document.getComplementoGetAny();
             for (Object o : list) {
@@ -205,7 +213,7 @@ public final class TFDv11 {
                 }
             }
         }
-        return createStamp(uuid, date);
+        return createStamp(uuid, date, PAC, leyenda);
     }
 
 }

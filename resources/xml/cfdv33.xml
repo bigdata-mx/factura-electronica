@@ -1,1 +1,33 @@
-<?xml version="1.0" encoding="UTF-8"?><cfdi:CfdiRelacionados TipoRelacion="06"><cfdi:CfdiRelacionado UUID="a0452045-89cb-4792-9cc0-153f21faab7f"/></cfdi:CfdiRelacionados><cfdi:Emisor RegimenFiscal="601" Nombre="PHARMA PLUS SA DE CV" Rfc="PPL961114GZ1"/><cfdi:Receptor UsoCFDI="G01" NumRegIdTrib="ResidenteExtranjero1" ResidenciaFiscal="MEX" Nombre="JUAN PEREZ PEREZ" Rfc="PEPJ8001019Q8"/><cfdi:Conceptos><cfdi:Concepto Importe="775.00" ValorUnitario="775.00" Descripcion="VIBRAMICINA 100MG 10" Unidad="CAPSULAS" ClaveUnidad="EA" Cantidad="1.0" NoIdentificacion="GEN01" ClaveProdServ="10101501"><cfdi:Impuestos><cfdi:Traslados><cfdi:Traslado Importe="124.00" TasaOCuota="0.160000" TipoFactor="Tasa" Impuesto="002" Base="0.16"/></cfdi:Traslados></cfdi:Impuestos><cfdi:InformacionAduanera NumeroPedimento="67  52  3924  8060097"/><cfdi:CuentaPredial Numero="123456"/></cfdi:Concepto><cfdi:Concepto Importe="775.00" ValorUnitario="775.00" Descripcion="CLORUTO 500M" Unidad="BOTELLA" ClaveUnidad="EA" Cantidad="1.0" NoIdentificacion="GEN02" ClaveProdServ="10101501"><cfdi:Impuestos><cfdi:Traslados><cfdi:Traslado Importe="124.00" TasaOCuota="0.160000" TipoFactor="Tasa" Impuesto="002" Base="0.16"/></cfdi:Traslados></cfdi:Impuestos><cfdi:InformacionAduanera NumeroPedimento="67  52  3924  8060097"/><cfdi:CuentaPredial Numero="123456"/></cfdi:Concepto></cfdi:Conceptos><cfdi:Impuestos TotalImpuestosTrasladados="248.00" TotalImpuestosRetenidos="0"><cfdi:Traslados><cfdi:Traslado Importe="124.00" TasaOCuota="0.160000" TipoFactor="Tasa" Impuesto="002"/></cfdi:Traslados></cfdi:Impuestos></cfdi:Comprobante>
+<?xml version="1.0" encoding="UTF-8"?>
+<cfdi:Comprobante xmlns:cfdi="http://www.sat.gob.mx/cfd/3" xmlns:tfd="http://www.sat.gob.mx/TimbreFiscalDigital" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Confirmacion="aB1cD" LugarExpedicion="03240" MetodoPago="PUE" TipoDeComprobante="I" Total="1798" TipoCambio="1" Moneda="MXN" Descuento="100.00" SubTotal="1650.00" CondicionesDePago="Crédito a 20 días" NoCertificado="20001000000200001428" FormaPago="02" Fecha="2017-06-01T00:00:00" Folio="12345" Serie="F" Version="3.3" xsi:schemaLocation="http://www.sat.gob.mx/cfd/3 http://www.sat.gob.mx/sitio_internet/cfd/3/cfdv33.xsd">
+    <cfdi:CfdiRelacionados TipoRelacion="06">
+        <cfdi:CfdiRelacionado UUID="a0452045-89cb-4792-9cc0-153f21faab7f"/>
+    </cfdi:CfdiRelacionados>
+    <cfdi:Emisor RegimenFiscal="601" Nombre="PHARMA PLUS SA DE CV" Rfc="PPL961114GZ1"/>
+    <cfdi:Receptor UsoCFDI="G01" NumRegIdTrib="ResidenteExtranjero1" ResidenciaFiscal="MEX" Nombre="JUAN PEREZ PEREZ" Rfc="PEPJ8001019Q8"/>
+    <cfdi:Conceptos>
+        <cfdi:Concepto Importe="775.00" ValorUnitario="775.00" Descripcion="VIBRAMICINA 100MG 10" Unidad="CAPSULAS" ClaveUnidad="EA" Cantidad="1.0" NoIdentificacion="GEN01" ClaveProdServ="10101501">
+            <cfdi:Impuestos>
+                <cfdi:Traslados>
+                    <cfdi:Traslado Importe="124.00" TasaOCuota="0.160000" TipoFactor="Tasa" Impuesto="002" Base="0.16"/>
+                </cfdi:Traslados>
+            </cfdi:Impuestos>
+            <cfdi:InformacionAduanera NumeroPedimento="67  52  3924  8060097"/>
+            <cfdi:CuentaPredial Numero="123456"/>
+        </cfdi:Concepto>
+        <cfdi:Concepto Importe="775.00" ValorUnitario="775.00" Descripcion="CLORUTO 500M" Unidad="BOTELLA" ClaveUnidad="EA" Cantidad="1.0" NoIdentificacion="GEN02" ClaveProdServ="10101501">
+            <cfdi:Impuestos>
+                <cfdi:Traslados>
+                    <cfdi:Traslado Importe="124.00" TasaOCuota="0.160000" TipoFactor="Tasa" Impuesto="002" Base="0.16"/>
+                </cfdi:Traslados>
+            </cfdi:Impuestos>
+            <cfdi:InformacionAduanera NumeroPedimento="67  52  3924  8060097"/>
+            <cfdi:CuentaPredial Numero="123456"/>
+        </cfdi:Concepto>
+    </cfdi:Conceptos>
+    <cfdi:Impuestos TotalImpuestosTrasladados="248.00" TotalImpuestosRetenidos="0">
+        <cfdi:Traslados>
+            <cfdi:Traslado Importe="124.00" TasaOCuota="0.160000" TipoFactor="Tasa" Impuesto="002"/>
+        </cfdi:Traslados>
+    </cfdi:Impuestos>
+</cfdi:Comprobante>

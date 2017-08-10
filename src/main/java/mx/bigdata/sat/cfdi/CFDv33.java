@@ -318,7 +318,7 @@ public final class CFDv33 implements CFDI {
 
     @Override
     public ComprobanteBase getComprobante() throws Exception {
-        return new CFDv32ComprobanteBase(doGetComprobante());
+        return new CFDv33ComprobanteBase(doGetComprobante());
     }
 
     Comprobante doGetComprobante() throws Exception {
@@ -337,11 +337,11 @@ public final class CFDv33 implements CFDI {
         return (Comprobante) u.unmarshal(doc);
     }
 
-    public static final class CFDv32ComprobanteBase implements ComprobanteBase {
+    public static final class CFDv33ComprobanteBase implements ComprobanteBase {
 
         private final Comprobante document;
 
-        public CFDv32ComprobanteBase(Comprobante document) {
+        public CFDv33ComprobanteBase(Comprobante document) {
             this.document = document;
         }
 

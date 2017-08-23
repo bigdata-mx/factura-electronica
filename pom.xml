@@ -29,7 +29,7 @@
         <url>scm:git:git@github.com:bigdata-mx/factura-electronica.git</url>
     </scm>
     <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.build.sourceEncoding>ISO-8859-1</project.build.sourceEncoding>
     </properties>
     <dependencies>
         <dependency>
@@ -85,7 +85,7 @@
                 <configuration>
                     <source>1.7</source>
                     <target>1.7</target>
-                    <encoding>UTF-8</encoding>
+                    <encoding>ISO-8859-1</encoding>
                 </configuration>
             </plugin>
             <plugin>
@@ -93,7 +93,7 @@
                 <artifactId>jaxb2-maven-plugin</artifactId>
                 <version>1.5</version>
                 <configuration>
-                    <encoding>${file.encoding}</encoding>
+                    <encoding>ISO-8859-1</encoding>
                 </configuration>
                 <executions>
                     <execution>

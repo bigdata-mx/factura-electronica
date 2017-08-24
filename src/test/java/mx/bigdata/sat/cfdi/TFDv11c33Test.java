@@ -16,7 +16,7 @@
  */
 package mx.bigdata.sat.cfdi;
 
-import java.io.FileInputStream;
+import java.io.*;
 import java.math.BigInteger;
 import java.security.PrivateKey;
 import java.security.cert.X509Certificate;
@@ -88,7 +88,7 @@ public final class TFDv11c33Test {
     @Test
     public void testStamp() throws Exception {
         tfd.timbrar(pacKey);
-        String signature = "CeytnQFeFvAeChPYHC4ny/LKgSed4aYSrWMmQWl2nIrBgDw3qCcyhap4eE1I5jdVx6r52UYioE2Wd0+CUotaRpKBInf6AOEoLP46+DLFJmK+6gKxU/1yOLvL+2OTr9pYdGgACJW6FiCswOzK1Z9HmDRSZn9hnSa2n6PjDiIwTxI=";
+        String signature = "bqAMsLfYnKLUlRfuduFbOAp8QSg0Dc6m/RoTJaCaL2nXElE4NnPjVJ7MqXk+bcT6FwOq6LTKJmbR3KAsEJ/CPtD5EAZCVSQ09GEWXHbJ9wep7MKm84eJNvAIHSPWyQnge2r0P5f2zzJxh9zcFSAR0SU0HgGs/9kOCusZ9TfIe6Q=";
         assertEquals(signature, tfd.getTimbre().getSelloSAT());
         BigInteger bi = pacCert.getSerialNumber();
         String certificateNum = new String(bi.toByteArray());

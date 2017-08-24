@@ -139,7 +139,7 @@ public final class TFDv11c33 {
 
     public String getCadenaOriginal() throws Exception {
         byte[] bytes = getOriginalBytes();
-        String co = new String(bytes).replace("\r\n", " ").replace("       ", "");
+        String co = new String(bytes).replace("\r", " ").replace("\n", " ").replace("       ", "");
         return co;
     }
 

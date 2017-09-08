@@ -44,9 +44,10 @@ import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 import javax.xml.validation.Validator;
+import mx.bigdata.sat.cfdi.v33.schema.Comprobante;
 import mx.bigdata.sat.cfdi.v33.schema.ObjectFactory;
 import mx.bigdata.sat.cfdi.v33.schema.TimbreFiscalDigital;
-import mx.bigdata.sat.common.ComprobanteBase;
+import mx.bigdata.sat.common.ComprobanteBase33;
 import mx.bigdata.sat.common.NamespacePrefixMapperImpl;
 import org.apache.commons.codec.binary.Base64;
 import org.w3c.dom.Document;
@@ -72,7 +73,7 @@ public final class TFDv11c33 {
         }
     }
 
-    private final ComprobanteBase document;
+    private final ComprobanteBase33 document;
 
     private final TimbreFiscalDigital tfd;
 
@@ -80,11 +81,11 @@ public final class TFDv11c33 {
 
     private TransformerFactory tf;
 
-    public TFDv11c33(CFDI cfd, X509Certificate cert, String PAC, String leyenda) throws Exception {
+    public TFDv11c33(CFDI33 cfd, X509Certificate cert, String PAC, String leyenda) throws Exception {
         this(cfd, cert, UUID.randomUUID(), new Date(), PAC, leyenda);
     }
 
-    TFDv11c33(CFDI cfd, X509Certificate cert, UUID uuid, Date date, String PAC, String leyenda) throws Exception {
+    TFDv11c33(CFDI33 cfd, X509Certificate cert, UUID uuid, Date date, String PAC, String leyenda) throws Exception {
         this.cert = cert;
         this.document = cfd.getComprobante();
         this.tfd = getTimbreFiscalDigital(document, uuid, date, PAC, leyenda);
@@ -212,9 +213,9 @@ public final class TFDv11c33 {
         return tfds;
     }
 
-    private TimbreFiscalDigital getTimbreFiscalDigital(ComprobanteBase document, UUID uuid, Date date, String PAC, String leyenda) throws Exception {
+    private TimbreFiscalDigital getTimbreFiscalDigital(ComprobanteBase33 document, UUID uuid, Date date, String PAC, String leyenda) throws Exception {
         if (document.hasComplemento()) {
-            List<Object> list = document.getComplementoGetAny();
+            List<Comprobante.Complemento> list = document.getComplementoGetAny();
             for (Object o : list) {
                 if (o instanceof TimbreFiscalDigital) {
                     return (TimbreFiscalDigital) o;

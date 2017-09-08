@@ -48,7 +48,7 @@ import javax.xml.validation.SchemaFactory;
 import javax.xml.validation.Validator;
 import mx.bigdata.sat.cfdi.v33.schema.Comprobante;
 import mx.bigdata.sat.cfdi.v33.schema.ObjectFactory;
-import mx.bigdata.sat.common.ComprobanteBase;
+import mx.bigdata.sat.common.ComprobanteBase33;
 import mx.bigdata.sat.common.NamespacePrefixMapperImpl;
 import mx.bigdata.sat.common.URIResolverImpl;
 import mx.bigdata.sat.security.KeyLoaderEnumeration;
@@ -58,7 +58,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.xml.sax.ErrorHandler;
 
-public final class CFDv33 implements CFDI {
+public final class CFDv33 implements CFDI33 {
 
     private static final String XSLT = "/xslt/cadenaoriginal_3_3.xslt";
 
@@ -95,6 +95,7 @@ public final class CFDv33 implements CFDI {
         "/xsd/common/ine/v11/INE11.xsd",
         "/xsd/common/ComercioExterior/v10/ComercioExterior10.xsd",
         "/xsd/common/ComercioExterior/v11/ComercioExterior11.xsd",
+        "/xsd/common/catPagos.xsd",
         "/xsd/common/Pagos/Pagos10.xsd",
         "/xsd/common/iedu/iedu.xsd",
         "/xsd/common/ventavehiculos/v10/ventavehiculos.xsd",
@@ -145,9 +146,7 @@ public final class CFDv33 implements CFDI {
     @Override
     public void sellar(PrivateKey key, X509Certificate cert) throws Exception {
         String nc = new String(cert.getSerialNumber().toByteArray());
-        if (!nc.equals("20001000000200001428")) {
-            cert.checkValidity();
-        }
+        cert.checkValidity();
         byte[] bytes = cert.getEncoded();
         Base64 b64 = new Base64(-1);
         String certStr = b64.encodeToString(bytes);
@@ -247,8 +246,8 @@ public final class CFDv33 implements CFDI {
     private String getSchemaLocation() throws Exception {
         List<String> contexts = new ArrayList<>();
         String schema = "http://www.sat.gob.mx/cfd/3 http://www.sat.gob.mx/sitio_internet/cfd/3/cfdv33.xsd";
-        if (document != null && document.getComplemento() != null && document.getComplemento().getAny() != null) {
-            for (Object o : document.getComplemento().getAny()) {
+        if (document != null && document.getComplemento() != null && document.getComplemento().size() > 0) {
+            for (Object o : document.getComplemento()) {
                 if (o instanceof mx.bigdata.sat.common.nomina.v12.schema.Nomina) {
                     schema += " http://www.sat.gob.mx/nomina12 http://www.sat.gob.mx/sitio_internet/cfd/nomina/nomina12.xsd";
                     addNamespace("http://www.sat.gob.mx/nomina12", "nomina12");
@@ -317,7 +316,7 @@ public final class CFDv33 implements CFDI {
     }
 
     @Override
-    public ComprobanteBase getComprobante() throws Exception {
+    public ComprobanteBase33 getComprobante() throws Exception {
         return new CFDv33ComprobanteBase(doGetComprobante());
     }
 
@@ -337,7 +336,7 @@ public final class CFDv33 implements CFDI {
         return (Comprobante) u.unmarshal(doc);
     }
 
-    public static final class CFDv33ComprobanteBase implements ComprobanteBase {
+    public static final class CFDv33ComprobanteBase implements ComprobanteBase33 {
 
         private final Comprobante document;
 
@@ -351,8 +350,8 @@ public final class CFDv33 implements CFDI {
         }
 
         @Override
-        public List<Object> getComplementoGetAny() {
-            return document.getComplemento().getAny();
+        public List<Comprobante.Complemento> getComplementoGetAny() {
+            return document.getComplemento();
         }
 
         @Override
@@ -366,7 +365,7 @@ public final class CFDv33 implements CFDI {
             Comprobante.Complemento comp = of.createComprobanteComplemento();
             List<Object> list = comp.getAny();
             list.add(element);
-            document.setComplemento(comp);
+            document.getComplemento().add(comp);
         }
 
         @Override

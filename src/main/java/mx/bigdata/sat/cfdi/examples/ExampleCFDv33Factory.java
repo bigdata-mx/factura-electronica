@@ -138,7 +138,7 @@ public final class ExampleCFDv33Factory {
         tr.setBase(new BigDecimal("0.16"));
         tr.setImpuesto("002");
         tr.setTipoFactor(CTipoFactor.TASA);
-        tr.setTasaOCuota("0.160000");
+        tr.setTasaOCuota(new BigDecimal("0.160000"));
         tr.setImporte(new BigDecimal("124.00"));
         trs.getTraslado().add(tr);
         imp.setTraslados(trs);
@@ -170,7 +170,7 @@ public final class ExampleCFDv33Factory {
         Impuestos.Traslados.Traslado it = of.createComprobanteImpuestosTrasladosTraslado();
         it.setImpuesto("002");
         it.setTipoFactor(CTipoFactor.TASA);
-        it.setTasaOCuota("0.160000");
+        it.setTasaOCuota(new BigDecimal("0.160000"));
         it.setImporte(new BigDecimal("248.00"));
         its.getTraslado().add(it);
         return its;

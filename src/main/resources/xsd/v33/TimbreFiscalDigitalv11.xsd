@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tfd="http://www.sat.gob.mx/TimbreFiscalDigital" xmlns:tdCFDI="http://www.sat.gob.mx/sitio_internet/cfd/tipoDatos/tdCFDI" targetNamespace="http://www.sat.gob.mx/TimbreFiscalDigital" elementFormDefault="qualified" attributeFormDefault="unqualified">
-  <xs:import namespace="http://www.sat.gob.mx/sitio_internet/cfd/tipoDatos/tdCFDI" schemaLocation="./../common/tdCFDI.xsd"/>
-  <xs:element name="TimbreFiscalDigital">
+	<xs:import namespace="http://www.sat.gob.mx/sitio_internet/cfd/tipoDatos/tdCFDI" schemaLocation="./../common/tdCFDI.xsd"/>
+	<xs:element name="TimbreFiscalDigital">
 		<xs:annotation>
-			<xs:documentation>Complemento requerido para el Timbrado Fiscal Digital que da validez al Comprobante fiscal digital por Internet y al comprobante de retenciones.</xs:documentation>
+			<xs:documentation>Complemento requerido para el Timbrado Fiscal Digital que da validez al Comprobante fiscal digital por Internet.</xs:documentation>
 		</xs:annotation>
 		<xs:complexType>
 			<xs:attribute name="Version" use="required" fixed="1.1">
@@ -40,10 +40,10 @@
 				<xs:simpleType>
 					<xs:restriction base="xs:string">
 						<xs:whiteSpace value="collapse"/>
-            <xs:minLength value="12"/>
-            <xs:maxLength value="150"/>
-            <xs:pattern value="([A-Z]|[a-z]|[0-9]| |Ñ|ñ|!|&quot;|%|&amp;|&apos;|´|-|:|;|&gt;|=|&lt;|@|_|,|\{|\}|`|~|á|é|í|ó|ú|Á|É|Í|Ó|Ú|ü|Ü){1,150}"/>
-          </xs:restriction>
+						<xs:minLength value="12"/>
+						<xs:maxLength value="150"/>
+						<xs:pattern value="([A-Z]|[a-z]|[0-9]| |Ñ|ñ|!|&quot;|%|&amp;|&apos;|´|-|:|;|&gt;|=|&lt;|@|_|,|\{|\}|`|~|á|é|í|ó|ú|Á|É|Í|Ó|Ú|ü|Ü){1,150}"/>
+					</xs:restriction>
 				</xs:simpleType>
 			</xs:attribute>
 			<xs:attribute name="SelloCFD" use="required">
@@ -56,28 +56,28 @@
 					</xs:restriction>
 				</xs:simpleType>
 			</xs:attribute>
-      <xs:attribute name="NoCertificadoSAT" use="required">
-        <xs:annotation>
-          <xs:documentation>Atributo requerido para expresar el número de serie del certificado del SAT usado para generar el sello digital del Timbre Fiscal Digital.</xs:documentation>
-        </xs:annotation>
-        <xs:simpleType>
-          <xs:restriction base="xs:string">
-            <xs:length value="20"/>
-            <xs:whiteSpace value="collapse"/>
-            <xs:pattern value="[0-9]{20}"/>
-          </xs:restriction>
-        </xs:simpleType>
-      </xs:attribute>
-      <xs:attribute name="SelloSAT" use="required">
-        <xs:annotation>
-          <xs:documentation>Atributo requerido para contener el sello digital del Timbre Fiscal Digital, al que hacen referencia las reglas de la Resolución Miscelánea vigente. El sello debe ser expresado como una cadena de texto en formato Base 64.</xs:documentation>
-        </xs:annotation>
-        <xs:simpleType>
-          <xs:restriction base="xs:string">
-            <xs:whiteSpace value="collapse"/>
-          </xs:restriction>
-        </xs:simpleType>
-      </xs:attribute>
-    </xs:complexType>
+			<xs:attribute name="NoCertificadoSAT" use="required">
+				<xs:annotation>
+					<xs:documentation>Atributo requerido para expresar el número de serie del certificado del SAT usado para generar el sello digital del Timbre Fiscal Digital.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:length value="20"/>
+						<xs:whiteSpace value="collapse"/>
+						<xs:pattern value="[0-9]{20}"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+			<xs:attribute name="SelloSAT" use="required">
+				<xs:annotation>
+					<xs:documentation>Atributo requerido para contener el sello digital del Timbre Fiscal Digital, al que hacen referencia las reglas de la Resolución Miscelánea vigente. El sello debe ser expresado como una cadena de texto en formato Base 64.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:whiteSpace value="collapse"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+		</xs:complexType>
 	</xs:element>
 </xs:schema>

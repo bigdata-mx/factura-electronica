@@ -16,14 +16,11 @@
 package mx.bigdata.sat.cfdi;
 
 import com.google.common.io.ByteStreams;
-import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import mx.bigdata.sat.common.CFDFactory;
 
 public final class CFDIFactory extends CFDFactory {
@@ -44,11 +41,26 @@ public final class CFDIFactory extends CFDFactory {
         byte[] data = baos.toByteArray();
         if (getVersion(data).equals("3.2")) {
             return new CFDv32(new ByteArrayInputStream(data));
-        } else if (getVersion(data).equals("3.3")) {
-            return new CFDv33(new ByteArrayInputStream(data));
         } else {
             return new CFDv3(new ByteArrayInputStream(data));
         }
+    }
+
+    public static CFDI33 load33(File file) throws Exception {
+        try (InputStream in = new FileInputStream(file)) {
+            return load33(in);
+        }
+    }
+
+    public static CFDI33 load33(InputStream in) throws Exception {
+        return getCFDI33(in);
+    }
+
+    private static CFDI33 getCFDI33(InputStream in) throws Exception {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        ByteStreams.copy(in, baos);
+        byte[] data = baos.toByteArray();
+        return new CFDv33(new ByteArrayInputStream(data));
     }
 
 }

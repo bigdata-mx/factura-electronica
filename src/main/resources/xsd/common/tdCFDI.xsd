@@ -107,7 +107,7 @@
       <xs:minLength value="1"/>
       <xs:maxLength value="100"/>
       <xs:whiteSpace value="collapse"/>
-      <xs:pattern value="([A-Z]|[a-z]|[0-9]| |Ñ|ñ|!|&quot;|%|&amp;|&apos;|´|-|:|;|>|=|&lt;|@|_|,|\{|\}|`|~|á|é|í|ó|ú|Á|É|Í|Ó|Ú|ü|Ü){1,100}"/>
+      <xs:pattern value="[^|]{1,100}"/>
     </xs:restriction>
   </xs:simpleType>
   <xs:simpleType name="t_NumeroDomicilio">
@@ -118,7 +118,7 @@
       <xs:minLength value="1"/>
       <xs:maxLength value="55"/>
       <xs:whiteSpace value="collapse"/>
-      <xs:pattern value="([A-Z]|[a-z]|[0-9]| |Ñ|ñ|!|&quot;|%|&amp;|&apos;|´|-|:|;|>|=|&lt;|@|_|,|\{|\}|`|~|á|é|í|ó|ú|Á|É|Í|Ó|Ú|ü|Ü){1,55}"/>
+      <xs:pattern value="[^|]{1,55}"/>
     </xs:restriction>
   </xs:simpleType>
   <xs:simpleType name="t_Referencia">
@@ -129,7 +129,7 @@
       <xs:minLength value="1"/>
       <xs:maxLength value="250"/>
       <xs:whiteSpace value="collapse"/>
-      <xs:pattern value="([A-Z]|[a-z]|[0-9]| |Ñ|ñ|!|&quot;|%|&amp;|&apos;|´|-|:|;|>|=|&lt;|@|_|,|\{|\}|`|~|á|é|í|ó|ú|Á|É|Í|Ó|Ú|ü|Ü){1,250}"/>
+      <xs:pattern value="[^|]{1,250}"/>
     </xs:restriction>
   </xs:simpleType>
   <xs:simpleType name="t_Descrip120">
@@ -140,7 +140,7 @@
       <xs:minLength value="1"/>
       <xs:maxLength value="120"/>
       <xs:whiteSpace value="collapse"/>
-      <xs:pattern value="([A-Z]|[a-z]|[0-9]| |Ñ|ñ|!|&quot;|%|&amp;|&apos;|´|-|:|;|>|=|&lt;|@|_|,|\{|\}|`|~|á|é|í|ó|ú|Á|É|Í|Ó|Ú|ü|Ü){1,120}"/>
+      <xs:pattern value="[^|]{1,120}"/>
     </xs:restriction>
   </xs:simpleType>
   <xs:simpleType name="t_TipoCambio">

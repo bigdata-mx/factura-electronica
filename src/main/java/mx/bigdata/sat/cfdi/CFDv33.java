@@ -247,15 +247,17 @@ public final class CFDv33 implements CFDI33 {
         List<String> contexts = new ArrayList<>();
         String schema = "http://www.sat.gob.mx/cfd/3 http://www.sat.gob.mx/sitio_internet/cfd/3/cfdv33.xsd";
         if (document != null && document.getComplemento() != null && document.getComplemento().size() > 0) {
-            for (Object o : document.getComplemento()) {
-                if (o instanceof mx.bigdata.sat.common.nomina.v12.schema.Nomina) {
-                    schema += " http://www.sat.gob.mx/nomina12 http://www.sat.gob.mx/sitio_internet/cfd/nomina/nomina12.xsd";
-                    addNamespace("http://www.sat.gob.mx/nomina12", "nomina12");
-                } else if (o instanceof mx.bigdata.sat.common.implocal.schema.ImpuestosLocales) {
-                    schema += " http://www.sat.gob.mx/implocal http://www.sat.gob.mx/sitio_internet/cfd/implocal/implocal.xsd";
-                    addNamespace("http://www.sat.gob.mx/implocal", "implocal");
-                } else {
-                    System.out.println("El complemento " + o + " aún no ha sido declarado.");
+            for (Comprobante.Complemento o : document.getComplemento()) {
+                for (Object c : o.getAny()) {
+                    if (c instanceof mx.bigdata.sat.common.nomina.v12.schema.Nomina) {
+                        schema += " http://www.sat.gob.mx/nomina12 http://www.sat.gob.mx/sitio_internet/cfd/nomina/nomina12.xsd";
+                        addNamespace("http://www.sat.gob.mx/nomina12", "nomina12");
+                    } else if (c instanceof mx.bigdata.sat.common.implocal.schema.ImpuestosLocales) {
+                        schema += " http://www.sat.gob.mx/implocal http://www.sat.gob.mx/sitio_internet/cfd/implocal/implocal.xsd";
+                        addNamespace("http://www.sat.gob.mx/implocal", "implocal");
+                    } else {
+                        System.out.println("El complemento " + c + " aún no ha sido declarado.");
+                    }
                 }
             }
             if (!contexts.isEmpty()) {

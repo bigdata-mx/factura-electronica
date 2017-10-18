@@ -59,7 +59,7 @@
 											</xs:restriction>
 										</xs:simpleType>
 									</xs:attribute>
-									<xs:attribute name="MonedaDR" use="required" type="catCFDI:c_Moneda">
+									<xs:attribute name="MonedaDR" use="required" type="catPagos:c_Moneda_Pago">
 										<xs:annotation>
 											<xs:documentation>Atributo requerido para identificar la clave de la moneda utilizada en los importes del documento relacionado, cuando se usa moneda nacional o el documento relacionado no especifica la moneda se registra MXN. Los importes registrados en los atributos “ImpSaldoAnt”, “ImpPagado” e “ImpSaldoInsoluto” de éste nodo, deben corresponder a esta moneda. Conforme con la especificación ISO 4217.</xs:documentation>
 										</xs:annotation>
@@ -76,7 +76,7 @@
 											</xs:restriction>
 										</xs:simpleType>
 									</xs:attribute>
-									<xs:attribute name="MetodoDePagoDR" use="required" type="catCFDI:c_MetodoPago">
+									<xs:attribute name="MetodoDePagoDR" use="required" type="catPagos:c_MetodoPago_Pago">
 										<xs:annotation>
 											<xs:documentation>Atributo requerido para expresar la clave del método de pago que se registró en el documento relacionado.</xs:documentation>
 										</xs:annotation>
@@ -126,7 +126,7 @@
 															<xs:documentation>Nodo requerido para registrar la información detallada de una retención de impuesto específico.</xs:documentation>
 														</xs:annotation>
 														<xs:complexType>
-															<xs:attribute name="Impuesto" use="required" type="catCFDI:c_Impuesto">
+															<xs:attribute name="Impuesto" use="required" type="catPagos:c_Impuesto_Pago">
 																<xs:annotation>
 																	<xs:documentation>Atributo requerido para señalar la clave del tipo de impuesto retenido.</xs:documentation>
 																</xs:annotation>
@@ -152,12 +152,12 @@
 															<xs:documentation>Nodo requerido para la información detallada de un traslado de impuesto específico.</xs:documentation>
 														</xs:annotation>
 														<xs:complexType>
-															<xs:attribute name="Impuesto" use="required" type="catCFDI:c_Impuesto" >
+															<xs:attribute name="Impuesto" use="required" type="catPagos:c_Impuesto_Pago" >
 																<xs:annotation>
 																	<xs:documentation>Atributo requerido para señalar la clave del tipo de impuesto trasladado.</xs:documentation>
 																</xs:annotation>
 															</xs:attribute>
-															<xs:attribute name="TipoFactor" use="required" type="catCFDI:c_TipoFactor">
+															<xs:attribute name="TipoFactor" use="required" type="catPagos:c_TipoFactor_Pago">
 																<xs:annotation>
 																	<xs:documentation>Atributo requerido para señalar la clave del tipo de factor que se aplica a la base del impuesto.</xs:documentation>
 																</xs:annotation>
@@ -208,7 +208,7 @@
 								<xs:documentation>Atributo requerido para expresar la clave de la forma en que se realiza el pago.</xs:documentation>
 							</xs:annotation>
 						</xs:attribute>
-						<xs:attribute name="MonedaP" use="required" type="catCFDI:c_Moneda">
+						<xs:attribute name="MonedaP" use="required" type="catPagos:c_Moneda_Pago">
 							<xs:annotation>
 								<xs:documentation>Atributo requerido para identificar la clave de la moneda utilizada para realizar el pago, cuando se usa moneda nacional se registra MXN. El atributo Pagos:Pago:Monto y los atributos TotalImpuestosRetenidos, TotalImpuestosTrasladados, Traslados:Traslado:Importe y Retenciones:Retencion:Importe del nodo Pago:Impuestos deben ser expresados en esta moneda. Conforme con la especificación ISO 4217.</xs:documentation>
 							</xs:annotation>

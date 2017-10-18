@@ -25,6 +25,13 @@
             <xs:enumeration value="Exento"/>
           </xs:restriction>
         </xs:simpleType>
+        <xs:simpleType name="c_MetodoPago_Pago">
+          <xs:restriction base="xs:string">
+            <xs:whiteSpace value="collapse"/>
+            <xs:enumeration value="PUE"/>
+            <xs:enumeration value="PPD"/>
+          </xs:restriction>
+        </xs:simpleType>
         <xs:simpleType name="c_Moneda_Pago">
           <xs:restriction base="xs:string">
             <xs:whiteSpace value="collapse"/>

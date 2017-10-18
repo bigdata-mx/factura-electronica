@@ -76,7 +76,7 @@
 											</xs:restriction>
 										</xs:simpleType>
 									</xs:attribute>
-									<xs:attribute name="MetodoDePagoDR" use="required" type="catCFDI:c_MetodoPago">
+									<xs:attribute name="MetodoDePagoDR" use="required" type="catPagos:c_MetodoPago_Pago">
 										<xs:annotation>
 											<xs:documentation>Atributo requerido para expresar la clave del método de pago que se registró en el documento relacionado.</xs:documentation>
 										</xs:annotation>

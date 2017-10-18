@@ -249,12 +249,18 @@ public final class CFDv33 implements CFDI33 {
         if (document != null && document.getComplemento() != null && document.getComplemento().size() > 0) {
             for (Comprobante.Complemento o : document.getComplemento()) {
                 for (Object c : o.getAny()) {
-                    if (c instanceof mx.bigdata.sat.common.nomina.v12.schema.Nomina) {
+                    if (c instanceof mx.bigdata.sat.cfdi.schema.TimbreFiscalDigital) {
+                        schema += " http://www.sat.gob.mx/TimbreFiscalDigital http://www.sat.gob.mx/sitio_internet/cfd/TimbreFiscalDigital/TimbreFiscalDigitalv11.xsd";
+                        addNamespace("http://www.sat.gob.mx/TimbreFiscalDigital", "tfd");
+                    } else if (c instanceof mx.bigdata.sat.common.implocal.schema.ImpuestosLocales) {
                         schema += " http://www.sat.gob.mx/nomina12 http://www.sat.gob.mx/sitio_internet/cfd/nomina/nomina12.xsd";
                         addNamespace("http://www.sat.gob.mx/nomina12", "nomina12");
                     } else if (c instanceof mx.bigdata.sat.common.implocal.schema.ImpuestosLocales) {
                         schema += " http://www.sat.gob.mx/implocal http://www.sat.gob.mx/sitio_internet/cfd/implocal/implocal.xsd";
                         addNamespace("http://www.sat.gob.mx/implocal", "implocal");
+                    } else if (c instanceof mx.bigdata.sat.common.pagos.schema.Pagos) {
+                        schema += " http://www.sat.gob.mx/Pagos http://www.sat.gob.mx/sitio_internet/cfd/Pagos/Pagos10.xsd";
+                        addNamespace("http://www.sat.gob.mx/Pagos", "pago10");
                     } else {
                         System.out.println("El complemento " + c + " aún no ha sido declarado.");
                     }

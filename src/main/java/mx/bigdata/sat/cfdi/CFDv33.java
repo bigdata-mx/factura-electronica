@@ -252,7 +252,7 @@ public final class CFDv33 implements CFDI33 {
                     if (c instanceof mx.bigdata.sat.cfdi.schema.TimbreFiscalDigital) {
                         schema += " http://www.sat.gob.mx/TimbreFiscalDigital http://www.sat.gob.mx/sitio_internet/cfd/TimbreFiscalDigital/TimbreFiscalDigitalv11.xsd";
                         addNamespace("http://www.sat.gob.mx/TimbreFiscalDigital", "tfd");
-                    } else if (c instanceof mx.bigdata.sat.common.implocal.schema.ImpuestosLocales) {
+                    } else if (c instanceof mx.bigdata.sat.common.nomina.v12.schema.Nomina) {
                         schema += " http://www.sat.gob.mx/nomina12 http://www.sat.gob.mx/sitio_internet/cfd/nomina/nomina12.xsd";
                         addNamespace("http://www.sat.gob.mx/nomina12", "nomina12");
                     } else if (c instanceof mx.bigdata.sat.common.implocal.schema.ImpuestosLocales) {

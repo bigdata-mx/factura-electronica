@@ -50,7 +50,7 @@ public final class ExampleCFDv33Factory {
         comp.setFormaPago("02");
         comp.setNoCertificado("20001000000200001428");
 //        comp.setCertificado();
-        comp.setCondicionesDePago("Crédito a 20 días");
+        comp.setCondicionesDePago("CrÃ©dito a 20 dÃ­as");
         comp.setSubTotal(new BigDecimal("1550.00"));
         comp.setDescuento(new BigDecimal("100.00"));
         comp.setMoneda(CMoneda.MXN);

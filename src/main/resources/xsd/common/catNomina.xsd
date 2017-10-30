@@ -48,6 +48,20 @@
       <xs:enumeration value="141"/>
       <xs:enumeration value="143"/>
       <xs:enumeration value="145"/>
+      <xs:enumeration value="147"/>
+      <xs:enumeration value="148"/>
+      <xs:enumeration value="149"/>
+      <xs:enumeration value="150"/>
+      <xs:enumeration value="151"/>
+      <xs:enumeration value="152"/>
+      <xs:enumeration value="153"/>
+      <xs:enumeration value="154"/>
+      <xs:enumeration value="155"/>
+      <xs:enumeration value="156"/>
+      <xs:enumeration value="157"/>
+      <xs:enumeration value="158"/>
+      <xs:enumeration value="159"/>
+      <xs:enumeration value="160"/>
       <xs:enumeration value="166"/>
       <xs:enumeration value="168"/>
       <xs:enumeration value="600"/>
@@ -92,9 +106,9 @@
       <xs:enumeration value="655"/>
       <xs:enumeration value="656"/>
       <xs:enumeration value="659"/>
+      <xs:enumeration value="670"/>
       <xs:enumeration value="901"/>
       <xs:enumeration value="902"/>
-      <xs:enumeration value="670"/>
     </xs:restriction>
   </xs:simpleType>
   <xs:simpleType name="c_OrigenRecurso">
@@ -360,6 +374,7 @@
       <xs:enumeration value="3"/>
       <xs:enumeration value="4"/>
       <xs:enumeration value="5"/>
-    </xs:restriction>
+      <xs:enumeration value="99"/>
+	  </xs:restriction>
   </xs:simpleType>
 </xs:schema>

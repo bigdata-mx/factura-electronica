@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <xs:schema    xmlns:destruccion="http://www.sat.gob.mx/certificadodestruccion"
   xmlns:xs="http://www.w3.org/2001/XMLSchema"
   targetNamespace="http://www.sat.gob.mx/certificadodestruccion"

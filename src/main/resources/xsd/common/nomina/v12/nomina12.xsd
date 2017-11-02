@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xs:schema xmlns:nomina12="http://www.sat.gob.mx/nomina12" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:catCFDI="http://www.sat.gob.mx/sitio_internet/cfd/catalogos" xmlns:tdCFDI="http://www.sat.gob.mx/sitio_internet/cfd/tipoDatos/tdCFDI" xmlns:catNomina="http://www.sat.gob.mx/sitio_internet/cfd/catalogos/Nomina" targetNamespace="http://www.sat.gob.mx/nomina12" elementFormDefault="qualified" attributeFormDefault="unqualified">
-  <xs:import namespace="http://www.sat.gob.mx/sitio_internet/cfd/catalogos" schemaLocation="./../../catCFDI.xsd"/>
+<xs:schema xmlns:nomina12="http://www.sat.gob.mx/nomina12" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tdCFDI="http://www.sat.gob.mx/sitio_internet/cfd/tipoDatos/tdCFDI" targetNamespace="http://www.sat.gob.mx/nomina12" elementFormDefault="qualified" attributeFormDefault="unqualified">
   <xs:import namespace="http://www.sat.gob.mx/sitio_internet/cfd/tipoDatos/tdCFDI" schemaLocation="./../../tdCFDI.xsd"/>
-  <xs:import namespace="http://www.sat.gob.mx/sitio_internet/cfd/catalogos/Nomina" schemaLocation="./../../catNomina.xsd"/>
   <xs:element name="Nomina">
     <xs:annotation>
       <xs:documentation>Complemento para incorporar al Comprobante Fiscal Digital por Internet (CFDI) la información que ampara conceptos de ingresos por salarios, la prestación de un servicio personal subordinado o conceptos asimilados a salarios (Nómina).</xs:documentation>
@@ -20,7 +18,7 @@
                   <xs:documentation>Nodo condicional para que las entidades adheridas al Sistema Nacional de Coordinación Fiscal realicen la identificación del origen de los recursos utilizados en el pago de nómina del personal que presta o desempeña un servicio personal subordinado en las dependencias de la entidad federativa, del municipio o demarcación territorial de la Ciudad de México, así como en sus respectivos organismos autónomos y entidades paraestatales y paramunicipales</xs:documentation>
                 </xs:annotation>
                 <xs:complexType>
-                  <xs:attribute name="OrigenRecurso" use="required" type="catNomina:c_OrigenRecurso">
+                  <xs:attribute name="OrigenRecurso" use="required" type="xs:string">
                     <xs:annotation>
                       <xs:documentation>Atributo requerido para identificar el origen del recurso utilizado para el pago de nómina del personal que presta o desempeña un servicio personal subordinado o asimilado a salarios en las dependencias.</xs:documentation>
                     </xs:annotation>
@@ -124,7 +122,7 @@
                 </xs:restriction>
               </xs:simpleType>
             </xs:attribute>
-            <xs:attribute name="TipoContrato" use="required" type="catNomina:c_TipoContrato">
+            <xs:attribute name="TipoContrato" use="required" type="xs:string">
               <xs:annotation>
                 <xs:documentation>Atributo requerido para expresar el tipo de contrato que tiene el trabajador.</xs:documentation>
               </xs:annotation>
@@ -141,12 +139,12 @@
                 </xs:restriction>
               </xs:simpleType>
             </xs:attribute>
-            <xs:attribute name="TipoJornada" use="optional" type="catNomina:c_TipoJornada">
+            <xs:attribute name="TipoJornada" use="optional" type="xs:string">
               <xs:annotation>
                 <xs:documentation>Atributo condicional para expresar el tipo de jornada que cubre el trabajador. Se debe ingresar cuando se esté obligado conforme a otras disposiciones distintas a las fiscales.</xs:documentation>
               </xs:annotation>
             </xs:attribute>
-            <xs:attribute name="TipoRegimen" use="required" type="catNomina:c_TipoRegimen">
+            <xs:attribute name="TipoRegimen" use="required" type="xs:string">
               <xs:annotation>
                 <xs:documentation>Atributo requerido para la expresión de la clave del régimen por el cual se tiene contratado al trabajador.</xs:documentation>
               </xs:annotation>
@@ -190,17 +188,17 @@
                 </xs:restriction>
               </xs:simpleType>
             </xs:attribute>
-            <xs:attribute name="RiesgoPuesto" use="optional" type="catNomina:c_RiesgoPuesto">
+            <xs:attribute name="RiesgoPuesto" use="optional" type="xs:string">
               <xs:annotation>
                 <xs:documentation>Atributo opcional para expresar la clave conforme a la Clase en que deben inscribirse los patrones, de acuerdo con las actividades que desempeñan sus trabajadores, según lo previsto en el artículo 196 del Reglamento en Materia de Afiliación Clasificación de Empresas, Recaudación y Fiscalización, o conforme con la normatividad del Instituto de Seguridad Social del trabajador.  Se debe ingresar cuando se cuente con él, o se esté obligado conforme a otras disposiciones distintas a las fiscales.</xs:documentation>
               </xs:annotation>
             </xs:attribute>
-            <xs:attribute name="PeriodicidadPago" use="required" type="catNomina:c_PeriodicidadPago">
+            <xs:attribute name="PeriodicidadPago" use="required" type="xs:string">
               <xs:annotation>
                 <xs:documentation>Atributo requerido para la forma en que se establece el pago del salario.</xs:documentation>
               </xs:annotation>
             </xs:attribute>
-            <xs:attribute name="Banco" use="optional" type="catNomina:c_Banco">
+            <xs:attribute name="Banco" use="optional" type="xs:string">
               <xs:annotation>
                 <xs:documentation>Atributo condicional para la expresión de la clave del Banco conforme al catálogo, donde se realiza el depósito de nómina.</xs:documentation>
               </xs:annotation>
@@ -220,7 +218,7 @@
                 <xs:documentation>Atributo opcional para expresar el salario que se integra con los pagos hechos en efectivo por cuota diaria, gratificaciones, percepciones, habitación, primas, comisiones, prestaciones en especie y cualquier otra cantidad o prestación que se entregue al trabajador por su trabajo, de conformidad con el Art. 84 de la Ley Federal del Trabajo. (Se utiliza para el cálculo de las indemnizaciones). Se debe ingresar cuando se esté obligado conforme a otras disposiciones distintas a las fiscales.</xs:documentation>
               </xs:annotation>
             </xs:attribute>
-            <xs:attribute name="ClaveEntFed" use="required" type="catCFDI:c_Estado">
+            <xs:attribute name="ClaveEntFed" use="required" type="xs:string">
               <xs:annotation>
                 <xs:documentation>Atributo requerido para expresar la clave de la entidad federativa en donde el receptor del recibo prestó el servicio.</xs:documentation>
               </xs:annotation>
@@ -286,7 +284,7 @@
                             </xs:restriction>
                           </xs:simpleType>
                         </xs:attribute>
-                        <xs:attribute name="TipoHoras" use="required" type="catNomina:c_TipoHoras">
+                        <xs:attribute name="TipoHoras" use="required" type="xs:string">
                           <xs:annotation>
                             <xs:documentation>Atributo requerido para expresar el tipo de pago de las horas extra.</xs:documentation>
                           </xs:annotation>
@@ -310,7 +308,7 @@
                       </xs:complexType>
                     </xs:element>
                   </xs:sequence>
-                  <xs:attribute name="TipoPercepcion" use="required" type="catNomina:c_TipoPercepcion">
+                  <xs:attribute name="TipoPercepcion" use="required" type="xs:string">
                     <xs:annotation>
                       <xs:documentation>Atributo requerido para expresar la Clave agrupadora bajo la cual se clasifica la percepción.</xs:documentation>
                     </xs:annotation>
@@ -464,7 +462,7 @@
                   <xs:documentation>Nodo requerido para expresar la información detallada de una deducción.</xs:documentation>
                 </xs:annotation>
                 <xs:complexType>
-                  <xs:attribute name="TipoDeduccion" use="required" type="catNomina:c_TipoDeduccion">
+                  <xs:attribute name="TipoDeduccion" use="required" type="xs:string">
                     <xs:annotation>
                       <xs:documentation>Atributo requerido para registrar la clave agrupadora que clasifica la deducción.</xs:documentation>
                     </xs:annotation>
@@ -567,7 +565,7 @@
                       </xs:complexType>
                     </xs:element>
                   </xs:sequence>
-                  <xs:attribute name="TipoOtroPago" use="required" type="catNomina:c_TipoOtroPago">
+                  <xs:attribute name="TipoOtroPago" use="required" type="xs:string">
                     <xs:annotation>
                       <xs:documentation>Atributo requerido para expresar la clave agrupadora bajo la cual se clasifica el otro pago.</xs:documentation>
                     </xs:annotation>
@@ -631,7 +629,7 @@
                       </xs:restriction>
                     </xs:simpleType>
                   </xs:attribute>
-                  <xs:attribute name="TipoIncapacidad" use="required" type="catNomina:c_TipoIncapacidad">
+                  <xs:attribute name="TipoIncapacidad" use="required" type="xs:string">
                     <xs:annotation>
                       <xs:documentation>Atributo requerido para expresar la razón de la incapacidad.</xs:documentation>
                     </xs:annotation>
@@ -652,7 +650,7 @@
           <xs:documentation>Atributo requerido para la expresión de la versión del complemento.</xs:documentation>
         </xs:annotation>
       </xs:attribute>
-      <xs:attribute name="TipoNomina" use="required" type="catNomina:c_TipoNomina">
+      <xs:attribute name="TipoNomina" use="required" type="xs:string">
         <xs:annotation>
           <xs:documentation>Atributo requerido para indicar el tipo de nómina, puede ser O= Nómina ordinaria o E= Nómina extraordinaria.</xs:documentation>
         </xs:annotation>

@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xs:schema xmlns:cce11="http://www.sat.gob.mx/ComercioExterior11" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:catCFDI="http://www.sat.gob.mx/sitio_internet/cfd/catalogos" xmlns:tdCFDI="http://www.sat.gob.mx/sitio_internet/cfd/tipoDatos/tdCFDI" xmlns:catComExt="http://www.sat.gob.mx/sitio_internet/cfd/catalogos/ComExt" targetNamespace="http://www.sat.gob.mx/ComercioExterior11" elementFormDefault="qualified" attributeFormDefault="unqualified">
-  <xs:import namespace="http://www.sat.gob.mx/sitio_internet/cfd/catalogos" schemaLocation="./../../catCFDI.xsd"/>
+<xs:schema xmlns:cce11="http://www.sat.gob.mx/ComercioExterior11" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tdCFDI="http://www.sat.gob.mx/sitio_internet/cfd/tipoDatos/tdCFDI" targetNamespace="http://www.sat.gob.mx/ComercioExterior11" elementFormDefault="qualified" attributeFormDefault="unqualified">
   <xs:import namespace="http://www.sat.gob.mx/sitio_internet/cfd/tipoDatos/tdCFDI" schemaLocation="./../../tdCFDI.xsd"/>
-  <xs:import namespace="http://www.sat.gob.mx/sitio_internet/cfd/catalogos/ComExt" schemaLocation="./../../catComExt.xsd"/>
   <xs:element name="ComercioExterior">
     <xs:annotation>
       <xs:documentation>Complemento para incorporar la información en el caso de Exportación de Mercancías en definitiva.</xs:documentation>
@@ -35,12 +33,12 @@
                       <xs:documentation>Atributo opcional que sirve para expresar el número interior, en caso de existir, en donde se ubica el domicilio del emisor del comprobante.</xs:documentation>
                     </xs:annotation>
                   </xs:attribute>
-                  <xs:attribute name="Colonia" use="optional" type="catCFDI:c_Colonia">
+                  <xs:attribute name="Colonia" use="optional" type="xs:string">
                     <xs:annotation>
                       <xs:documentation>Atributo opcional que sirve para expresar la clave de la colonia en donde se ubica el domicilio del emisor del comprobante, conforme con el catálogo c_Colonia publicado en el portal del SAT en internet.</xs:documentation>
                     </xs:annotation>
                   </xs:attribute>
-                  <xs:attribute name="Localidad" use="optional" type="catCFDI:c_Localidad">
+                  <xs:attribute name="Localidad" use="optional" type="xs:string">
                     <xs:annotation>
                       <xs:documentation>Atributo opcional que sirve para precisar la clave de la ciudad, población, distrito u otro análogo en donde se ubica el domicilio del emisor del comprobante, conforme con el catálogo c_Localidad publicado en el portal del SAT en internet.</xs:documentation>
                     </xs:annotation>
@@ -50,22 +48,22 @@
                       <xs:documentation>Atributo opcional para expresar una referencia geográfica adicional que permita una más fácil o precisa ubicación del domicilio del emisor del comprobante, por ejemplo las coordenadas GPS.</xs:documentation>
                     </xs:annotation>
                   </xs:attribute>
-                  <xs:attribute name="Municipio" use="optional" type="catCFDI:c_Municipio">
+                  <xs:attribute name="Municipio" use="optional" type="xs:string">
                     <xs:annotation>
                       <xs:documentation>Atributo opcional que sirve para precisar la clave del municipio o delegación en donde se encuentra ubicado el domicilio del emisor del comprobante, conforme con el catálogo c_Municipio publicado en el portal del SAT en internet.</xs:documentation>
                     </xs:annotation>
                   </xs:attribute>
-                  <xs:attribute name="Estado" use="required" type="catCFDI:c_Estado">
+                  <xs:attribute name="Estado" use="required" type="xs:string">
                     <xs:annotation>
                       <xs:documentation>Atributo requerido para señalar la clave del estado en donde se encuentra ubicado el domicilio del emisor del comprobante, conforme con el catálogo c_Estado publicado en el portal del SAT en internet que está basado en la especificación ISO 3166-2.</xs:documentation>
                     </xs:annotation>
                   </xs:attribute>
-                  <xs:attribute name="Pais" use="required" type="catCFDI:c_Pais">
+                  <xs:attribute name="Pais" use="required" type="xs:string">
                     <xs:annotation>
                       <xs:documentation>Atributo requerido que sirve para precisar la clave del país donde se encuentra ubicado el domicilio del emisor del comprobante, conforme con el catálogo c_Pais publicado en el portal del SAT en internet que está basado en la especificación ISO 3166-1. Debe tener el valor MEX.</xs:documentation>
                     </xs:annotation>
                   </xs:attribute>
-                  <xs:attribute name="CodigoPostal" use="required" type="catCFDI:c_CodigoPostal">
+                  <xs:attribute name="CodigoPostal" use="required" type="xs:string">
                     <xs:annotation>
                       <xs:documentation>Atributo requerido que sirve para asentar la clave del código postal en donde se encuentra ubicado el domicilio del emisor del comprobante, conforme con el catálogo c_CodigoPostal publicado en el portal del SAT en internet.</xs:documentation>
                     </xs:annotation>
@@ -97,7 +95,7 @@
                 </xs:restriction>
               </xs:simpleType>
             </xs:attribute>
-            <xs:attribute name="ResidenciaFiscal" use="required" type="catCFDI:c_Pais">
+            <xs:attribute name="ResidenciaFiscal" use="required" type="xs:string">
               <xs:annotation>
                 <xs:documentation>Atributo requerido para registrar la clave del país de residencia para efectos fiscales del propietario de la mercancía, conforme con el catálogo c_Pais publicado en el portal del SAT en internet que está basado en la especificación ISO 3166-1.</xs:documentation>
               </xs:annotation>
@@ -163,7 +161,7 @@
                       </xs:restriction>
                     </xs:simpleType>
                   </xs:attribute>
-                  <xs:attribute name="Pais" use="required" type="catCFDI:c_Pais">
+                  <xs:attribute name="Pais" use="required" type="xs:string">
                     <xs:annotation>
                       <xs:documentation>Atributo requerido que sirve para precisar la clave del país donde se encuentra ubicado el domicilio del receptor del comprobante, conforme con el catálogo c_Pais publicado en el portal del SAT en internet que está basado en la especificación ISO 3166-1.</xs:documentation>
                     </xs:annotation>
@@ -256,7 +254,7 @@
                       </xs:restriction>
                     </xs:simpleType>
                   </xs:attribute>
-                  <xs:attribute name="Pais" use="required" type="catCFDI:c_Pais">
+                  <xs:attribute name="Pais" use="required" type="xs:string">
                     <xs:annotation>
                       <xs:documentation>Atributo requerido que sirve para precisar la clave del país donde se encuentra ubicado el destinatario de la mercancía, conforme con el catálogo c_Pais publicado en el portal del SAT en internet que está basado en la especificación ISO 3166-1.</xs:documentation>
                     </xs:annotation>
@@ -388,7 +386,7 @@
                       </xs:restriction>
                     </xs:simpleType>
                   </xs:attribute>
-                  <xs:attribute name="FraccionArancelaria" type="catComExt:c_FraccionArancelaria" use="optional">
+                  <xs:attribute name="FraccionArancelaria" type="xs:string" use="optional">
                     <xs:annotation> 
                       <xs:documentation>Atributo condicional que sirve para expresar la clave de la fracción arancelaria correspondiente a la descripción de la mercancía exportada, este dato se vuelve requerido cuando se cuente con él o se esté obligado legalmente a contar con él.Debe ser conforme con el catálogo c_FraccionArancelaria publicado en el portal del SAT en internet.</xs:documentation>
                     </xs:annotation>
@@ -405,7 +403,7 @@
                       </xs:restriction>
                     </xs:simpleType>
                   </xs:attribute>
-                  <xs:attribute name="UnidadAduana" type="catComExt:c_UnidadAduana" use="optional">
+                  <xs:attribute name="UnidadAduana" type="xs:string" use="optional">
                     <xs:annotation>
                       <xs:documentation>Atributo condicional para precisar la clave de la unidad de medida aplicable para la cantidad expresada en la mercancía en la aduana, conforme con el catálogo c_UnidadAduana publicado en el portal del SAT en internet.</xs:documentation>
                     </xs:annotation>
@@ -450,17 +448,17 @@
           </xs:restriction>
         </xs:simpleType>
       </xs:attribute>
-      <xs:attribute name="MotivoTraslado" use="optional" type="catComExt:c_MotivoTraslado">
+      <xs:attribute name="MotivoTraslado" use="optional" type="xs:string">
         <xs:annotation>
           <xs:documentation>Atributo condicional que indica la clave del motivo por el cual en la exportación de mercancías en definitiva con clave de pedimento A1, éstas no son objeto de enajenación o siéndolo sean a título gratuito, desde el domicilio del emisor hacia el domicilio del receptor o del destinatario. La clave del motivo es conforme con el catálogo c_MotivoTraslado publicado en el portal del SAT en internet.</xs:documentation>
         </xs:annotation>
       </xs:attribute>
-      <xs:attribute name="TipoOperacion" use="required" type="catComExt:c_TipoOperacion">
+      <xs:attribute name="TipoOperacion" use="required" type="xs:string">
         <xs:annotation>
           <xs:documentation>Atributo requerido que indica la clave del tipo de operación de Comercio Exterior que se realiza, conforme con el catálogo c_TipoOperacion publicado en el portal del SAT en internet.</xs:documentation>
         </xs:annotation>
       </xs:attribute>
-      <xs:attribute name="ClaveDePedimento" use="optional" type="catComExt:c_ClavePedimento">
+      <xs:attribute name="ClaveDePedimento" use="optional" type="xs:string">
         <xs:annotation>
           <xs:documentation>Atributo condicional que indica la clave de pedimento que se haya declarado conforme con el catálogo c_ClavePedimento publicado en el portal del SAT en internet.</xs:documentation>
         </xs:annotation>
@@ -503,7 +501,7 @@
           </xs:restriction>
         </xs:simpleType>
       </xs:attribute>
-      <xs:attribute name="Incoterm" use="optional" type="catComExt:c_INCOTERM">
+      <xs:attribute name="Incoterm" use="optional" type="xs:string">
         <xs:annotation>
           <xs:documentation>Atributo condicional que indica la clave del INCOTERM aplicable a la factura, conforme con el catálogo c_INCOTERM publicado en el portal del SAT en internet.</xs:documentation>
         </xs:annotation>

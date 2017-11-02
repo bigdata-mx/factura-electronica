@@ -64,9 +64,9 @@ public final class CFDv33 implements CFDI33 {
 
     private static final String[] XSD = new String[]{
         "/xsd/common/tdCFDI.xsd",
-        "/xsd/common/catCFDI.xsd",
-        "/xsd/common/catNomina.xsd",
-        "/xsd/common/catComExt.xsd",
+//        "/xsd/common/catCFDI.xsd",
+//        "/xsd/common/catNomina.xsd",
+//        "/xsd/common/catComExt.xsd",
         "/xsd/v33/cfdv33.xsd",
         "/xsd/v33/TimbreFiscalDigitalv11.xsd",
         "/xsd/common/ecc/v10/ecc.xsd",
@@ -95,7 +95,7 @@ public final class CFDv33 implements CFDI33 {
         "/xsd/common/ine/v11/INE11.xsd",
         "/xsd/common/ComercioExterior/v10/ComercioExterior10.xsd",
         "/xsd/common/ComercioExterior/v11/ComercioExterior11.xsd",
-        "/xsd/common/catPagos.xsd",
+//        "/xsd/common/catPagos.xsd",
         "/xsd/common/Pagos/Pagos10.xsd",
         "/xsd/common/iedu/iedu.xsd",
         "/xsd/common/ventavehiculos/v10/ventavehiculos.xsd",

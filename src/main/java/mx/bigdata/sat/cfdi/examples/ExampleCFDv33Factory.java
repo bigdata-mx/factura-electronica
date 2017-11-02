@@ -19,12 +19,6 @@ import java.math.BigDecimal;
 import java.util.List;
 import javax.xml.datatype.DatatypeConstants;
 import javax.xml.datatype.DatatypeFactory;
-import mx.bigdata.sat.cfdi.v33.schema.CMetodoPago;
-import mx.bigdata.sat.cfdi.v33.schema.CMoneda;
-import mx.bigdata.sat.cfdi.v33.schema.CPais;
-import mx.bigdata.sat.cfdi.v33.schema.CTipoDeComprobante;
-import mx.bigdata.sat.cfdi.v33.schema.CTipoFactor;
-import mx.bigdata.sat.cfdi.v33.schema.CUsoCFDI;
 import mx.bigdata.sat.cfdi.v33.schema.Comprobante;
 import mx.bigdata.sat.cfdi.v33.schema.Comprobante.CfdiRelacionados;
 import mx.bigdata.sat.cfdi.v33.schema.Comprobante.CfdiRelacionados.CfdiRelacionado;
@@ -53,11 +47,11 @@ public final class ExampleCFDv33Factory {
         comp.setCondicionesDePago("Crédito a 20 días");
         comp.setSubTotal(new BigDecimal("1550.00"));
         comp.setDescuento(new BigDecimal("100.00"));
-        comp.setMoneda(CMoneda.MXN);
+        comp.setMoneda("MXN");
         comp.setTipoCambio(new BigDecimal("1"));
         comp.setTotal(new BigDecimal("1798"));
-        comp.setTipoDeComprobante(CTipoDeComprobante.I);
-        comp.setMetodoPago(CMetodoPago.PUE);
+        comp.setTipoDeComprobante("I");
+        comp.setMetodoPago("PUE");
         comp.setLugarExpedicion("03240");
         comp.setConfirmacion("aB1cD");
         comp.setCfdiRelacionados(createCfdiRelacionados(of));
@@ -93,9 +87,9 @@ public final class ExampleCFDv33Factory {
         Receptor receptor = of.createComprobanteReceptor();
         receptor.setRfc("PEPJ8001019Q8");
         receptor.setNombre("JUAN PEREZ PEREZ");
-        receptor.setResidenciaFiscal(CPais.MEX);
+        receptor.setResidenciaFiscal("MEX");
         receptor.setNumRegIdTrib("ResidenteExtranjero1");
-        receptor.setUsoCFDI(CUsoCFDI.G_01);
+        receptor.setUsoCFDI("G01");
         return receptor;
     }
 
@@ -137,7 +131,7 @@ public final class ExampleCFDv33Factory {
         Concepto.Impuestos.Traslados.Traslado tr = of.createComprobanteConceptosConceptoImpuestosTrasladosTraslado();
         tr.setBase(new BigDecimal("0.16"));
         tr.setImpuesto("002");
-        tr.setTipoFactor(CTipoFactor.TASA);
+        tr.setTipoFactor("Tasa");
         tr.setTasaOCuota(new BigDecimal("0.160000"));
         tr.setImporte(new BigDecimal("124.00"));
         trs.getTraslado().add(tr);
@@ -169,7 +163,7 @@ public final class ExampleCFDv33Factory {
         Impuestos.Traslados its = of.createComprobanteImpuestosTraslados();
         Impuestos.Traslados.Traslado it = of.createComprobanteImpuestosTrasladosTraslado();
         it.setImpuesto("002");
-        it.setTipoFactor(CTipoFactor.TASA);
+        it.setTipoFactor("Tasa");
         it.setTasaOCuota(new BigDecimal("0.160000"));
         it.setImporte(new BigDecimal("248.00"));
         its.getTraslado().add(it);

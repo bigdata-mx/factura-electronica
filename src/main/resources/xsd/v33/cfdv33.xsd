@@ -1,6 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<xs:schema xmlns:cfdi="http://www.sat.gob.mx/cfd/3" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:catCFDI="http://www.sat.gob.mx/sitio_internet/cfd/catalogos" xmlns:tdCFDI="http://www.sat.gob.mx/sitio_internet/cfd/tipoDatos/tdCFDI" targetNamespace="http://www.sat.gob.mx/cfd/3" elementFormDefault="qualified" attributeFormDefault="unqualified">
-  <xs:import namespace="http://www.sat.gob.mx/sitio_internet/cfd/catalogos" schemaLocation="./../common/catCFDI.xsd"/>
+<xs:schema xmlns:cfdi="http://www.sat.gob.mx/cfd/3" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tdCFDI="http://www.sat.gob.mx/sitio_internet/cfd/tipoDatos/tdCFDI" targetNamespace="http://www.sat.gob.mx/cfd/3" elementFormDefault="qualified" attributeFormDefault="unqualified">
   <xs:import namespace="http://www.sat.gob.mx/sitio_internet/cfd/tipoDatos/tdCFDI" schemaLocation="./../common/tdCFDI.xsd"/>
     <xs:element name="Comprobante">
       <xs:annotation>
@@ -34,7 +33,7 @@
                   </xs:complexType>
                 </xs:element>
               </xs:sequence>
-              <xs:attribute name="TipoRelacion" use="required" type="catCFDI:c_TipoRelacion">
+              <xs:attribute name="TipoRelacion" use="required" type="xs:string">
                 <xs:annotation>
                   <xs:documentation>Atributo requerido para indicar la clave de la relación que existe entre éste que se esta generando y el o los CFDI previos.</xs:documentation>
                 </xs:annotation>
@@ -64,7 +63,7 @@
                   </xs:restriction>
                 </xs:simpleType>
               </xs:attribute>
-              <xs:attribute name="RegimenFiscal" use="required" type="catCFDI:c_RegimenFiscal">
+              <xs:attribute name="RegimenFiscal" use="required" type="xs:string">
                 <xs:annotation>
                   <xs:documentation>Atributo requerido para incorporar la clave del régimen del contribuyente emisor al que aplicará el efecto fiscal de este comprobante.</xs:documentation>
                 </xs:annotation>
@@ -94,7 +93,7 @@
                   </xs:restriction>
                 </xs:simpleType>
               </xs:attribute>
-              <xs:attribute name="ResidenciaFiscal" use="optional" type="catCFDI:c_Pais">
+              <xs:attribute name="ResidenciaFiscal" use="optional" type="xs:string">
                 <xs:annotation>
                   <xs:documentation>Atributo condicional para registrar la clave del país de residencia para efectos fiscales del receptor del comprobante, cuando se trate de un extranjero, y que es conforme con la especificación ISO 3166-1 alpha-3. Es requerido cuando se incluya el complemento de comercio exterior o se registre el atributo NumRegIdTrib.</xs:documentation>
                 </xs:annotation>
@@ -111,7 +110,7 @@
                   </xs:restriction>
                 </xs:simpleType>
               </xs:attribute>
-              <xs:attribute name="UsoCFDI" use="required" type="catCFDI:c_UsoCFDI">
+              <xs:attribute name="UsoCFDI" use="required" type="xs:string">
                 <xs:annotation>
                   <xs:documentation>Atributo requerido para expresar la clave del uso que dará a esta factura el receptor del CFDI.</xs:documentation>
                 </xs:annotation>
@@ -159,12 +158,12 @@
                                           </xs:restriction>
                                         </xs:simpleType>
                                       </xs:attribute>
-                                      <xs:attribute name="Impuesto" use="required" type="catCFDI:c_Impuesto">
+                                      <xs:attribute name="Impuesto" use="required" type="xs:string">
                                         <xs:annotation>
                                           <xs:documentation>Atributo requerido para señalar la clave del tipo de impuesto trasladado aplicable al concepto.</xs:documentation>
                                         </xs:annotation>
                                       </xs:attribute>
-                                      <xs:attribute name="TipoFactor" use="required" type="catCFDI:c_TipoFactor">
+                                      <xs:attribute name="TipoFactor" use="required" type="xs:string">
                                         <xs:annotation>
                                           <xs:documentation>Atributo requerido para señalar la clave del tipo de factor que se aplica a la base del impuesto.</xs:documentation>
                                         </xs:annotation>
@@ -214,12 +213,12 @@
                                           </xs:restriction>
                                         </xs:simpleType>
                                       </xs:attribute>
-                                      <xs:attribute name="Impuesto" use="required" type="catCFDI:c_Impuesto">
+                                      <xs:attribute name="Impuesto" use="required" type="xs:string">
                                         <xs:annotation>
                                           <xs:documentation>Atributo requerido para señalar la clave del tipo de impuesto retenido aplicable al concepto.</xs:documentation>
                                         </xs:annotation>
                                       </xs:attribute>
-                                      <xs:attribute name="TipoFactor" use="required" type="catCFDI:c_TipoFactor">
+                                      <xs:attribute name="TipoFactor" use="required" type="xs:string">
                                         <xs:annotation>
                                           <xs:documentation>Atributo requerido para señalar la clave del tipo de factor que se aplica a la base del impuesto.</xs:documentation>
                                         </xs:annotation>
@@ -322,7 +321,7 @@
                               </xs:complexType>
                             </xs:element>
                           </xs:sequence>
-                          <xs:attribute name="ClaveProdServ" use="required" type="catCFDI:c_ClaveProdServ">
+                          <xs:attribute name="ClaveProdServ" use="required" type="xs:string">
                             <xs:annotation>
                               <xs:documentation>Atributo requerido para expresar la clave del producto o del servicio amparado por la presente parte. Es requerido y deben utilizar las claves del catálogo de productos y servicios, cuando los conceptos que registren por sus actividades correspondan con dichos conceptos.</xs:documentation>
                             </xs:annotation>
@@ -391,7 +390,7 @@
                         </xs:complexType>
                       </xs:element>
                       </xs:sequence>
-                    <xs:attribute name="ClaveProdServ" use="required" type="catCFDI:c_ClaveProdServ">
+                    <xs:attribute name="ClaveProdServ" use="required" type="xs:string">
                       <xs:annotation>
                         <xs:documentation>Atributo requerido para expresar la clave del producto o del servicio amparado por el presente concepto. Es requerido y deben utilizar las claves del catálogo de productos y servicios, cuando los conceptos que registren por sus actividades correspondan con dichos conceptos.</xs:documentation>
                       </xs:annotation>
@@ -421,7 +420,7 @@
                         </xs:restriction>
                       </xs:simpleType>
                     </xs:attribute>
-                    <xs:attribute name="ClaveUnidad" use="required" type="catCFDI:c_ClaveUnidad">
+                    <xs:attribute name="ClaveUnidad" use="required" type="xs:string">
                       <xs:annotation>
                         <xs:documentation>Atributo requerido para precisar la clave de unidad de medida estandarizada aplicable para la cantidad expresada en el concepto. La unidad debe corresponder con la descripción del concepto.</xs:documentation>
                       </xs:annotation>
@@ -489,7 +488,7 @@
                           <xs:documentation>Nodo requerido para la información detallada de una retención de impuesto específico.</xs:documentation>
                         </xs:annotation>
                         <xs:complexType>
-                          <xs:attribute name="Impuesto" use="required" type="catCFDI:c_Impuesto">
+                          <xs:attribute name="Impuesto" use="required" type="xs:string">
                             <xs:annotation>
                               <xs:documentation>Atributo requerido para señalar la clave del tipo de impuesto retenido</xs:documentation>
                             </xs:annotation>
@@ -515,12 +514,12 @@
                           <xs:documentation>Nodo requerido para la información detallada de un traslado de impuesto específico.</xs:documentation>
                         </xs:annotation>
                         <xs:complexType>
-                          <xs:attribute name="Impuesto" use="required" type="catCFDI:c_Impuesto">
+                          <xs:attribute name="Impuesto" use="required" type="xs:string">
                             <xs:annotation>
                               <xs:documentation>Atributo requerido para señalar la clave del tipo de impuesto trasladado.</xs:documentation>
                             </xs:annotation>
                           </xs:attribute>
-                          <xs:attribute name="TipoFactor" type="catCFDI:c_TipoFactor" use="required">
+                          <xs:attribute name="TipoFactor" type="xs:string" use="required">
                             <xs:annotation>
                               <xs:documentation>Atributo requerido para señalar la clave del tipo de factor que se aplica a la base del impuesto.</xs:documentation>
                             </xs:annotation>
@@ -632,7 +631,7 @@
             </xs:restriction>
           </xs:simpleType>
         </xs:attribute>
-        <xs:attribute name="FormaPago" use="optional" type="catCFDI:c_FormaPago">
+        <xs:attribute name="FormaPago" use="optional" type="xs:string">
           <xs:annotation>
             <xs:documentation>Atributo condicional para expresar la clave de la forma de pago de los bienes o servicios amparados por el comprobante. Si no se conoce la forma de pago este atributo se debe omitir.</xs:documentation>
           </xs:annotation>
@@ -682,7 +681,7 @@
             <xs:documentation>Atributo condicional para representar el importe total de los descuentos aplicables antes de impuestos. No se permiten valores negativos. Se debe registrar cuando existan conceptos con descuento.</xs:documentation>
           </xs:annotation>
         </xs:attribute>
-        <xs:attribute name="Moneda" type="catCFDI:c_Moneda" use="required">
+        <xs:attribute name="Moneda" type="xs:string" use="required">
           <xs:annotation>
             <xs:documentation>Atributo requerido para identificar la clave de la moneda utilizada para expresar los montos, cuando se usa moneda nacional se registra MXN. Conforme con la especificación ISO 4217.</xs:documentation>
           </xs:annotation>
@@ -704,17 +703,17 @@
             <xs:documentation>Atributo requerido para representar la suma del subtotal, menos los descuentos aplicables, más las contribuciones recibidas (impuestos trasladados - federales o locales, derechos, productos, aprovechamientos, aportaciones de seguridad social, contribuciones de mejoras) menos los impuestos retenidos. Si el valor es superior al límite que establezca el SAT en la Resolución Miscelánea Fiscal vigente, el emisor debe obtener del PAC que vaya a timbrar el CFDI, de manera no automática, una clave de confirmación para ratificar que el valor es correcto e integrar dicha clave en el atributo Confirmacion. No se permiten valores negativos.</xs:documentation>
           </xs:annotation>
         </xs:attribute>
-        <xs:attribute name="TipoDeComprobante" use="required" type="catCFDI:c_TipoDeComprobante">
+        <xs:attribute name="TipoDeComprobante" use="required" type="xs:string">
           <xs:annotation>
             <xs:documentation>Atributo requerido para expresar la clave del efecto del comprobante fiscal para el contribuyente emisor.</xs:documentation>
           </xs:annotation>
         </xs:attribute>
-        <xs:attribute name="MetodoPago" use="optional" type="catCFDI:c_MetodoPago">
+        <xs:attribute name="MetodoPago" use="optional" type="xs:string">
           <xs:annotation>
             <xs:documentation>Atributo condicional para precisar la clave del método de pago que aplica para este comprobante fiscal digital por Internet, conforme al Artículo 29-A fracción VII incisos a y b del CFF.</xs:documentation>
           </xs:annotation>
         </xs:attribute>
-        <xs:attribute name="LugarExpedicion" use="required" type="catCFDI:c_CodigoPostal">
+        <xs:attribute name="LugarExpedicion" use="required" type="xs:string">
           <xs:annotation>
             <xs:documentation>Atributo requerido para incorporar el código postal del lugar de expedición del comprobante (domicilio de la matriz o de la sucursal).</xs:documentation>
           </xs:annotation>

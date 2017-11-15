@@ -1,0 +1,164 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:ine="http://www.sat.gob.mx/ine" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.sat.gob.mx/ine" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:element name="INE">
+		<xs:annotation>
+			<xs:documentation>Complemento al Comprobante Fiscal Digital por Internet (CFDI) para incluir los datos que identifiquen el tipo de proceso al que van dirigidos los gastos que realizan los partidos o las Asociaciones Civiles.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="Entidad" minOccurs="0" maxOccurs="64">
+					<xs:annotation>
+						<xs:documentation>Nodo condicional para expresar los datos correspondientes a las entidades federativas en las que se va a aplicar el gasto.</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="Contabilidad" minOccurs="0" maxOccurs="unbounded">
+								<xs:annotation>
+									<xs:documentation>Nodo para expresar la clave de contabilidad de aspirantes precandidatos, candidatos y concentradoras.</xs:documentation>
+								</xs:annotation>
+								<xs:complexType>
+									<xs:attribute name="IdContabilidad" use="required">
+										<xs:annotation>
+											<xs:documentation>Atributo para registrar la clave de contabilidad de aspirantes precandidatos, candidatos y concentradoras, si se trata de un tipo de proceso Campaña o Precampaña; o se trata de un proceso Ordinario con comité Ejecutivo Estatal.</xs:documentation>
+										</xs:annotation>
+										<xs:simpleType>
+											<xs:restriction base="xs:int">
+												<xs:totalDigits value="6"/>
+												<xs:fractionDigits value="0"/>
+											</xs:restriction>
+										</xs:simpleType>
+									</xs:attribute>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+						<xs:attribute name="ClaveEntidad" type="ine:t_ClaveEntidad" use="required">
+							<xs:annotation>
+								<xs:documentation>Atributo requerido para registrar la clave de la entidad a la que aplica el gasto.</xs:documentation>
+							</xs:annotation>
+						</xs:attribute>
+						<xs:attribute name="Ambito" use="optional">
+							<xs:annotation>
+								<xs:documentation>Atributo condicional para registrar el tipo de ámbito de un proceso de tipo Campaña o Precampaña. este atributo no se debe registrar para los procesos de tipo Ordinario.</xs:documentation>
+							</xs:annotation>
+							<xs:simpleType>
+								<xs:restriction base="ine:t_Ambito">
+									<xs:whiteSpace value="collapse"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:attribute>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+			<xs:attribute name="Version" use="required" fixed="1.1">
+				<xs:annotation>
+					<xs:documentation>Atributo requerido que indica la versión del complemento.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:whiteSpace value="collapse"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+			<xs:attribute name="TipoProceso" use="required">
+				<xs:annotation>
+					<xs:documentation>Atributo requerido para expresar el tipo de proceso de que se trate.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="ine:t_TipoProc">
+						<xs:whiteSpace value="collapse"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+			<xs:attribute name="TipoComite" use="optional">
+				<xs:annotation>
+					<xs:documentation>Atributo condicional para expresar el tipo de comité de que se trate.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="ine:t_TipoComite">
+						<xs:whiteSpace value="collapse"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+			<xs:attribute name="IdContabilidad" use="optional">
+				<xs:annotation>
+					<xs:documentation>Atributo opcional para registrar la clave de contabilidad de aspirantes precandidatos, candidatos y concentradoras, si se trata de un tipo de proceso ordinario y un comité ejecutivo nacional.Para los otros casos, la clave de contabilidad se registra en el atributo ine:Entidad:Contabilidad:IdContabilidad.
+          </xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:int">
+						<xs:totalDigits value="6"/>
+						<xs:fractionDigits value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+	<xs:simpleType name="t_TipoProc">
+		<xs:annotation>
+			<xs:documentation>Tipo de proceso.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Ordinario"/>
+			<xs:enumeration value="Precampaña"/>
+			<xs:enumeration value="Campaña"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="t_TipoComite">
+		<xs:annotation>
+			<xs:documentation>Tipo Comite</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Ejecutivo Nacional"/>
+			<xs:enumeration value="Ejecutivo Estatal"/>
+      <xs:enumeration value="Directivo Estatal"/>
+    </xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="t_Ambito">
+		<xs:annotation>
+			<xs:documentation>Ambito</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Local"/>
+			<xs:enumeration value="Federal"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="t_ClaveEntidad">
+		<xs:annotation>
+			<xs:documentation>Clave Entidad.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="AGU"/>
+			<xs:enumeration value="BCN"/>
+			<xs:enumeration value="BCS"/>
+			<xs:enumeration value="CAM"/>
+			<xs:enumeration value="CHP"/>
+			<xs:enumeration value="CHH"/>
+			<xs:enumeration value="COA"/>
+			<xs:enumeration value="COL"/>
+			<xs:enumeration value="DIF"/>
+			<xs:enumeration value="DUR"/>
+			<xs:enumeration value="GUA"/>
+			<xs:enumeration value="GRO"/>
+			<xs:enumeration value="HID"/>
+			<xs:enumeration value="JAL"/>
+			<xs:enumeration value="MEX"/>
+			<xs:enumeration value="MIC"/>
+			<xs:enumeration value="MOR"/>
+			<xs:enumeration value="NAY"/>
+			<xs:enumeration value="NLE"/>
+			<xs:enumeration value="OAX"/>
+			<xs:enumeration value="PUE"/>
+			<xs:enumeration value="QTO"/>
+			<xs:enumeration value="ROO"/>
+			<xs:enumeration value="SLP"/>
+			<xs:enumeration value="SIN"/>
+			<xs:enumeration value="SON"/>
+			<xs:enumeration value="TAB"/>
+			<xs:enumeration value="TAM"/>
+			<xs:enumeration value="TLA"/>
+			<xs:enumeration value="VER"/>
+			<xs:enumeration value="YUC"/>
+			<xs:enumeration value="ZAC"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

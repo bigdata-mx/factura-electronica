@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cfdi:Comprobante xmlns:cfdi="http://www.sat.gob.mx/cfd/3" xmlns:tfd="http://www.sat.gob.mx/TimbreFiscalDigital" xmlns:example="http://www.bigdata.mx/cfdi/example" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Confirmacion="aB1cD" LugarExpedicion="03240" MetodoPago="PUE" TipoDeComprobante="I" Total="1798" TipoCambio="1" Moneda="MXN" Descuento="100.00" SubTotal="1550.00" CondicionesDePago="Crédito a 20 días" Certificado="MIIF0TCCA7mgAwIBAgIUMjAwMDEwMDAwMDAzMDAwMjI4MTYwDQYJKoZIhvcNAQELBQAwggFmMSAwHgYDVQQDDBdBLkMuIDIgZGUgcHJ1ZWJhcyg0MDk2KTEvMC0GA1UECgwmU2VydmljaW8gZGUgQWRtaW5pc3RyYWNpw7NuIFRyaWJ1dGFyaWExODA2BgNVBAsML0FkbWluaXN0cmFjacOzbiBkZSBTZWd1cmlkYWQgZGUgbGEgSW5mb3JtYWNpw7NuMSkwJwYJKoZIhvcNAQkBFhphc2lzbmV0QHBydWViYXMuc2F0LmdvYi5teDEmMCQGA1UECQwdQXYuIEhpZGFsZ28gNzcsIENvbC4gR3VlcnJlcm8xDjAMBgNVBBEMBTA2MzAwMQswCQYDVQQGEwJNWDEZMBcGA1UECAwQRGlzdHJpdG8gRmVkZXJhbDESMBAGA1UEBwwJQ295b2Fjw6FuMRUwEwYDVQQtEwxTQVQ5NzA3MDFOTjMxITAfBgkqhkiG9w0BCQIMElJlc3BvbnNhYmxlOiBBQ0RNQTAeFw0xNjEwMjUyMTU0MTlaFw0yMDEwMjUyMTU0MTlaMIG9MR4wHAYDVQQDExVNQiBJREVBUyBESUdJVEFMRVMgU0MxHjAcBgNVBCkTFU1CIElERUFTIERJR0lUQUxFUyBTQzEeMBwGA1UEChMVTUIgSURFQVMgRElHSVRBTEVTIFNDMSUwIwYDVQQtExxMQU44NTA3MjY4SUEgLyBGVUFCNzcwMTE3QlhBMR4wHAYDVQQFExUgLyBGVUFCNzcwMTE3TURGUk5OMDkxFDASBgNVBAsUC1BydWViYV9DRkRJMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAjHr4KeoEx3BdkQP93AuN4fKo0rCZQsd9RJGBzQFvhmPJjGaVP81OUORM+lCRllxZxATZCAIFPOT3jl5wYgtolGYWWrt1HoAiuja1LKDGKrYgph0qWYKYeuew10fTyV+AeSbx1jTKz1PAAak06hx4M0rvmdiGO/Kg00/0wKz5/L3ZIMXEj+Hgr0IGh/yUIy8m5aKf+9jwuNttm/xDoeW3A8pxuidPU1Z1vliaZs75n89hC9LNwshhoaF3AvXIsgLDeuh9WoMGSm0HrilP9umFnm3nGUESiJa15Ep7LbG4CIhZrrknSm4fyrPk9KAigqLYMJhRsRwfp2qncAnAA+FuSQIDAQABox0wGzAMBgNVHRMBAf8EAjAAMAsGA1UdDwQEAwIGwDANBgkqhkiG9w0BAQsFAAOCAgEAd7t48tgawC9aczrGYt+4GFRcjj1LVKV3NElG+VH2s51KPkKPLj2Sw6OiEOGd+49spxHj1VR5MFvJo/pEJLY3EuLTifC9YZZYC8pHNDiA/eSvKqW5JNzp5/rgs3qAG1GrfdNGuSD3FkqhDdB6tJYqzTc12IC7xEAhKXrWZYCqa+zb9ogtzrUVL3vRRLMpnGEHK2yx8dhvG35qjHEfXyuoBsWILrVmnPpDCFO/CCLQB1OuMti1mlir6voBN0L1EbFK30w2bEuVihAeVLX8vVfMq4ZPI7UTLnblGnN11CCqiZkWhhehYrMdCjb5thMkEA+CMlIaFJYp7pNkLxQd4Y5+r8pTrdxxyvpA51DIWdoxvwaOiz1bzZk6ElVY2rfxwyZaJ17cJ1jmS4Yb5P4h8+5zkmZnPmRqfmaVO3nsApLWP6A38ZBrwwss429PJMSpfeXKGysPsqwF0yP3blsM7Cw53393LSHGKNm2GgG0kcrHnbbku6z6fjBdXMQQ5vjPuMNyw/pe3PzQLVoNOrD5AOoZmSG2TI3DtY4edLdiGmNQjo3MmAMMq4s7lr4AELPWAZRbnOlD1nEWGLdRp1mViteDvXwBL9E98EB4K9xK21DvgJ6rzw/D9rX6epeANfoXazWC0iCYcBNXiPikApcW73a/Jl/WjkEwEdkL/jLj0KCep58=" NoCertificado="20001000000300022816" FormaPago="02" Sello="O7geP4zL9Bm3WvwbIsvuhYza+zbm6Sp6eAM3umZfGgYGqQWW8O6YwKZXlxgsGF6jUZ3zQhBJB0oQD5XoycMKToyjJl9Dz4Ao/bQGyuJUHcQ65A+VK1+gNrP5CAda7kz2VGIVhIA35GuBFn/rxiygMVdYluG554B/Fr1NZp/70GG5VDme7eFerHwljrl6KfpUHlF+ZkSAZRWIXvtu3F63FakZTBhfR3odTM2I2g8rk6V3W+Qew8vi/qPkV54gOc2rvkf0U/aIQPHoByBma8WxQNdUi/1Odu1P3aLO1O18JFWYz+ZKxbnuvbOKM3gLiqiadsL+i8wMFk4Jf2YcGV6WqA==" Fecha="2017-07-01T00:00:00" Folio="12345" Serie="F" Version="3.3" xsi:schemaLocation="http://www.sat.gob.mx/cfd/3 http://www.sat.gob.mx/sitio_internet/cfd/3/cfdv33.xsd">
+    <cfdi:CfdiRelacionados TipoRelacion="06">
+        <cfdi:CfdiRelacionado UUID="a0452045-89cb-4792-9cc0-153f21faab7f"/>
+    </cfdi:CfdiRelacionados>
+    <cfdi:Emisor RegimenFiscal="601" Nombre="PHARMA PLUS SA DE CV" Rfc="PPL961114GZ1"/>
+    <cfdi:Receptor UsoCFDI="G01" NumRegIdTrib="ResidenteExtranjero1" ResidenciaFiscal="MEX" Nombre="JUAN PEREZ PEREZ" Rfc="PEPJ8001019Q8"/>
+    <cfdi:Conceptos>
+        <cfdi:Concepto Importe="775.00" ValorUnitario="775.00" Descripcion="VIBRAMICINA 100MG 10" Unidad="CAPSULAS" ClaveUnidad="EA" Cantidad="1.0" NoIdentificacion="GEN01" ClaveProdServ="10101501">
+            <cfdi:Impuestos>
+                <cfdi:Traslados>
+                    <cfdi:Traslado Importe="124.00" TasaOCuota="0.160000" TipoFactor="Tasa" Impuesto="002" Base="0.16"/>
+                </cfdi:Traslados>
+            </cfdi:Impuestos>
+            <cfdi:InformacionAduanera NumeroPedimento="67  52  3924  8060097"/>
+            <cfdi:CuentaPredial Numero="123456"/>
+        </cfdi:Concepto>
+        <cfdi:Concepto Importe="775.00" ValorUnitario="775.00" Descripcion="CLORUTO 500M" Unidad="BOTELLA" ClaveUnidad="EA" Cantidad="1.0" NoIdentificacion="GEN02" ClaveProdServ="10101501">
+            <cfdi:Impuestos>
+                <cfdi:Traslados>
+                    <cfdi:Traslado Importe="124.00" TasaOCuota="0.160000" TipoFactor="Tasa" Impuesto="002" Base="0.16"/>
+                </cfdi:Traslados>
+            </cfdi:Impuestos>
+            <cfdi:InformacionAduanera NumeroPedimento="67  52  3924  8060097"/>
+            <cfdi:CuentaPredial Numero="123456"/>
+        </cfdi:Concepto>
+    </cfdi:Conceptos>
+    <cfdi:Impuestos TotalImpuestosTrasladados="248.00" TotalImpuestosRetenidos="0">
+        <cfdi:Traslados>
+            <cfdi:Traslado Importe="248.00" TasaOCuota="0.160000" TipoFactor="Tasa" Impuesto="002"/>
+        </cfdi:Traslados>
+    </cfdi:Impuestos>
+</cfdi:Comprobante>

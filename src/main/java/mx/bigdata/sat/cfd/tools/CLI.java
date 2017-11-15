@@ -13,7 +13,6 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-
 package mx.bigdata.sat.cfd.tools;
 
 import java.io.File;
@@ -24,63 +23,61 @@ import java.security.PrivateKey;
 import java.security.cert.Certificate;
 import java.security.cert.X509Certificate;
 import java.util.List;
-
 import mx.bigdata.sat.cfd.CFD2;
 import mx.bigdata.sat.cfd.CFD2Factory;
 import mx.bigdata.sat.common.ValidationErrorHandler;
-
 import mx.bigdata.sat.security.KeyLoaderEnumeration;
 import mx.bigdata.sat.security.factory.KeyLoaderFactory;
 import org.xml.sax.SAXParseException;
 
 public final class CLI {
 
-  public static void main(String[] args) throws Exception {
-    String cmd = args[0];
-    if (cmd.equals("validar")) {
-      String file = args[1];
-      CFD2 cfd = CFD2Factory.load(new File(file));
-      ValidationErrorHandler handler = new ValidationErrorHandler();
-      cfd.validar(handler);
-      List<SAXParseException> errors = handler.getErrors();
-      if (errors.size() > 0) {
-        for (SAXParseException e : errors) {
-          System.err.printf("%s %s\n", file, e.getMessage());
+    public static void main(String[] args) throws Exception {
+        String cmd = args[0];
+        if (cmd.equals("validar")) {
+            String file = args[1];
+            CFD2 cfd = CFD2Factory.load(new File(file));
+            ValidationErrorHandler handler = new ValidationErrorHandler();
+            cfd.validar(handler);
+            List<SAXParseException> errors = handler.getErrors();
+            if (errors.size() > 0) {
+                for (SAXParseException e : errors) {
+                    System.err.printf("%s %s\n", file, e.getMessage());
+                }
+                System.exit(1);
+            }
+        } else if (cmd.equals("verificar")) {
+            String file = args[1];
+            CFD2 cfd = CFD2Factory.load(new File(file));
+            if (args.length == 3) {
+
+                Certificate cert = KeyLoaderFactory.createInstance(
+                        KeyLoaderEnumeration.PUBLIC_KEY_LOADER,
+                        new FileInputStream(args[2])
+                ).getKey();
+
+                cfd.verificar(cert);
+            } else {
+                cfd.verificar();
+            }
+        } else if (cmd.equals("sellar")) {
+            String file = args[1];
+            CFD2 cfd = CFD2Factory.load(new File(file));
+
+            PrivateKey key = (PrivateKey) KeyLoaderFactory.createInstance(
+                    KeyLoaderEnumeration.PRIVATE_KEY_LOADER,
+                    new FileInputStream(args[2]),
+                    args[3]
+            ).getKey();
+
+            X509Certificate cert = KeyLoaderFactory.createInstance(
+                    KeyLoaderEnumeration.PUBLIC_KEY_LOADER,
+                    new FileInputStream(args[4])
+            ).getKey();
+
+            cfd.sellar(key, cert);
+            OutputStream out = new FileOutputStream(args[5]);
+            cfd.guardar(out);
         }
-        System.exit(1);
-      }
-    } else if (cmd.equals("verificar")) {
-      String file = args[1];
-      CFD2 cfd = CFD2Factory.load(new File(file));
-      if (args.length == 3) {
-
-        Certificate cert = KeyLoaderFactory.createInstance(
-                KeyLoaderEnumeration.PUBLIC_KEY_LOADER,
-                new FileInputStream(args[2])
-        ).getKey();
-
-        cfd.verificar(cert);
-      } else {
-        cfd.verificar();
-      }
-    } else if (cmd.equals("sellar")) { 
-      String file = args[1];
-      CFD2 cfd = CFD2Factory.load(new File(file));
-
-      PrivateKey key = (PrivateKey) KeyLoaderFactory.createInstance(
-              KeyLoaderEnumeration.PRIVATE_KEY_LOADER,
-              new FileInputStream(args[2]),
-              args[3]
-      ).getKey();
-
-      X509Certificate cert = KeyLoaderFactory.createInstance(
-              KeyLoaderEnumeration.PUBLIC_KEY_LOADER,
-              new FileInputStream(args[4])
-      ).getKey();
-
-      cfd.sellar(key, cert);
-      OutputStream out = new FileOutputStream(args[5]);
-      cfd.guardar(out);
-    } 
-  }
+    }
 }

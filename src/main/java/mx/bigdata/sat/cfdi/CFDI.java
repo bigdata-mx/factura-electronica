@@ -13,12 +13,13 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-
 package mx.bigdata.sat.cfdi;
 
 import mx.bigdata.sat.common.CFD;
 import mx.bigdata.sat.common.ComprobanteBase;
 
 public interface CFDI extends CFD {
-  ComprobanteBase getComprobante() throws Exception;
+
+    ComprobanteBase getComprobante() throws Exception;
+
 }

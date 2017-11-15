@@ -1,0 +1,536 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:decreto="http://www.sat.gob.mx/renovacionysustitucionvehiculos"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    targetNamespace="http://www.sat.gob.mx/renovacionysustitucionvehiculos"
+    elementFormDefault="qualified"
+           attributeFormDefault="unqualified">
+  <xs:element name="renovacionysustitucionvehiculos">
+    <xs:annotation>
+      <xs:documentation>Complemento para incorporar la información relativa a los estímulos por la renovación del parque vehicular del autotransporte y  por el que se otorgan medidas para la sustitución de vehículos de autotransporte de pasaje y carga.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="DecretoRenovVehicular" minOccurs="0" >
+          <xs:annotation>
+            <xs:documentation>Nodo opcional para expresar los datos aplicables al estimulo por la aplicación del Decreto por el que se fomenta la renovación del parque vehicular del autotransporte.</xs:documentation>
+          </xs:annotation>
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="VehiculosUsadosEnajenadoPermAlFab" minOccurs="1" maxOccurs="unbounded">
+                <xs:annotation>
+                  <xs:documentation>Datos del vehículo o vehículos usados que enajena el permisionario a cuenta del precio del vehículo nuevo o seminuevo (pueden enajenarse 1 o más vehículos, por lo que de ser 2 o más se deberán llenar tantos elementos como vehículos usados se enajenen).</xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                  <xs:attribute name="PrecioVehUsado" use="required" type="decreto:t_Importe">
+                    <xs:annotation>
+                      <xs:documentation>Atributo requerido que expresa el precio del vehículo usado que el permisionario enajena al fabricante, ensamblador o distribuidor  autorizado  a cuenta del precio del vehículo nuevo o seminuevo.</xs:documentation>
+                    </xs:annotation>
+                  </xs:attribute>
+                  <xs:attribute name="TipoVeh" use="required" type="decreto:c_TipoVehiculo_r">
+                    <xs:annotation>
+                      <xs:documentation>Atributo requerido para expresar, según el  Decreto, el tipo de vehículo usado que enajena el permisionario, de acuerdo con el catálogo “3. Tipo de Vehículo conforme al Decreto por el que se fomenta la renovación del parque vehicular del autotransporte”.</xs:documentation>
+                    </xs:annotation>
+                  </xs:attribute>
+                  <xs:attribute name="Marca" use="required">
+                    <xs:annotation>
+                      <xs:documentation>Atributo requerido para expresar la marca del vehículo usado que se enajena.</xs:documentation>
+                    </xs:annotation>
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:minLength value="1"/>
+                        <xs:maxLength value="50"/>
+                        <xs:whiteSpace value="collapse"/>
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:attribute>
+                  <xs:attribute name="TipooClase" use="required">
+                    <xs:annotation>
+                      <xs:documentation>Atributo requerido para expresar el tipo o clase del vehículo usado que se enajena.</xs:documentation>
+                    </xs:annotation>
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:minLength value="1"/>
+                        <xs:maxLength value="50"/>
+                        <xs:whiteSpace value="collapse"/>
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:attribute>
+                  <xs:attribute name="Año" use="required">
+                    <xs:annotation>
+                      <xs:documentation>Atributo requerido para la expresión del año ó año modelo del vehículo usado que se enajena.</xs:documentation>
+                    </xs:annotation>
+                    <xs:simpleType>
+                      <xs:restriction base="xs:int">
+                        <xs:minInclusive value="1900"/>
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:attribute>
+                  <xs:attribute name="Modelo" use="optional">
+                    <xs:annotation>
+                      <xs:documentation>Atributo opcional para la expresión del modelo del vehículo usado que se enajena.</xs:documentation>
+                    </xs:annotation>
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:whiteSpace value="collapse"/>
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:attribute>
+                  <xs:attribute name="NIV" use="optional">
+                    <xs:annotation>
+                      <xs:documentation>Atributo opcional para expresar el número de identificación vehicular del vehículo  usado que se enajena. (Cuando exista el NIV deberá incluirse este invariablemente).</xs:documentation>
+                    </xs:annotation>
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:minLength value="1"/>
+                        <xs:maxLength value="17"/>
+                        <xs:whiteSpace value="collapse"/>
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:attribute>
+                  <xs:attribute name="NumSerie" use="optional">
+                    <xs:annotation>
+                      <xs:documentation>Atributo opcional para expresar el número de serie de la carrocería del vehículo  usado que se enajena. (En caso de contar con dicho número se deberá ingresar convirtiéndose en requerido).</xs:documentation>
+                    </xs:annotation>
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:minLength value="1"/>
+                        <xs:maxLength value="17"/>
+                        <xs:whiteSpace value="collapse"/>
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:attribute>
+                  <xs:attribute name="NumPlacas" use="required">
+                    <xs:annotation>
+                      <xs:documentation>Atributo requerido para expresar el número de placas metálicas de identificación del servicio público federal o, en su caso, del servicio público de autotransporte de pasajeros urbano o suburbano del vehículo  usado que se enajena.</xs:documentation>
+                    </xs:annotation>
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:minLength value="1"/>
+                        <xs:maxLength value="10"/>
+                        <xs:whiteSpace value="collapse"/>
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:attribute>
+                  <xs:attribute name="NumMotor" use="optional">
+                    <xs:annotation>
+                      <xs:documentation>Atributo opcional para expresar el número de motor del vehículo usado que se enajena (En caso de contar con dicho número se deberá ingresar volviéndose requerido).</xs:documentation>
+                    </xs:annotation>
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:minLength value="1"/>
+                        <xs:maxLength value="17"/>
+                        <xs:whiteSpace value="collapse"/>
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:attribute>
+                  <xs:attribute name="NumFolTarjCir" use="required">
+                    <xs:annotation>
+                      <xs:documentation>Atributo requerido para expresar el número de folio de la tarjeta de circulación  del vehículo usado que se enajena.</xs:documentation>
+                    </xs:annotation>
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:minLength value="1"/>
+                        <xs:maxLength value="40"/>
+                        <xs:whiteSpace value="collapse"/>
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:attribute>
+                  <xs:attribute name="NumPedIm" use="optional">
+                    <xs:annotation>
+                      <xs:documentation>Atributo opcional para expresar el número de documento aduanero con el cual se importó en definitiva el vehículo usado, en su caso.</xs:documentation>
+                    </xs:annotation>
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:minLength value="1"/>
+                        <xs:maxLength value="40"/>
+                        <xs:whiteSpace value="collapse"/>
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:attribute>
+                  <xs:attribute name="Aduana" use="optional">
+                    <xs:annotation>
+                      <xs:documentation>Atributo opcional para precisar la aduana por la que se efectuó la importación del vehículo usado, en su caso.</xs:documentation>
+                    </xs:annotation>
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:minLength value="1"/>
+                        <xs:whiteSpace value="collapse"/>
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:attribute>
+                  <xs:attribute name="FechaRegulVeh" use="optional" type="xs:date">
+                    <xs:annotation>
+                      <xs:documentation>Atributo opcional para expresar la fecha del pedimento en el que se regularizó la legal importación definitiva del vehículo usado, en su caso. Se expresa en la forma aaaa-mm-dd de acuerdo a especificación ISO 8601.</xs:documentation>
+                    </xs:annotation>
+                  </xs:attribute>
+                  <xs:attribute name="Foliofiscal" use="required">
+                    <xs:annotation>
+                      <xs:documentation>Atributo requerido para expresar el número de folio fiscal del CFDI expedido por el Centro de Destrucción Autorizado al que se ha incorporado el Complemento Certificado de Destrucción del vehículo usado que enajena el permisionario.</xs:documentation>
+                    </xs:annotation>
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:minLength value="1"/>
+                        <xs:maxLength value="36"/>
+                        <xs:whiteSpace value="collapse"/>
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:attribute>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="VehiculoNuvoSemEnajenadoFabAlPerm">
+                <xs:annotation>
+                  <xs:documentation>Datos del vehículo nuevo o seminuevo que enajena el fabricante, ensamblador o distribuidor autorizado al permisionario.</xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                  <xs:attribute name="Año" use="required">
+                    <xs:annotation>
+                      <xs:documentation>Atributo requerido para la expresión del año ó año modelo del vehículo nuevo o seminuevo que enajena el fabricante, ensamblador o distribuidor autorizado.</xs:documentation>
+                    </xs:annotation>
+                    <xs:simpleType>
+                      <xs:restriction base="xs:int">
+                        <xs:minInclusive value="1900"/>
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:attribute>
+                  <xs:attribute name="Modelo" use="optional">
+                    <xs:annotation>
+                      <xs:documentation>Atributo opcional para expresar el modelo del vehículo nuevo o seminuevo que enajena el fabricante, ensamblador o distribuidor autorizado.</xs:documentation>
+                    </xs:annotation>
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:whiteSpace value="collapse"/>
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:attribute>
+                  <xs:attribute name="NumPlacas" use="required">
+                    <xs:annotation>
+                      <xs:documentation>Atributo requerido para expresar el número de placa metálicas de identificación del servicio público federal o, en su caso, del servicio público de autotransporte de pasajeros urbano o suburbano del vehículo  nuevo o seminuevo que enajena el fabricante, ensamblador o distribuidor autorizado.</xs:documentation>
+                    </xs:annotation>
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:minLength value="1"/>
+                        <xs:maxLength value="10"/>
+                        <xs:whiteSpace value="collapse"/>
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:attribute>
+                  <xs:attribute name="RFC" use="optional" type="decreto:t_RFC">
+                    <xs:annotation>
+                      <xs:documentation>Atributo opcional para la Clave del Registro Federal de Contribuyentes del arrendatario, en el caso de que el  adquiriente del vehículo nuevo o seminuevo  sea una arrendadora financiera. </xs:documentation>
+                    </xs:annotation>
+                  </xs:attribute>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+            <xs:attribute name="VehEnaj" use="required" type="decreto:c_VehiculoEnajenado">
+              <xs:annotation>
+                <xs:documentation>Atributo requerido para expresar si el vehículo que el fabricante, ensamblador o distribuidor autorizado enajena al permisionario es nuevo o seminuevo, de acuerdo con el catálogo “2. Vehículo enajenado”.</xs:documentation>
+              </xs:annotation>
+            </xs:attribute>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="DecretoSustitVehicular" minOccurs="0" >
+          <xs:annotation>
+            <xs:documentation>Nodo opcional para expresar los datos aplicables al estimulo por la aplicación del Decreto por el que se otorgan medidas para la sustitución de vehículos de autotransporte de pasaje y carga.</xs:documentation>
+          </xs:annotation>
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="VehiculoUsadoEnajenadoPermAlFab">
+                <xs:annotation>
+                  <xs:documentation>Datos del vehículo usado que enajena el permisionario a cuenta del precio del vehículo nuevo o seminuevo.</xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                  <xs:attribute name="PrecioVehUsado" use="required" type="decreto:t_Importe">
+                    <xs:annotation>
+                      <xs:documentation>Atributo requerido que expresa el precio del vehículo usado que el permisionario enajena al  fabricante, ensamblador o distribuidor autorizado a cuenta del precio del vehículo nuevo o seminuevo.</xs:documentation>
+                    </xs:annotation>
+                  </xs:attribute>
+                  <xs:attribute name="TipoVeh" use="required" type="decreto:c_TipoVehiculo_s">
+                    <xs:annotation>
+                      <xs:documentation>Atributo requerido que expresar, según el Decreto, las características del vehículo usado  que el permisionario enajena al fabricante, ensamblador o distribuidor autorizado a cuenta del precio del vehículo nuevo o seminuevo, de acuerdo con el catálogo “4. Tipo de vehículo conforme al  Decreto por el que se otorgan medidas para la sustitución de vehículos de autotransporte de pasaje y carga”.</xs:documentation>
+                    </xs:annotation>
+                  </xs:attribute>
+                  <xs:attribute name="Marca" use="required">
+                    <xs:annotation>
+                      <xs:documentation>Atributo requerido para expresar la marca del vehículo usado que se enajena.</xs:documentation>
+                    </xs:annotation>
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:minLength value="1"/>
+                        <xs:maxLength value="50"/>
+                        <xs:whiteSpace value="collapse"/>
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:attribute>
+                  <xs:attribute name="TipooClase" use="required">
+                    <xs:annotation>
+                      <xs:documentation>Atributo requerido para expresar el tipo o clase del vehículo usado que se enajena.</xs:documentation>
+                    </xs:annotation>
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:minLength value="1"/>
+                        <xs:maxLength value="50"/>
+                        <xs:whiteSpace value="collapse"/>
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:attribute>
+                  <xs:attribute name="Año" use="required">
+                    <xs:annotation>
+                      <xs:documentation>Atributo requerido para la expresión del año ó año modelo del vehículo usado que se enajena.</xs:documentation>
+                    </xs:annotation>
+                    <xs:simpleType>
+                      <xs:restriction base="xs:int">
+                        <xs:minInclusive value="1900"/>
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:attribute>
+                  <xs:attribute name="Modelo" use="optional">
+                    <xs:annotation>
+                      <xs:documentation>Atributo opcional para la expresión del modelo del vehículo usado que se enajena.</xs:documentation>
+                    </xs:annotation>
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:whiteSpace value="collapse"/>
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:attribute>
+                  <xs:attribute name="NIV" use="optional">
+                    <xs:annotation>
+                      <xs:documentation>Atributo opcional para expresar el número de identificación vehicular del vehículo  usado que se enajena. (Cuando exista el NIV deberá incluirse este invariablemente).</xs:documentation>
+                    </xs:annotation>
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:minLength value="1"/>
+                        <xs:maxLength value="17"/>
+                        <xs:whiteSpace value="collapse"/>
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:attribute>
+                  <xs:attribute name="NumSerie" use="optional">
+                    <xs:annotation>
+                      <xs:documentation>Atributo opcional para expresar el número de serie de la carrocería del vehículo  usado que se enajena. (En caso de contar con dicho número se deberá ingresar convirtiéndose en requerido).</xs:documentation>
+                    </xs:annotation>
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:minLength value="1"/>
+                        <xs:maxLength value="17"/>
+                        <xs:whiteSpace value="collapse"/>
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:attribute>
+                  <xs:attribute name="NumPlacas" use="required">
+                    <xs:annotation>
+                      <xs:documentation>Atributo requerido para expresar el número de placas metálicas de identificación del servicio público federal o, en su caso, del servicio público de autotransporte de pasajeros urbano o suburbano del vehículo  usado que se enajena.</xs:documentation>
+                    </xs:annotation>
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:minLength value="1"/>
+                        <xs:maxLength value="10"/>
+                        <xs:whiteSpace value="collapse"/>
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:attribute>
+                  <xs:attribute name="NumMotor" use="optional">
+                    <xs:annotation>
+                      <xs:documentation>Atributo opcional para expresar el número de motor del vehículo usado que se enajena (En caso de contar con dicho número se deberá ingresar volviéndose requerido).</xs:documentation>
+                    </xs:annotation>
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:minLength value="1"/>
+                        <xs:maxLength value="17"/>
+                        <xs:whiteSpace value="collapse"/>
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:attribute>
+                  <xs:attribute name="NumFolTarjCir" use="required">
+                    <xs:annotation>
+                      <xs:documentation>Atributo requerido para expresar el número de folio de la tarjeta de circulación  del vehículo usado que se enajena.</xs:documentation>
+                    </xs:annotation>
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:minLength value="1"/>
+                        <xs:maxLength value="40"/>
+                        <xs:whiteSpace value="collapse"/>
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:attribute>
+                  <xs:attribute name="NumFolAvisoint" use="required">
+                    <xs:annotation>
+                      <xs:documentation>Atributo requerido para expresar el número de folio del acuse de recibo del Aviso de Intención para acceder al programa de destrucción.</xs:documentation>
+                    </xs:annotation>
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:minLength value="1"/>
+                        <xs:maxLength value="20"/>
+                        <xs:whiteSpace value="collapse"/>
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:attribute>
+                  <xs:attribute name="NumPedIm" use="required">
+                    <xs:annotation>
+                      <xs:documentation>Atributo requerido para expresar el número de documento aduanero con el cual se importó en definitiva el vehículo usado.</xs:documentation>
+                    </xs:annotation>
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:minLength value="1"/>
+                        <xs:maxLength value="40"/>
+                        <xs:whiteSpace value="collapse"/>
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:attribute>
+                  <xs:attribute name="Aduana" use="required">
+                    <xs:annotation>
+                      <xs:documentation>Atributo requerido para precisar la aduana por la que se efectuó la importación del vehículo usado.</xs:documentation>
+                    </xs:annotation>
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:minLength value="1"/>
+                        <xs:whiteSpace value="collapse"/>
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:attribute>
+                  <xs:attribute name="FechaRegulVeh" use="required" type="xs:date">
+                    <xs:annotation>
+                      <xs:documentation>Atributo requerido para expresar la fecha del pedimento en el que se regularizó la legal importación definitiva del vehículo usado. Se expresa en la forma aaaa-mm-dd de acuerdo a a especificación ISO 8601</xs:documentation>
+                    </xs:annotation>
+                  </xs:attribute>
+                  <xs:attribute name="Foliofiscal" use="required">
+                    <xs:annotation>
+                      <xs:documentation>Atributo requerido para expresar el número de folio fiscal del CFDI expedido por el Centro de Destrucción Autorizado al que se ha incorporado el Complemento Certificado de Destrucción del vehículo usado que enajena el permisionario.</xs:documentation>
+                    </xs:annotation>
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:minLength value="1"/>
+                        <xs:maxLength value="36"/>
+                        <xs:whiteSpace value="collapse"/>
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:attribute>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="VehiculoNuvoSemEnajenadoFabAlPerm">
+                <xs:annotation>
+                  <xs:documentation>Datos del vehículo nuevo o seminuevo que enajena el fabricante, ensamblador o distribuidor autorizado al permisionario.</xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                  <xs:attribute name="Año" use="required">
+                    <xs:annotation>
+                      <xs:documentation>Atributo requerido para la expresión del año ó año modelo del vehículo nuevo o seminuevo  que enajena el fabricante, ensamblador o distribuidor autorizado.</xs:documentation>
+                    </xs:annotation>
+                    <xs:simpleType>
+                      <xs:restriction base="xs:int">
+                        <xs:minInclusive value="1900"/>
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:attribute>
+                  <xs:attribute name="Modelo" use="optional">
+                    <xs:annotation>
+                      <xs:documentation>Atributo opcional para expresar  el modelo  del vehículo nuevo o seminuevo que enajena el fabricante, ensamblador o distribuidor autorizado.</xs:documentation>
+                    </xs:annotation>
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:whiteSpace value="collapse"/>
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:attribute>
+                  <xs:attribute name="NumPlacas" use="required">
+                    <xs:annotation>
+                      <xs:documentation>Atributo requerido para expresar el número de placa metálicas de identificación del servicio público federal o, en su caso, del servicio público de autotransporte de pasajeros urbano o suburbano del vehículo  nuevo o seminuevo que enajena el fabricante, ensamblador o distribuidor autorizado.</xs:documentation>
+                    </xs:annotation>
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:minLength value="1"/>
+                        <xs:maxLength value="10"/>
+                        <xs:whiteSpace value="collapse"/>
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:attribute>
+                  <xs:attribute name="RFC" use="optional" type="decreto:t_RFC">
+                    <xs:annotation>
+                      <xs:documentation>Atributo opcional para la Clave del Registro Federal de Contribuyentes del arrendatario en el caso de que el  adquiriente del vehículo nuevo o seminuevo  sea una arrendadora financiera.</xs:documentation>
+                    </xs:annotation>
+                  </xs:attribute>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+            <xs:attribute name="VehEnaj" use="required" type="decreto:c_VehiculoEnajenado">
+              <xs:annotation>
+                <xs:documentation>Atributo requerido para expresar si el vehículo que el fabricante, ensamblador o distribuidor autorizado enajena al permisionario es nuevo o seminuevo, de acuerdo con el catálogo “2. Vehículo enajenado”.</xs:documentation>
+              </xs:annotation>
+            </xs:attribute>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+      <xs:attribute name="Version" use="required" fixed="1.0">
+        <xs:annotation>
+          <xs:documentation>Atributo requerido que indica la versión del complemento.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+      <xs:attribute name="TipoDeDecreto" use="required" type="decreto:c_TipoDecreto">
+        <xs:annotation>
+          <xs:documentation>Atributo requerido que indica el Decreto de cuya aplicación se trate, de acuerdo con el catálogo “1. Tipo de Decreto”.</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  <xs:simpleType name="t_Importe">
+    <xs:annotation>
+      <xs:documentation>Tipo definido para expresar importes numéricos con fracción hasta seis decimales</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:decimal">
+      <xs:fractionDigits value="6"/>
+      <xs:whiteSpace value="collapse"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="t_RFC">
+    <xs:annotation>
+      <xs:documentation>Tipo definido para expresar claves del Registro Federal de Contribuyentes</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:minLength value="12"/>
+      <xs:maxLength value="13"/>
+      <xs:whiteSpace value="collapse"/>
+      <xs:pattern value="[A-Z,Ñ,&amp;]{3,4}[0-9]{2}[0-1][0-9][0-3][0-9][A-Z,0-9][A-Z,0-9][0-9,A-Z]"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="c_TipoDecreto">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="01"/>
+      <xs:enumeration value="02"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="c_VehiculoEnajenado">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="01"/>
+      <xs:enumeration value="02"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="c_TipoVehiculo_r">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="01"/>
+      <xs:enumeration value="02"/>
+      <xs:enumeration value="03"/>
+      <xs:enumeration value="04"/>
+      <xs:enumeration value="05"/>
+      <xs:enumeration value="06"/>
+      <xs:enumeration value="07"/>
+      <xs:enumeration value="08"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="c_TipoVehiculo_s">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="01"/>
+      <xs:enumeration value="02"/>
+      <xs:enumeration value="03"/>
+      <xs:enumeration value="04"/>
+      <xs:enumeration value="05"/>
+      <xs:enumeration value="06"/>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>
+

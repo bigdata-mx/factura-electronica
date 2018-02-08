@@ -91,64 +91,11 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>jaxb2-maven-plugin</artifactId>
-                <version>1.3.1</version>
+                <version>2.3.1</version>
                 <configuration>
                     <encoding>${file.encoding}</encoding>
                 </configuration>
                 <executions>
-                    <execution>
-                        <id>schema1-xjc</id>
-                        <goals>
-                            <goal>xjc</goal>
-                        </goals>
-                        <configuration>
-                            <packageName>mx.bigdata.sat.cfd.schema</packageName>
-                            <schemaDirectory>src/main/resources/xsd/v2</schemaDirectory>
-                            <outputDirectory>${project.build.directory}/generated-sources/xjc1</outputDirectory>
-                            <staleFile>${project.build.directory}/generated-sources/xjc1/.staleFlag</staleFile>
-                            <extension>true</extension>
-                            <schemaDirectory>src/main/resources/xsd/v2</schemaDirectory>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>schema2-xjc</id>
-                        <goals>
-                            <goal>xjc</goal>
-                        </goals>
-                        <configuration>
-                            <packageName>mx.bigdata.sat.cfdi.schema</packageName>
-                            <schemaDirectory>src/main/resources/xsd/v3</schemaDirectory>
-                            <outputDirectory>${project.build.directory}/generated-sources/xjc2</outputDirectory>          
-                            <staleFile>${project.build.directory}/generated-sources/xjc2/.staleFlag</staleFile>
-                            <extension>true</extension>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>schema3-xjc</id>
-                        <goals>
-                            <goal>xjc</goal>
-                        </goals>
-                        <configuration>
-                            <packageName>mx.bigdata.sat.cfd.v22.schema</packageName>
-                            <schemaDirectory>src/main/resources/xsd/v22</schemaDirectory>
-                            <outputDirectory>${project.build.directory}/generated-sources/xjc3</outputDirectory>          
-                            <staleFile>${project.build.directory}/generated-sources/xjc3/.staleFlag</staleFile>
-                            <extension>true</extension>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>schema4-xjc</id>
-                        <goals>
-                            <goal>xjc</goal>
-                        </goals>
-                        <configuration>
-                            <packageName>mx.bigdata.sat.cfdi.v32.schema</packageName>
-                            <schemaDirectory>src/main/resources/xsd/v32</schemaDirectory>
-                            <outputDirectory>${project.build.directory}/generated-sources/xjc4</outputDirectory>          
-                            <staleFile>${project.build.directory}/generated-sources/xjc4/.staleFlag</staleFile>
-                            <extension>true</extension>
-                        </configuration>
-                    </execution>
                     <execution>
                         <id>schema5-xjc</id>
                         <goals>
@@ -156,23 +103,13 @@
                         </goals>
                         <configuration>
                             <packageName>mx.bigdata.sat.cfdi.v33.schema</packageName>
-                            <schemaDirectory>src/main/resources/xsd/v33</schemaDirectory>
-                            <outputDirectory>${project.build.directory}/generated-sources/xjc5</outputDirectory>          
-                            <staleFile>${project.build.directory}/generated-sources/xjc5/.staleFlag</staleFile>
+                            <!--<schemaDirectory>${project.basedir}/src/main/resources/xsd/v33</schemaDirectory>-->
+                            <outputDirectory>${project.build.directory}/generated-sources/xjc5</outputDirectory>
+                            <!--<staleFile>${project.build.directory}/generated-sources/xjc5/.staleFlag</staleFile>-->
                             <extension>true</extension>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>schema6-xjc</id>
-                        <goals>
-                            <goal>xjc</goal>
-                        </goals>
-                        <configuration>
-                            <packageName>mx.bigdata.sat.common.ecc.schema</packageName>
-                            <schemaDirectory>src/main/resources/xsd/common/ecc/v10</schemaDirectory>
-                            <outputDirectory>${project.build.directory}/generated-sources/xjc6</outputDirectory>          
-                            <staleFile>${project.build.directory}/generated-sources/xjc6/.staleFlag</staleFile>
-                            <extension>true</extension>
+                            <sources>
+                                <source>${project.basedir}/src/main/resources/xsd/v33</source>
+                            </sources>
                         </configuration>
                     </execution>
                     <execution>
@@ -182,23 +119,13 @@
                         </goals>
                         <configuration>
                             <packageName>mx.bigdata.sat.common.ecc.v11.schema</packageName>
-                            <schemaDirectory>src/main/resources/xsd/common/ecc/v11</schemaDirectory>
+                            <!--<schemaDirectory>src/main/resources/xsd/common/ecc/v11</schemaDirectory>-->
                             <outputDirectory>${project.build.directory}/generated-sources/xjc6-11</outputDirectory>          
-                            <staleFile>${project.build.directory}/generated-sources/xjc6-11/.staleFlag</staleFile>
+                            <!--<staleFile>${project.build.directory}/generated-sources/xjc6-11/.staleFlag</staleFile>-->
                             <extension>true</extension>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>schema7-xjc</id>
-                        <goals>
-                            <goal>xjc</goal>
-                        </goals>
-                        <configuration>
-                            <packageName>mx.bigdata.sat.common.donat.schema</packageName>
-                            <schemaDirectory>src/main/resources/xsd/common/donat/v10</schemaDirectory>
-                            <outputDirectory>${project.build.directory}/generated-sources/xjc7</outputDirectory>          
-                            <staleFile>${project.build.directory}/generated-sources/xjc7/.staleFlag</staleFile>
-                            <extension>true</extension>
+                            <sources>
+                                <source>${project.basedir}/src/main/resources/xsd/common/ecc/v11</source>
+                            </sources>
                         </configuration>
                     </execution>
                     <execution>
@@ -208,10 +135,13 @@
                         </goals>
                         <configuration>
                             <packageName>mx.bigdata.sat.common.donat.v11.schema</packageName>
-                            <schemaDirectory>src/main/resources/xsd/common/donat/v11</schemaDirectory>
+                            <!--<schemaDirectory>src/main/resources/xsd/common/donat/v11</schemaDirectory>-->
                             <outputDirectory>${project.build.directory}/generated-sources/xjc7-11</outputDirectory>          
-                            <staleFile>${project.build.directory}/generated-sources/xjc7-11/.staleFlag</staleFile>
+                            <!--<staleFile>${project.build.directory}/generated-sources/xjc7-11/.staleFlag</staleFile>-->
                             <extension>true</extension>
+                            <sources>
+                                <source>${project.basedir}/src/main/resources/xsd/common/donat/v11</source>
+                            </sources>
                         </configuration>
                     </execution>
                     <execution>
@@ -221,10 +151,13 @@
                         </goals>
                         <configuration>
                             <packageName>mx.bigdata.sat.common.divisas.schema</packageName>
-                            <schemaDirectory>src/main/resources/xsd/common/divisas</schemaDirectory>
-                            <outputDirectory>${project.build.directory}/generated-sources/xjc8</outputDirectory>          
-                            <staleFile>${project.build.directory}/generated-sources/xjc8/.staleFlag</staleFile>
+                            <!--<schemaDirectory>src/main/resources/xsd/common/divisas</schemaDirectory>-->
+                            <outputDirectory>${project.build.directory}/generated-sources/xjc8</outputDirectory>
+                            <!--<staleFile>${project.build.directory}/generated-sources/xjc8/.staleFlag</staleFile>-->
                             <extension>true</extension>
+                            <sources>
+                                <source>${project.basedir}/src/main/resources/xsd/common/divisas</source>
+                            </sources>
                         </configuration>
                     </execution>
                     <execution>
@@ -234,10 +167,13 @@
                         </goals>
                         <configuration>
                             <packageName>mx.bigdata.sat.common.implocal.schema</packageName>
-                            <schemaDirectory>src/main/resources/xsd/common/implocal</schemaDirectory>
+                            <!--<schemaDirectory>src/main/resources/xsd/common/implocal</schemaDirectory>-->
                             <outputDirectory>${project.build.directory}/generated-sources/xjc9</outputDirectory>          
-                            <staleFile>${project.build.directory}/generated-sources/xjc9/.staleFlag</staleFile>
+                            <!--<staleFile>${project.build.directory}/generated-sources/xjc9/.staleFlag</staleFile>-->
                             <extension>true</extension>
+                            <sources>
+                                <source>${project.basedir}/src/main/resources/xsd/common/implocal</source>
+                            </sources>
                         </configuration>
                     </execution>
                     <execution>
@@ -247,10 +183,13 @@
                         </goals>
                         <configuration>
                             <packageName>mx.bigdata.sat.common.leyendasfisc.schema</packageName>
-                            <schemaDirectory>src/main/resources/xsd/common/leyendasFisc</schemaDirectory>
+                            <!--<schemaDirectory>src/main/resources/xsd/common/leyendasFisc</schemaDirectory>-->
                             <outputDirectory>${project.build.directory}/generated-sources/xjc10</outputDirectory>          
-                            <staleFile>${project.build.directory}/generated-sources/xjc10/.staleFlag</staleFile>
+                            <!--<staleFile>${project.build.directory}/generated-sources/xjc10/.staleFlag</staleFile>-->
                             <extension>true</extension>
+                            <sources>
+                                <source>${project.basedir}/src/main/resources/xsd/common/leyendasFisc</source>
+                            </sources>
                         </configuration>
                     </execution>
                     <execution>
@@ -260,10 +199,13 @@
                         </goals>
                         <configuration>
                             <packageName>mx.bigdata.sat.common.pfic.schema</packageName>
-                            <schemaDirectory>src/main/resources/xsd/common/pfic</schemaDirectory>
+                            <!--<schemaDirectory>src/main/resources/xsd/common/pfic</schemaDirectory>-->
                             <outputDirectory>${project.build.directory}/generated-sources/xjc11</outputDirectory>          
-                            <staleFile>${project.build.directory}/generated-sources/xjc11/.staleFlag</staleFile>
+                            <!--<staleFile>${project.build.directory}/generated-sources/xjc11/.staleFlag</staleFile>-->
                             <extension>true</extension>
+                            <sources>
+                                <source>${project.basedir}/src/main/resources/xsd/common/pfic</source>
+                            </sources>
                         </configuration>
                     </execution>
                     <execution>
@@ -273,10 +215,13 @@
                         </goals>
                         <configuration>
                             <packageName>mx.bigdata.sat.common.turistapasajeroextranjero.schema</packageName>
-                            <schemaDirectory>src/main/resources/xsd/common/TuristaPasajeroExtranjero</schemaDirectory>
+                            <!--<schemaDirectory>src/main/resources/xsd/common/TuristaPasajeroExtranjero</schemaDirectory>-->
                             <outputDirectory>${project.build.directory}/generated-sources/xjc12</outputDirectory>          
-                            <staleFile>${project.build.directory}/generated-sources/xjc12/.staleFlag</staleFile>
+                            <!--<staleFile>${project.build.directory}/generated-sources/xjc12/.staleFlag</staleFile>-->
                             <extension>true</extension>
+                            <sources>
+                                <source>${project.basedir}/src/main/resources/xsd/common/TuristaPasajeroExtranjero</source>
+                            </sources>
                         </configuration>
                     </execution>
                     <execution>
@@ -286,10 +231,13 @@
                         </goals>
                         <configuration>
                             <packageName>mx.bigdata.sat.common.spei.schema</packageName>
-                            <schemaDirectory>src/main/resources/xsd/common/spei</schemaDirectory>
+                            <!--<schemaDirectory>src/main/resources/xsd/common/spei</schemaDirectory>-->
                             <outputDirectory>${project.build.directory}/generated-sources/xjc13</outputDirectory>          
-                            <staleFile>${project.build.directory}/generated-sources/xjc13/.staleFlag</staleFile>
+                            <!--<staleFile>${project.build.directory}/generated-sources/xjc13/.staleFlag</staleFile>-->
                             <extension>true</extension>
+                            <sources>
+                                <source>${project.basedir}/src/main/resources/xsd/common/spei</source>
+                            </sources>
                         </configuration>
                     </execution>
                     <execution>
@@ -299,10 +247,13 @@
                         </goals>
                         <configuration>
                             <packageName>mx.bigdata.sat.common.detallista.schema</packageName>
-                            <schemaDirectory>src/main/resources/xsd/common/detallista</schemaDirectory>
+                            <!--<schemaDirectory>src/main/resources/xsd/common/detallista</schemaDirectory>-->
                             <outputDirectory>${project.build.directory}/generated-sources/xjc14</outputDirectory>          
-                            <staleFile>${project.build.directory}/generated-sources/xjc14/.staleFlag</staleFile>
+                            <!--<staleFile>${project.build.directory}/generated-sources/xjc14/.staleFlag</staleFile>-->
                             <extension>true</extension>
+                            <sources>
+                                <source>${project.basedir}/src/main/resources/xsd/common/detallista</source>
+                            </sources>
                         </configuration>
                     </execution>
                     <execution>
@@ -312,23 +263,13 @@
                         </goals>
                         <configuration>
                             <packageName>mx.bigdata.sat.common.cfdiregistrofiscal.schema</packageName>
-                            <schemaDirectory>src/main/resources/xsd/common/cfdiregistrofiscal</schemaDirectory>
+                            <!--<schemaDirectory>src/main/resources/xsd/common/cfdiregistrofiscal</schemaDirectory>-->
                             <outputDirectory>${project.build.directory}/generated-sources/xjc15</outputDirectory>          
-                            <staleFile>${project.build.directory}/generated-sources/xjc15/.staleFlag</staleFile>
+                            <!--<staleFile>${project.build.directory}/generated-sources/xjc15/.staleFlag</staleFile>-->
                             <extension>true</extension>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>schema16-xjc</id>
-                        <goals>
-                            <goal>xjc</goal>
-                        </goals>
-                        <configuration>
-                            <packageName>mx.bigdata.sat.common.nomina.schema</packageName>
-                            <schemaDirectory>src/main/resources/xsd/common/nomina/v11</schemaDirectory>
-                            <outputDirectory>${project.build.directory}/generated-sources/xjc16</outputDirectory>          
-                            <staleFile>${project.build.directory}/generated-sources/xjc16/.staleFlag</staleFile>
-                            <extension>true</extension>
+                            <sources>
+                                <source>${project.basedir}/src/main/resources/xsd/common/cfdiregistrofiscal</source>
+                            </sources>
                         </configuration>
                     </execution>
                     <execution>
@@ -338,10 +279,13 @@
                         </goals>
                         <configuration>
                             <packageName>mx.bigdata.sat.common.nomina.v12.schema</packageName>
-                            <schemaDirectory>src/main/resources/xsd/common/nomina/v12</schemaDirectory>
+                            <!--<schemaDirectory>src/main/resources/xsd/common/nomina/v12</schemaDirectory>-->
                             <outputDirectory>${project.build.directory}/generated-sources/xjc16-12</outputDirectory>          
-                            <staleFile>${project.build.directory}/generated-sources/xjc16-12/.staleFlag</staleFile>
+                            <!--<staleFile>${project.build.directory}/generated-sources/xjc16-12/.staleFlag</staleFile>-->
                             <extension>true</extension>
+                            <sources>
+                                <source>${project.basedir}/src/main/resources/xsd/common/nomina/v12</source>
+                            </sources>
                         </configuration>
                     </execution>
                     <execution>
@@ -351,10 +295,13 @@
                         </goals>
                         <configuration>
                             <packageName>mx.bigdata.sat.common.pagoenespecie.schema</packageName>
-                            <schemaDirectory>src/main/resources/xsd/common/pagoenespecie</schemaDirectory>
+                            <!--<schemaDirectory>src/main/resources/xsd/common/pagoenespecie</schemaDirectory>-->
                             <outputDirectory>${project.build.directory}/generated-sources/xjc17</outputDirectory>          
-                            <staleFile>${project.build.directory}/generated-sources/xjc17/.staleFlag</staleFile>
+                            <!--<staleFile>${project.build.directory}/generated-sources/xjc17/.staleFlag</staleFile>-->
                             <extension>true</extension>
+                            <sources>
+                                <source>${project.basedir}/src/main/resources/xsd/common/pagoenespecie</source>
+                            </sources>
                         </configuration>
                     </execution>
                     <execution>
@@ -364,10 +311,13 @@
                         </goals>
                         <configuration>
                             <packageName>mx.bigdata.sat.common.valesdedespensa.schema</packageName>
-                            <schemaDirectory>src/main/resources/xsd/common/valesdedespensa</schemaDirectory>
+                            <!--<schemaDirectory>src/main/resources/xsd/common/valesdedespensa</schemaDirectory>-->
                             <outputDirectory>${project.build.directory}/generated-sources/xjc18</outputDirectory>          
-                            <staleFile>${project.build.directory}/generated-sources/xjc18/.staleFlag</staleFile>
+                            <!--<staleFile>${project.build.directory}/generated-sources/xjc18/.staleFlag</staleFile>-->
                             <extension>true</extension>
+                            <sources>
+                                <source>${project.basedir}/src/main/resources/xsd/common/valesdedespensa</source>
+                            </sources>
                         </configuration>
                     </execution>
                     <execution>
@@ -377,10 +327,13 @@
                         </goals>
                         <configuration>
                             <packageName>mx.bigdata.sat.common.consumodecombustibles.schema</packageName>
-                            <schemaDirectory>src/main/resources/xsd/common/consumodecombustibles</schemaDirectory>
+                            <!--<schemaDirectory>src/main/resources/xsd/common/consumodecombustibles</schemaDirectory>-->
                             <outputDirectory>${project.build.directory}/generated-sources/xjc19</outputDirectory>          
-                            <staleFile>${project.build.directory}/generated-sources/xjc19/.staleFlag</staleFile>
+                            <!--<staleFile>${project.build.directory}/generated-sources/xjc19/.staleFlag</staleFile>-->
                             <extension>true</extension>
+                            <sources>
+                                <source>${project.basedir}/src/main/resources/xsd/common/consumodecombustibles</source>
+                            </sources>
                         </configuration>
                     </execution>
                     <execution>
@@ -390,10 +343,13 @@
                         </goals>
                         <configuration>
                             <packageName>mx.bigdata.sat.common.aerolineas.schema</packageName>
-                            <schemaDirectory>src/main/resources/xsd/common/aerolineas</schemaDirectory>
+                            <!--<schemaDirectory>src/main/resources/xsd/common/aerolineas</schemaDirectory>-->
                             <outputDirectory>${project.build.directory}/generated-sources/xjc20</outputDirectory>          
-                            <staleFile>${project.build.directory}/generated-sources/xjc20/.staleFlag</staleFile>
+                            <!--<staleFile>${project.build.directory}/generated-sources/xjc20/.staleFlag</staleFile>-->
                             <extension>true</extension>
+                            <sources>
+                                <source>${project.basedir}/src/main/resources/xsd/common/aerolineas</source>
+                            </sources>
                         </configuration>
                     </execution>
                     <execution>
@@ -403,10 +359,13 @@
                         </goals>
                         <configuration>
                             <packageName>mx.bigdata.sat.common.notariospublicos.schema</packageName>
-                            <schemaDirectory>src/main/resources/xsd/common/notariospublicos</schemaDirectory>
+                            <!--<schemaDirectory>src/main/resources/xsd/common/notariospublicos</schemaDirectory>-->
                             <outputDirectory>${project.build.directory}/generated-sources/xjc21</outputDirectory>          
-                            <staleFile>${project.build.directory}/generated-sources/xjc21/.staleFlag</staleFile>
+                            <!--<staleFile>${project.build.directory}/generated-sources/xjc21/.staleFlag</staleFile>-->
                             <extension>true</extension>
+                            <sources>
+                                <source>${project.basedir}/src/main/resources/xsd/common/notariospublicos</source>
+                            </sources>
                         </configuration>
                     </execution>
                     <execution>
@@ -416,10 +375,13 @@
                         </goals>
                         <configuration>
                             <packageName>mx.bigdata.sat.common.vehiculousado.schema</packageName>
-                            <schemaDirectory>src/main/resources/xsd/common/vehiculousado</schemaDirectory>
+                            <!--<schemaDirectory>src/main/resources/xsd/common/vehiculousado</schemaDirectory>-->
                             <outputDirectory>${project.build.directory}/generated-sources/xjc22</outputDirectory>          
-                            <staleFile>${project.build.directory}/generated-sources/xjc22/.staleFlag</staleFile>
+                            <!--<staleFile>${project.build.directory}/generated-sources/xjc22/.staleFlag</staleFile>-->
                             <extension>true</extension>
+                            <sources>
+                                <source>${project.basedir}/src/main/resources/xsd/common/vehiculousado</source>
+                            </sources>
                         </configuration>
                     </execution>
                     <execution>
@@ -429,10 +391,13 @@
                         </goals>
                         <configuration>
                             <packageName>mx.bigdata.sat.common.servicioparcialconstruccion.schema</packageName>
-                            <schemaDirectory>src/main/resources/xsd/common/servicioparcialconstruccion</schemaDirectory>
+                            <!--<schemaDirectory>src/main/resources/xsd/common/servicioparcialconstruccion</schemaDirectory>-->
                             <outputDirectory>${project.build.directory}/generated-sources/xjc23</outputDirectory>          
-                            <staleFile>${project.build.directory}/generated-sources/xjc23/.staleFlag</staleFile>
+                            <!--<staleFile>${project.build.directory}/generated-sources/xjc23/.staleFlag</staleFile>-->
                             <extension>true</extension>
+                            <sources>
+                                <source>${project.basedir}/src/main/resources/xsd/common/servicioparcialconstruccion</source>
+                            </sources>
                         </configuration>
                     </execution>
                     <execution>
@@ -442,10 +407,13 @@
                         </goals>
                         <configuration>
                             <packageName>mx.bigdata.sat.common.renovacionysustitucionvehiculos.schema</packageName>
-                            <schemaDirectory>src/main/resources/xsd/common/renovacionysustitucionvehiculos</schemaDirectory>
+                            <!--<schemaDirectory>src/main/resources/xsd/common/renovacionysustitucionvehiculos</schemaDirectory>-->
                             <outputDirectory>${project.build.directory}/generated-sources/xjc24</outputDirectory>          
-                            <staleFile>${project.build.directory}/generated-sources/xjc24/.staleFlag</staleFile>
+                            <!--<staleFile>${project.build.directory}/generated-sources/xjc24/.staleFlag</staleFile>-->
                             <extension>true</extension>
+                            <sources>
+                                <source>${project.basedir}/src/main/resources/xsd/common/renovacionysustitucionvehiculos</source>
+                            </sources>
                         </configuration>
                     </execution>
                     <execution>
@@ -455,10 +423,13 @@
                         </goals>
                         <configuration>
                             <packageName>mx.bigdata.sat.common.certificadodedestruccion.schema</packageName>
-                            <schemaDirectory>src/main/resources/xsd/common/certificadodedestruccion</schemaDirectory>
+                            <!--<schemaDirectory>src/main/resources/xsd/common/certificadodedestruccion</schemaDirectory>-->
                             <outputDirectory>${project.build.directory}/generated-sources/xjc25</outputDirectory>          
-                            <staleFile>${project.build.directory}/generated-sources/xjc25/.staleFlag</staleFile>
+                            <!--<staleFile>${project.build.directory}/generated-sources/xjc25/.staleFlag</staleFile>-->
                             <extension>true</extension>
+                            <sources>
+                                <source>${project.basedir}/src/main/resources/xsd/common/certificadodedestruccion</source>
+                            </sources>
                         </configuration>
                     </execution>
                     <execution>
@@ -468,23 +439,13 @@
                         </goals>
                         <configuration>
                             <packageName>mx.bigdata.sat.common.obrasarteantiguedades.schema</packageName>
-                            <schemaDirectory>src/main/resources/xsd/common/obrasarteantiguedades</schemaDirectory>
+                            <!--<schemaDirectory>src/main/resources/xsd/common/obrasarteantiguedades</schemaDirectory>-->
                             <outputDirectory>${project.build.directory}/generated-sources/xjc26</outputDirectory>          
-                            <staleFile>${project.build.directory}/generated-sources/xjc26/.staleFlag</staleFile>
+                            <!--<staleFile>${project.build.directory}/generated-sources/xjc26/.staleFlag</staleFile>-->
                             <extension>true</extension>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>schema27-xjc</id>
-                        <goals>
-                            <goal>xjc</goal>
-                        </goals>
-                        <configuration>
-                            <packageName>mx.bigdata.sat.common.ine.schema</packageName>
-                            <schemaDirectory>src/main/resources/xsd/common/ine/v10</schemaDirectory>
-                            <outputDirectory>${project.build.directory}/generated-sources/xjc27</outputDirectory>          
-                            <staleFile>${project.build.directory}/generated-sources/xjc27/.staleFlag</staleFile>
-                            <extension>true</extension>
+                            <sources>
+                                <source>${project.basedir}/src/main/resources/xsd/common/obrasarteantiguedades</source>
+                            </sources>
                         </configuration>
                     </execution>
                     <execution>
@@ -494,23 +455,13 @@
                         </goals>
                         <configuration>
                             <packageName>mx.bigdata.sat.common.ine.v11.schema</packageName>
-                            <schemaDirectory>src/main/resources/xsd/common/ine/v11</schemaDirectory>
+                            <!--<schemaDirectory>src/main/resources/xsd/common/ine/v11</schemaDirectory>-->
                             <outputDirectory>${project.build.directory}/generated-sources/xjc27-11</outputDirectory>          
-                            <staleFile>${project.build.directory}/generated-sources/xjc27-11/.staleFlag</staleFile>
+                            <!--<staleFile>${project.build.directory}/generated-sources/xjc27-11/.staleFlag</staleFile>-->
                             <extension>true</extension>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>schema28-xjc</id>
-                        <goals>
-                            <goal>xjc</goal>
-                        </goals>
-                        <configuration>
-                            <packageName>mx.bigdata.sat.common.comercioexterior.schema</packageName>
-                            <schemaDirectory>src/main/resources/xsd/common/ComercioExterior/v10</schemaDirectory>
-                            <outputDirectory>${project.build.directory}/generated-sources/xjc28</outputDirectory>          
-                            <staleFile>${project.build.directory}/generated-sources/xjc28/.staleFlag</staleFile>
-                            <extension>true</extension>
+                            <sources>
+                                <source>${project.basedir}/src/main/resources/xsd/common/ine/v11</source>
+                            </sources>
                         </configuration>
                     </execution>
                     <execution>
@@ -520,10 +471,13 @@
                         </goals>
                         <configuration>
                             <packageName>mx.bigdata.sat.common.comercioexterior.v11.schema</packageName>
-                            <schemaDirectory>src/main/resources/xsd/common/ComercioExterior/v11</schemaDirectory>
+                            <!--<schemaDirectory>src/main/resources/xsd/common/ComercioExterior/v11</schemaDirectory>-->
                             <outputDirectory>${project.build.directory}/generated-sources/xjc28-11</outputDirectory>          
-                            <staleFile>${project.build.directory}/generated-sources/xjc28-11/.staleFlag</staleFile>
+                            <!--<staleFile>${project.build.directory}/generated-sources/xjc28-11/.staleFlag</staleFile>-->
                             <extension>true</extension>
+                            <sources>
+                                <source>${project.basedir}/src/main/resources/xsd/common/ComercioExterior/v11</source>
+                            </sources>
                         </configuration>
                     </execution>
                     <execution>
@@ -533,10 +487,13 @@
                         </goals>
                         <configuration>
                             <packageName>mx.bigdata.sat.common.pagos.schema</packageName>
-                            <schemaDirectory>src/main/resources/xsd/common/Pagos</schemaDirectory>
+                            <!--<schemaDirectory>src/main/resources/xsd/common/Pagos</schemaDirectory>-->
                             <outputDirectory>${project.build.directory}/generated-sources/xjc29</outputDirectory>          
-                            <staleFile>${project.build.directory}/generated-sources/xjc29/.staleFlag</staleFile>
+                            <!--<staleFile>${project.build.directory}/generated-sources/xjc29/.staleFlag</staleFile>-->
                             <extension>true</extension>
+                            <sources>
+                                <source>${project.basedir}/src/main/resources/xsd/common/Pagos</source>
+                            </sources>
                         </configuration>
                     </execution>
                     <execution>
@@ -546,23 +503,13 @@
                         </goals>
                         <configuration>
                             <packageName>mx.bigdata.sat.common.iedu.schema</packageName>
-                            <schemaDirectory>src/main/resources/xsd/common/iedu</schemaDirectory>
+                            <!--<schemaDirectory>src/main/resources/xsd/common/iedu</schemaDirectory>-->
                             <outputDirectory>${project.build.directory}/generated-sources/xjc30</outputDirectory>          
-                            <staleFile>${project.build.directory}/generated-sources/xjc30/.staleFlag</staleFile>
+                            <!--<staleFile>${project.build.directory}/generated-sources/xjc30/.staleFlag</staleFile>-->
                             <extension>true</extension>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>schema31-xjc</id>
-                        <goals>
-                            <goal>xjc</goal>
-                        </goals>
-                        <configuration>
-                            <packageName>mx.bigdata.sat.common.ventavehiculos.schema</packageName>
-                            <schemaDirectory>src/main/resources/xsd/common/ventavehiculos/v10</schemaDirectory>
-                            <outputDirectory>${project.build.directory}/generated-sources/xjc31</outputDirectory>          
-                            <staleFile>${project.build.directory}/generated-sources/xjc31/.staleFlag</staleFile>
-                            <extension>true</extension>
+                            <sources>
+                                <source>${project.basedir}/src/main/resources/xsd/common/iedu</source>
+                            </sources>
                         </configuration>
                     </execution>
                     <execution>
@@ -572,10 +519,13 @@
                         </goals>
                         <configuration>
                             <packageName>mx.bigdata.sat.common.ventavehiculos.v11.schema</packageName>
-                            <schemaDirectory>src/main/resources/xsd/common/ventavehiculos/v11</schemaDirectory>
+                            <!--<schemaDirectory>src/main/resources/xsd/common/ventavehiculos/v11</schemaDirectory>-->
                             <outputDirectory>${project.build.directory}/generated-sources/xjc31-11</outputDirectory>          
-                            <staleFile>${project.build.directory}/generated-sources/xjc31-11/.staleFlag</staleFile>
+                            <!--<staleFile>${project.build.directory}/generated-sources/xjc31-11/.staleFlag</staleFile>-->
                             <extension>true</extension>
+                            <sources>
+                                <source>${project.basedir}/src/main/resources/xsd/common/ventavehiculos/v11</source>
+                            </sources>
                         </configuration>
                     </execution>
                     <execution>
@@ -585,10 +535,13 @@
                         </goals>
                         <configuration>
                             <packageName>mx.bigdata.sat.common.terceros.schema</packageName>
-                            <schemaDirectory>src/main/resources/xsd/common/terceros</schemaDirectory>
+                            <!--<schemaDirectory>src/main/resources/xsd/common/terceros</schemaDirectory>-->
                             <outputDirectory>${project.build.directory}/generated-sources/xjc32</outputDirectory>          
-                            <staleFile>${project.build.directory}/generated-sources/xjc32/.staleFlag</staleFile>
+                            <!--<staleFile>${project.build.directory}/generated-sources/xjc32/.staleFlag</staleFile>-->
                             <extension>true</extension>
+                            <sources>
+                                <source>${project.basedir}/src/main/resources/xsd/common/terceros</source>
+                            </sources>
                         </configuration>
                     </execution>
                     <execution>
@@ -598,10 +551,13 @@
                         </goals>
                         <configuration>
                             <packageName>mx.bigdata.sat.common.acreditamientoIEPS.schema</packageName>
-                            <schemaDirectory>src/main/resources/xsd/common/AcreditamientoIEPS</schemaDirectory>
+                            <!--<schemaDirectory>src/main/resources/xsd/common/AcreditamientoIEPS</schemaDirectory>-->
                             <outputDirectory>${project.build.directory}/generated-sources/xjc32</outputDirectory>          
-                            <staleFile>${project.build.directory}/generated-sources/xjc32/.staleFlag</staleFile>
+                            <!--<staleFile>${project.build.directory}/generated-sources/xjc32/.staleFlag</staleFile>-->
                             <extension>true</extension>
+                            <sources>
+                                <source>${project.basedir}/src/main/resources/xsd/common/AcreditamientoIEPS</source>
+                            </sources>
                         </configuration>
                     </execution>
                     <execution>
@@ -611,10 +567,13 @@
                         </goals>
                         <configuration>
                             <packageName>mx.bigdata.sat.common.ecb.schema</packageName>
-                            <schemaDirectory>src/main/resources/xsd/common/ecb</schemaDirectory>
+                            <!--<schemaDirectory>src/main/resources/xsd/common/ecb</schemaDirectory>-->
                             <outputDirectory>${project.build.directory}/generated-sources/xjc34</outputDirectory>          
-                            <staleFile>${project.build.directory}/generated-sources/xjc34/.staleFlag</staleFile>
+                            <!--<staleFile>${project.build.directory}/generated-sources/xjc34/.staleFlag</staleFile>-->
                             <extension>true</extension>
+                            <sources>
+                                <source>${project.basedir}/src/main/resources/xsd/common/ecb</source>
+                            </sources>
                         </configuration>
                     </execution>
                     <execution>
@@ -624,10 +583,13 @@
                         </goals>
                         <configuration>
                             <packageName>mx.bigdata.sat.common.psgcfdsp.schema</packageName>
-                            <schemaDirectory>src/main/resources/xsd/common/psgcfdsp</schemaDirectory>
+                            <!--<schemaDirectory>src/main/resources/xsd/common/psgcfdsp</schemaDirectory>-->
                             <outputDirectory>${project.build.directory}/generated-sources/xjc35</outputDirectory>          
-                            <staleFile>${project.build.directory}/generated-sources/xjc35/.staleFlag</staleFile>
+                            <!--<staleFile>${project.build.directory}/generated-sources/xjc35/.staleFlag</staleFile>-->
                             <extension>true</extension>
+                            <sources>
+                                <source>${project.basedir}/src/main/resources/xsd/common/psgcfdsp</source>
+                            </sources>
                         </configuration>
                     </execution>
                     <execution>
@@ -637,10 +599,13 @@
                         </goals>
                         <configuration>
                             <packageName>mx.bigdata.sat.common.psgecfd.schema</packageName>
-                            <schemaDirectory>src/main/resources/xsd/common/psgecfd</schemaDirectory>
+                            <!--<schemaDirectory>src/main/resources/xsd/common/psgecfd</schemaDirectory>-->
                             <outputDirectory>${project.build.directory}/generated-sources/xjc36</outputDirectory>          
-                            <staleFile>${project.build.directory}/generated-sources/xjc36/.staleFlag</staleFile>
+                            <!--<staleFile>${project.build.directory}/generated-sources/xjc36/.staleFlag</staleFile>-->
                             <extension>true</extension>
+                            <sources>
+                                <source>${project.basedir}/src/main/resources/xsd/common/psgecfd</source>
+                            </sources>
                         </configuration>
                     </execution>
                     <execution>
@@ -650,11 +615,15 @@
                         </goals>
                         <configuration>
                             <packageName>mx.bigdata.sat.ce_catalogo_cuentas.schema</packageName>
-                            <schemaDirectory>src/main/resources/xsd/ce_catalogo_cuentas</schemaDirectory>
-                            <bindingDirectory>src/main/resources</bindingDirectory>
+                            <!--<schemaDirectory>src/main/resources/xsd/ce_catalogo_cuentas</schemaDirectory>-->
+                            <!--<bindingDirectory>src/main/resources</bindingDirectory>-->
                             <outputDirectory>${project.build.directory}/generated-sources/xjc100</outputDirectory>          
-                            <staleFile>${project.build.directory}/generated-sources/xjc100/.staleFlag</staleFile>
+                            <!--<staleFile>${project.build.directory}/generated-sources/xjc100/.staleFlag</staleFile>-->
                             <extension>true</extension>
+                            <sources>
+                                <source>${project.basedir}/src/main/resources/xsd/ce_catalogo_cuentas</source>
+                                <source>${project.basedir}/src/main/resources/bind.xml</source>
+                            </sources>
                         </configuration>
                     </execution>
                     <execution>
@@ -664,11 +633,15 @@
                         </goals>
                         <configuration>
                             <packageName>mx.bigdata.sat.ce_balanza_comprobacion.schema</packageName>
-                            <schemaDirectory>src/main/resources/xsd/ce_balanza_comprobacion</schemaDirectory>
-                            <bindingDirectory>src/main/resources</bindingDirectory>
+                            <!--<schemaDirectory>src/main/resources/xsd/ce_balanza_comprobacion</schemaDirectory>-->
+                            <!--<bindingDirectory>src/main/resources</bindingDirectory>-->
                             <outputDirectory>${project.build.directory}/generated-sources/xjc101</outputDirectory>          
-                            <staleFile>${project.build.directory}/generated-sources/xjc101/.staleFlag</staleFile>
+                            <!--<staleFile>${project.build.directory}/generated-sources/xjc101/.staleFlag</staleFile>-->
                             <extension>true</extension>
+                            <sources>
+                                <source>${project.basedir}/src/main/resources/xsd/ce_balanza_comprobacion</source>
+                                <source>${project.basedir}/src/main/resources/bind.xml</source>
+                            </sources>
                         </configuration>
                     </execution>
                     <execution>
@@ -678,11 +651,15 @@
                         </goals>
                         <configuration>
                             <packageName>mx.bigdata.sat.ce_polizas_periodo.schema</packageName>
-                            <schemaDirectory>src/main/resources/xsd/ce_polizas_periodo</schemaDirectory>
-                            <bindingDirectory>src/main/resources</bindingDirectory>
+                            <!--<schemaDirectory>src/main/resources/xsd/ce_polizas_periodo</schemaDirectory>-->
+                            <!--<bindingDirectory>src/main/resources</bindingDirectory>-->
                             <outputDirectory>${project.build.directory}/generated-sources/xjc102</outputDirectory>          
-                            <staleFile>${project.build.directory}/generated-sources/xjc102/.staleFlag</staleFile>
+                            <!--<staleFile>${project.build.directory}/generated-sources/xjc102/.staleFlag</staleFile>-->
                             <extension>true</extension>
+                            <sources>
+                                <source>${project.basedir}/src/main/resources/xsd/ce_polizas_periodo</source>
+                                <source>${project.basedir}/src/main/resources/bind.xml</source>
+                            </sources>
                         </configuration>
                     </execution>
                 </executions>
@@ -779,36 +756,5 @@
                 </configuration>
             </plugin>
         </plugins>  
-        <pluginManagement>
-            <plugins>
-                <!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
-                <plugin>
-                    <groupId>org.eclipse.m2e</groupId>
-                    <artifactId>lifecycle-mapping</artifactId>
-                    <version>1.0.0</version>
-                    <configuration>
-                        <lifecycleMappingMetadata>
-                            <pluginExecutions>
-                                <pluginExecution>
-                                    <pluginExecutionFilter>
-                                        <groupId>org.codehaus.mojo</groupId>
-                                        <artifactId>
-                                            jaxb2-maven-plugin
-                                        </artifactId>
-                                        <versionRange>[1.3.1,)</versionRange>
-                                        <goals>
-                                            <goal>xjc</goal>
-                                        </goals>
-                                    </pluginExecutionFilter>
-                                    <action>
-                                        <ignore />
-                                    </action>
-                                </pluginExecution>
-                            </pluginExecutions>
-                        </lifecycleMappingMetadata>
-                    </configuration>
-                </plugin>
-            </plugins>
-        </pluginManagement>
     </build>
 </project>

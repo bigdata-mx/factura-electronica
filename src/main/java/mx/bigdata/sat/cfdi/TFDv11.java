@@ -80,7 +80,7 @@ public final class TFDv11 {
         this(cfd, cert, UUID.randomUUID(), new Date(), "XAX010101000", "LeyendaOpcional2");
     }
 
-    TFDv11(CFDI cfd, X509Certificate cert, UUID uuid, Date date, String PAC, String leyenda)
+    private TFDv11(CFDI cfd, X509Certificate cert, UUID uuid, Date date, String PAC, String leyenda)
             throws Exception {
         this.cert = cert;
         this.document = cfd.getComprobante();
@@ -137,7 +137,7 @@ public final class TFDv11 {
 
     public void guardar(OutputStream out) throws Exception {
         Marshaller m = CONTEXT.createMarshaller();
-        m.setProperty("com.sun.xml.bind.namespacePrefixMapper", new NamespacePrefixMapperImpl(CFDv3.PREFIXES));
+        m.setProperty("com.sun.xml.bind.namespacePrefixMapper", new NamespacePrefixMapperImpl(CFDv33.PREFIXES));
         m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
         m.setProperty(Marshaller.JAXB_SCHEMA_LOCATION, "http://www.sat.gob.mx/cfd/3 http://www.sat.gob.mx/sitio_internet/cfd/3/cfdv33.xsd");
         m.marshal(document.getComprobante(), out);
@@ -147,7 +147,7 @@ public final class TFDv11 {
         return tfd;
     }
 
-    byte[] getOriginalBytes() throws Exception {
+    private byte[] getOriginalBytes() throws Exception {
         JAXBSource in = new JAXBSource(CONTEXT, tfd);
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         Result out = new StreamResult(baos);
@@ -160,7 +160,7 @@ public final class TFDv11 {
         return baos.toByteArray();
     }
 
-    String getSignature(PrivateKey key) throws Exception {
+    private String getSignature(PrivateKey key) throws Exception {
         byte[] bytes = getOriginalBytes();
         Signature sig = Signature.getInstance("SHA1withRSA");
         sig.initSign(key);
@@ -181,7 +181,7 @@ public final class TFDv11 {
         DocumentBuilder db = dbf.newDocumentBuilder();
         Document doc = db.newDocument();
         Marshaller m = CONTEXT.createMarshaller();
-        m.setProperty("com.sun.xml.bind.namespacePrefixMapper", new NamespacePrefixMapperImpl(CFDv3.PREFIXES));
+        m.setProperty("com.sun.xml.bind.namespacePrefixMapper", new NamespacePrefixMapperImpl(CFDv33.PREFIXES));
         m.setProperty(Marshaller.JAXB_FRAGMENT, Boolean.TRUE);
         m.setProperty(Marshaller.JAXB_SCHEMA_LOCATION, "http://www.sat.gob.mx/TimbreFiscalDigital TimbreFiscalDigital.xsd");
         m.marshal(tfd, doc);

@@ -39,11 +39,19 @@ Cada uno de estos elementos tiene la funcionalidad necesaria para: validar, firm
 
 ### Utiliza maven
 ```
-<dependency>
-  <groupId>mx.bigdata.cfdi</groupId>
-  <artifactId>cfdi-base</artifactId>
-  <version>0.3.0</version>
-</dependency>
+    <repositories>
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
+    </repositories>
+    ...
+        <dependency>
+            <groupId>com.github.bigdata-mx</groupId>
+            <artifactId>factura-electronica</artifactId>
+            <version>xxx</version><!--La versión puede ser un TAG, RELEASE o GIT SHORT HASH-->
+        </dependency>
+    
 ```
 
 ## Documentos

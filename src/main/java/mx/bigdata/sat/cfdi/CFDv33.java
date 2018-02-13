@@ -69,7 +69,6 @@ public final class CFDv33 implements CFDI33 {
 //        "/xsd/common/catComExt.xsd",
         "/xsd/v33/cfdv33.xsd",
         "/xsd/v33/TimbreFiscalDigitalv11.xsd",
-        "/xsd/common/ecc/v10/ecc.xsd",
         "/xsd/common/ecc/v11/ecc11.xsd",
         "/xsd/common/donat/v11/donat11.xsd",
         "/xsd/common/divisas/divisas.xsd",
@@ -80,7 +79,6 @@ public final class CFDv33 implements CFDI33 {
         "/xsd/common/spei/spei.xsd",
         "/xsd/common/detallista/detallista.xsd",
         "/xsd/common/cfdiregistrofiscal/cfdiregistrofiscal.xsd",
-        "/xsd/common/nomina/v11/nomina11.xsd",
         "/xsd/common/nomina/v12/nomina12.xsd",
         "/xsd/common/pagoenespecie/pagoenespecie.xsd",
         "/xsd/common/valesdedespensa/valesdedespensa.xsd",
@@ -93,12 +91,10 @@ public final class CFDv33 implements CFDI33 {
         "/xsd/common/certificadodedestruccion/certificadodedestruccion.xsd",
         "/xsd/common/obrasarteantiguedades/obrasarteantiguedades.xsd",
         "/xsd/common/ine/v11/INE11.xsd",
-        "/xsd/common/ComercioExterior/v10/ComercioExterior10.xsd",
         "/xsd/common/ComercioExterior/v11/ComercioExterior11.xsd",
 //        "/xsd/common/catPagos.xsd",
         "/xsd/common/Pagos/Pagos10.xsd",
         "/xsd/common/iedu/iedu.xsd",
-        "/xsd/common/ventavehiculos/v10/ventavehiculos.xsd",
         "/xsd/common/ventavehiculos/v11/ventavehiculos11.xsd",
         "/xsd/common/terceros/terceros11.xsd",
         "/xsd/common/AcreditamientoIEPS/AcreditamientoIEPS10.xsd",
@@ -249,7 +245,7 @@ public final class CFDv33 implements CFDI33 {
         if (document != null && document.getComplemento() != null && document.getComplemento().size() > 0) {
             for (Comprobante.Complemento o : document.getComplemento()) {
                 for (Object c : o.getAny()) {
-                    if (c instanceof mx.bigdata.sat.cfdi.schema.TimbreFiscalDigital) {
+                    if (c instanceof mx.bigdata.sat.cfdi.v33.schema.TimbreFiscalDigital) {
                         schema += " http://www.sat.gob.mx/TimbreFiscalDigital http://www.sat.gob.mx/sitio_internet/cfd/TimbreFiscalDigital/TimbreFiscalDigitalv11.xsd";
                         addNamespace("http://www.sat.gob.mx/TimbreFiscalDigital", "tfd");
                     } else if (c instanceof mx.bigdata.sat.common.nomina.v12.schema.Nomina) {
@@ -283,7 +279,7 @@ public final class CFDv33 implements CFDI33 {
         return load(in);
     }
 
-    byte[] getOriginalBytes() throws Exception {
+    private byte[] getOriginalBytes() throws Exception {
         JAXBSource in = new JAXBSource(context, document);
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         Result out = new StreamResult(baos);
@@ -298,7 +294,7 @@ public final class CFDv33 implements CFDI33 {
     }
 
     //Funciona en conjunto con: verificar(InputStream in)
-    byte[] getOriginalBytes(InputStream in) throws Exception {
+    private byte[] getOriginalBytes(InputStream in) throws Exception {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         Source source = new StreamSource(in);
         Result out = new StreamResult(baos);
@@ -313,7 +309,7 @@ public final class CFDv33 implements CFDI33 {
         return baos.toByteArray();
     }
 
-    String getSignature(PrivateKey key) throws Exception {
+    private String getSignature(PrivateKey key) throws Exception {
         byte[] bytes = getOriginalBytes();
         Signature sig = Signature.getInstance("SHA256withRSA");
         sig.initSign(key);
@@ -348,7 +344,7 @@ public final class CFDv33 implements CFDI33 {
 
         private final Comprobante document;
 
-        public CFDv33ComprobanteBase(Comprobante document) {
+        CFDv33ComprobanteBase(Comprobante document) {
             this.document = document;
         }
 

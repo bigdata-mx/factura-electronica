@@ -30,7 +30,7 @@ final class CFDv3Debugger {
 
     private final CFDv33 cfd;
 
-    private CFDv3Debugger(CFDv33 cfd) throws Exception {
+    private CFDv3Debugger(CFDv33 cfd) {
         this.cfd = cfd;
     }
 
@@ -39,21 +39,21 @@ final class CFDv3Debugger {
         String certStr = cfd.document.getCertificado();
         Base64 b64 = new Base64();
         byte[] cbs = b64.decode(certStr);
-        X509Certificate cert = (X509Certificate) KeyLoaderFactory.createInstance(
+        X509Certificate cert = KeyLoaderFactory.createInstance(
                 KeyLoaderEnumeration.PUBLIC_KEY_LOADER,
                 new ByteArrayInputStream(cbs)).getKey();
         cert.checkValidity();
         String sigStr = cfd.document.getSello();
         byte[] signature = b64.decode(sigStr);
-        CFDv3.dump("Digestion firmada", signature, System.err);
+        CFDv33.dump("Digestion firmada", signature, System.err);
         Cipher dec = Cipher.getInstance("RSA");
         dec.init(Cipher.DECRYPT_MODE, cert);
         byte[] result = dec.doFinal(signature);
-        CFDv3.dump("Digestion decriptada", result, System.err);
+        CFDv33.dump("Digestion decriptada", result, System.err);
         ASN1InputStream aIn = new ASN1InputStream(result);
         ASN1Sequence seq = (ASN1Sequence) aIn.readObject();
         ASN1OctetString sigHash = (ASN1OctetString) seq.getObjectAt(1);
-        CFDv3.dump("Sello", sigHash.getOctets(), System.err);
+        CFDv33.dump("Sello", sigHash.getOctets(), System.err);
     }
 
     public static void main(String[] args) throws Exception {

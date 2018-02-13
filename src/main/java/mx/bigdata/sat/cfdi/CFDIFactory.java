@@ -25,27 +25,6 @@ import mx.bigdata.sat.common.CFDFactory;
 
 public final class CFDIFactory extends CFDFactory {
 
-    public static CFDI load(File file) throws Exception {
-        try (InputStream in = new FileInputStream(file)) {
-            return load(in);
-        }
-    }
-
-    public static CFDI load(InputStream in) throws Exception {
-        return getCFDI(in);
-    }
-
-    private static CFDI getCFDI(InputStream in) throws Exception {
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        ByteStreams.copy(in, baos);
-        byte[] data = baos.toByteArray();
-        if (getVersion(data).equals("3.2")) {
-            return new CFDv32(new ByteArrayInputStream(data));
-        } else {
-            return new CFDv3(new ByteArrayInputStream(data));
-        }
-    }
-
     public static CFDI33 load33(File file) throws Exception {
         try (InputStream in = new FileInputStream(file)) {
             return load33(in);

@@ -49,8 +49,10 @@ Cada uno de estos elementos tiene la funcionalidad necesaria para: validar, firm
         <dependency>
             <groupId>com.github.bigdata-mx</groupId>
             <artifactId>factura-electronica</artifactId>
-            <version>xxx</version><!--La versión puede ser un TAG, RELEASE o GIT SHORT HASH-->
+            <version>0.3.0</version><!--La versión puede ser un TAG, RELEASE o GIT SHORT HASH-->
         </dependency>
+    
+    $ mvn install -U
     
 ```
 

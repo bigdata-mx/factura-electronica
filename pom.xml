@@ -29,7 +29,7 @@
         <url>scm:git:git@github.com:bigdata-mx/factura-electronica.git</url>
     </scm>
     <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.build.sourceEncoding>${file.encoding}</project.build.sourceEncoding>
     </properties>
     <dependencies>
         <dependency>
@@ -85,7 +85,7 @@
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
-                    <encoding>${project.build.sourceEncoding}</encoding>
+                    <encoding>${file.encoding}</encoding>
                 </configuration>
             </plugin>
             <plugin>

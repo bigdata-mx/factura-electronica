@@ -48,7 +48,7 @@ import javax.xml.validation.SchemaFactory;
 import javax.xml.validation.Validator;
 import mx.bigdata.sat.cfdi.v33.schema.Comprobante;
 import mx.bigdata.sat.cfdi.v33.schema.ObjectFactory;
-import mx.bigdata.sat.common.ComprobanteBase;
+import mx.bigdata.sat.common.ComprobanteBase33;
 import mx.bigdata.sat.common.NamespacePrefixMapperImpl;
 import mx.bigdata.sat.common.URIResolverImpl;
 import mx.bigdata.sat.security.KeyLoaderEnumeration;
@@ -58,7 +58,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.xml.sax.ErrorHandler;
 
-public final class CFDv33 implements CFDI {
+public final class CFDv33 implements CFDI33 {
 
     private static final String XSLT = "/xslt/cadenaoriginal_3_3.xslt";
 
@@ -95,6 +95,7 @@ public final class CFDv33 implements CFDI {
         "/xsd/common/ine/v11/INE11.xsd",
         "/xsd/common/ComercioExterior/v10/ComercioExterior10.xsd",
         "/xsd/common/ComercioExterior/v11/ComercioExterior11.xsd",
+        "/xsd/common/catPagos.xsd",
         "/xsd/common/Pagos/Pagos10.xsd",
         "/xsd/common/iedu/iedu.xsd",
         "/xsd/common/ventavehiculos/v10/ventavehiculos.xsd",
@@ -145,9 +146,7 @@ public final class CFDv33 implements CFDI {
     @Override
     public void sellar(PrivateKey key, X509Certificate cert) throws Exception {
         String nc = new String(cert.getSerialNumber().toByteArray());
-        if (!nc.equals("20001000000200001428")) {
-            cert.checkValidity();
-        }
+        cert.checkValidity();
         byte[] bytes = cert.getEncoded();
         Base64 b64 = new Base64(-1);
         String certStr = b64.encodeToString(bytes);
@@ -205,7 +204,7 @@ public final class CFDv33 implements CFDI {
         }
     }
 
-    //Verifica textualmente el XML con el XSD (Funciona cuando queremos validar un XML que NO fue creado con esta librerÌa
+    //Verifica textualmente el XML con el XSD (Funciona cuando queremos validar un XML que NO fue creado con esta librer√≠a
     public void verificar(InputStream in) throws Exception {
         String certStr = document.getCertificado();
         Base64 b64 = new Base64();
@@ -242,21 +241,29 @@ public final class CFDv33 implements CFDI {
         m.marshal(document, out);
     }
 
-    //Se implementÛ este mÈtodo para que agregue los esquemas y los namespace's de manera autom·tica (solo hay que enviar los contexts en el constructor)
-    //Se deben agregar todos los complementos en todas sus versiones (tambien a todas las versiones de CFDi seg˙n sus complementos)
+    //Se implement√≥ este m√©todo para que agregue los esquemas y los namespace's de manera autom√°tica (solo hay que enviar los contexts en el constructor)
+    //Se deben agregar todos los complementos en todas sus versiones (tambien a todas las versiones de CFDi seg√∫n sus complementos)
     private String getSchemaLocation() throws Exception {
         List<String> contexts = new ArrayList<>();
         String schema = "http://www.sat.gob.mx/cfd/3 http://www.sat.gob.mx/sitio_internet/cfd/3/cfdv33.xsd";
-        if (document != null && document.getComplemento() != null && document.getComplemento().getAny() != null) {
-            for (Object o : document.getComplemento().getAny()) {
-                if (o instanceof mx.bigdata.sat.common.nomina.v12.schema.Nomina) {
-                    schema += " http://www.sat.gob.mx/nomina12 http://www.sat.gob.mx/sitio_internet/cfd/nomina/nomina12.xsd";
-                    addNamespace("http://www.sat.gob.mx/nomina12", "nomina12");
-                } else if (o instanceof mx.bigdata.sat.common.implocal.schema.ImpuestosLocales) {
-                    schema += " http://www.sat.gob.mx/implocal http://www.sat.gob.mx/sitio_internet/cfd/implocal/implocal.xsd";
-                    addNamespace("http://www.sat.gob.mx/implocal", "implocal");
-                } else {
-                    System.out.println("El complemento " + o + " a˙n no ha sido declarado.");
+        if (document != null && document.getComplemento() != null && document.getComplemento().size() > 0) {
+            for (Comprobante.Complemento o : document.getComplemento()) {
+                for (Object c : o.getAny()) {
+                    if (c instanceof mx.bigdata.sat.cfdi.schema.TimbreFiscalDigital) {
+                        schema += " http://www.sat.gob.mx/TimbreFiscalDigital http://www.sat.gob.mx/sitio_internet/cfd/TimbreFiscalDigital/TimbreFiscalDigitalv11.xsd";
+                        addNamespace("http://www.sat.gob.mx/TimbreFiscalDigital", "tfd");
+                    } else if (c instanceof mx.bigdata.sat.common.nomina.v12.schema.Nomina) {
+                        schema += " http://www.sat.gob.mx/nomina12 http://www.sat.gob.mx/sitio_internet/cfd/nomina/nomina12.xsd";
+                        addNamespace("http://www.sat.gob.mx/nomina12", "nomina12");
+                    } else if (c instanceof mx.bigdata.sat.common.implocal.schema.ImpuestosLocales) {
+                        schema += " http://www.sat.gob.mx/implocal http://www.sat.gob.mx/sitio_internet/cfd/implocal/implocal.xsd";
+                        addNamespace("http://www.sat.gob.mx/implocal", "implocal");
+                    } else if (c instanceof mx.bigdata.sat.common.pagos.schema.Pagos) {
+                        schema += " http://www.sat.gob.mx/Pagos http://www.sat.gob.mx/sitio_internet/cfd/Pagos/Pagos10.xsd";
+                        addNamespace("http://www.sat.gob.mx/Pagos", "pago10");
+                    } else {
+                        System.out.println("El complemento " + c + " a√∫n no ha sido declarado.");
+                    }
                 }
             }
             if (!contexts.isEmpty()) {
@@ -317,8 +324,8 @@ public final class CFDv33 implements CFDI {
     }
 
     @Override
-    public ComprobanteBase getComprobante() throws Exception {
-        return new CFDv32ComprobanteBase(doGetComprobante());
+    public ComprobanteBase33 getComprobante() throws Exception {
+        return new CFDv33ComprobanteBase(doGetComprobante());
     }
 
     Comprobante doGetComprobante() throws Exception {
@@ -337,11 +344,11 @@ public final class CFDv33 implements CFDI {
         return (Comprobante) u.unmarshal(doc);
     }
 
-    public static final class CFDv32ComprobanteBase implements ComprobanteBase {
+    public static final class CFDv33ComprobanteBase implements ComprobanteBase33 {
 
         private final Comprobante document;
 
-        public CFDv32ComprobanteBase(Comprobante document) {
+        public CFDv33ComprobanteBase(Comprobante document) {
             this.document = document;
         }
 
@@ -351,8 +358,8 @@ public final class CFDv33 implements CFDI {
         }
 
         @Override
-        public List<Object> getComplementoGetAny() {
-            return document.getComplemento().getAny();
+        public List<Comprobante.Complemento> getComplementoGetAny() {
+            return document.getComplemento();
         }
 
         @Override
@@ -366,7 +373,7 @@ public final class CFDv33 implements CFDI {
             Comprobante.Complemento comp = of.createComprobanteComplemento();
             List<Object> list = comp.getAny();
             list.add(element);
-            document.setComplemento(comp);
+            document.getComplemento().add(comp);
         }
 
         @Override

@@ -191,7 +191,6 @@ public final class CFDv2 implements CFD2 {
         }
     }
 
-    //Verifica textualmente el XML con el XSD (Funciona cuando queremos validar un XML que NO fue creado con esta librería
     public void verificar(InputStream in) throws Exception {
         String certStr = document.getCertificado();
         Base64 b64 = new Base64();

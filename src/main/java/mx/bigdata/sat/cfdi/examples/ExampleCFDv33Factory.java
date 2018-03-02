@@ -50,7 +50,7 @@ public final class ExampleCFDv33Factory {
         comp.setFormaPago("02");
         comp.setNoCertificado("20001000000200001428");
 //        comp.setCertificado();
-        comp.setCondicionesDePago("CrÃ©dito a 20 dÃ­as");
+        comp.setCondicionesDePago("Crédito a 20 días");
         comp.setSubTotal(new BigDecimal("1550.00"));
         comp.setDescuento(new BigDecimal("100.00"));
         comp.setMoneda(CMoneda.MXN);
@@ -138,7 +138,7 @@ public final class ExampleCFDv33Factory {
         tr.setBase(new BigDecimal("0.16"));
         tr.setImpuesto("002");
         tr.setTipoFactor(CTipoFactor.TASA);
-        tr.setTasaOCuota(new BigDecimal("0.160000"));
+        tr.setTasaOCuota("0.160000");
         tr.setImporte(new BigDecimal("124.00"));
         trs.getTraslado().add(tr);
         imp.setTraslados(trs);
@@ -170,7 +170,7 @@ public final class ExampleCFDv33Factory {
         Impuestos.Traslados.Traslado it = of.createComprobanteImpuestosTrasladosTraslado();
         it.setImpuesto("002");
         it.setTipoFactor(CTipoFactor.TASA);
-        it.setTasaOCuota(new BigDecimal("0.160000"));
+        it.setTasaOCuota("0.160000");
         it.setImporte(new BigDecimal("248.00"));
         its.getTraslado().add(it);
         return its;
